@@ -3,8 +3,9 @@ module.exports = class debug {
     this.client = client
   }
   async run(log) {
-    if (!process.env.NODE_ENV === 'development') {
-      console.log(log)
+    if (process.env.NODE_ENV === 'development') {
+      // console.log(log)
+      // Enable if you want to debug something.
     }
   }
 }
