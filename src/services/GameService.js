@@ -33,7 +33,6 @@ module.exports.GameService = class GameService {
     let room = await Rooms.findById(this.message.guild.id)
     if (!room) {
       room = await this.createRoom(answser)
-      if (!room) return console.log('No room!')
       room.currentRound++
       await room.save()
     } else {
@@ -161,7 +160,7 @@ module.exports.GameService = class GameService {
     const room = await Rooms.findById(this.message.guild.id)
     return room
   }
-  
+
   async getAnimeDetails(name) {
     try {
       const malAnime = await mal.getInfoFromName(name)
