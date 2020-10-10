@@ -20,7 +20,37 @@ module.exports.ThemeService = class ThemeService {
 
     if (isUndefined) return this.getRandomTheme()
 
-    return { normal: video, link: animeLink }
+    return {
+      name: video.entries[0].theme.anime.name,
+      link: animeLink,
+      type: video.entries[0].theme.type,
+      full: video,
+    }
+  }
+
+  async getThemeFromYear(year) {
+    log(`Getting random theme from ${year}...`, 'THEME_SERVICE', false, 'green')
+    const animesThemes = await p({
+      method: 'GET',
+      url: `https://animethemes.dev/api/anime?limit=200&year=${year}`,
+      parse: 'json',
+    })
+
+    const animes = animesThemes.body.anime
+    const anime = animes[Math.floor(Math.random() * animes.length)]
+    if (anime === undefined) return false
+
+    const animeLink = anime.themes[0].entries[0].videos[0].link.replace(
+      'animethemes.dev',
+      'animethemes.moe'
+    )
+
+    return {
+      name: anime.name,
+      link: animeLink,
+      type: anime.themes[0].type,
+      full: anime,
+    }
   }
 
   async checkUndefined(video) {

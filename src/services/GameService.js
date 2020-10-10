@@ -27,8 +27,17 @@ module.exports.GameService = class GameService {
       )
 
     const themeService = new ThemeService()
-    const randomTheme = await themeService.getRandomTheme()
-    const answser = randomTheme.normal.entries[0].theme.anime.name
+    let randomTheme
+    if (!this.year === 'random') {
+      randomTheme = await themeService.getThemeFromYear(this.year)
+      if (!randomTheme)
+        return this.message.channel.send(
+          "I couldn't find an anime corresponding to that year."
+        )
+    } else {
+      randomTheme = await themeService.getRandomTheme()
+    }
+    const answser = randomTheme.name
 
     let room = await Rooms.findById(this.message.guild.id)
     if (!room) {
@@ -42,7 +51,11 @@ module.exports.GameService = class GameService {
     }
 
     this.message.channel.send(
-      `Starting the #${room.currentRound} round! What is the anime for this Ending / Opening theme?`
+      `Starting the #${
+        room.currentRound
+      } round! What is the anime for this Ending / Opening theme ${
+        this.year === 'random' ? '' : `from ${this.year}`
+      }?`
     )
 
     console.log(answser)
@@ -62,10 +75,14 @@ module.exports.GameService = class GameService {
 
     const animeData = await this.getAnimeDetails(answser)
 
-    answserCollector.on('collect', (msg) => {
+    answserCollector.on('collect', async (msg) => {
       if (!room.answerers.includes(msg.author.id)) {
         room.answerers.push(msg.author.id)
-        room.save()
+        await room.save()
+        this.message.channel.send(
+          `<@${msg.author.id}> got the correct answser! Who is next?`
+        )
+        await msg.delete()
       }
     })
 
@@ -85,7 +102,7 @@ module.exports.GameService = class GameService {
         .setImage(animeData.picture)
         .setTitle(answser)
         .setColor('#33e83c')
-        .setFooter(`Type: ${randomTheme.normal.entries[0].theme.type}`)
+        .setFooter(`Type: ${randomTheme.type}`)
 
       this.message.channel.send('The answser is...', { embed })
       this.message.channel.send(

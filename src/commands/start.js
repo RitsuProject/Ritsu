@@ -12,7 +12,9 @@ module.exports = class Start extends Command {
   }
 
   async run({ message, args }) {
-    const gameService = new GameService(message)
+    const gameService = new GameService(message, {
+      year: `${args[0] ? args[0] : 'random'}`,
+    })
     gameService.init()
   }
 }

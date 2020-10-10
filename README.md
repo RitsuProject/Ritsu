@@ -1,4 +1,5 @@
 # Ritsu
+
 🎶 A bot on Discord based on the game of guessing the anime by its Ending or Opening theme!
 
 ## WIP
