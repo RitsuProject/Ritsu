@@ -8,6 +8,7 @@ module.exports.Ritsu = class Ritsu extends Client {
     this.token = token
     this.prefix = options.prefix
     this.commands = new Collection()
+    this.aliases = new Collection()
   }
 
   async start() {
