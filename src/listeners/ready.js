@@ -7,7 +7,7 @@ module.exports = class ready {
       `${
         process.env.VERSION === 'canary'
           ? 'javascript'
-          : `1, 2, 3...GO! | V.${require('../../package.json').version}`
+          : `ritsu!help | V.${require('../../package.json').version}`
       }`
     )
   }
