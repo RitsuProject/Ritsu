@@ -7,7 +7,7 @@ module.exports = class BotInfo extends Command {
     super(client, {
       name: 'botinfo',
       aliases: ['info'],
-      description: "Show the bot information.",
+      description: 'Show the bot information.',
       requiredPermissions: null,
       dev: false,
     })
@@ -35,9 +35,10 @@ module.exports = class BotInfo extends Command {
           inline: true,
         },
         {
-          name: ":link: Useful links",
-          value:"<:Twitter:764952510674763786> [Twitter](https://twitter.com/RitsuProject)\n<:discord:764952620842090537> [Invite](https://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=763934732420382751)",
-          inline: true
+          name: ':link: Useful links',
+          value:
+            '<:Twitter:764952510674763786> [Twitter](https://twitter.com/RitsuProject)\n<:discord:764952620842090537> [Invite](https://discord.com/oauth2/authorize/?permissions=8&scope=bot&client_id=763934732420382751)',
+          inline: true,
         },
         {
           name: ':medal: Credits',

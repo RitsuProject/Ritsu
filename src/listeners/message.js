@@ -11,22 +11,19 @@ module.exports = class Message {
     if (message.author.bot) return
     const user = await Users.findById(message.author.id)
     const guild = await Guilds.findById(message.guild.id)
-    if(!user) {
+    if (!user) {
       new Users({
         _id: message.author.id,
         name: message.author.tag,
         wonMatches: 0,
         played: 0,
-        rank: "Beginner",
-        bio: "",
-        admin: false
+        rank: 'Beginner',
+        bio: '',
+        admin: false,
       }).save()
     }
     if (!message.content.startsWith(guild.prefix)) return
-    const args = message.content
-      .slice(guild.prefix.length)
-      .trim()
-      .split(/ +/g)
+    const args = message.content.slice(guild.prefix.length).trim().split(/ +/g)
     const command = args.shift().toLowerCase()
     const fancyCommand = this.client.commands.get(command)
     if (!fancyCommand) return

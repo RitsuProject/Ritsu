@@ -6,21 +6,21 @@ module.exports = class Bio extends Command {
     super(client, {
       name: 'bio',
       aliases: [],
-      description: "Change your profile bio.",
+      description: 'Change your profile bio.',
       requiredPermissions: null,
       dev: false,
     })
   }
 
   async run({ message, args }) {
-      const user = await Users.findById(message.author.id)
-      if(!user) return
+    const user = await Users.findById(message.author.id)
+    if (!user) return
 
-      const bio = args.slice(0).join(' ')
-      if(!bio) return message.channel.send("You have not added a new biography.")
+    const bio = args.slice(0).join(' ')
+    if (!bio) return message.channel.send('You have not added a new biography.')
 
-      user.bio = bio
-      await user.save()
-      message.channel.send("Your profile bio has been updated.")
+    user.bio = bio
+    await user.save()
+    message.channel.send('Your profile bio has been updated.')
   }
 }

@@ -7,7 +7,7 @@ module.exports = class Profile extends Command {
     super(client, {
       name: 'profile',
       aliases: [],
-      description: "Show your profile.",
+      description: 'Show your profile.',
       requiredPermissions: null,
       dev: false,
     })
@@ -15,17 +15,25 @@ module.exports = class Profile extends Command {
 
   async run({ message }) {
     const user = await Users.findById(message.author.id)
-    if(!user) return;
+    if (!user) return
 
     const embed = new MessageEmbed()
-    .setTitle(`${user.admin ? "<:ritsuthink:764662176958906388>" : ""} ${message.author.tag}`)
-    .setDescription(user.bio)
-    .setColor("#44e02f")
-    .addField(":trophy: Won Matches", user.wonMatches, true)
-    .addField(":video_game: Matches played", user.played, true)
-    .addField(":medal: Rank", user.rank, true)
-    .addField("<:msn_star:764659791175221258> Badges", `${user.admin ? "<:Administrator:764650181127176207>" : "None"} `, true)
-    .setThumbnail(message.author.displayAvatarURL())
+      .setTitle(
+        `${user.admin ? '<:ritsuthink:764662176958906388>' : ''} ${
+          message.author.tag
+        }`
+      )
+      .setDescription(user.bio)
+      .setColor('#44e02f')
+      .addField(':trophy: Won Matches', user.wonMatches, true)
+      .addField(':video_game: Matches played', user.played, true)
+      .addField(':medal: Rank', user.rank, true)
+      .addField(
+        '<:msn_star:764659791175221258> Badges',
+        `${user.admin ? '<:Administrator:764650181127176207>' : 'None'} `,
+        true
+      )
+      .setThumbnail(message.author.displayAvatarURL())
 
     message.channel.send(embed)
   }

@@ -5,7 +5,10 @@ module.exports = class guildDelete {
     this.client = client
   }
   async run(guild) {
-      const guild_ = await Guilds.findById(guild.id)
-      guild_.remove()
+    const guild_ = await Guilds.findById(guild.id)
+    guild_.remove()
+    if (process.env.VERSION === 'production') {
+      await botListPost(this.client.guilds.cache.size)
+    }
   }
 }
