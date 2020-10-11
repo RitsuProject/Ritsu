@@ -21,8 +21,6 @@ module.exports.GameService = class GameService {
     const guild = await Guilds.findById(this.message.guild.id)
     if (!guild) return
 
-    if(guild.rolling) return this.message.channel.send("There is already a match running on the server.")
-
     const voicech = this.message.member.voice.channel
     if (!voicech)
       return this.message.channel.send(
@@ -103,6 +101,7 @@ module.exports.GameService = class GameService {
       if(msg.author.id !== room.startedBy) return msg.channel.send("Only the one who started the game can finish it.")
       await voicech.leave()
       guild.rolling = false
+      guild.currentChannel = null
       guild.save()
       room.remove()
       answserCollector.stop('forceFinished')
@@ -134,8 +133,9 @@ module.exports.GameService = class GameService {
         } got the correct answer!`
       )
 
-      if (room.currentRound >= 3) {
+      if (room.currentRound >= this.rounds) {
         guild.rolling = false
+        guild.currentChannel = null
         await guild.save()
 
         this.finish(voicech, room)

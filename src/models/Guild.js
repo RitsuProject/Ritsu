@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 const GuildSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   name: { type: String, required: true },
-  rolling: { type: Boolean, required: true },
+  rolling: { type: Boolean, required: false, default: false},
+  currentChannel: { type: String, required: false, default: null},
   bestUser: { type: String, required: false },
   premium: { type: Boolean, required: true },
 })
