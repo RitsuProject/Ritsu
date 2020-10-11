@@ -1,8 +1,14 @@
 const mongoose = require('mongoose')
 
+const LeaderBoardSchema = new mongoose.Schema({
+  id: { type: String, required: true },
+  score: { type: Number, required: false, default: 1 },
+})
+
 const RoomSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   answerers: { type: Array, required: true },
+  leaderboard: [LeaderBoardSchema],
   answser: { type: String, required: true },
   currentRound: { type: Number, required: true },
 })

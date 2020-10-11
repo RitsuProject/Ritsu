@@ -26,7 +26,7 @@ module.exports = class BotInfo extends Command {
       .addFields(
         {
           name: '<:blobElegant:764561836174999572> Commands',
-          value: 'Use the help command!',
+          value: 'Use the `help` command!',
           inline: true,
         },
         {

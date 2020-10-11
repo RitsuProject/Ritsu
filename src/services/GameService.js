@@ -78,6 +78,12 @@ module.exports.GameService = class GameService {
     answserCollector.on('collect', async (msg) => {
       if (!room.answerers.includes(msg.author.id)) {
         room.answerers.push(msg.author.id)
+        const leader = room.leaderboard.find((u) => {
+          return (u.id = msg.author.id)
+        })
+        if (leader === undefined) {
+          room.leaderboard.push({ id: msg.author.id })
+        }
         await room.save()
         this.message.channel.send(
           `<@${msg.author.id}> got the correct answser! Who is next?`
@@ -98,6 +104,11 @@ module.exports.GameService = class GameService {
         this.message.channel.send('This match was ended by force.')
         return
       }
+
+      await room.answerers.forEach(async (id) => {
+        this.bumpScore(id)
+      })
+
       const embed = new MessageEmbed()
         .setImage(animeData.picture)
         .setTitle(answser)
@@ -126,7 +137,42 @@ module.exports.GameService = class GameService {
   async finish(voicech, room) {
     await room.remove()
     await voicech.leave()
+    const winner = await this.getWinner(room)
+    this.message.channel.send(`<@${winner.id}> is the winner of this match!`)
     this.message.channel.send('All rounds are over! I hope you guys had fun.')
+  }
+
+  async getWinner(room) {
+    const highestValue = Math.max.apply(
+      Math,
+      room.leaderboard.map((score) => {
+        return score.score
+      })
+    )
+    const highestUser = room.leaderboard.find((u) => {
+      return (u.score = highestValue)
+    })
+    return highestUser
+  }
+
+  async bumpScore(id) {
+    // maybe a rewrite in the future?
+    const roomWithLeaderboard = await Rooms.findOne({
+      leaderboard: { $elemMatch: { id: id } },
+    })
+    if (roomWithLeaderboard != null) {
+      const score = roomWithLeaderboard.leaderboard.find((u) => {
+        return (u.id = id)
+      })
+      await Rooms.updateOne(
+        { 'leaderboard.id': id },
+        {
+          $set: {
+            'leaderboard.$.score': score.score + 1,
+          },
+        }
+      )
+    }
   }
 
   async isAnswser(answser, msg) {
@@ -136,7 +182,7 @@ module.exports.GameService = class GameService {
       .toLowerCase()
 
     const similarity = stringSimilarity.compareTwoStrings(answser, msg)
-
+    console.log(similarity)
     return similarity > 0.45
   }
 
@@ -170,6 +216,7 @@ module.exports.GameService = class GameService {
       _id: this.message.guild.id,
       answerers: [],
       answser: answser,
+      leaderboard: [],
       currentRound: 0,
     })
     await newRoom.save()
