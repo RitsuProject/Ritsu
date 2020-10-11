@@ -5,7 +5,6 @@ const GuildSchema = new mongoose.Schema({
   name: { type: String, required: true },
   rolling: { type: Boolean, required: false, default: false},
   currentChannel: { type: String, required: false, default: null},
-  bestUser: { type: String, required: false },
   premium: { type: Boolean, required: true },
 })
 

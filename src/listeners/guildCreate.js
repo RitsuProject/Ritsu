@@ -10,8 +10,6 @@ module.exports = class guildCreate {
       name: guild.name,
       rolling: false,
       currentChannel: null,
-      correctAnime: null,
-      bestUser: null,
       premium: false,
     }).save()
   }
