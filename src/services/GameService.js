@@ -3,11 +3,10 @@ const { ThemeService } = require('./ThemeService')
 const { Rooms } = require('../models/Room')
 const { MessageEmbed } = require('discord.js')
 const { log } = require('../utils/Logger')
+const { UserService } = require('./UserService')
 
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
-const { Users } = require('../models/User')
-const { UserService } = require('./UserService')
 
 module.exports.GameService = class GameService {
   constructor(message, options = {}) {
@@ -21,6 +20,8 @@ module.exports.GameService = class GameService {
   async init() {
     const guild = await Guilds.findById(this.message.guild.id)
     if (!guild) return
+
+    if(guild.rolling) return this.message.channel.send("There is already a match running on the server.")
 
     const voicech = this.message.member.voice.channel
     if (!voicech)
@@ -52,6 +53,9 @@ module.exports.GameService = class GameService {
       room.answerers = []
       await room.save()
     }
+
+    guild.rolling = true
+    await guild.save()
 
     this.message.channel.send(
       `Starting the #${
@@ -95,8 +99,11 @@ module.exports.GameService = class GameService {
       }
     })
 
-    commanderCollector.on('collect', async () => {
+    commanderCollector.on('collect', async (msg) => {
+      if(msg.author.id !== room.startedBy) return msg.channel.send("Only the one who started the game can finish it.")
       await voicech.leave()
+      guild.rolling = false
+      guild.save()
       room.remove()
       answserCollector.stop('forceFinished')
     })
@@ -128,6 +135,9 @@ module.exports.GameService = class GameService {
       )
 
       if (room.currentRound >= 3) {
+        guild.rolling = false
+        await guild.save()
+
         this.finish(voicech, room)
       } else {
         await this.init()
@@ -225,6 +235,7 @@ module.exports.GameService = class GameService {
       _id: this.message.guild.id,
       answerers: [],
       answser: answser,
+      startedBy: this.message.author.id,
       leaderboard: [],
       currentRound: 0,
     })

@@ -33,7 +33,7 @@ module.exports = class Message {
       return message.reply('Você não pode executar comandos na DM.')
 
     if (fancyCommand.dev === true) {
-      if (message.author.id !== process.env.BOT_OWNER_ID) {
+      if (!this.client.owners.includes(message.author.id)) {
         return message.reply(
           'You do not have the required permissions to use this command.'
         )

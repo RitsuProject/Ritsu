@@ -9,6 +9,7 @@ const RoomSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   answerers: { type: Array, required: true },
   leaderboard: [LeaderBoardSchema],
+  startedBy: { type: String, required: true },
   answser: { type: String, required: true },
   currentRound: { type: Number, required: true },
 })
