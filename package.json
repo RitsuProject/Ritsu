@@ -12,14 +12,12 @@
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "chalk": "^4.1.0",
-    "date-fns": "^2.16.1",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "mal-scraper": "^2.11.1",
     "mongoose": "^5.9.23",
     "phin": "^3.5.0",
     "prettier": "^2.1.2",
-    "string-similarity": "^4.0.2",
-    "uuid": "^8.3.1"
+    "string-similarity": "^4.0.2"
   }
 }
