@@ -1,13 +1,13 @@
 const { MessageEmbed } = require('discord.js')
 const { Rooms } = require('../models/Room')
 const { Command } = require('../structures/Command')
-const { format } = require('date-fns')
 
 module.exports = class BotInfo extends Command {
   constructor(client) {
     super(client, {
       name: 'botinfo',
       aliases: ['info'],
+      description: "Show the bot information.",
       requiredPermissions: null,
       dev: false,
     })

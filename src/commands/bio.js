@@ -6,6 +6,7 @@ module.exports = class Bio extends Command {
     super(client, {
       name: 'bio',
       aliases: [],
+      description: "Change your profile bio.",
       requiredPermissions: null,
       dev: false,
     })

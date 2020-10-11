@@ -7,7 +7,9 @@ module.exports = class Start extends Command {
     super(client, {
       name: 'start',
       aliases: [],
+      description: "Start the game.",
       requiredPermissions: null,
+      fields: ["OPTIONAL: rounds", "OPTIONAL: year"],
       dev: false,
     })
   }
@@ -16,9 +18,12 @@ module.exports = class Start extends Command {
     const guild = await Guilds.findById(message.guild.id)
     if(guild.rolling) return message.channel.send("There is already a match running on a voice channel on that server.")
     
+    const rounds = args[0]
+    if(rounds > 10) return message.channel.send("You can only start a game with a maximum of 10 rounds!")
+
     const gameService = new GameService(message, {
       year: `${args[1] ? args[1] : 'random'}`,
-      rounds: `${args[0] ? args[0] : "3"}`
+      rounds: `${rounds ? rounds : "3"}`
     })
     gameService.init()
   }

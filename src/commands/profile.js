@@ -7,6 +7,7 @@ module.exports = class Profile extends Command {
     super(client, {
       name: 'profile',
       aliases: [],
+      description: "Show a user's profile or yours.",
       requiredPermissions: null,
       dev: false,
     })
