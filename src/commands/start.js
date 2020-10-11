@@ -19,10 +19,11 @@ module.exports = class Start extends Command {
     if(guild.rolling) return message.channel.send("There is already a match running on a voice channel on that server.")
     
     const rounds = args[0]
+    const year = args[1]
     if(rounds > 10) return message.channel.send("You can only start a game with a maximum of 10 rounds!")
 
     const gameService = new GameService(message, {
-      year: `${args[1] ? args[1] : 'random'}`,
+      year: `${year ? year : 'random'}`,
       rounds: `${rounds ? rounds : "3"}`
     })
     gameService.init()
