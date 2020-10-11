@@ -1,3 +1,4 @@
+const { Users } = require('../models/User')
 const { log } = require('../utils/Logger')
 
 module.exports = class Message {
@@ -7,6 +8,17 @@ module.exports = class Message {
 
   async run(message) {
     if (message.author.bot) return
+    const user = await Users.findById(message.author.id)
+    if(!user) {
+      new Users({
+        _id: message.author.id,
+        name: message.author.tag,
+        wonMatches: 0,
+        played: 0,
+        bio: "",
+        admin: false
+      }).save()
+    }
     if (!message.content.startsWith(this.client.prefix)) return
     const args = message.content
       .slice(this.client.prefix.length)

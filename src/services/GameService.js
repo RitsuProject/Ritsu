@@ -2,10 +2,11 @@ const { Guilds } = require('../models/Guild')
 const { ThemeService } = require('./ThemeService')
 const { Rooms } = require('../models/Room')
 const { MessageEmbed } = require('discord.js')
+const { log } = require('../utils/Logger')
 
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
-const { log } = require('../utils/Logger')
+const { Users } = require('../models/User')
 
 module.exports.GameService = class GameService {
   constructor(message, options = {}) {
@@ -25,9 +26,10 @@ module.exports.GameService = class GameService {
       return this.message.channel.send(
         'You need to be on a voice channel to start a match!'
       )
-
+  
     const themeService = new ThemeService()
-    let randomTheme
+    let randomTheme;
+    
     if (!this.year === 'random') {
       randomTheme = await themeService.getThemeFromYear(this.year)
       if (!randomTheme)
@@ -135,9 +137,20 @@ module.exports.GameService = class GameService {
   }
 
   async finish(voicech, room) {
+    voicech.members.each(async (u) => {
+      const user = await Users.findById(u.id)
+      if(user) {
+        user.played = user.played + 1
+        user.save()
+      }
+    })
     await room.remove()
     await voicech.leave()
     const winner = await this.getWinner(room)
+    const user = await Users.findById(winner.id)
+    user.wonMatches = user.wonMatches + 1
+    user.save()
+    
     this.message.channel.send(`<@${winner.id}> is the winner of this match!`)
     this.message.channel.send('All rounds are over! I hope you guys had fun.')
   }
