@@ -159,10 +159,10 @@ module.exports.GameService = class GameService {
     await voicech.leave()
     const winner = await this.getWinner(room)
     userService.updateEarnings(winner.id)
-    if(winner) {
-    this.message.channel.send(`<@${winner.id}> is the winner of this match!`)
+    if (winner) {
+      this.message.channel.send(`<@${winner.id}> is the winner of this match!`)
     } else {
-      this.message.channel.send("Nobody won this match.")
+      this.message.channel.send('Nobody won this match.')
     }
     this.message.channel.send('All rounds are over! I hope you guys had fun.')
   }
@@ -174,7 +174,7 @@ module.exports.GameService = class GameService {
         return score.score
       })
     )
-    if(room.leaderboard.length === 0) return false 
+    if (room.leaderboard.length === 0) return false
     const highestUser = room.leaderboard.find((u) => {
       return (u.score = highestValue)
     })
