@@ -15,6 +15,7 @@ module.exports = class Message {
         name: message.author.tag,
         wonMatches: 0,
         played: 0,
+        rank: "Beginner",
         bio: "",
         admin: false
       }).save()

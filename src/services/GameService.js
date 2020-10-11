@@ -7,6 +7,7 @@ const { log } = require('../utils/Logger')
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
 const { Users } = require('../models/User')
+const { UserService } = require('./UserService')
 
 module.exports.GameService = class GameService {
   constructor(message, options = {}) {
@@ -29,7 +30,7 @@ module.exports.GameService = class GameService {
   
     const themeService = new ThemeService()
     let randomTheme;
-    
+
     if (!this.year === 'random') {
       randomTheme = await themeService.getThemeFromYear(this.year)
       if (!randomTheme)
@@ -137,19 +138,14 @@ module.exports.GameService = class GameService {
   }
 
   async finish(voicech, room) {
+    const userService = new UserService()
     voicech.members.each(async (u) => {
-      const user = await Users.findById(u.id)
-      if(user) {
-        user.played = user.played + 1
-        user.save()
-      }
+      userService.updatePlayed(u.id)
     })
     await room.remove()
     await voicech.leave()
     const winner = await this.getWinner(room)
-    const user = await Users.findById(winner.id)
-    user.wonMatches = user.wonMatches + 1
-    user.save()
+    userService.updateEarnings(winner.id)
     
     this.message.channel.send(`<@${winner.id}> is the winner of this match!`)
     this.message.channel.send('All rounds are over! I hope you guys had fun.')

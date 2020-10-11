@@ -22,7 +22,7 @@ module.exports = class Profile extends Command {
     .setColor("#44e02f")
     .addField(":trophy: Won Matches", user.wonMatches, true)
     .addField(":video_game: Matches played", user.played, true)
-    .addField(":medal: Rank", "Placeholder", true)
+    .addField(":medal: Rank", user.rank, true)
     .addField("<:msn_star:764659791175221258> Badges", `${user.admin ? "<:Administrator:764650181127176207>" : ""} `, true)
     .setThumbnail(message.author.displayAvatarURL())
 
