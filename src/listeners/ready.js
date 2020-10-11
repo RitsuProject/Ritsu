@@ -4,7 +4,7 @@ module.exports = class ready {
   }
   async run() {
     this.client.user.setActivity(
-      `1, 2, 3...GO! | V.${require('../../package.json').version}`
+      `${process.env.VERSION === "canary" ? "javascript" : `1, 2, 3...GO! | V.${require('../../package.json').version}`}`
     )
   }
 }

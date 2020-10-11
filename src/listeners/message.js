@@ -1,3 +1,4 @@
+const { Guilds } = require('../models/Guild')
 const { Users } = require('../models/User')
 const { log } = require('../utils/Logger')
 
@@ -9,6 +10,7 @@ module.exports = class Message {
   async run(message) {
     if (message.author.bot) return
     const user = await Users.findById(message.author.id)
+    const guild = await Guilds.findById(message.guild.id)
     if(!user) {
       new Users({
         _id: message.author.id,
@@ -20,9 +22,9 @@ module.exports = class Message {
         admin: false
       }).save()
     }
-    if (!message.content.startsWith(this.client.prefix)) return
+    if (!message.content.startsWith(guild.prefix)) return
     const args = message.content
-      .slice(this.client.prefix.length)
+      .slice(guild.prefix.length)
       .trim()
       .split(/ +/g)
     const command = args.shift().toLowerCase()
