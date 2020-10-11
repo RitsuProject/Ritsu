@@ -37,7 +37,7 @@ module.exports = class BotInfo extends Command {
         {
           name: ':medal: Credits',
           value:
-            '**r/AnimeThemes** - For providing the themes for the bot to play.\n**Anime Music Quiz** - Of course, the biggest inspiration for this project.\n**kyuu-chan-hackweek** - Many parts of the code I was inspired by it.\n**Gabriel Bifano and Pedro Lyrio** - They helped me a lot in making decisions and ideas for the bot.',
+            "**r/AnimeThemes** - For providing the themes for the bot to play.\n**Anime Music Quiz** - Of course, the biggest inspiration for this project.\n**kyuu-chan-hackweek** - Many parts of the code I was inspired by it.\n**Gabriel Bifano, FelipeSazz and Pedro Lyrio** - Ideas, development and a lot of patience, without these 3 people the bot probably wouldn't exist.",
           inline: false,
         }
       )
