@@ -26,9 +26,9 @@ module.exports.GameService = class GameService {
       return this.message.channel.send(
         'You need to be on a voice channel to start a match!'
       )
-  
+
     const themeService = new ThemeService()
-    let randomTheme;
+    let randomTheme
 
     if (!this.year === 'random') {
       randomTheme = await themeService.getThemeFromYear(this.year)
@@ -98,7 +98,10 @@ module.exports.GameService = class GameService {
     })
 
     commanderCollector.on('collect', async (msg) => {
-      if(msg.author.id !== room.startedBy) return msg.channel.send("Only the one who started the game can finish it.")
+      if (msg.author.id !== room.startedBy)
+        return msg.channel.send(
+          'Only the one who started the game can finish it.'
+        )
       await voicech.leave()
       guild.rolling = false
       guild.currentChannel = null
@@ -156,7 +159,7 @@ module.exports.GameService = class GameService {
     await voicech.leave()
     const winner = await this.getWinner(room)
     userService.updateEarnings(winner.id)
-    
+
     this.message.channel.send(`<@${winner.id}> is the winner of this match!`)
     this.message.channel.send('All rounds are over! I hope you guys had fun.')
   }

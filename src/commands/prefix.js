@@ -6,7 +6,7 @@ module.exports = class Prefix extends Command {
     super(client, {
       name: 'prefix',
       aliases: [],
-      description: "Change the bot prefix.",
+      description: 'Change the bot prefix.',
       requiredPermissions: null,
       dev: false,
     })
@@ -14,7 +14,7 @@ module.exports = class Prefix extends Command {
 
   async run({ message, args }) {
     const guild = await Guilds.findById(message.guild.id)
-    if(!args[0]) return message.channel.send("You need to specify the prefix.")
+    if (!args[0]) return message.channel.send('You need to specify the prefix.')
     guild.prefix = args[0]
     guild.save()
     message.channel.send(`The server prefix has been changed: ${args[0]}`)

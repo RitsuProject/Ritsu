@@ -5,7 +5,7 @@ module.exports = class guildDelete {
     this.client = client
   }
   async run(guild) {
-      const guild_ = await Guilds.findById(guild.id)
-      guild_.remove()
+    const guild_ = await Guilds.findById(guild.id)
+    guild_.remove()
   }
 }

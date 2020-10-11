@@ -13,8 +13,8 @@ module.exports = class guildCreate {
       currentChannel: null,
       premium: false,
     }).save()
-    if(process.env.VERSION === "production") {
-    await botListPost(this.client.guilds.cache.size)
+    if (process.env.VERSION === 'production') {
+      await botListPost(this.client.guilds.cache.size)
     }
   }
 }

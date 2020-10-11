@@ -7,7 +7,11 @@ module.exports.Ritsu = class Ritsu extends Client {
     super(token)
     this.token = token
     this.prefix = options.prefix
-    this.owners = ["722539264067240097","326123612153053184","565951284373487637"]
+    this.owners = [
+      '722539264067240097',
+      '326123612153053184',
+      '565951284373487637',
+    ]
     this.commands = new Collection()
     this.aliases = new Collection()
   }
