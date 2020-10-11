@@ -60,7 +60,7 @@ module.exports.GameService = class GameService {
         room.currentRound
       } round! What is the anime for this Ending / Opening theme ${
         this.year === 'random' ? '' : `from ${this.year}`
-      }?`
+      }? Send in chat the answer! You have 30 seconds.`
     )
 
     console.log(answser)

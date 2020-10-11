@@ -2,9 +2,15 @@
 
 🎶 A bot on Discord based on the game of guessing the anime by its Ending or Opening theme!
 
-## WIP
+## How to Play
 
-Yes, it is not ready yet and I am actively working on it, it shouldn't be long.
+When using the command to start `(ritsu!start)` the game, the bot will play a song from a random opening or ending (or if you specify the year of the themes in the start command) and whoever can guess the anime from the largest number of openings or endings according to the rounds , wins.
+
+Check the `ritsu!help` for more information
+
+## Add the Bot
+
+Invite: https://sazz.fail/ritsu
 
 ## Credits
 
