@@ -14,8 +14,6 @@ module.exports.GameService = class GameService {
     this.message = message
     this.year = options.year || null
     this.rounds = options.rounds || 3
-
-    this.collector = options.collector || undefined
   }
 
   async init() {
