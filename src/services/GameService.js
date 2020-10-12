@@ -7,6 +7,7 @@ const { UserService } = require('./UserService')
 
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
+const phin = require('phin')
 
 module.exports.GameService = class GameService {
   constructor(message, options = {}) {
@@ -62,7 +63,7 @@ module.exports.GameService = class GameService {
         this.year === 'random' ? '' : `from ${this.year}`
       }? Send in chat the answer! You have 30 seconds.\nSend **${
         guild.prefix
-      }stop** in the chat if you want to stop the match.\nPS: Yes, I am aware that sometimes the bot just doesn't play the opening/ending, and I am investigating.`
+      }stop** in the chat if you want to stop the match.`
     )
 
     console.log(answser)
@@ -124,10 +125,12 @@ module.exports.GameService = class GameService {
       })
 
       const embed = new MessageEmbed()
-      if(animeData.picture !== undefined) {
-      embed.setImage(animeData.picture)
+      if (animeData.picture !== undefined) {
+        embed.setImage(animeData.picture)
       } else {
-        embed.setDescription("I couldn't get the cover of this anime because of errors.")
+        embed.setDescription(
+          "I couldn't get the cover of this anime because of errors."
+        )
       }
       embed.setTitle(answser)
       embed.setColor('#33e83c')
@@ -228,8 +231,14 @@ module.exports.GameService = class GameService {
   }
 
   async playTheme(voice, link) {
+    const response = await phin({
+      method: 'GET',
+      url: link,
+      stream: true,
+    })
+
     const connection = await voice.join()
-    const dispatch = await connection.play(link)
+    const dispatch = await connection.play(response.stream)
 
     dispatch.on('start', () => {
       log('Starting the Track', 'GAME_SERVICE', false, 'green')
