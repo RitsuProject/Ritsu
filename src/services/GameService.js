@@ -60,7 +60,7 @@ module.exports.GameService = class GameService {
         room.currentRound
       } round! What is the anime for this Ending / Opening theme ${
         this.year === 'random' ? '' : `from ${this.year}`
-      }? Send in chat the answer! You have 30 seconds.\nSend **${guild.prefix}stop** in the chat if you want to stop the match.`
+      }? Send in chat the answer! You have 30 seconds.\nSend **${guild.prefix}stop** in the chat if you want to stop the match.\nPS: Yes, I am aware that sometimes the bot just doesn't play the opening/ending, and I am investigating.`
     )
 
     console.log(answser)
