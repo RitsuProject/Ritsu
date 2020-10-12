@@ -15,7 +15,8 @@ module.exports.GameService = class GameService {
     this.year = options.year || null
     this.rounds = options.rounds || 3
 
-    this.collector = options.collector || undefined
+    this.time = options.time || 30000
+    this.realTime = options.realTime || '30s'
   }
 
   async init() {
@@ -61,7 +62,7 @@ module.exports.GameService = class GameService {
         room.currentRound
       } round! What is the anime for this Ending / Opening theme ${
         this.year === 'random' ? '' : `from ${this.year}`
-      }? Send in chat the answer! You have 30 seconds.\nSend **${
+      }? Send in chat the answer! You have ${this.realTime}.\nSend **${
         guild.prefix
       }stop** in the chat if you want to stop the match.`
     )
@@ -74,11 +75,11 @@ module.exports.GameService = class GameService {
 
     const answserCollector = this.message.channel.createMessageCollector(
       answserFilter,
-      { time: 30000 }
+      { time: this.time }
     )
     const commanderCollector = this.message.channel.createMessageCollector(
       commanderFilter,
-      { time: 30000 }
+      { time: this.time }
     )
 
     const animeData = await this.getAnimeDetails(answser)
@@ -244,7 +245,7 @@ module.exports.GameService = class GameService {
       log('Starting the Track', 'GAME_SERVICE', false, 'green')
       this.timeout = setTimeout(() => {
         dispatch.end()
-      }, 28000)
+      }, this.time - 2000)
     })
 
     dispatch.on('error', (error) => {

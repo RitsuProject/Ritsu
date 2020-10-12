@@ -17,6 +17,7 @@
     "ffmpeg-static": "^4.2.7",
     "mal-scraper": "^2.11.1",
     "mongoose": "^5.9.23",
+    "parse-duration": "^0.4.4",
     "phin": "^3.5.0",
     "prettier": "^2.1.2",
     "string-similarity": "^4.0.2"
