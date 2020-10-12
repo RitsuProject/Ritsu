@@ -60,14 +60,14 @@ module.exports.GameService = class GameService {
         room.currentRound
       } round! What is the anime for this Ending / Opening theme ${
         this.year === 'random' ? '' : `from ${this.year}`
-      }? Send in chat the answer! You have 30 seconds.`
+      }? Send in chat the answer! You have 30 seconds.\nSend **${guild.prefix}stop** in the chat if you want to stop the match.`
     )
 
     console.log(answser)
     console.log(randomTheme.link)
 
     const answserFilter = (msg) => this.isAnswser(answser, msg)
-    const commanderFilter = (msg) => this.isCommand(msg)
+    const commanderFilter = (msg) => this.isCommand(guild.prefix, msg)
 
     const answserCollector = this.message.channel.createMessageCollector(
       answserFilter,
@@ -212,9 +212,9 @@ module.exports.GameService = class GameService {
     return similarity > 0.45
   }
 
-  async isCommand(msg) {
+  async isCommand(prefix, msg) {
     msg = msg.content.trim()
-    if (msg === 'ri!stop') {
+    if (msg === `${prefix}stop`) {
       return true
     } else {
       return false
@@ -224,7 +224,7 @@ module.exports.GameService = class GameService {
   async playTheme(voice, link) {
     const connection = await voice.join()
     const dispatch = await connection.play(link)
-
+    
     dispatch.on('start', () => {
       log('Starting the Track', 'GAME_SERVICE', false, 'green')
       this.timeout = setTimeout(() => {
