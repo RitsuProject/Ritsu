@@ -34,7 +34,7 @@ module.exports.GameService = class GameService {
 
     if (this.year !== 'random') {
       randomTheme = await themeService.getThemeFromYear(this.year)
-      if (!randomTheme)
+      if (!randomTheme || randomTheme === undefined)
         return this.message.channel.send(
           "I couldn't find an anime corresponding to that year."
         )
