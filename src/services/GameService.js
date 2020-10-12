@@ -30,7 +30,7 @@ module.exports.GameService = class GameService {
     const themeService = new ThemeService()
     let randomTheme
 
-    if (!this.year === 'random') {
+    if (this.year !== 'random') {
       randomTheme = await themeService.getThemeFromYear(this.year)
       if (!randomTheme)
         return this.message.channel.send(
