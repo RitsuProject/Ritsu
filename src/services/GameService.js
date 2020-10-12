@@ -124,10 +124,14 @@ module.exports.GameService = class GameService {
       })
 
       const embed = new MessageEmbed()
-        .setImage(animeData.picture)
-        .setTitle(answser)
-        .setColor('#33e83c')
-        .setFooter(`Type: ${randomTheme.type}`)
+      if(animeData.picture !== undefined) {
+      embed.setImage(animeData.picture)
+      } else {
+        embed.setDescription("I couldn't get the cover of this anime because of errors.")
+      }
+      embed.setTitle(answser)
+      embed.setColor('#33e83c')
+      embed.setFooter(`Type: ${randomTheme.type}`)
 
       this.message.channel.send('The answser is...', { embed })
       this.message.channel.send(
