@@ -12,10 +12,12 @@
   "dependencies": {
     "@discordjs/opus": "^0.3.2",
     "chalk": "^4.1.0",
+    "date-fns": "^2.16.1",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "ffmpeg-static": "^4.2.7",
     "mal-scraper": "^2.11.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.9.23",
     "parse-duration": "^0.4.4",
     "phin": "^3.5.0",

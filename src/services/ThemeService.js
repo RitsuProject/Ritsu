@@ -29,27 +29,41 @@ module.exports.ThemeService = class ThemeService {
   }
 
   async getThemeFromYear(year) {
-    log(`Getting random theme from ${year}...`, 'THEME_SERVICE', false, 'green')
-    const animesThemes = await p({
-      method: 'GET',
-      url: `https://animethemes.dev/api/anime?limit=200&year=${year}`,
-      parse: 'json',
-    })
+    try {
+      log(
+        `Getting random theme from ${year}...`,
+        'THEME_SERVICE',
+        false,
+        'green'
+      )
+      const animesThemes = await p({
+        method: 'GET',
+        url: `https://animethemes.dev/api/anime?limit=200&year=${year}`,
+        parse: 'json',
+      })
 
-    const animes = animesThemes.body.anime
-    const anime = animes[Math.floor(Math.random() * animes.length)]
-    if (anime === undefined) return false
+      const animes = animesThemes.body.anime
+      const anime = animes[Math.floor(Math.random() * animes.length)]
+      if (anime === undefined) return false
 
-    const animeLink = anime.themes[0].entries[0].videos[0].link.replace(
-      'animethemes.dev',
-      'animethemes.moe'
-    )
+      const animeLink = anime.themes[0].entries[0].videos[0].link.replace(
+        'animethemes.dev',
+        'animethemes.moe'
+      )
 
-    return {
-      name: anime.name,
-      link: animeLink,
-      type: anime.themes[0].type,
-      full: anime,
+      return {
+        name: anime.name,
+        link: animeLink,
+        type: anime.themes[0].type,
+        full: anime,
+      }
+    } catch (e) {
+      if (e.message.includes('undefined')) {
+        log(`The theme returned undefined\n${e}`, 'THEME_SERVICE', true)
+        return undefined
+      }
+      console.log(e)
+      return false
     }
   }
 
