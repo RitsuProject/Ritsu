@@ -57,6 +57,12 @@ module.exports.GameService = class GameService {
     guild.rolling = true
     await guild.save()
 
+    if (this.time > 60000) {
+      this.message.channel.send(
+        '**WARNING:** Perhaps the openings are not big enough for this specified time, if that happens, it will end and you will need to wait for the round to end.'
+      )
+    }
+
     this.message.channel.send(
       `Starting the #${
         room.currentRound

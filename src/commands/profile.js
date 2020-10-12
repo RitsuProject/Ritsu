@@ -13,15 +13,17 @@ module.exports = class Profile extends Command {
     })
   }
 
-  async run({ message }) {
-    const user = await Users.findById(message.author.id)
+  async run({ message, args }) {
+    const member =
+      message.mentions.users.first() ||
+      this.client.users.cache.get(args[0]) ||
+      message.author
+    const user = await Users.findById(member.id)
     if (!user) return
 
     const embed = new MessageEmbed()
       .setTitle(
-        `${user.admin ? '<:ritsuthink:764662176958906388>' : ''} ${
-          message.author.tag
-        }`
+        `${user.admin ? '<:ritsuthink:764662176958906388>' : ''} ${member.tag}`
       )
       .setDescription(user.bio)
       .setColor('#44e02f')
@@ -33,7 +35,7 @@ module.exports = class Profile extends Command {
         `${user.admin ? '<:Administrator:764650181127176207>' : 'None'} `,
         true
       )
-      .setThumbnail(message.author.displayAvatarURL())
+      .setThumbnail(member.displayAvatarURL())
 
     message.channel.send(embed)
   }
