@@ -125,7 +125,7 @@ module.exports.GameService = class GameService {
       })
 
       const embed = new MessageEmbed()
-      if (animeData.picture !== undefined) {
+      if (animeData !== undefined) {
         embed.setImage(animeData.picture)
       } else {
         embed.setDescription(
