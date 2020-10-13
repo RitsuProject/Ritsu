@@ -257,14 +257,6 @@ module.exports.GameService = class GameService {
     dispatch.on('error', (error) => {
       console.log(error)
     })
-
-    process.on('SIGTERM', async () => {
-      await voice.leave()
-      await this.message.channel.send(
-        'Leaving the voice channel and removing the match due to a bot restart.'
-      )
-      process.exit(0)
-    })
   }
 
   async createRoom(answser) {
