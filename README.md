@@ -1,6 +1,10 @@
-# Ritsu
+<p align="center">
+<img src="https://cdn.discordapp.com/avatars/764946848149798924/eeefaa46469536481e14860ceaf5d75b.png?size=256">
+</p>
 
-🎶 A bot on Discord based on the game of guessing the anime by its Ending or Opening theme!
+<h1 align="center">Ritsu</h1>
+
+<p align="center">🎶 A bot on Discord based on the game of guessing the anime by its Ending or Opening theme!</p>
 
 ## How to Play
 
