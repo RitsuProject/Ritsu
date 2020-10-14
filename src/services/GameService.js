@@ -76,10 +76,7 @@ module.exports.GameService = class GameService {
     console.log(answser)
     console.log(randomTheme.link)
 
-    const animeData = await this.getAnimeDetails(answser)
-    const answsers = await this.getAnswsers(animeData)
-
-    const answserFilter = (msg) => this.isAnswser(answsers, msg)
+    const answserFilter = (msg) => this.isAnswser(answser, msg)
     const commanderFilter = (msg) => this.isCommand(guild.prefix, msg)
 
     const answserCollector = this.message.channel.createMessageCollector(
@@ -90,6 +87,8 @@ module.exports.GameService = class GameService {
       commanderFilter,
       { time: this.time }
     )
+
+    const animeData = await this.getAnimeDetails(answser)
 
     answserCollector.on('collect', async (msg) => {
       if (!room.answerers.includes(msg.author.id)) {
@@ -142,13 +141,7 @@ module.exports.GameService = class GameService {
       }
       embed.setTitle(answser)
       embed.setColor('#33e83c')
-      embed.setFooter(
-        `Type: ${randomTheme.type} ${
-          animeData.englishTitle != ''
-            ? `| English: ${animeData.englishTitle}`
-            : ''
-        }`
-      )
+      embed.setFooter(`Type: ${randomTheme.type}`)
 
       this.message.channel.send('The answser is...', { embed })
       this.message.channel.send(
@@ -224,32 +217,15 @@ module.exports.GameService = class GameService {
     }
   }
 
-  async isAnswser(answsers, msg) {
+  async isAnswser(answser, msg) {
     msg = msg.content
       .trim()
       .replace(/[^\w\s]/gi, '')
       .toLowerCase()
-    let score
-    answsers.forEach((a) => {
-      const similarity = stringSimilarity.compareTwoStrings(a, msg)
-      score = similarity
-    })
-    return score > 0.45
-  }
 
-  async getAnswsers(data) {
-    const ans = []
-    ans.push(data.title)
-    if (data.englishTitle != '') {
-      ans.push(data.englishTitle)
-    }
-    if (data.synonyms[0] != '') {
-      data.synonyms.forEach((s) => {
-        ans.push(s)
-      })
-    }
-    console.log(ans)
-    return ans
+    const similarity = stringSimilarity.compareTwoStrings(answser, msg)
+    console.log(similarity)
+    return similarity > 0.45
   }
 
   async isCommand(prefix, msg) {
