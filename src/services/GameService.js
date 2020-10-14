@@ -229,10 +229,10 @@ module.exports.GameService = class GameService {
       .trim()
       .replace(/[^\w\s]/gi, '')
       .toLowerCase()
-    let score
+    let score = 0
     answsers.forEach((a) => {
       const similarity = stringSimilarity.compareTwoStrings(a, msg)
-      score = similarity
+      score = similarity > score ? similarity : score
     })
     return score > 0.45
   }
