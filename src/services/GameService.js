@@ -76,7 +76,10 @@ module.exports.GameService = class GameService {
     console.log(answser)
     console.log(randomTheme.link)
 
-    const answserFilter = (msg) => this.isAnswser(answser, msg)
+    const animeData = await this.getAnimeDetails(answser)
+    const answsers = await this.getAnswsers(animeData)
+
+    const answserFilter = (msg) => this.isAnswser(answsers, msg)
     const commanderFilter = (msg) => this.isCommand(guild.prefix, msg)
 
     const answserCollector = this.message.channel.createMessageCollector(
@@ -87,8 +90,6 @@ module.exports.GameService = class GameService {
       commanderFilter,
       { time: this.time }
     )
-
-    const animeData = await this.getAnimeDetails(answser)
 
     answserCollector.on('collect', async (msg) => {
       if (!room.answerers.includes(msg.author.id)) {
@@ -141,7 +142,13 @@ module.exports.GameService = class GameService {
       }
       embed.setTitle(answser)
       embed.setColor('#33e83c')
-      embed.setFooter(`Type: ${randomTheme.type}`)
+      embed.setFooter(
+        `Type: ${randomTheme.type} ${
+          animeData.englishTitle != ''
+            ? `| English: ${animeData.englishTitle}`
+            : ''
+        }`
+      )
 
       this.message.channel.send('The answser is...', { embed })
       this.message.channel.send(
@@ -217,15 +224,32 @@ module.exports.GameService = class GameService {
     }
   }
 
-  async isAnswser(answser, msg) {
+  async isAnswser(answsers, msg) {
     msg = msg.content
       .trim()
       .replace(/[^\w\s]/gi, '')
       .toLowerCase()
+    let score
+    answsers.forEach((a) => {
+      const similarity = stringSimilarity.compareTwoStrings(a, msg)
+      score = similarity
+    })
+    return score > 0.45
+  }
 
-    const similarity = stringSimilarity.compareTwoStrings(answser, msg)
-    console.log(similarity)
-    return similarity > 0.45
+  async getAnswsers(data) {
+    const ans = []
+    ans.push(data.title)
+    if (data.englishTitle != '') {
+      ans.push(data.englishTitle)
+    }
+    if (data.synonyms[0] != '') {
+      data.synonyms.forEach((s) => {
+        ans.push(s)
+      })
+    }
+    console.log(ans)
+    return ans
   }
 
   async isCommand(prefix, msg) {
