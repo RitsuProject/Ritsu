@@ -31,13 +31,13 @@ module.exports = class BotInfo extends Command {
         },
         {
           name: '<:github:764559500941852692>  Source Code',
-          value: '[Github](https://github.com/RitsuProject/Ritsu)',
+          value: '[See here!](https://github.com/RitsuProject/Ritsu)',
           inline: true,
         },
         {
           name: ':link: Useful links',
           value:
-            '<:Twitter:764952510674763786> [Twitter](https://twitter.com/RitsuProject)\n<:discord:764952620842090537> [Invite](https://discord.com/oauth2/authorize/?permissions=3145728&scope=bot&client_id=763934732420382751)',
+            '<:Twitter:764952510674763786> [Twitter](https://twitter.com/RitsuProject)\n<:discord:764952620842090537> [Invite](https://discord.com/oauth2/authorize/?permissions=3145728&scope=bot&client_id=763934732420382751)\n<:ritsuthink:764662176958906388> [Support Server](https://discord.gg/XuDysZg)',
           inline: true,
         },
         {
