@@ -23,7 +23,7 @@ module.exports.Ritsu = class Ritsu extends Client {
     log('Loaded Commands', 'MAIN', false)
     connect()
 
-    process.on("SIGTERM", async () => {
+    process.on('SIGTERM', () => {
       this.destroy()
       process.exit(0)
     })
