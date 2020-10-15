@@ -36,7 +36,7 @@ module.exports.GameService = class GameService {
         )
         return
       }
-      this.message.channel.send(
+      return this.message.channel.send(
         'You need to be on a voice channel to start a match!'
       )
     }
