@@ -24,11 +24,22 @@ module.exports.GameService = class GameService {
     if (!guild) return
 
     const voicech = this.message.member.voice.channel
-    if (!voicech)
-      return this.message.channel.send(
+    if (!voicech) {
+      const rooom = await Rooms.findById(this.message.guild.id)
+      if (rooom) {
+        await rooom.deleteOne()
+        guild.rolling = false
+        guild.currentChannel = null
+        await guild.save()
+        this.message.channel.send(
+          'It seems that there are no more people on the voice channel, ending the match.'
+        )
+        return
+      }
+      this.message.channel.send(
         'You need to be on a voice channel to start a match!'
       )
-
+    }
     const themeService = new ThemeService()
     let randomTheme
 
