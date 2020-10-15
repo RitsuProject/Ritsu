@@ -38,7 +38,7 @@ module.exports.ThemeService = class ThemeService {
       )
       const animesThemes = await p({
         method: 'GET',
-        url: `https://animethemes.dev/api/anime?limit=200&year=${year}`,
+        url: `https://animethemes.dev/api/anime?filter[year]=${year}`,
         parse: 'json',
       })
 
