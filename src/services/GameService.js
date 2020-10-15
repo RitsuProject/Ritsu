@@ -40,6 +40,12 @@ module.exports.GameService = class GameService {
         'You need to be on a voice channel to start a match!'
       )
     }
+
+    if (this.time < 20000)
+      return this.message.channel.send(
+        'Please specify a time greater than 20 seconds.'
+      )
+
     const themeService = new ThemeService()
     let randomTheme
 
