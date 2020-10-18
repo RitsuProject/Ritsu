@@ -8,7 +8,9 @@ module.exports = class ready {
     await Guilds.updateMany({}, { rolling: false, currentChannel: null })
     await Rooms.deleteMany({})
     this.client.user.setActivity(
-      `${process.env.VERSION === 'canary' ? 'javascript' : `ritsu!help`}`
+      `${
+        process.env.VERSION === 'canary' ? 'javascript' : `ritsu!help | @Ritsu`
+      }`
     )
   }
 }
