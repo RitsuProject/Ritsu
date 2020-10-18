@@ -22,6 +22,11 @@ module.exports = class Message {
         admin: false,
       }).save()
     }
+    if (message.mentions.has(this.client.user)) {
+      message.channel.send(
+        `Hi! I'm Ritsu! A bot based on the game AnimeMusicQuiz! My prefix on that server is **${guild.prefix}** and you can see all of my commands using **${guild.prefix}help**`
+      )
+    }
     if (!message.content.startsWith(guild.prefix)) return
     const args = message.content.slice(guild.prefix.length).trim().split(/ +/g)
     const command = args.shift().toLowerCase()
