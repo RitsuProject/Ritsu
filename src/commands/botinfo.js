@@ -36,8 +36,12 @@ module.exports = class BotInfo extends Command {
         },
         {
           name: ':link: Useful links',
-          value:
-            '<:Twitter:764952510674763786> [Twitter](https://twitter.com/RitsuProject)\n<:discord:764952620842090537> [Invite](https://discord.com/oauth2/authorize/?permissions=3145728&scope=bot&client_id=763934732420382751)\n<:ritsuthink:764662176958906388> [Support Server](https://discord.gg/XuDysZg)',
+          value: `
+            <:Twitter:764952510674763786> [Twitter](https://twitter.com/RitsuProject)
+            <:discord:764952620842090537> [Invite](https://discord.com/oauth2/authorize/?permissions=3145728&scope=bot&client_id=763934732420382751)
+            <:ritsuthink:764662176958906388> [Support Server](https://discord.gg/XuDysZg)
+            <:discordbotlist:767376357600264192> [Upvote the Bot!](https://discord.ly/ritsu-5101)
+            `,
           inline: true,
         },
         {
