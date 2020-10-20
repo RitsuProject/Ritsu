@@ -22,7 +22,10 @@ module.exports = class Message {
         admin: false,
       }).save()
     }
-    if (message.mentions.has(this.client.user)) {
+    if (
+      message.content.replace(/!/g, '') ==
+      message.guild.me.toString().replace(/!/g, '')
+    ) {
       message.channel.send(
         `Hi! I'm Ritsu! A bot based on the game AnimeMusicQuiz! My prefix on that server is **${guild.prefix}** and you can see all of my commands using **${guild.prefix}help**`
       )
