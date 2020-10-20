@@ -279,25 +279,33 @@ module.exports.GameService = class GameService {
   }
 
   async playTheme(voice, link) {
-    const response = await phin({
-      method: 'GET',
-      url: link,
-      stream: true,
-    })
+    try {
+      const response = await phin({
+        method: 'GET',
+        url: link,
+        stream: true,
+        timeout: 7000,
+      })
 
-    const connection = await voice.join()
-    const dispatch = await connection.play(response.stream)
+      const connection = await voice.join()
+      const dispatch = await connection.play(response.stream)
 
-    dispatch.on('start', () => {
-      log('Starting the Track', 'GAME_SERVICE', false, 'green')
-      this.timeout = setTimeout(() => {
-        dispatch.end()
-      }, this.time - 2000)
-    })
+      dispatch.on('start', () => {
+        log('Starting the Track', 'GAME_SERVICE', false, 'green')
+        this.timeout = setTimeout(() => {
+          dispatch.end()
+        }, this.time - 2000)
+      })
 
-    dispatch.on('error', (error) => {
-      console.log(error)
-    })
+      dispatch.on('error', (error) => {
+        console.log(error)
+      })
+    } catch (e) {
+      console.log(e)
+      this.message.channel.send(
+        'A fatal error occurred while trying to catch the theme, maybe this is an instability error?'
+      )
+    }
   }
 
   async createRoom(answser) {
