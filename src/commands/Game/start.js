@@ -20,8 +20,7 @@ module.exports = class Start extends Command {
     })
   }
 
-  async run({ message, args }) {
-    const guild = await Guilds.findById(message.guild.id)
+  async run({ message, args, guild }) {
     if (guild.rolling)
       return message.channel.send(
         'There is already a match running on a voice channel on that server.'

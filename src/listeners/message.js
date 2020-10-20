@@ -58,7 +58,7 @@ module.exports = class Message {
     try {
       new Promise((resolve) => {
         // eslint-disable-line no-new
-        resolve(fancyCommand.run({ message, args }))
+        resolve(fancyCommand.run({ message, args, guild }))
       })
     } catch (e) {
       log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)

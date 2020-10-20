@@ -12,8 +12,7 @@ module.exports = class Prefix extends Command {
     })
   }
 
-  async run({ message, args }) {
-    const guild = await Guilds.findById(message.guild.id)
+  async run({ message, args, guild }) {
     if (!args[0]) return message.channel.send('You need to specify the prefix.')
     guild.prefix = args[0]
     guild.save()
