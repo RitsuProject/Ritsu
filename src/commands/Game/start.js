@@ -1,6 +1,6 @@
-const { Guilds } = require('../models/Guild')
-const { GameService } = require('../services/GameService')
-const { Command } = require('../structures/Command')
+const { Guilds } = require('../../models/Guild')
+const { GameService } = require('../../services/GameService')
+const { Command } = require('../../structures/Command')
 
 const parse = require('parse-duration')
 
