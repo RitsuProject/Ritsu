@@ -60,7 +60,7 @@ module.exports.GameService = class GameService {
     }
 
     const { answser, link } = await this.getTheme()
-    await this.bumpRound(answser)
+    const room = await this.roomHandler(answser)
 
     this.message.channel.send(
       `Starting the #${
@@ -113,10 +113,7 @@ module.exports.GameService = class GameService {
           'Only the one who started the game can finish it.'
         )
       await voicech.leave()
-      guild.rolling = false
-      guild.currentChannel = null
-      guild.save()
-      room.remove()
+
       answserCollector.stop('forceFinished')
     })
 
@@ -143,10 +140,7 @@ module.exports.GameService = class GameService {
       )
 
       if (room.currentRound >= this.rounds) {
-        guild.rolling = false
-        guild.currentChannel = null
-        await guild.save()
-
+        await this.clear()
         this.finish(voicech, room)
       } else {
         await this.startNewRound(guild, voicech)
@@ -161,7 +155,6 @@ module.exports.GameService = class GameService {
     voicech.members.each(async (u) => {
       userService.updatePlayed(u.id)
     })
-    await room.remove()
     await voicech.leave()
     const winner = await this.getWinner(room)
     userService.updateEarnings(winner.id)
@@ -171,6 +164,15 @@ module.exports.GameService = class GameService {
       this.message.channel.send('Nobody won this match.')
     }
     this.message.channel.send('All rounds are over! I hope you guys had fun.')
+  }
+
+  async clear() {
+    const guild = await Guild.findById(this.message.guild.id)
+    const room = await Rooms.findById(this.message.guild.id)
+    guild.rolling = false
+    guild.currentChannel = null
+    guild.save()
+    room.remove()
   }
 
   async getTheme() {
@@ -190,7 +192,7 @@ module.exports.GameService = class GameService {
     return { answser: answser, link: randomTheme.link, type: randomTheme.type }
   }
 
-  async bumpRound(answser) {
+  async roomHandler(answser) {
     let room = await Rooms.findById(this.message.guild.id)
     if (!room) {
       room = await this.createRoom(answser)
@@ -201,6 +203,7 @@ module.exports.GameService = class GameService {
       room.answerers = []
       await room.save()
     }
+    return room
   }
 
   async getWinner(room) {
