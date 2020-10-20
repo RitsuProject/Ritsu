@@ -8,7 +8,7 @@ module.exports.ThemeService = class ThemeService {
     const randomPage = Math.floor(Math.random() * (131 - 1)) + 1
     const animesThemes = await p({
       method: 'GET',
-      url: `https://animethemes.dev/api/video?limit=200&page=${randomPage}`,
+      url: `https://animethemes.dev/api/video?page[size]=200&page[number]=${randomPage}`,
       parse: 'json',
     })
 
