@@ -30,7 +30,9 @@ module.exports = class Message {
     if (!message.content.startsWith(guild.prefix)) return
     const args = message.content.slice(guild.prefix.length).trim().split(/ +/g)
     const command = args.shift().toLowerCase()
-    const fancyCommand = this.client.commands.get(command)
+    const fancyCommand =
+      this.client.commands.get(command) ||
+      this.client.commands.get(this.client.aliases.get(command))
     if (!fancyCommand) return
     const requiredPermissions = fancyCommand.requiredPermissions
     if (message.channel.type === 'dm')
