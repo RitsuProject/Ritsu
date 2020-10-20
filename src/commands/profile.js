@@ -6,7 +6,7 @@ module.exports = class Profile extends Command {
   constructor(client) {
     super(client, {
       name: 'profile',
-      aliases: [],
+      aliases: ["user"],
       description: 'Show your profile.',
       requiredPermissions: null,
       dev: false,
