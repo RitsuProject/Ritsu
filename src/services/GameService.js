@@ -46,6 +46,12 @@ module.exports.GameService = class GameService {
         'Please specify a time greater than 20 seconds.'
       )
 
+    this.startNewRound(guild, voicech)
+    guild.rolling = true
+    await guild.save()
+  }
+
+  async getTheme() {
     const themeService = new ThemeService()
     let randomTheme
 
@@ -59,6 +65,17 @@ module.exports.GameService = class GameService {
       randomTheme = await themeService.getRandomTheme()
     }
     const answser = randomTheme.name
+    return { answser: answser, link: randomTheme.link, type: randomTheme.type }
+  }
+
+  async startNewRound(guild, voicech) {
+    if (this.time > 60000) {
+      this.message.channel.send(
+        '**WARNING:** Perhaps the openings are not big enough for this specified time, if that happens, it will end and you will need to wait for the round to end.'
+      )
+    }
+
+    const { answser, link } = await this.getTheme()
 
     let room = await Rooms.findById(this.message.guild.id)
     if (!room) {
@@ -69,15 +86,6 @@ module.exports.GameService = class GameService {
       room.currentRound++
       room.answerers = []
       await room.save()
-    }
-
-    guild.rolling = true
-    await guild.save()
-
-    if (this.time > 60000) {
-      this.message.channel.send(
-        '**WARNING:** Perhaps the openings are not big enough for this specified time, if that happens, it will end and you will need to wait for the round to end.'
-      )
     }
 
     this.message.channel.send(
@@ -91,7 +99,7 @@ module.exports.GameService = class GameService {
     )
 
     console.log(answser)
-    console.log(randomTheme.link)
+    console.log(link)
 
     const animeData = await this.getAnimeDetails(answser)
     const answsers = await this.getAnswsers(animeData)
@@ -183,11 +191,11 @@ module.exports.GameService = class GameService {
 
         this.finish(voicech, room)
       } else {
-        await this.init()
+        await this.startNewRound(guild, voicech)
       }
     })
 
-    this.playTheme(voicech, randomTheme.link)
+    this.playTheme(voicech, link)
   }
 
   async finish(voicech, room) {
