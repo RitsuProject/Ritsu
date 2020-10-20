@@ -60,7 +60,7 @@ module.exports.GameService = class GameService {
     }
 
     const { answser, link } = await this.getTheme()
-    await this.bumpRound()
+    await this.bumpRound(answser)
 
     this.message.channel.send(
       `Starting the #${
@@ -190,7 +190,7 @@ module.exports.GameService = class GameService {
     return { answser: answser, link: randomTheme.link, type: randomTheme.type }
   }
 
-  async bumpRound() {
+  async bumpRound(answser) {
     let room = await Rooms.findById(this.message.guild.id)
     if (!room) {
       room = await this.createRoom(answser)
