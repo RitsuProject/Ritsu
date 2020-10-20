@@ -72,8 +72,8 @@ module.exports.GameService = class GameService {
       }stop** in the chat if you want to stop the match.`
     )
 
-    console.log(answser)
-    console.log(link)
+    /* console.log(answser)
+    console.log(link) */
 
     const animeData = await this.getAnimeDetails(answser)
     const answsers = await this.getAnswsers(animeData)
