@@ -52,23 +52,6 @@ module.exports.GameService = class GameService {
     await guild.save()
   }
 
-  async getTheme() {
-    const themeService = new ThemeService()
-    let randomTheme
-
-    if (this.year !== 'random') {
-      randomTheme = await themeService.getThemeFromYear(this.year)
-      if (!randomTheme || randomTheme === undefined)
-        return this.message.channel.send(
-          "I couldn't find an anime corresponding to that year."
-        )
-    } else {
-      randomTheme = await themeService.getRandomTheme()
-    }
-    const answser = randomTheme.name
-    return { answser: answser, link: randomTheme.link, type: randomTheme.type }
-  }
-
   async startNewRound(guild, voicech) {
     if (this.time > 60000) {
       this.message.channel.send(
@@ -77,17 +60,7 @@ module.exports.GameService = class GameService {
     }
 
     const { answser, link } = await this.getTheme()
-
-    let room = await Rooms.findById(this.message.guild.id)
-    if (!room) {
-      room = await this.createRoom(answser)
-      room.currentRound++
-      await room.save()
-    } else {
-      room.currentRound++
-      room.answerers = []
-      await room.save()
-    }
+    await this.bumpRound()
 
     this.message.channel.send(
       `Starting the #${
@@ -198,6 +171,36 @@ module.exports.GameService = class GameService {
       this.message.channel.send('Nobody won this match.')
     }
     this.message.channel.send('All rounds are over! I hope you guys had fun.')
+  }
+
+  async getTheme() {
+    const themeService = new ThemeService()
+    let randomTheme
+
+    if (this.year !== 'random') {
+      randomTheme = await themeService.getThemeFromYear(this.year)
+      if (!randomTheme || randomTheme === undefined)
+        return this.message.channel.send(
+          "I couldn't find an anime corresponding to that year."
+        )
+    } else {
+      randomTheme = await themeService.getRandomTheme()
+    }
+    const answser = randomTheme.name
+    return { answser: answser, link: randomTheme.link, type: randomTheme.type }
+  }
+
+  async bumpRound() {
+    let room = await Rooms.findById(this.message.guild.id)
+    if (!room) {
+      room = await this.createRoom(answser)
+      room.currentRound++
+      await room.save()
+    } else {
+      room.currentRound++
+      room.answerers = []
+      await room.save()
+    }
   }
 
   async getWinner(room) {
