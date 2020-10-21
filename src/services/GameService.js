@@ -59,7 +59,7 @@ module.exports.GameService = class GameService {
       )
     }
 
-    const { answser, link } = await this.getTheme()
+    const { answser, link, type, warning } = await this.getTheme(guild.provider)
     const room = await this.roomHandler(answser)
 
     this.message.channel.send(
@@ -71,6 +71,13 @@ module.exports.GameService = class GameService {
         guild.prefix
       }stop** in the chat if you want to stop the match.`
     )
+
+    console.log(warning)
+    if (this.year != 'random') {
+      if (guild.provider === 'openingsmoe') {
+        this.message.channel.send(`**WARNING:** ${warning}`)
+      }
+    }
 
     /* console.log(answser)
     console.log(link) */
@@ -147,7 +154,7 @@ module.exports.GameService = class GameService {
       }
     })
 
-    this.playTheme(voicech, link)
+    this.playTheme(voicech, link, guild)
   }
 
   async finish(voicech, room) {
@@ -167,7 +174,7 @@ module.exports.GameService = class GameService {
   }
 
   async clear() {
-    const guild = await Guild.findById(this.message.guild.id)
+    const guild = await Guilds.findById(this.message.guild.id)
     const room = await Rooms.findById(this.message.guild.id)
     guild.rolling = false
     guild.currentChannel = null
@@ -175,21 +182,26 @@ module.exports.GameService = class GameService {
     room.remove()
   }
 
-  async getTheme() {
+  async getTheme(provider) {
     const themeService = new ThemeService()
     let randomTheme
 
-    if (this.year !== 'random') {
+    if (this.year != 'random') {
       randomTheme = await themeService.getThemeFromYear(this.year)
       if (!randomTheme || randomTheme === undefined)
         return this.message.channel.send(
           "I couldn't find an anime corresponding to that year."
         )
     } else {
-      randomTheme = await themeService.getRandomTheme()
+      randomTheme = await themeService.getRandomTheme(provider)
     }
     const answser = randomTheme.name
-    return { answser: answser, link: randomTheme.link, type: randomTheme.type }
+    return {
+      answser: answser,
+      link: randomTheme.link,
+      type: randomTheme.type,
+      warning: `${randomTheme.warning ? randomTheme.warning : 'none'}`,
+    }
   }
 
   async roomHandler(answser) {
@@ -277,7 +289,7 @@ module.exports.GameService = class GameService {
     }
   }
 
-  async playTheme(voice, link) {
+  async playTheme(voice, link, guild) {
     try {
       const response = await phin({
         method: 'GET',
@@ -302,7 +314,7 @@ module.exports.GameService = class GameService {
     } catch (e) {
       console.log(e)
       this.message.channel.send(
-        'A fatal error occurred while trying to catch the theme, maybe this is an instability error?'
+        `A fatal error occurred while trying to catch the theme, it is likely that changing the server theme provider using the **${guild.prefix}provider** command can resolve.`
       )
     }
   }

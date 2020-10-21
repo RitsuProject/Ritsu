@@ -7,6 +7,7 @@ const GuildSchema = new mongoose.Schema({
   rolling: { type: Boolean, required: false, default: false },
   currentChannel: { type: String, required: false, default: null },
   premium: { type: Boolean, required: true },
+  provider: { type: String, required: false, default: 'animethemes' },
 })
 
 const Guilds = mongoose.model('Guilds', GuildSchema)
