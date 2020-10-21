@@ -8,6 +8,7 @@ const { UserService } = require('./UserService')
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
 const phin = require('phin')
+const EmbedGen = require('../utils/EmbedGen')
 
 module.exports.GameService = class GameService {
   constructor(message, options = {}) {
@@ -46,39 +47,20 @@ module.exports.GameService = class GameService {
         'Please specify a time greater than 20 seconds.'
       )
 
-    const themeService = new ThemeService()
-    let randomTheme
-
-    if (this.year !== 'random') {
-      randomTheme = await themeService.getThemeFromYear(this.year)
-      if (!randomTheme || randomTheme === undefined)
-        return this.message.channel.send(
-          "I couldn't find an anime corresponding to that year."
-        )
-    } else {
-      randomTheme = await themeService.getRandomTheme()
-    }
-    const answser = randomTheme.name
-
-    let room = await Rooms.findById(this.message.guild.id)
-    if (!room) {
-      room = await this.createRoom(answser)
-      room.currentRound++
-      await room.save()
-    } else {
-      room.currentRound++
-      room.answerers = []
-      await room.save()
-    }
-
+    this.startNewRound(guild, voicech)
     guild.rolling = true
     await guild.save()
+  }
 
+  async startNewRound(guild, voicech) {
     if (this.time > 60000) {
       this.message.channel.send(
         '**WARNING:** Perhaps the openings are not big enough for this specified time, if that happens, it will end and you will need to wait for the round to end.'
       )
     }
+
+    const { answser, link, type, warning } = await this.getTheme(guild.provider)
+    const room = await this.roomHandler(answser)
 
     this.message.channel.send(
       `Starting the #${
@@ -90,8 +72,15 @@ module.exports.GameService = class GameService {
       }stop** in the chat if you want to stop the match.`
     )
 
-    console.log(answser)
-    console.log(randomTheme.link)
+    console.log(warning)
+    if (this.year != 'random') {
+      if (guild.provider === 'openingsmoe') {
+        this.message.channel.send(`**WARNING:** ${warning}`)
+      }
+    }
+
+    /* console.log(answser)
+    console.log(link) */
 
     const animeData = await this.getAnimeDetails(answser)
     const answsers = await this.getAnswsers(animeData)
@@ -131,10 +120,7 @@ module.exports.GameService = class GameService {
           'Only the one who started the game can finish it.'
         )
       await voicech.leave()
-      guild.rolling = false
-      guild.currentChannel = null
-      guild.save()
-      room.remove()
+
       answserCollector.stop('forceFinished')
     })
 
@@ -149,23 +135,7 @@ module.exports.GameService = class GameService {
         this.bumpScore(id)
       })
 
-      const embed = new MessageEmbed()
-      if (animeData !== undefined) {
-        embed.setImage(animeData.picture)
-      } else {
-        embed.setDescription(
-          "I couldn't get the cover of this anime because of errors."
-        )
-      }
-      embed.setTitle(answser)
-      embed.setColor('#33e83c')
-      embed.setFooter(
-        `Type: ${randomTheme.type} ${
-          animeData.englishTitle != ''
-            ? `| English: ${animeData.englishTitle}`
-            : ''
-        }`
-      )
+      const embed = EmbedGen(answser, type, animeData)
 
       this.message.channel.send('The answser is...', { embed })
       this.message.channel.send(
@@ -177,17 +147,14 @@ module.exports.GameService = class GameService {
       )
 
       if (room.currentRound >= this.rounds) {
-        guild.rolling = false
-        guild.currentChannel = null
-        await guild.save()
-
+        await this.clear()
         this.finish(voicech, room)
       } else {
-        await this.init()
+        await this.startNewRound(guild, voicech)
       }
     })
 
-    this.playTheme(voicech, randomTheme.link)
+    this.playTheme(voicech, link, guild)
   }
 
   async finish(voicech, room) {
@@ -195,7 +162,6 @@ module.exports.GameService = class GameService {
     voicech.members.each(async (u) => {
       userService.updatePlayed(u.id)
     })
-    await room.remove()
     await voicech.leave()
     const winner = await this.getWinner(room)
     userService.updateEarnings(winner.id)
@@ -205,6 +171,51 @@ module.exports.GameService = class GameService {
       this.message.channel.send('Nobody won this match.')
     }
     this.message.channel.send('All rounds are over! I hope you guys had fun.')
+  }
+
+  async clear() {
+    const guild = await Guilds.findById(this.message.guild.id)
+    const room = await Rooms.findById(this.message.guild.id)
+    guild.rolling = false
+    guild.currentChannel = null
+    guild.save()
+    room.remove()
+  }
+
+  async getTheme(provider) {
+    const themeService = new ThemeService()
+    let randomTheme
+
+    if (this.year != 'random') {
+      randomTheme = await themeService.getThemeFromYear(this.year)
+      if (!randomTheme || randomTheme === undefined)
+        return this.message.channel.send(
+          "I couldn't find an anime corresponding to that year."
+        )
+    } else {
+      randomTheme = await themeService.getRandomTheme(provider)
+    }
+    const answser = randomTheme.name
+    return {
+      answser: answser,
+      link: randomTheme.link,
+      type: randomTheme.type,
+      warning: `${randomTheme.warning ? randomTheme.warning : 'none'}`,
+    }
+  }
+
+  async roomHandler(answser) {
+    let room = await Rooms.findById(this.message.guild.id)
+    if (!room) {
+      room = await this.createRoom(answser)
+      room.currentRound++
+      await room.save()
+    } else {
+      room.currentRound++
+      room.answerers = []
+      await room.save()
+    }
+    return room
   }
 
   async getWinner(room) {
@@ -278,7 +289,7 @@ module.exports.GameService = class GameService {
     }
   }
 
-  async playTheme(voice, link) {
+  async playTheme(voice, link, guild) {
     try {
       const response = await phin({
         method: 'GET',
@@ -303,7 +314,7 @@ module.exports.GameService = class GameService {
     } catch (e) {
       console.log(e)
       this.message.channel.send(
-        'A fatal error occurred while trying to catch the theme, maybe this is an instability error?'
+        `A fatal error occurred while trying to catch the theme, it is likely that changing the server theme provider using the **${guild.prefix}provider** command can resolve.`
       )
     }
   }

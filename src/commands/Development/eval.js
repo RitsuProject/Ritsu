@@ -1,9 +1,9 @@
-const { Command } = require('../structures/Command')
+const { Command } = require('../../structures/Command')
 const { inspect } = require('util')
 
-const { Users } = require('../models/User')
-const { Guilds } = require('../models/Guild')
-const { Rooms } = require('../models/Room')
+const { Users } = require('../../models/User')
+const { Guilds } = require('../../models/Guild')
+const { Rooms } = require('../../models/Room')
 
 module.exports = class Eval extends Command {
   constructor(client) {

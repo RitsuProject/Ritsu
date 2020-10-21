@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
-const { Rooms } = require('../models/Room')
-const { Command } = require('../structures/Command')
+const { Rooms } = require('../../models/Room')
+const { Command } = require('../../structures/Command')
 
 module.exports = class BotInfo extends Command {
   constructor(client) {

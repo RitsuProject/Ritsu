@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
-const { Guilds } = require('../models/Guild')
-const { Command } = require('../structures/Command')
+const { Guilds } = require('../../models/Guild')
+const { Command } = require('../../structures/Command')
 
 module.exports = class Help extends Command {
   constructor(client) {
@@ -13,8 +13,7 @@ module.exports = class Help extends Command {
     })
   }
 
-  async run({ message }) {
-    const guild = await Guilds.findById(message.guild.id)
+  async run({ message, args, guild }) {
     const embed = new MessageEmbed()
     embed.setTitle('Available commands')
     embed.setColor('#3486eb')

@@ -34,15 +34,19 @@ module.exports.Ritsu = class Ritsu extends Client {
   }
 
   loadCommands() {
-    readdir(`${__dirname}/commands`, (err) => {
+    readdir(`${__dirname}/commands`, (err, files) => {
       if (err) console.error(err)
-      readdir(`${__dirname}/commands/`, (err, cmd) => {
-        if (err) return console.log(err)
-        cmd.forEach((cmd) => {
-          const command = new (require(`${__dirname}/commands/${cmd}`))(this)
-          command.dir = `./src/commands/${cmd}`
-          this.commands.set(command.name, command)
-          command.aliases.forEach((a) => this.aliases.set(a, command.name))
+      files.forEach((category) => {
+        readdir(`${__dirname}/commands/${category}`, (err, cmd) => {
+          if (err) return console.log(err)
+          cmd.forEach((cmd) => {
+            const command = new (require(`${__dirname}/commands/${category}/${cmd}`))(
+              this
+            )
+            command.dir = `./src/commands/${category}/${cmd}`
+            this.commands.set(command.name, command)
+            command.aliases.forEach((a) => this.aliases.set(a, command.name))
+          })
         })
       })
     })

@@ -3,11 +3,7 @@
   "version": "1.2.0",
   "description": "Guess the anime by opening!",
   "main": "index.js",
-  "author": {
-    "name": "FelipeSazz",
-    "email": "felipe@sazz.fail",
-    "url": "https://sazz.fail"
-  },
+  "author": "FelipeSazz <felipe@sazz.fail>",
   "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "^0.3.2",

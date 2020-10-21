@@ -1,5 +1,5 @@
-const { Users } = require('../models/User')
-const { Command } = require('../structures/Command')
+const { Users } = require('../../models/User')
+const { Command } = require('../../structures/Command')
 
 module.exports = class Bio extends Command {
   constructor(client) {
