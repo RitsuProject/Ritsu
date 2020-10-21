@@ -20,7 +20,7 @@ module.exports = class Provider extends Command {
     ) {
       guild.provider = args[0].toLowerCase()
       guild.save()
-      message.channel.send(`The theme provider is now ${guild.provider}.`)
+      message.channel.send(`The theme provider is now **${guild.provider}**.`)
     } else {
       message.channel.send(
         'This does not appear to be a valid or supported provider, here is the list of providers that Ritsu likes:\n\nAnimeThemes\nopeningsmoe'
