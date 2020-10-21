@@ -154,7 +154,7 @@ module.exports.GameService = class GameService {
       }
     })
 
-    this.playTheme(voicech, link, guild)
+    this.playTheme(voicech, link, guild, room)
   }
 
   async finish(voicech, room) {
@@ -289,7 +289,7 @@ module.exports.GameService = class GameService {
     }
   }
 
-  async playTheme(voice, link, guild) {
+  async playTheme(voice, link, guild, room) {
     try {
       const response = await phin({
         method: 'GET',
@@ -316,6 +316,8 @@ module.exports.GameService = class GameService {
       this.message.channel.send(
         `A fatal error occurred while trying to catch the theme, it is likely that changing the server theme provider using the **${guild.prefix}provider** command can resolve.`
       )
+      await this.clear()
+      this.finish(voice, room)
     }
   }
 
