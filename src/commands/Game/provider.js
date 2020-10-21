@@ -6,7 +6,7 @@ module.exports = class Provider extends Command {
       name: 'provider',
       aliases: [],
       description: 'Change the themes provider.',
-      requiredPermissions: null,
+      requiredPermissions: ['BAN_MEMBERS'],
       dev: false,
     })
   }
