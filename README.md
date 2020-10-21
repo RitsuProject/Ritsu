@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://ritsu.sazz.fail/assets/ritsu-logo.svg" width="30%">
+<img src="https://ritsu.sazz.fail/assets/ritsu-logo.svg" width="50%">
 </p>
 
 <h1 align="center">Ritsu</h1>
