@@ -119,9 +119,6 @@ module.exports.GameService = class GameService {
         return msg.channel.send(
           'Only the one who started the game can finish it.'
         )
-      await this.clear()
-      this.finish(voicech, room)
-
       answserCollector.stop('forceFinished')
     })
 
@@ -129,6 +126,8 @@ module.exports.GameService = class GameService {
       if (reason === 'forceFinished') {
         log('The match was ended by force.', 'GAME_SERVICE', false, 'green')
         this.message.channel.send('This match was ended by force.')
+        await this.clear()
+        this.finish(voicech, room)
         return
       }
 
