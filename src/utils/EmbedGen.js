@@ -2,18 +2,26 @@ const { MessageEmbed } = require('discord.js')
 
 module.exports = function EmbedGen(answser, type, animeData) {
   const embed = new MessageEmbed()
+  if (type.includes('ED')) {
+    type = 'Ending'
+  } else if (type.includes('OP')) {
+    type = 'Opening'
+  }
   if (animeData !== undefined) {
-    embed.setImage(animeData.picture)
+    embed.setImage(
+      `http://ritsuapi.herokuapp.com/image/answser?name=${encodeURI(
+        answser
+      )}&cover=${animeData.picture}&type=${type}`
+    )
   } else {
     embed.setDescription(
       "I couldn't get the cover of this anime because of errors."
     )
   }
-  embed.setTitle(answser)
-  embed.setColor('#33e83c')
+  embed.setColor('#ff3860')
   embed.setFooter(
-    `Type: ${type} ${
-      animeData.englishTitle != '' ? `| English: ${animeData.englishTitle}` : ''
+    `${
+      animeData.englishTitle != '' ? `English: ${animeData.englishTitle}` : ''
     }`
   )
   return embed
