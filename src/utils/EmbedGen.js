@@ -10,7 +10,7 @@ module.exports = function EmbedGen(answser, type, animeData) {
   if (animeData !== undefined) {
     embed.setImage(
       `http://ritsuapi.herokuapp.com/image/answser?name=${encodeURI(
-        answser
+        animeData.englishTitle
       )}&cover=${animeData.picture}&type=${type}`
     )
   } else {
@@ -19,10 +19,6 @@ module.exports = function EmbedGen(answser, type, animeData) {
     )
   }
   embed.setColor('#ff3860')
-  embed.setFooter(
-    `${
-      animeData.englishTitle != '' ? `English: ${animeData.englishTitle}` : ''
-    }`
-  )
+  embed.setFooter(`Original Title: ${answser}`)
   return embed
 }
