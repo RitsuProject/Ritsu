@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://cdn.discordapp.com/avatars/764946848149798924/eeefaa46469536481e14860ceaf5d75b.png?size=256">
+<img src="https://ritsu.sazz.fail/assets/ritsu-logo.svg" width="50%">
 </p>
 
 <h1 align="center">Ritsu</h1>
