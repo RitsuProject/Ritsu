@@ -186,6 +186,8 @@ module.exports.GameService = class GameService {
     const themeService = new ThemeService()
     let randomTheme
 
+    const loading = await this.message.channel.send(`\`Getting the theme...\``)
+
     if (this.year != 'random') {
       randomTheme = await themeService.getThemeFromYear(this.year)
       if (!randomTheme || randomTheme === undefined)
@@ -196,6 +198,7 @@ module.exports.GameService = class GameService {
       randomTheme = await themeService.getRandomTheme(provider)
     }
     const answser = randomTheme.name
+    loading.delete()
     return {
       answser: answser,
       link: randomTheme.link,
