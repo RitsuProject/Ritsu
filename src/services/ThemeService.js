@@ -27,7 +27,9 @@ module.exports.ThemeService = class ThemeService {
       parse: 'json',
     })
 
-    console.log()
+    if (random.body.err) {
+      return false
+    }
 
     return {
       name: random.body.name,
