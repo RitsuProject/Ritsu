@@ -58,6 +58,7 @@ module.exports.GameService = class GameService {
     }
 
     const theme = await this.getTheme(guild.provider)
+    if (theme === 'offline') return
     if (!theme)
       return this.message.channel.send(
         "I couldn't find an anime corresponding to that year."
@@ -184,7 +185,7 @@ module.exports.GameService = class GameService {
     guild.rolling = false
     guild.currentChannel = null
     guild.save()
-    room.remove()
+    room.deleteOne()
   }
 
   async getTheme(provider) {
@@ -197,8 +198,9 @@ module.exports.GameService = class GameService {
       const status = await getProviderStatus(provider)
       if (status) {
         this.message.channel.send(
-          `\`The host openings that are selected as default on your server are offline, when using the anime filter in a specific year like now, you may encounter errors.\``
+          `\`The host openings that are selected as default on your server are offline, canceling the match...\``
         )
+        return 'offline'
       }
       randomTheme = await themeService.getThemeFromYear(this.year)
       if (!randomTheme || randomTheme === undefined) return false
@@ -338,7 +340,7 @@ module.exports.GameService = class GameService {
         `A fatal error occurred while trying to catch the theme, it is likely that changing the server theme provider using the **${guild.prefix}provider** command can resolve.`
       )
       await this.clear()
-      this.finish(voice, room)
+      await this.finish(voice, room)
     }
   }
 
