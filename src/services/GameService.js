@@ -1,7 +1,6 @@
 const { Guilds } = require('../models/Guild')
 const { ThemeService } = require('./ThemeService')
 const { Rooms } = require('../models/Room')
-const { MessageEmbed } = require('discord.js')
 const { log } = require('../utils/Logger')
 const { UserService } = require('./UserService')
 
@@ -9,6 +8,7 @@ const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
 const phin = require('phin')
 const EmbedGen = require('../utils/EmbedGen')
+const getProviderStatus = require('../utils/getProviderStatus')
 
 module.exports.GameService = class GameService {
   constructor(message, options = {}) {
@@ -195,7 +195,17 @@ module.exports.GameService = class GameService {
           "I couldn't find an anime corresponding to that year."
         )
     } else {
-      randomTheme = await themeService.getRandomTheme(provider)
+      const status = await getProviderStatus(provider)
+      if (status) {
+        this.message.channel.send(
+          `\`The host openings that are selected as default on your server are offline, I will be switching to another one, if you don't want to see this error change your provider using provider command. (Current: ${provider})\``
+        )
+        randomTheme = await themeService.getRandomTheme(
+          `${provider === 'animethemes' ? 'openingsmoe' : 'animethemes'}`
+        )
+      } else {
+        randomTheme = await themeService.getRandomTheme(provider)
+      }
     }
     const answser = randomTheme.name
     loading.delete()
