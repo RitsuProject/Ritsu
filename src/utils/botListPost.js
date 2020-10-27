@@ -1,4 +1,12 @@
 const p = require('phin')
+
+/**
+ * Post a new number of servers to discordbotlist.com
+ * @param {Number} number - Number of servers.
+ * @exemple
+ * await botListPost(30)
+ */
+
 module.exports.botListPost = async function botListPost(number) {
   await p({
     method: 'POST',

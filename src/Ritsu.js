@@ -2,6 +2,13 @@ const { Client, Collection } = require('discord.js')
 const { readdir } = require('fs')
 const connect = require('./db')
 const { log } = require('./utils/Logger')
+
+/**
+ * Ritsu Client
+ * @constructor
+ * @param {String} token - Discord Token
+ * @param {Object} options - Client Options
+ */
 module.exports.Ritsu = class Ritsu extends Client {
   constructor(token, options) {
     super(token)

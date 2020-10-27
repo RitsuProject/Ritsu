@@ -9,6 +9,17 @@ const mal = require('mal-scraper')
 const phin = require('phin')
 const EmbedGen = require('../utils/EmbedGen')
 const getProviderStatus = require('../utils/getProviderStatus')
+const { Message, VoiceChannel } = require('discord.js')
+
+/**
+ * Game Service
+ * @class
+ * @desc The main service of Ritsu, responsible for handling games, getting the themes and playing them.
+ * @param {Message} message - Message
+ * @param {Object} [options = {}] - Game Options
+ * @exemple
+ * const gameService = new GameService(message)
+ */
 
 module.exports.GameService = class GameService {
   constructor(message, options = {}) {
@@ -19,6 +30,11 @@ module.exports.GameService = class GameService {
     this.time = options.time || 30000
     this.realTime = options.realTime || '30s'
   }
+
+  /**
+   * Initializes the game.
+   * @async
+   */
 
   async init() {
     const guild = await Guilds.findById(this.message.guild.id)
@@ -49,6 +65,13 @@ module.exports.GameService = class GameService {
 
     this.startNewRound(guild, voicech)
   }
+
+  /**
+   * Start a new Round.
+   * @async
+   * @param {Document} guild - The server that belongs to the round.
+   * @param {VoiceChannel} voicech - The voice channel at which the round will start.
+   */
 
   async startNewRound(guild, voicech) {
     if (this.time > 60000) {
@@ -163,6 +186,12 @@ module.exports.GameService = class GameService {
     this.playTheme(voicech, link, guild, room)
   }
 
+  /**
+   * Finish a game.
+   * @param {VoiceChannel} voicech - The voice channel which game will end.
+   * @param {Document} room - The room.
+   */
+
   async finish(voicech, room) {
     const userService = new UserService()
     voicech.members.each(async (u) => {
@@ -179,6 +208,10 @@ module.exports.GameService = class GameService {
     this.message.channel.send('All rounds are over! I hope you guys had fun.')
   }
 
+  /**
+   * Delete and change the round data.
+   */
+
   async clear() {
     const guild = await Guilds.findById(this.message.guild.id)
     const room = await Rooms.findById(this.message.guild.id)
@@ -187,6 +220,13 @@ module.exports.GameService = class GameService {
     guild.save()
     room.deleteOne()
   }
+
+  /**
+   * Get the theme.
+   * @async
+   * @param {String} provider - The provider.
+   * @returns {(String|Promise<Object>|Boolean)} If the provider is offline, it will return false or a string containing "offline", if not, it will return an object with the theme data.
+   */
 
   async getTheme(provider) {
     const themeService = new ThemeService()
@@ -227,6 +267,14 @@ module.exports.GameService = class GameService {
     }
   }
 
+  /**
+   * Room Handler
+   * @async
+   * @desc - Responsible for creating the rooms or checking if they already exist and returning them.
+   * @param {String} answser - The answer (the anime)
+   * @returns {Promise<Document>} The room.
+   */
+
   async roomHandler(answser) {
     let room = await Rooms.findById(this.message.guild.id)
     if (!room) {
@@ -241,7 +289,13 @@ module.exports.GameService = class GameService {
     return room
   }
 
-  async getWinner(room) {
+  /**
+   * Get the match winner.
+   * @param {Document} room - The room.
+   * @returns {Promise<Document>}  Winner
+   */
+
+  getWinner(room) {
     const highestValue = Math.max.apply(
       Math,
       room.leaderboard.map((score) => {
@@ -254,6 +308,12 @@ module.exports.GameService = class GameService {
     })
     return highestUser
   }
+
+  /**
+   * Increase the score of everyone who won the round.
+   * @async
+   * @param {Number} id - The user ID.
+   */
 
   async bumpScore(id) {
     // maybe a rewrite in the future?
@@ -275,7 +335,14 @@ module.exports.GameService = class GameService {
     }
   }
 
-  async isAnswser(answsers, msg) {
+  /**
+   * Is it the answer of the round?
+   * @param {Array} answsers
+   * @param {Message} msg
+   * @return {Promise<Boolean>} True or false.
+   */
+
+  isAnswser(answsers, msg) {
     msg = msg.content
       .trim()
       .replace(/[^\w\s]/gi, '')
@@ -288,7 +355,13 @@ module.exports.GameService = class GameService {
     return score > 0.45
   }
 
-  async getAnswsers(data) {
+  /**
+   * Pick up the other titles from the same anime.
+   * @param {Object} data - The details of the anime.
+   * @returns {Promise<Array>} - The titles.
+   */
+
+  getAnswsers(data) {
     const ans = []
     ans.push(data.title)
     if (data.englishTitle != '') {
@@ -303,7 +376,14 @@ module.exports.GameService = class GameService {
     return ans
   }
 
-  async isCommand(prefix, msg) {
+  /**
+   * Is it a command?
+   * @param {String} prefix
+   * @param {Message} msg
+   * @return {Promise<Boolean>} True or false.
+   */
+
+  isCommand(prefix, msg) {
     msg = msg.content.trim()
     if (msg === `${prefix}stop`) {
       return true
@@ -311,6 +391,15 @@ module.exports.GameService = class GameService {
       return false
     }
   }
+
+  /**
+   * Play the theme on the voice channel.
+   * @async
+   * @param {VoiceChannel} voice - Voice Channel
+   * @param {String} link - Webm URL
+   * @param {Document} guild - The server to which the round belongs.
+   * @param {Document} room - The room to which the round belongs.
+   */
 
   async playTheme(voice, link, guild, room) {
     try {
@@ -344,6 +433,12 @@ module.exports.GameService = class GameService {
     }
   }
 
+  /**
+   * Create the room.
+   * @async
+   * @param {String} answser - The answser.
+   */
+
   async createRoom(answser) {
     const newRoom = new Rooms({
       _id: this.message.guild.id,
@@ -358,6 +453,12 @@ module.exports.GameService = class GameService {
     const room = await Rooms.findById(this.message.guild.id)
     return room
   }
+
+  /**
+   * Get the full anime data.
+   * @async
+   * @param {String} name - Anime Name.
+   */
 
   async getAnimeDetails(name) {
     try {
