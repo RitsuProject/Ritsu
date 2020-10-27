@@ -5,7 +5,7 @@ const { log } = require('./utils/Logger')
 
 /**
  * Ritsu Client
- * @constructor
+ * @class
  * @param {String} token - Discord Token
  * @param {Object} options - Client Options
  */
