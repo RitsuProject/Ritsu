@@ -31,6 +31,7 @@ module.exports.Ritsu = class Ritsu extends Client {
     connect()
 
     process.on('SIGTERM', () => {
+      // Destroy the client when the signal that Heroku usually sends at the end of the process, so that the bot will exit all voice channels.
       this.destroy()
       process.exit(0)
     })
