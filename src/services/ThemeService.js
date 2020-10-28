@@ -36,7 +36,7 @@ module.exports.ThemeService = class ThemeService {
    * Take a random theme from a specific year.
    * @async
    * @param {Number} year - Year
-   * @return {Object} Theme Data
+   * @return {[Object|Boolean]} Theme Data
    */
 
   async getThemeFromYear(year) {
@@ -48,6 +48,7 @@ module.exports.ThemeService = class ThemeService {
     })
 
     if (random.body.err) {
+      // If the API returned an error, return false.
       return false
     }
 
