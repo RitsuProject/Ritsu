@@ -44,6 +44,7 @@ module.exports.GameService = class GameService {
     if (!voicech) {
       const room_ = await Rooms.findById(this.message.guild.id)
       if (room_) {
+        // If the match host itself is no longer on the voice channel, cancel it.
         await room_.deleteOne()
         guild.rolling = false
         guild.currentChannel = null
@@ -52,13 +53,14 @@ module.exports.GameService = class GameService {
           'It seems that there are no more people on the voice channel, ending the match.'
         )
         return
-      }
+      } // Don't have a match at the moment? But did the user try to start a game without being on the voice channel? Turn back.
       return this.message.channel.send(
         'You need to be on a voice channel to start a match!'
       )
     }
 
     if (this.time < 20000)
+      // Avoid matches with less than 20 seconds.
       return this.message.channel.send(
         'Please specify a time greater than 20 seconds.'
       )
@@ -75,13 +77,14 @@ module.exports.GameService = class GameService {
 
   async startNewRound(guild, voicech) {
     if (this.time > 60000) {
+      // Often, some themes do not have enough time that the user has specified (like more than 1 minute), so we will let you know!
       this.message.channel.send(
         '**WARNING:** Perhaps the openings are not big enough for this specified time, if that happens, it will end and you will need to wait for the round to end.'
       )
     }
 
     const theme = await this.getTheme(guild.provider)
-    if (theme === 'offline') return
+    if (theme === 'offline') return // We will not let a game start if Ritsu needs the server provider to be online and in this case, he is offline.
     if (!theme)
       return this.message.channel.send(
         "I couldn't find an anime corresponding to that year."
@@ -89,7 +92,7 @@ module.exports.GameService = class GameService {
     const { answser, link, type, warning } = theme
     guild.rolling = true
     await guild.save()
-    const room = await this.roomHandler(answser)
+    const room = await this.roomHandler(answser) // Create a new Room ^w^
 
     this.message.channel.send(
       `Starting the #${
@@ -103,6 +106,7 @@ module.exports.GameService = class GameService {
 
     console.log(warning)
     if (this.year != 'random') {
+      // So far, openings.moe has not allowed a native filter for years, so if the server provider is openings.moe, we will send a notice if the user has specified a year.
       if (guild.provider === 'openingsmoe') {
         this.message.channel.send(`**WARNING:** ${warning}`)
       }
@@ -133,6 +137,7 @@ module.exports.GameService = class GameService {
           return (u.id = msg.author.id)
         })
         if (leader === undefined) {
+          // If the user is not on the leaderboard, we will add him!
           room.leaderboard.push({ id: msg.author.id })
         }
         await room.save()
@@ -164,7 +169,7 @@ module.exports.GameService = class GameService {
         this.bumpScore(id)
       })
 
-      const embed = EmbedGen(answser, type, animeData)
+      const embed = EmbedGen(answser, type, animeData) // Time to generate the final embed of the round.
 
       this.message.channel.send('The answser is...', { embed })
       this.message.channel.send(
@@ -176,6 +181,7 @@ module.exports.GameService = class GameService {
       )
 
       if (room.currentRound >= this.rounds) {
+        // If there are no rounds left, end the game.
         await this.clear()
         this.finish(voicech, room)
       } else {
@@ -195,11 +201,12 @@ module.exports.GameService = class GameService {
   async finish(voicech, room) {
     const userService = new UserService()
     voicech.members.each(async (u) => {
+      // Let's update the number of games played by everyone who was on the voice channel!
       userService.updatePlayed(u.id)
     })
     await voicech.leave()
     const winner = await this.getWinner(room)
-    userService.updateEarnings(winner.id)
+    userService.updateEarnings(winner.id) // Update the number of won matches by the winner of the game.
     if (winner) {
       this.message.channel.send(`<@${winner.id}> is the winner of this match!`)
     } else {
@@ -243,7 +250,7 @@ module.exports.GameService = class GameService {
         return 'offline'
       }
       randomTheme = await themeService.getThemeFromYear(this.year)
-      if (!randomTheme || randomTheme === undefined) return false
+      if (!randomTheme || randomTheme === undefined) return false // If you don't have an anime that year, it returns false.
     } else {
       const status = await getProviderStatus(provider)
       if (status) {
@@ -278,6 +285,7 @@ module.exports.GameService = class GameService {
   async roomHandler(answser) {
     let room = await Rooms.findById(this.message.guild.id)
     if (!room) {
+      // If you don't already have a room, create one.
       room = await this.createRoom(answser)
       room.currentRound++
       await room.save()
@@ -297,6 +305,7 @@ module.exports.GameService = class GameService {
 
   getWinner(room) {
     const highestValue = Math.max.apply(
+      // (Small hack) Let's get the highest score!
       Math,
       room.leaderboard.map((score) => {
         return score.score
@@ -304,6 +313,7 @@ module.exports.GameService = class GameService {
     )
     if (room.leaderboard.length === 0) return false
     const highestUser = room.leaderboard.find((u) => {
+      // Find a user with the highest score.
       return (u.score = highestValue)
     })
     return highestUser
@@ -349,6 +359,7 @@ module.exports.GameService = class GameService {
       .toLowerCase()
     let score = 0
     answsers.forEach((a) => {
+      // Let's compare all the titles!
       const similarity = stringSimilarity.compareTwoStrings(a, msg)
       score = similarity > score ? similarity : score
     })
@@ -365,9 +376,11 @@ module.exports.GameService = class GameService {
     const ans = []
     ans.push(data.title)
     if (data.englishTitle != '') {
+      // If is not empty, add to the array.
       ans.push(data.englishTitle)
     }
     if (data.synonyms[0] != '') {
+      // If is not empty, add to the array.
       data.synonyms.forEach((s) => {
         ans.push(s)
       })
@@ -404,6 +417,7 @@ module.exports.GameService = class GameService {
   async playTheme(voice, link, guild, room) {
     try {
       const response = await phin({
+        // Let's get the stream!'
         method: 'GET',
         url: link,
         stream: true,
@@ -417,7 +431,7 @@ module.exports.GameService = class GameService {
         log('Starting the Track', 'GAME_SERVICE', false, 'green')
         this.timeout = setTimeout(() => {
           dispatch.end()
-        }, this.time - 2000)
+        }, this.time - 2000) // When the time is up, finish the music. (Yes, we subtract 2 seconds to be more precise, as there is a delay for the music to end)
       })
 
       dispatch.on('error', (error) => {
@@ -428,6 +442,7 @@ module.exports.GameService = class GameService {
       this.message.channel.send(
         `A fatal error occurred while trying to catch the theme, it is likely that changing the server theme provider using the **${guild.prefix}provider** command can resolve.`
       )
+      // End the game if a fatal error occurred while playing the song.
       await this.clear()
       await this.finish(voice, room)
     }
@@ -437,7 +452,7 @@ module.exports.GameService = class GameService {
    * Create the room.
    * @async
    * @param {String} answser - The answser.
-   * @return {Document} Room
+   * @return {Promise<Document>} Room
    */
 
   async createRoom(answser) {
