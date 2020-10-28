@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 const { log } = require('../utils/Logger')
 module.exports = () => {
+  /**
+   * Connect to the MongoDB database.
+   */
+
   const connect = () => {
     mongoose
       .connect(process.env.MONGOURI, {

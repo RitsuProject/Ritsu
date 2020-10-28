@@ -1,5 +1,13 @@
 const { MessageEmbed } = require('discord.js')
 
+/**
+ * The Answser Embed generator.
+ * @param {String} answser - The answer.
+ * @param {String} type - The type.
+ * @param {Object} animeData - Details of the anime (cover, title in English, etc.)
+ * @returns {MessageEmbed} Message Embed
+ */
+
 module.exports = function EmbedGen(answser, type, animeData) {
   const embed = new MessageEmbed()
   if (type.includes('ED')) {

@@ -1,3 +1,8 @@
+/**
+ * Command structure.
+ * @class
+ */
+
 module.exports.Command = class Command {
   constructor(client, options) {
     this.client = client
