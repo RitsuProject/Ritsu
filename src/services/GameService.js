@@ -42,9 +42,9 @@ module.exports.GameService = class GameService {
 
     const voicech = this.message.member.voice.channel
     if (!voicech) {
-      const rooom = await Rooms.findById(this.message.guild.id)
-      if (rooom) {
-        await rooom.deleteOne()
+      const room_ = await Rooms.findById(this.message.guild.id)
+      if (room_) {
+        await room_.deleteOne()
         guild.rolling = false
         guild.currentChannel = null
         await guild.save()
