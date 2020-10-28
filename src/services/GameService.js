@@ -358,7 +358,7 @@ module.exports.GameService = class GameService {
   /**
    * Pick up the other titles from the same anime.
    * @param {Object} data - The details of the anime.
-   * @returns {Promise<Array>} - The titles.
+   * @returns {Promise<Array<String>>} - The titles.
    */
 
   getAnswsers(data) {
@@ -437,6 +437,7 @@ module.exports.GameService = class GameService {
    * Create the room.
    * @async
    * @param {String} answser - The answser.
+   * @return {Document} Room
    */
 
   async createRoom(answser) {
@@ -458,6 +459,7 @@ module.exports.GameService = class GameService {
    * Get the full anime data.
    * @async
    * @param {String} name - Anime Name.
+   * @return {Promise<Object>} Anime Data
    */
 
   async getAnimeDetails(name) {
