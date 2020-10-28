@@ -20,10 +20,11 @@ module.exports = class Leaderboard extends Command {
       message.author.displayAvatarURL()
     )
     embed.setColor('#7289DA')
+    // Take all users from the database of won matches and use only 10 of them.
     await Users.find()
       .sort({ wonMatches: -1 })
       .limit(10)
-      .then((results, err) => {
+      .then((results) => {
         for (const result in results) {
           let fakeResult = parseInt(result)
           const rankNumber = fakeResult + 1
