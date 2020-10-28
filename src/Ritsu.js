@@ -7,7 +7,7 @@ const { log } = require('./utils/Logger')
  * Ritsu Client
  * @class
  * @param {String} token - Discord Token
- * @param {Object} options - Client Options
+ * @param {Object} options - Client Options (such as prefix)
  */
 module.exports.Ritsu = class Ritsu extends Client {
   constructor(token, options) {
