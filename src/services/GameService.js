@@ -421,7 +421,6 @@ module.exports.GameService = class GameService {
         method: 'GET',
         url: link,
         stream: true,
-        timeout: 7000,
       })
 
       const connection = await voice.join()
