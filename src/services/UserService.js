@@ -1,6 +1,18 @@
 const { Users } = require('../models/User')
+
+/**
+ * Service responsible for actions related to users (such as updating won matches.)
+ * @class
+ */
+
 module.exports.UserService = class UserService {
   constructor() {}
+
+  /**
+   * Update the played matches.
+   * @async
+   * @param {Number} id
+   */
 
   async updatePlayed(id) {
     const user = await Users.findById(id)
@@ -12,6 +24,12 @@ module.exports.UserService = class UserService {
     }
     return true
   }
+
+  /**
+   * Update won matches.
+   * @async
+   * @param {Number} id
+   */
 
   async updateEarnings(id) {
     const user = await Users.findById(id)
@@ -28,6 +46,12 @@ module.exports.UserService = class UserService {
     }
     return true
   }
+
+  /**
+   * Responsible for dealing with ranks (how to update them if the user has reached a certain amount of games played)
+   * @param {Number} value - Won Matches
+   * @return {[Boolean|String]} If the user raises a level, it will return the level he raised, otherwise, it will return false.
+   */
 
   ranker(value) {
     if (value === 10) {

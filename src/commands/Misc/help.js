@@ -26,6 +26,7 @@ module.exports = class Help extends Command {
   }
 
   getCommands(prefix) {
+    // Get all the commands and format them using the server prefix.
     return this.client.commands
       .filter((c) => !c.dev)
       .map(

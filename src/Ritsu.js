@@ -2,6 +2,13 @@ const { Client, Collection } = require('discord.js')
 const { readdir } = require('fs')
 const connect = require('./db')
 const { log } = require('./utils/Logger')
+
+/**
+ * Ritsu Client
+ * @class
+ * @param {String} token - Discord Token
+ * @param {Object} options - Client Options (such as prefix)
+ */
 module.exports.Ritsu = class Ritsu extends Client {
   constructor(token, options) {
     super(token)
@@ -24,6 +31,7 @@ module.exports.Ritsu = class Ritsu extends Client {
     connect()
 
     process.on('SIGTERM', () => {
+      // Destroy the client when the signal that Heroku usually sends at the end of the process, so that the bot will exit all voice channels.
       this.destroy()
       process.exit(0)
     })

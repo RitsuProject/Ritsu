@@ -16,17 +16,17 @@ module.exports = class Eval extends Command {
   async run({ message, args }) {
     const server = args[0]
     const status = args[1]
-    const _server = await Servers.findById('status')
+    const server_ = await Servers.findById('status')
 
     switch (server) {
       case 'animethemes': {
-        _server.animethemes = status
-        _server.save()
+        server_.animethemes = status
+        server_.save()
         break
       }
       case 'openingsmoe': {
-        _server.openingsmoe = status
-        _server.save()
+        server_.openingsmoe = status
+        server_.save()
         break
       }
     }
