@@ -13,7 +13,7 @@ const phin = require('phin')
 module.exports = async function getProviderStatus(provider) {
   const statusRes = await phin({
     method: 'GET',
-    url: 'https://ritsuapi.herokuapp.com/themes/status',
+    url: `${process.env.API_URL}/themes/status`,
     parse: 'json',
   })
   if (provider === 'animethemes') {

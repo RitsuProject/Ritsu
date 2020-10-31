@@ -17,7 +17,7 @@ module.exports = function EmbedGen(answser, type, animeData) {
   }
   if (animeData !== undefined) {
     embed.setImage(
-      `http://ritsuapi.herokuapp.com/image/answser?name=${encodeURI(
+      `${process.env.API_URL}/image/answser?name=${encodeURI(
         animeData.englishTitle
       )}&cover=${animeData.picture}&type=${type}`
     )

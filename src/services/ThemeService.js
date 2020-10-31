@@ -20,7 +20,7 @@ module.exports.ThemeService = class ThemeService {
     log('Getting random theme...', 'THEME_SERVICE', false, 'green')
     const random = await p({
       method: 'GET',
-      url: `https://ritsuapi.herokuapp.com/themes/random?provider=${provider}`,
+      url: `${process.env.API_URL}/themes/random?provider=${provider}`,
       parse: 'json',
     })
 
@@ -47,7 +47,7 @@ module.exports.ThemeService = class ThemeService {
     log(`Getting random theme from ${year}...`, 'THEME_SERVICE', false, 'green')
     const random = await p({
       method: 'GET',
-      url: `https://ritsuapi.herokuapp.com/themes/random/year?year=${year}`,
+      url: `${process.env.API_URL}/themes/random/year?year=${year}`,
       parse: 'json',
     })
 
