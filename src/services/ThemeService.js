@@ -13,7 +13,7 @@ module.exports.ThemeService = class ThemeService {
    * Catch a random theme.
    * @async
    * @param {String} provider - AnimeThemes or Openings.moe (openingsmoe)
-   * @return {Object} Theme Data
+   * @return {Promise<Object>} Theme Data
    */
 
   async getRandomTheme(provider) {
@@ -24,11 +24,15 @@ module.exports.ThemeService = class ThemeService {
       parse: 'json',
     })
 
-    return {
-      name: random.body.name,
-      link: random.body.link,
-      type: random.body.type,
-      full: random.body.full,
+    if (random.statusCode === 200) {
+      return {
+        name: random.body.name,
+        link: random.body.link,
+        type: random.body.type,
+        full: random.body.full,
+      }
+    } else {
+      throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
     }
   }
 
@@ -47,17 +51,16 @@ module.exports.ThemeService = class ThemeService {
       parse: 'json',
     })
 
-    if (random.body.err) {
-      // If the API returned an error, return false.
-      return false
-    }
-
-    return {
-      name: random.body.name,
-      link: random.body.link,
-      type: random.body.type,
-      warning: random.body.warning,
-      full: random.body.full,
+    if (random.statusCode === 200) {
+      return {
+        name: random.body.name,
+        link: random.body.link,
+        type: random.body.type,
+        warning: random.body.warning,
+        full: random.body.full,
+      }
+    } else {
+      throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
     }
   }
 }

@@ -65,7 +65,12 @@ module.exports.GameService = class GameService {
         'Please specify a time greater than 20 seconds.'
       )
 
-    this.startNewRound(guild, voicech)
+    this.startNewRound(guild, voicech).catch((e) => {
+      log(e, 'GAME_SERVICE', true)
+      this.message.channel.send(
+        `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\``
+      )
+    })
   }
 
   /**
@@ -161,7 +166,7 @@ module.exports.GameService = class GameService {
         log('The match was ended by force.', 'GAME_SERVICE', false, 'green')
         this.message.channel.send('This match was ended by force.')
         await this.clear()
-        this.finish(voicech, room)
+        this.finish(voicech, room, true)
         return
       }
 
@@ -196,23 +201,28 @@ module.exports.GameService = class GameService {
    * Finish a game.
    * @param {VoiceChannel} voicech - The voice channel which game will end.
    * @param {Document} room - The room.
+   * @param {Boolean} force - Force Finished?
    */
 
-  async finish(voicech, room) {
+  async finish(voicech, room, force) {
     const userService = new UserService()
-    voicech.members.each(async (u) => {
-      // Let's update the number of games played by everyone who was on the voice channel!
-      userService.updatePlayed(u.id)
-    })
-    await voicech.leave()
-    const winner = await this.getWinner(room)
-    userService.updateEarnings(winner.id) // Update the number of won matches by the winner of the game.
-    if (winner) {
-      this.message.channel.send(`<@${winner.id}> is the winner of this match!`)
-    } else {
-      this.message.channel.send('Nobody won this match.')
+    if (!force) {
+      voicech.members.each(async (u) => {
+        // Let's update the number of games played by everyone who was on the voice channel!
+        userService.updatePlayed(u.id)
+      })
+      const winner = await this.getWinner(room)
+      userService.updateEarnings(winner.id) // Update the number of won matches by the winner of the game.
+      if (winner) {
+        this.message.channel.send(
+          `<@${winner.id}> is the winner of this match!`
+        )
+      } else {
+        this.message.channel.send('Nobody won this match.')
+      }
+      this.message.channel.send('All rounds are over! I hope you guys had fun.')
     }
-    this.message.channel.send('All rounds are over! I hope you guys had fun.')
+    await voicech.leave()
   }
 
   /**
@@ -415,36 +425,27 @@ module.exports.GameService = class GameService {
    */
 
   async playTheme(voice, link, guild, room) {
-    try {
-      const response = await phin({
-        // Let's get the stream!'
-        method: 'GET',
-        url: link,
-        stream: true,
-      })
+    const response = await phin({
+      // Let's get the stream!'
+      method: 'GET',
+      url: link,
+      stream: true,
+    })
 
-      const connection = await voice.join()
-      const dispatch = await connection.play(response.stream)
+    const connection = await voice.join()
+    const dispatch = connection.play(response.stream)
 
-      dispatch.on('start', () => {
-        log('Starting the Track', 'GAME_SERVICE', false, 'green')
-        this.timeout = setTimeout(() => {
-          dispatch.end()
-        }, this.time - 2000) // When the time is up, finish the music. (Yes, we subtract 2 seconds to be more precise, as there is a delay for the music to end)
-      })
+    dispatch.on('start', () => {
+      log('Starting the Track', 'GAME_SERVICE', false, 'green')
+      this.timeout = setTimeout(() => {
+        dispatch.end()
+      }, this.time - 2000) // When the time is up, finish the music. (Yes, we subtract 2 seconds to be more precise, as there is a delay for the music to end)
+    })
 
-      dispatch.on('error', (error) => {
-        console.log(error)
-      })
-    } catch (e) {
-      console.log(e)
-      this.message.channel.send(
-        `A fatal error occurred while trying to catch the theme, it is likely that changing the server theme provider using the **${guild.prefix}provider** command can resolve.`
-      )
-      // End the game if a fatal error occurred while playing the song.
-      await this.clear()
-      await this.finish(voice, room)
-    }
+    dispatch.on('error', (error) => {
+      console.log(error)
+      throw error
+    })
   }
 
   /**
