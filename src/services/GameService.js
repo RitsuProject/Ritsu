@@ -10,6 +10,7 @@ const phin = require('phin')
 const EmbedGen = require('../utils/EmbedGen')
 const getProviderStatus = require('../utils/getProviderStatus')
 const { Message, VoiceChannel } = require('discord.js')
+const { HostHandler } = require('../handlers/HostHandler')
 
 /**
  * Game Service
@@ -108,14 +109,6 @@ module.exports.GameService = class GameService {
         guild.prefix
       }stop** in the chat if you want to stop the match.`
     )
-
-    console.log(warning)
-    if (this.year != 'random') {
-      // So far, openings.moe has not allowed a native filter for years, so if the server provider is openings.moe, we will send a notice if the user has specified a year.
-      if (guild.provider === 'openingsmoe') {
-        this.message.channel.send(`**WARNING:** ${warning}`)
-      }
-    }
 
     /* console.log(answser)
     console.log(link) */
@@ -245,33 +238,29 @@ module.exports.GameService = class GameService {
    * @returns {(String|Promise<Object>|Boolean)} If the provider is offline, it will return false or a string containing "offline", if not, it will return an object with the theme data.
    */
 
-  async getTheme(provider) {
+  async getTheme() {
     const themeService = new ThemeService()
     let randomTheme
 
     const loading = await this.message.channel.send(`\`Getting the theme...\``)
 
     if (this.year != 'random') {
-      const status = await getProviderStatus(provider)
-      if (status) {
-        this.message.channel.send(
-          `\`The host openings that are selected as default on your server are offline, canceling the match...\``
-        )
-        return 'offline'
+      const status = await getProviderStatus('animethemes')
+      if (!status) {
+        throw "Oopsie! I can't use year filters at the moment, so unfortunately, you'll need to play with random openings / ending."
       }
       randomTheme = await themeService.getThemeFromYear(this.year)
       if (!randomTheme || randomTheme === undefined) return false // If you don't have an anime that year, it returns false.
     } else {
+      const hostHandler = new HostHandler()
+      const provider = hostHandler.getProvider()
       const status = await getProviderStatus(provider)
       if (status) {
-        this.message.channel.send(
-          `\`The host openings that are selected as default on your server are offline, I will be switching to another one, if you don't want to see this error change your provider using provider command. (Current: ${provider})\``
-        )
+        randomTheme = await themeService.getRandomTheme(provider)
+      } else {
         randomTheme = await themeService.getRandomTheme(
           `${provider === 'animethemes' ? 'openingsmoe' : 'animethemes'}`
         )
-      } else {
-        randomTheme = await themeService.getRandomTheme(provider)
       }
     }
     const answser = randomTheme.name
