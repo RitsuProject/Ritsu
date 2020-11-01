@@ -18,7 +18,7 @@ module.exports = function EmbedGen(answser, type, animeData) {
   if (animeData !== undefined) {
     embed.setImage(
       `${process.env.API_URL}/image/answser?name=${encodeURI(
-        animeData.englishTitle
+        animeData.englishTitle ? animeData.englishTitle : answser
       )}&cover=${animeData.picture}&type=${type}`
     )
   } else {

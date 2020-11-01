@@ -59,8 +59,9 @@ module.exports.ThemeService = class ThemeService {
         warning: random.body.warning,
         full: random.body.full,
       }
-    } else {
-      throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
+    } else if (random.body.err === 'no_anime') {
+      return false
     }
+    throw `The aliens attacked my API and it returned an error code! | Code: ${random.statusCode}`
   }
 }
