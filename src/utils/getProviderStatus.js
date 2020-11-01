@@ -18,15 +18,15 @@ module.exports = async function getProviderStatus(provider) {
   })
   if (provider === 'animethemes') {
     if (statusRes.body.animethemes === 'offline') {
-      return true
-    } else {
       return false
+    } else {
+      return true
     }
   } else if (provider === 'openingsmoe') {
     if (statusRes.body.openingsmoe === 'offline') {
-      return true
-    } else {
       return false
+    } else {
+      return true
     }
   }
 }
