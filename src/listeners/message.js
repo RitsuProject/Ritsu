@@ -12,6 +12,7 @@ module.exports = class Message {
     const user = await Users.findById(message.author.id)
     const guild = await Guilds.findById(message.guild.id)
     if (!user) {
+      // Create a user in the database
       new Users({
         _id: message.author.id,
         name: message.author.tag,
@@ -38,8 +39,7 @@ module.exports = class Message {
       this.client.commands.get(this.client.aliases.get(command))
     if (!fancyCommand) return
     const requiredPermissions = fancyCommand.requiredPermissions
-    if (message.channel.type === 'dm')
-      return message.reply('Você não pode executar comandos na DM.')
+    if (message.channel.type === 'dm') return
 
     if (fancyCommand.dev === true) {
       if (!this.client.owners.includes(message.author.id)) {
@@ -63,7 +63,7 @@ module.exports = class Message {
     } catch (e) {
       log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)
       message.reply(
-        `Parece que um erro fatal ocorreu, envie uma print dessa mensagem para <@326123612153053184>\n\`${e.stack}\``
+        `Oopsie! A fatal error, report this to <@326123612153053184>\n\`${e.stack}\``
       )
     }
   }

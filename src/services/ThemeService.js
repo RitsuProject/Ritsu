@@ -17,7 +17,6 @@ module.exports.ThemeService = class ThemeService {
    */
 
   async getRandomTheme(provider) {
-    log('Getting random theme...', 'THEME_SERVICE', false, 'green')
     const random = await p({
       method: 'GET',
       url: `${process.env.API_URL}/themes/random?provider=${provider}`,
@@ -44,7 +43,6 @@ module.exports.ThemeService = class ThemeService {
    */
 
   async getThemeFromYear(year) {
-    log(`Getting random theme from ${year}...`, 'THEME_SERVICE', false, 'green')
     const random = await p({
       method: 'GET',
       url: `${process.env.API_URL}/themes/random/year?year=${year}`,
@@ -56,7 +54,6 @@ module.exports.ThemeService = class ThemeService {
         name: random.body.name,
         link: random.body.link,
         type: random.body.type,
-        warning: random.body.warning,
         full: random.body.full,
       }
     } else if (random.body.err === 'no_anime') {

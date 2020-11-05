@@ -67,7 +67,7 @@ module.exports.GameService = class GameService {
       )
 
     this.startNewRound(guild, voicech).catch((e) => {
-      log(e, 'GAME_SERVICE', true)
+      log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
       this.message.channel.send(
         `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\``
       )
@@ -90,12 +90,27 @@ module.exports.GameService = class GameService {
     }
 
     const theme = await this.getTheme(guild.provider)
-    if (theme === 'offline') return // We will not let a game start if Ritsu needs the server provider to be online and in this case, he is offline.
     if (!theme)
       return this.message.channel.send(
         "I couldn't find an anime corresponding to that year."
       )
-    const { answser, link, type, warning } = theme
+    const { answser, link, type } = theme
+
+    const loading = await this.message.channel.send(
+      `\`Waiting for the stream... (It may take a few seconds.)\``
+    )
+    const response = await phin({
+      // Let's get the stream!'
+      method: 'GET',
+      url: link,
+      stream: true,
+      timeout: 15000,
+    }).catch(() => {
+      loading.delete()
+      throw 'Uh, sometahing happened when trying to get the stream, if that seems strange, report it on the support server or just wait a few seconds.'
+    })
+    loading.delete()
+
     guild.rolling = true
     await guild.save()
     const room = await this.roomHandler(answser) // Create a new Room ^w^
@@ -156,7 +171,12 @@ module.exports.GameService = class GameService {
 
     answserCollector.on('end', async (_, reason) => {
       if (reason === 'forceFinished') {
-        log('The match was ended by force.', 'GAME_SERVICE', false, 'green')
+        log(
+          `GUILD -> ${guild._id} | The match was ended by force.`,
+          'GAME_SERVICE',
+          true,
+          'green'
+        )
         this.message.channel.send('This match was ended by force.')
         await this.clear()
         this.finish(voicech, room, true)
@@ -183,11 +203,16 @@ module.exports.GameService = class GameService {
         await this.clear()
         this.finish(voicech, room)
       } else {
-        await this.startNewRound(guild, voicech)
+        await this.startNewRound(guild, voicech).catch((e) => {
+          log(`GUILD -> ${this.message.guild.id} | ${e}`, 'GAME_SERVICE', true)
+          this.message.channel.send(
+            `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\``
+          )
+        })
       }
     })
 
-    this.playTheme(voicech, link, guild, room)
+    this.playTheme(voicech, response.stream, guild, room)
   }
 
   /**
@@ -269,7 +294,6 @@ module.exports.GameService = class GameService {
       answser: answser,
       link: randomTheme.link,
       type: randomTheme.type,
-      warning: `${randomTheme.warning ? randomTheme.warning : 'none'}`,
     }
   }
 
@@ -384,7 +408,7 @@ module.exports.GameService = class GameService {
         ans.push(s)
       })
     }
-    console.log(ans)
+    // console.log(ans)
     return ans
   }
 
@@ -410,22 +434,19 @@ module.exports.GameService = class GameService {
    * @param {VoiceChannel} voice - Voice Channel
    * @param {String} link - Webm URL
    * @param {Document} guild - The server to which the round belongs.
-   * @param {Document} room - The room to which the round belongs.
    */
 
-  async playTheme(voice, link, guild, room) {
-    const response = await phin({
-      // Let's get the stream!'
-      method: 'GET',
-      url: link,
-      stream: true,
-    })
-
+  async playTheme(voice, stream, guild, room) {
     const connection = await voice.join()
-    const dispatch = connection.play(response.stream)
+    const dispatch = connection.play(stream)
 
     dispatch.on('start', () => {
-      log('Starting the Track', 'GAME_SERVICE', false, 'green')
+      log(
+        `GUILD -> ${guild._id} | Starting the Track`,
+        'GAME_SERVICE',
+        false,
+        'green'
+      )
       this.timeout = setTimeout(() => {
         dispatch.end()
       }, this.time - 2000) // When the time is up, finish the music. (Yes, we subtract 2 seconds to be more precise, as there is a delay for the music to end)
