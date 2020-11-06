@@ -208,6 +208,8 @@ module.exports.GameService = class GameService {
           this.message.channel.send(
             `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\``
           )
+          await this.clear()
+          await this.finish(voicech, room, true)
         })
       }
     })
