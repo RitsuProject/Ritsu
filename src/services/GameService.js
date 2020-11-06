@@ -203,7 +203,7 @@ module.exports.GameService = class GameService {
         await this.clear()
         this.finish(voicech, room)
       } else {
-        await this.startNewRound(guild, voicech).catch((e) => {
+        await this.startNewRound(guild, voicech).catch(async (e) => {
           log(`GUILD -> ${this.message.guild.id} | ${e}`, 'GAME_SERVICE', true)
           this.message.channel.send(
             `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\``
