@@ -2,6 +2,7 @@ const { Client, Collection } = require('discord.js')
 const { readdir } = require('fs')
 const connect = require('./db')
 const { log } = require('./utils/Logger')
+const dbl = require('dblapi.js')
 
 /**
  * Ritsu Client
@@ -35,6 +36,12 @@ module.exports.Ritsu = class Ritsu extends Client {
       this.destroy()
       process.exit(0)
     })
+
+    // top.gg Post Server Count
+
+    if (process.env.VERSION === 'production') {
+      new dbl(process.env.DBL_TOKEN, this)
+    }
 
     this.login(this.token).then(() => {
       log('Logged', 'MAIN', false)
