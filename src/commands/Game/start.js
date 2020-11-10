@@ -41,6 +41,7 @@ module.exports = class Start extends Command {
 
     const gameService = new GameService(message, {
       year: `${year ? year : 'random'}`,
+      mode: year,
       rounds: `${rounds ? rounds : '3'}`,
       time: `${time ? timeParsed : '30000'}`,
       realTime: `${time ? time : '30s'}`,

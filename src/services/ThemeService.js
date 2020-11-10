@@ -9,56 +9,92 @@ const { log } = require('../utils/Logger')
 module.exports.ThemeService = class ThemeService {
   constructor() {}
 
-  /**
-   * Catch a random theme.
-   * @async
-   * @param {String} provider - AnimeThemes or Openings.moe (openingsmoe)
-   * @return {Promise<Object>} Theme Data
-   */
+  async getAnimeByMode(provider, mode) {
+    console.log(mode)
+    switch (mode) {
+      case 'easy': {
+        const randomPage = Math.floor(Math.random() * (60 - 1)) + 1
+        const rank = await p({
+          method: 'GET',
+          url: `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`,
+          parse: 'json',
+        })
 
-  async getRandomTheme(provider) {
-    const random = await p({
-      method: 'GET',
-      url: `${process.env.API_URL}/themes/random?provider=${provider}`,
-      parse: 'json',
-    })
+        const animes = rank.body.top
+        const anime = animes[Math.floor(Math.random() * animes.length)]
 
-    if (random.statusCode === 200) {
-      return {
-        name: random.body.name,
-        link: random.body.link,
-        type: random.body.type,
-        full: random.body.full,
+        const search = await p({
+          method: 'GET',
+          url: `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`,
+          parse: 'json',
+        })
+        console.log(search.body)
+        console.log(anime.title)
+        console.log(provider)
+        if (search.statusCode === 200) {
+          return {
+            name: search.body.name,
+            link: search.body.link,
+            type: search.body.type,
+            full: search.body.full,
+          }
+        } else if (search.body.err === 'no_anime') {
+          return false
+        }
+        break
       }
-    } else {
-      throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
-    }
-  }
+      case 'normal': {
+        const random = await p({
+          method: 'GET',
+          url: `${process.env.API_URL}/themes/random?provider=${provider}`,
+          parse: 'json',
+        })
 
-  /**
-   * Take a random theme from a specific year.
-   * @async
-   * @param {Number} year - Year
-   * @return {[Object|Boolean]} Theme Data
-   */
-
-  async getThemeFromYear(year) {
-    const random = await p({
-      method: 'GET',
-      url: `${process.env.API_URL}/themes/random/year?year=${year}`,
-      parse: 'json',
-    })
-
-    if (random.statusCode === 200) {
-      return {
-        name: random.body.name,
-        link: random.body.link,
-        type: random.body.type,
-        full: random.body.full,
+        if (random.statusCode === 200) {
+          return {
+            name: random.body.name,
+            link: random.body.link,
+            type: random.body.type,
+            full: random.body.full,
+          }
+        } else {
+          throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
+        }
       }
-    } else if (random.body.err === 'no_anime') {
-      return false
+      case 'hard': {
+        const hardYears = [
+          '2000',
+          '2001',
+          '2002',
+          '2003',
+          '2004',
+          '2005',
+          '2006',
+          '2007',
+          '2008',
+          '2009',
+          '2010',
+        ]
+
+        const year = hardYears[Math.floor(Math.random() * hardYears.length)]
+
+        const search = await p({
+          method: 'GET',
+          url: `${process.env.API_URL}/themes/random/year?year=${year}`,
+          parse: 'json',
+        })
+        if (search.statusCode === 200) {
+          return {
+            name: search.body.name,
+            link: search.body.link,
+            type: search.body.type,
+            full: search.body.full,
+          }
+        } else if (search.body.err === 'no_anime') {
+          return false
+        }
+        break
+      }
     }
-    throw `The aliens attacked my API and it returned an error code! | Code: ${random.statusCode}`
   }
 }
