@@ -3,6 +3,7 @@ const { GameService } = require('../../services/GameService')
 const { Command } = require('../../structures/Command')
 
 const parse = require('parse-duration')
+const { RoundConfigHandler } = require('../../handlers/RoundConfigHandler')
 
 module.exports = class Start extends Command {
   constructor(client) {
@@ -26,25 +27,21 @@ module.exports = class Start extends Command {
         'There is already a match running on a voice channel on that server.'
       )
 
-    const rounds = args[1]
-    const year = args[0]
-    const time = args[2]
-    let timeParsed
-    if (time) {
-      timeParsed = parse(time)
-    }
-
-    if (rounds > 10)
-      return message.channel.send(
-        'You can only start a game with a maximum of 10 rounds!'
-      )
+    // Get the user configuration.
+    const roundConfig = new RoundConfigHandler(message)
+    const mode = await roundConfig.getDifficulty()
+    if (typeof mode !== 'string') return
+    const rounds = await roundConfig.getRounds()
+    if (typeof rounds !== 'number') return
+    const time = await roundConfig.getDuration()
+    console.log(typeof time)
+    if (typeof time !== 'object') return
 
     const gameService = new GameService(message, {
-      year: `${year ? year : 'random'}`,
-      mode: year,
-      rounds: `${rounds ? rounds : '3'}`,
-      time: `${time ? timeParsed : '30000'}`,
-      realTime: `${time ? time : '30s'}`,
+      mode: mode,
+      rounds: rounds,
+      time: time.parsed,
+      realTime: time.value,
     })
     gameService.init()
   }

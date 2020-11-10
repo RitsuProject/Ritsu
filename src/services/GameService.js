@@ -25,7 +25,6 @@ const { HostHandler } = require('../handlers/HostHandler')
 module.exports.GameService = class GameService {
   constructor(message, options = {}) {
     this.message = message
-    this.year = options.year || null
     this.mode = options.mode || 'normal'
     this.rounds = options.rounds || 3
 
@@ -118,13 +117,7 @@ module.exports.GameService = class GameService {
     const room = await this.roomHandler(answser) // Create a new Room ^w^
 
     this.message.channel.send(
-      `Starting the #${
-        room.currentRound
-      } round! What is the anime for this Ending / Opening theme ${
-        this.year === 'random' ? '' : `from ${this.year}`
-      }? Send in chat the answer! You have ${this.realTime}.\nSend **${
-        guild.prefix
-      }stop** in the chat if you want to stop the match.`
+      `Starting the #${room.currentRound} round! What is the anime for this Ending / Opening theme? Send in chat the answer! You have ${this.realTime}.\nSend **${guild.prefix}stop** in the chat if you want to stop the match.`
     )
 
     /* console.log(answser)
