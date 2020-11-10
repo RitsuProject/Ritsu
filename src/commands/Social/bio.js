@@ -11,8 +11,12 @@ module.exports = class Bio extends Command {
       dev: false,
     })
   }
-
-  async run({ message, args }) {
+  /**
+   * Run
+   * @param {Message} message
+   * @param {Array} args
+   */
+  async run(message, args) {
     const user = await Users.findById(message.author.id)
     if (!user) return
 

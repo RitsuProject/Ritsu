@@ -16,8 +16,12 @@ module.exports = class Eval extends Command {
     })
     this.client = client
   }
-
-  async run({ message, args }) {
+  /**
+   * Run
+   * @param {Message} message
+   * @param {Array} args
+   */
+  async run(message, args) {
     const code = args.slice(0).join(' ')
     try {
       let evaled = await eval(code)

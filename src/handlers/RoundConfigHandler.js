@@ -1,15 +1,21 @@
 const { Message } = require('discord.js')
 const { default: parse } = require('parse-duration')
 
+/**
+ * Round Configuration Handler
+ */
 module.exports.RoundConfigHandler = class RoundConfigHandler {
   /**
-   *
+   * Constructor
    * @param {Message} message
    */
   constructor(message) {
     this.message = message
   }
 
+  /**
+   * Get the round difficulty (easy, normal, hard)
+   */
   async getDifficulty() {
     this.message.channel.send(
       'What difficulty do you want to play? (easy, normal, hard)'
@@ -37,6 +43,9 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
 
     return m.content.toLowerCase()
   }
+  /**
+   * Get the number of rounds of the match.
+   */
   async getRounds() {
     this.message.channel.send('What is the number of rounds of the match?')
     const collector = await this.message.channel
@@ -60,6 +69,9 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       return this.message.channel.send('You can only start up to 10 rounds!')
     return int
   }
+  /**
+   * Get the duration of all the rounds.
+   */
   async getDuration() {
     this.message.channel.send(
       'What is the duration for the rounds? (Minimum: 20 seconds)'

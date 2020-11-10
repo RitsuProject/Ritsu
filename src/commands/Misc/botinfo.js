@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, Message } = require('discord.js')
 const { Rooms } = require('../../models/Room')
 const { Command } = require('../../structures/Command')
 
@@ -13,8 +13,12 @@ module.exports = class BotInfo extends Command {
     })
     this.client = client
   }
-
-  async run({ message }) {
+  /**
+   * Run
+   * @param {Message} message
+   * @param {Array} args
+   */
+  async run(message, args) {
     const matches = await Rooms.countDocuments({})
     const embed = new MessageEmbed()
       .setAuthor('Ritsu', this.client.user.displayAvatarURL())

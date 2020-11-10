@@ -2,11 +2,10 @@ const { Guilds } = require('../models/Guild')
 const { Users } = require('../models/User')
 const { log } = require('../utils/Logger')
 
-module.exports = class Message {
+module.exports = class message {
   constructor(client) {
     this.client = client
   }
-
   async run(message) {
     if (message.author.bot) return
     const user = await Users.findById(message.author.id)
@@ -58,7 +57,7 @@ module.exports = class Message {
     try {
       new Promise((resolve) => {
         // eslint-disable-line no-new
-        resolve(fancyCommand.run({ message, args, guild }))
+        resolve(fancyCommand.run(message, args, guild))
       })
     } catch (e) {
       log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)

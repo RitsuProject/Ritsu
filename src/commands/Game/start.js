@@ -1,8 +1,5 @@
-const { Guilds } = require('../../models/Guild')
-const { GameService } = require('../../services/GameService')
+const { GameService } = require('../../handlers/GameHandler')
 const { Command } = require('../../structures/Command')
-
-const parse = require('parse-duration')
 const { RoundConfigHandler } = require('../../handlers/RoundConfigHandler')
 
 module.exports = class Start extends Command {
@@ -20,8 +17,12 @@ module.exports = class Start extends Command {
       dev: false,
     })
   }
-
-  async run({ message, args, guild }) {
+  /**
+   * Run
+   * @param {Message} message
+   * @param {Array} args
+   */
+  async run(message, args, guild) {
     if (guild.rolling)
       return message.channel.send(
         'There is already a match running on a voice channel on that server.'
