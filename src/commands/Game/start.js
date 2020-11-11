@@ -9,11 +9,7 @@ module.exports = class Start extends Command {
       aliases: [],
       description: 'Start the game.',
       requiredPermissions: null,
-      fields: [
-        'OPTIONAL: year (default: random)',
-        'OPTIONAL: rounds (default: 3)',
-        'OPTIONAL: time (default: 30s)',
-      ],
+      fields: ['OPTIONAL: default (to use the default configuration)'],
       dev: false,
     })
   }
