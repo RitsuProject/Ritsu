@@ -32,25 +32,33 @@ module.exports = class Start extends Command {
       `**TIP**: If you want to stop the match configuration, send **${guild.prefix}stop**`
     )
 
-    // Get the user configuration.
-    const roundConfig = new RoundConfigHandler(message, guild)
-    const mode = await roundConfig.getGamemode()
-    if (typeof mode !== 'string') return
-    const rounds = await roundConfig.getRounds()
-    if (typeof rounds !== 'number') return
-    const time = await roundConfig.getDuration()
-    if (typeof time.parsed !== 'number') return
-    let listService
-    let listUsername
-    if (mode === 'list') {
-      listService = await roundConfig.getListService()
-      if (typeof listService !== 'string') return
-      listUsername = await roundConfig.getListUsername(listService)
-      if (typeof listUsername !== 'string') return
-    } else if (mode === 'event') {
-      message.channel.send(
-        '**WARNING**: Using this game mode, the winners will not be counted in the ranking! Learn more about game modes on my support server.'
-      )
+    // Default Configuration
+    let mode = 'normal'
+    let rounds = 3
+    let time = { parsed: 30000, value: '30s' }
+
+    if (args[0] !== 'default') {
+      // If user specified default in the command, skip configuration.
+      // Get the user configuration.
+      const roundConfig = new RoundConfigHandler(message, guild)
+      mode = await roundConfig.getGamemode()
+      if (typeof mode !== 'string') return
+      rounds = await roundConfig.getRounds()
+      if (typeof rounds !== 'number') return
+      time = await roundConfig.getDuration()
+      if (typeof time.parsed !== 'number') return
+      let listService
+      let listUsername
+      if (mode === 'list') {
+        listService = await roundConfig.getListService()
+        if (typeof listService !== 'string') return
+        listUsername = await roundConfig.getListUsername(listService)
+        if (typeof listUsername !== 'string') return
+      } else if (mode === 'event') {
+        message.channel.send(
+          '**WARNING**: Using this game mode, the winners will not be counted in the ranking! Learn more about game modes on my support server.'
+        )
+      }
     }
 
     const gameService = new GameService(message, {

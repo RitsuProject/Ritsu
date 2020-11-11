@@ -72,7 +72,7 @@ module.exports.GameService = class GameService {
     this.startNewRound(guild, voicech).catch((e) => {
       log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
       this.message.channel.send(
-        `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\n${e.stack}\``
+        `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\``
       )
     })
   }
@@ -111,7 +111,7 @@ module.exports.GameService = class GameService {
       timeout: 20000,
     }).catch(() => {
       loading.delete()
-      throw 'Uh, sometahing happened when trying to get the stream, if that seems strange, report it on the support server or just wait a few seconds.'
+      throw `It seems like it took a long time for me to finish loading the stream, maybe I'm a little slow? Please restart the game.`
     })
     loading.delete()
 
@@ -204,7 +204,7 @@ module.exports.GameService = class GameService {
         await this.startNewRound(guild, voicech).catch(async (e) => {
           log(`GUILD -> ${this.message.guild.id} | ${e}`, 'GAME_SERVICE', true)
           this.message.channel.send(
-            `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\n${e.stack}\``
+            `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\``
           )
           await this.clear()
           await this.finish(voicech, room, true)
@@ -268,7 +268,7 @@ module.exports.GameService = class GameService {
     let randomTheme
 
     const loading = await this.message.channel.send(
-      `\`Finding the right anime for the current settings... (it may take a few moments)\``
+      `\`Searching for the theme... (it may take a few moments)\``
     )
     randomTheme = await this.choose()
     const answser = randomTheme.name
