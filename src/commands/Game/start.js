@@ -28,7 +28,7 @@ module.exports = class Start extends Command {
         'There is already a match running on a voice channel on that server.'
       )
 
-    message.channel.send(
+    const tip = await message.channel.send(
       `**TIP**: If you want to stop the match configuration, send **${guild.prefix}stop**`
     )
 
@@ -47,6 +47,10 @@ module.exports = class Start extends Command {
       if (typeof listService !== 'string') return
       listUsername = await roundConfig.getListUsername(listService)
       if (typeof listUsername !== 'string') return
+    } else if (mode === 'event') {
+      message.channel.send(
+        '**WARNING**: Using this game mode, the winners will not be counted in the ranking! Learn more about game modes on my support server.'
+      )
     }
 
     const gameService = new GameService(message, {
@@ -58,5 +62,6 @@ module.exports = class Start extends Command {
       listUsername: `${mode === 'list' ? listUsername : null}`,
     })
     gameService.init()
+    tip.delete()
   }
 }

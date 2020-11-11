@@ -151,11 +151,11 @@ module.exports.GameService = class GameService {
           // If the user is not on the leaderboard, we will add him!
           room.leaderboard.push({ id: msg.author.id })
         }
-        await room.save()
         this.message.channel.send(
-          `<@${msg.author.id}> got the correct answser! Who is next?`
+          `Congratulations <@${msg.author.id}>! You got the correct answer!`
         )
         await msg.delete()
+        await room.save()
       }
     })
 
@@ -225,12 +225,14 @@ module.exports.GameService = class GameService {
   async finish(voicech, room, force) {
     const userService = new UserService()
     if (!force) {
-      voicech.members.each(async (u) => {
-        // Let's update the number of games played by everyone who was on the voice channel!
-        userService.updatePlayed(u.id)
-      })
       const winner = await this.getWinner(room)
-      userService.updateEarnings(winner.id) // Update the number of won matches by the winner of the game.
+      if (this.mode != 'event') {
+        voicech.members.each(async (u) => {
+          // Let's update the number of games played by everyone who was on the voice channel!
+          userService.updatePlayed(u.id)
+        })
+        userService.updateEarnings(winner.id) // Update the number of won matches by the winner of the game.
+      }
       if (winner) {
         this.message.channel.send(
           `<@${winner.id}> is the winner of this match!`

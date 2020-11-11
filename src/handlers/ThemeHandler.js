@@ -12,6 +12,7 @@ module.exports.ThemeService = class ThemeService {
 
   async getAnimeByMode(provider, mode, listService, listUsername) {
     switch (mode) {
+      case 'event':
       case 'easy': {
         const randomPage = Math.floor(Math.random() * (60 - 1)) + 1
         const rank = await p({

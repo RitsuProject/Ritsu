@@ -18,11 +18,11 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
   }
 
   /**
-   * Get the round gamemode (easy, normal, hard)
+   * Get the round gamemode (easy, normal, hard, list, event)
    */
   async getGamemode() {
-    this.message.channel.send(
-      'What mode do you want to play? (easy, normal, hard, list)'
+    const primary = await this.message.channel.send(
+      'What mode do you want to play? (easy, normal, hard, list, event)'
     )
     const collector = await this.message.channel
       .awaitMessages((m) => m.author.id === this.message.author.id, {
@@ -42,12 +42,15 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       m.content.toLowerCase() === 'easy' ||
       m.content.toLowerCase() === 'normal' ||
       m.content.toLowerCase() === 'hard' ||
-      m.content.toLowerCase() === 'list'
+      m.content.toLowerCase() === 'list' ||
+      m.content.toLowerCase() === 'event'
     ) {
+      await primary.delete()
+      await m.delete()
       return m.content.toLowerCase()
     } else {
       return this.message.channel.send(
-        'This does not seem like a valid difficulty. Canceling...'
+        'This does not seem like a valid mode. Canceling...'
       )
     }
   }
@@ -55,7 +58,9 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
    * Get the number of rounds of the match.
    */
   async getRounds() {
-    this.message.channel.send('What is the number of rounds of the match?')
+    const primary = await this.message.channel.send(
+      'What is the number of rounds of the match?'
+    )
     const collector = await this.message.channel
       .awaitMessages((m) => m.author.id === this.message.author.id, {
         max: 1,
@@ -79,13 +84,15 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       return this.message.channel.send(
         'You can only start up to 10 rounds! Canceling...'
       )
+    await primary.delete()
+    await m.delete()
     return int
   }
   /**
    * Get the duration of all the rounds.
    */
   async getDuration() {
-    this.message.channel.send(
+    const primary = await this.message.channel.send(
       'What is the duration for the rounds? (Minimum: 20 seconds)'
     )
     const collector = await this.message.channel
@@ -108,6 +115,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
         return this.message.channel.send(
           'The minimum time is 20 seconds! Please enter a higher value. Canceling...'
         )
+      await primary.delete()
+      await m.delete()
       return { parsed: parsed, value: m.content }
     } else {
       return this.message.channel.send(
@@ -119,7 +128,7 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
    * Get the List Service (MyAnimeList, Anilist)
    */
   async getListService() {
-    this.message.channel.send(
+    const primary = await this.message.channel.send(
       'What website is your animelist on? (Supported: MyAnimeList, Anilist)'
     )
     const collector = await this.message.channel
@@ -140,6 +149,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       m.content.toLowerCase() === 'myanimelist' ||
       m.content.toLowerCase() === 'anilist'
     ) {
+      await primary.delete()
+      await m.delete()
       if (m.content.toLowerCase() === 'myanimelist') return 'mal'
       return m.content.toLowerCase()
     } else {
@@ -153,7 +164,9 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
    * @param {String} service - Website
    */
   async getListUsername(service) {
-    this.message.channel.send('What is your username on your chosen website?')
+    const primary = await this.message.channel.send(
+      'What is your username on your chosen website?'
+    )
     const collector = await this.message.channel
       .awaitMessages((m) => m.author.id === this.message.author.id, {
         max: 1,
@@ -177,6 +190,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     }
 
     if (user) {
+      await primary.delete()
+      await m.delete()
       return m.content
     } else {
       return this.message.channel.send(
