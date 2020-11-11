@@ -11,7 +11,7 @@ module.exports.HostHandler = class HostHandler {
    * @return {String} Host
    */
   getProvider() {
-    const providers = ['openingsmoe', 'animethemes']
+    const providers = ['animethemes', 'openingsmoe']
 
     const provider = providers[Math.floor(Math.random() * providers.length)]
 

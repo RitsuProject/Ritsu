@@ -1,8 +1,8 @@
 const { Guilds } = require('../models/Guild')
-const { ThemeService } = require('./ThemeService')
+const { ThemeService } = require('./ThemeHandler')
 const { Rooms } = require('../models/Room')
 const { log } = require('../utils/Logger')
-const { UserService } = require('./UserService')
+const { UserService } = require('./UserHandler')
 
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
@@ -10,7 +10,7 @@ const phin = require('phin')
 const EmbedGen = require('../utils/EmbedGen')
 const getProviderStatus = require('../utils/getProviderStatus')
 const { Message, VoiceChannel } = require('discord.js')
-const { HostHandler } = require('../handlers/HostHandler')
+const { HostHandler } = require('./HostHandler')
 
 /**
  * Game Service
@@ -25,11 +25,14 @@ const { HostHandler } = require('../handlers/HostHandler')
 module.exports.GameService = class GameService {
   constructor(message, options = {}) {
     this.message = message
-    this.year = options.year || null
+    this.mode = options.mode || 'normal'
     this.rounds = options.rounds || 3
 
     this.time = options.time || 30000
     this.realTime = options.realTime || '30s'
+
+    this.listService = options.listService || null
+    this.listUsername = options.listUsername || null
   }
 
   /**
@@ -89,7 +92,7 @@ module.exports.GameService = class GameService {
       )
     }
 
-    const theme = await this.getTheme(guild.provider)
+    const theme = await this.getTheme()
     if (!theme)
       return this.message.channel.send(
         "I couldn't find an anime corresponding to that year."
@@ -104,10 +107,10 @@ module.exports.GameService = class GameService {
       method: 'GET',
       url: link,
       stream: true,
-      timeout: 15000,
+      timeout: 20000,
     }).catch(() => {
       loading.delete()
-      throw 'Uh, sometahing happened when trying to get the stream, if that seems strange, report it on the support server or just wait a few seconds.'
+      throw `It seems like it took a long time for me to finish loading the stream, maybe I'm a little slow? Please restart the game.`
     })
     loading.delete()
 
@@ -116,17 +119,15 @@ module.exports.GameService = class GameService {
     const room = await this.roomHandler(answser) // Create a new Room ^w^
 
     this.message.channel.send(
-      `Starting the #${
-        room.currentRound
-      } round! What is the anime for this Ending / Opening theme ${
-        this.year === 'random' ? '' : `from ${this.year}`
-      }? Send in chat the answer! You have ${this.realTime}.\nSend **${
-        guild.prefix
-      }stop** in the chat if you want to stop the match.`
+      `Starting the #${room.currentRound} round! What is the anime for this Ending / Opening theme? Send in chat the answer! You have ${this.realTime}.\nSend **${guild.prefix}stop** in the chat if you want to stop the match.`
     )
 
     /* console.log(answser)
     console.log(link) */
+
+    if (mode === 'event') {
+      this.message.author.send(`**[EVENT MODE]** The answer is: ${answser}`)
+    }
 
     const animeData = await this.getAnimeDetails(answser)
     const answsers = await this.getAnswsers(animeData)
@@ -153,11 +154,11 @@ module.exports.GameService = class GameService {
           // If the user is not on the leaderboard, we will add him!
           room.leaderboard.push({ id: msg.author.id })
         }
-        await room.save()
         this.message.channel.send(
-          `<@${msg.author.id}> got the correct answser! Who is next?`
+          `Congratulations <@${msg.author.id}>! You got the correct answer!`
         )
         await msg.delete()
+        await room.save()
       }
     })
 
@@ -227,12 +228,14 @@ module.exports.GameService = class GameService {
   async finish(voicech, room, force) {
     const userService = new UserService()
     if (!force) {
-      voicech.members.each(async (u) => {
-        // Let's update the number of games played by everyone who was on the voice channel!
-        userService.updatePlayed(u.id)
-      })
       const winner = await this.getWinner(room)
-      userService.updateEarnings(winner.id) // Update the number of won matches by the winner of the game.
+      if (this.mode != 'event') {
+        voicech.members.each(async (u) => {
+          // Let's update the number of games played by everyone who was on the voice channel!
+          userService.updatePlayed(u.id)
+        })
+        userService.updateEarnings(winner.id) // Update the number of won matches by the winner of the game.
+      }
       if (winner) {
         this.message.channel.send(
           `<@${winner.id}> is the winner of this match!`
@@ -261,41 +264,42 @@ module.exports.GameService = class GameService {
   /**
    * Get the theme.
    * @async
-   * @param {String} provider - The provider.
-   * @returns {(String|Promise<Object>|Boolean)} If the provider is offline, it will return false or a string containing "offline", if not, it will return an object with the theme data.
+   * @returns {(Promise<Object[]>|Boolean)} If the provider is offline, it will return false or a string containing "offline", if not, it will return an object with the theme data.
    */
 
   async getTheme() {
-    const themeService = new ThemeService()
     let randomTheme
 
-    const loading = await this.message.channel.send(`\`Getting the theme...\``)
-
-    if (this.year != 'random') {
-      const status = await getProviderStatus('animethemes')
-      if (!status) {
-        throw "Oopsie! I can't use year filters at the moment, so unfortunately, you'll need to play with random openings / ending."
-      }
-      randomTheme = await themeService.getThemeFromYear(this.year)
-      if (!randomTheme || randomTheme === undefined) return false // If you don't have an anime that year, it returns false.
-    } else {
-      const hostHandler = new HostHandler()
-      const provider = hostHandler.getProvider()
-      const status = await getProviderStatus(provider)
-      if (status) {
-        randomTheme = await themeService.getRandomTheme(provider)
-      } else {
-        randomTheme = await themeService.getRandomTheme(
-          `${provider === 'animethemes' ? 'openingsmoe' : 'animethemes'}`
-        )
-      }
-    }
+    const loading = await this.message.channel.send(
+      `\`Searching for the theme... (it may take a few moments)\``
+    )
+    randomTheme = await this.choose()
     const answser = randomTheme.name
     loading.delete()
     return {
       answser: answser,
       link: randomTheme.link,
       type: randomTheme.type,
+    }
+  }
+
+  async choose() {
+    const themeService = new ThemeService()
+    const hostHandler = new HostHandler()
+    let provider = hostHandler.getProvider()
+    const status = await getProviderStatus(provider)
+    const theme = await themeService.getAnimeByMode(
+      provider,
+      this.mode,
+      this.listService,
+      this.listUsername
+    )
+    if (status) {
+      if (!theme) {
+        return await this.choose()
+      } else {
+        return theme
+      }
     }
   }
 

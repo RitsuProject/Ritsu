@@ -12,8 +12,12 @@ module.exports = class Leaderboard extends Command {
       dev: false,
     })
   }
-
-  async run({ message }) {
+  /**
+   * Run
+   * @param {Message} message
+   * @param {Array} args
+   */
+  async run(message) {
     const embed = new MessageEmbed()
     embed.setAuthor(
       'Top 10 users with the most matches won.',

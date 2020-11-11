@@ -12,8 +12,12 @@ module.exports = class Profile extends Command {
       dev: false,
     })
   }
-
-  async run({ message, args }) {
+  /**
+   * Run
+   * @param {Message} message
+   * @param {Array} args
+   */
+  async run(message, args) {
     const member =
       message.mentions.users.first() ||
       this.client.users.cache.get(args[0]) ||
