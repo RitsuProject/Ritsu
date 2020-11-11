@@ -1,4 +1,5 @@
 const { MessageEmbed, Message } = require('discord.js')
+const moment = require('moment')
 const { Rooms } = require('../../models/Room')
 const { Command } = require('../../structures/Command')
 
@@ -20,10 +21,13 @@ module.exports = class BotInfo extends Command {
    */
   async run(message, args) {
     const matches = await Rooms.countDocuments({})
+    const uptime = moment.duration(this.client.uptime)
     const embed = new MessageEmbed()
       .setAuthor('Ritsu', this.client.user.displayAvatarURL())
       .setDescription(
-        `Hi! I am **Ritsu** and I am a bot based on the game **Anime Music Quiz** made with <:JavaScript:764559579153432616> **Javascript** using discord.js, your objective in the game is simple, I will play an opening or ending and you must guess what his anime is! I am on **${this.client.guilds.cache.size}** servers with **${matches}** current matches right now!`
+        `Hi! I am **Ritsu** and I am a bot based on the game **Anime Music Quiz** made with <:JavaScript:764559579153432616> **Javascript** using discord.js, your objective in the game is simple, I will play an opening or ending and you must guess what his anime is! I am on **${
+          this.client.guilds.cache.size
+        }** servers, i'm online since **${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s** and with **${matches}** current matches right now!`
       )
       .setColor('#3677e0')
       .setThumbnail('https://files.catbox.moe/d6758e.png')
@@ -39,6 +43,7 @@ module.exports = class BotInfo extends Command {
           <:github:764559500941852692> [Github](https://github.com/RitsuProject/Ritsu)
           <:Twitter:764952510674763786> [Twitter](https://twitter.com/RitsuProject)
           <:ritsuthink:764662176958906388> [Support Server](https://discord.gg/XuDysZg)
+          <:Patreon:764559661374242826> [Patreon](https://www.patreon.com/ritsubot)
           `,
           inline: true,
         },
