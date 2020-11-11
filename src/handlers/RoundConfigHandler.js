@@ -47,7 +47,7 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       return m.content.toLowerCase()
     } else {
       return this.message.channel.send(
-        'This does not seem like a valid difficulty.'
+        'This does not seem like a valid difficulty. Canceling...'
       )
     }
   }
@@ -73,10 +73,12 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     const int = parseInt(m.content)
     if (isNaN(int))
       return this.message.channel.send(
-        "That doesn't look like a number! That's weird..."
+        "That doesn't look like a number! Canceling..."
       )
     if (int > 10)
-      return this.message.channel.send('You can only start up to 10 rounds!')
+      return this.message.channel.send(
+        'You can only start up to 10 rounds! Canceling...'
+      )
     return int
   }
   /**
@@ -104,12 +106,12 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       const parsed = parse(m.content)
       if (parsed < 20000)
         return this.message.channel.send(
-          'The minimum time is 20 seconds! Please enter a higher value.'
+          'The minimum time is 20 seconds! Please enter a higher value. Canceling...'
         )
       return { parsed: parsed, value: m.content }
     } else {
       return this.message.channel.send(
-        'This does not seem to be a valid duration.'
+        'This does not seem to be a valid duration. Canceling...'
       )
     }
   }
@@ -142,7 +144,7 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       return m.content.toLowerCase()
     } else {
       return this.message.channel.send(
-        'This does not appear to be a supported website.'
+        'This does not appear to be a supported website. Canceling...'
       )
     }
   }
@@ -178,7 +180,7 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       return m.content
     } else {
       return this.message.channel.send(
-        "I didn't find this username on the website you chose!"
+        "I didn't find this username on the website you chose! Canceling..."
       )
     }
   }

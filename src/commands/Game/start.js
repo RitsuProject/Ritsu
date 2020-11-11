@@ -22,11 +22,15 @@ module.exports = class Start extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message, guild) {
+  async run(message, args, guild) {
     if (guild.rolling)
       return message.channel.send(
         'There is already a match running on a voice channel on that server.'
       )
+
+    message.channel.send(
+      `**TIP**: If you want to stop the match configuration, send **${guild.prefix}stop**`
+    )
 
     // Get the user configuration.
     const roundConfig = new RoundConfigHandler(message, guild)
