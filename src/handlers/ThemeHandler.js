@@ -3,7 +3,7 @@ const { ThemesMoeService } = require('../services/ThemesMoeService')
 const { log } = require('../utils/Logger')
 
 /**
- * Service responsible for extracting themes from Ritsu API.
+ * Service responsible for extracting themes from Ritsu API/MAL API.
  * @class
  */
 
