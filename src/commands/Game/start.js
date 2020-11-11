@@ -22,27 +22,36 @@ module.exports = class Start extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message, args, guild) {
+  async run(message, guild) {
     if (guild.rolling)
       return message.channel.send(
         'There is already a match running on a voice channel on that server.'
       )
 
     // Get the user configuration.
-    const roundConfig = new RoundConfigHandler(message)
-    const mode = await roundConfig.getDifficulty()
+    const roundConfig = new RoundConfigHandler(message, guild)
+    const mode = await roundConfig.getGamemode()
     if (typeof mode !== 'string') return
     const rounds = await roundConfig.getRounds()
     if (typeof rounds !== 'number') return
     const time = await roundConfig.getDuration()
-    console.log(typeof time)
-    if (typeof time !== 'object') return
+    if (typeof time.parsed !== 'number') return
+    let listService
+    let listUsername
+    if (mode === 'list') {
+      listService = await roundConfig.getListService()
+      if (typeof listService !== 'string') return
+      listUsername = await roundConfig.getListUsername(listService)
+      if (typeof listUsername !== 'string') return
+    }
 
     const gameService = new GameService(message, {
       mode: mode,
       rounds: rounds,
       time: time.parsed,
       realTime: time.value,
+      listService: `${mode === 'list' ? listService : null}`,
+      listUsername: `${mode === 'list' ? listUsername : null}`,
     })
     gameService.init()
   }

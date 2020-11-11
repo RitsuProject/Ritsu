@@ -30,6 +30,9 @@ module.exports.GameService = class GameService {
 
     this.time = options.time || 30000
     this.realTime = options.realTime || '30s'
+
+    this.listService = options.listService || null
+    this.listUsername = options.listUsername || null
   }
 
   /**
@@ -280,7 +283,12 @@ module.exports.GameService = class GameService {
     const hostHandler = new HostHandler()
     let provider = hostHandler.getProvider()
     const status = await getProviderStatus(provider)
-    const theme = await themeService.getAnimeByMode(provider, this.mode)
+    const theme = await themeService.getAnimeByMode(
+      provider,
+      this.mode,
+      this.listService,
+      this.listUsername
+    )
     if (status) {
       if (!theme) {
         return await this.choose()

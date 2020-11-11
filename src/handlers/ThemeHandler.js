@@ -1,4 +1,5 @@
 const p = require('phin')
+const { ThemesMoeService } = require('../services/ThemesMoeService')
 const { log } = require('../utils/Logger')
 
 /**
@@ -9,8 +10,7 @@ const { log } = require('../utils/Logger')
 module.exports.ThemeService = class ThemeService {
   constructor() {}
 
-  async getAnimeByMode(provider, mode) {
-    console.log(mode)
+  async getAnimeByMode(provider, mode, listService, listUsername) {
     switch (mode) {
       case 'easy': {
         const randomPage = Math.floor(Math.random() * (60 - 1)) + 1
@@ -28,9 +28,6 @@ module.exports.ThemeService = class ThemeService {
           url: `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`,
           parse: 'json',
         })
-        console.log(search.body)
-        console.log(anime.title)
-        console.log(provider)
         if (search.statusCode === 200) {
           return {
             name: search.body.name,
@@ -94,6 +91,25 @@ module.exports.ThemeService = class ThemeService {
           return false
         }
         break
+      }
+      case 'list': {
+        const themesMoe = new ThemesMoeService()
+        let userAnimes
+        if (listService === 'mal') {
+          userAnimes = await themesMoe.getAnimesByMal(listUsername)
+        } else if (listService === 'anilist') {
+          userAnimes = await themesMoe.getAnimesByAnilist(listUsername)
+        }
+        const anime = userAnimes[Math.floor(Math.random() * userAnimes.length)]
+        const theme =
+          anime.themes[Math.floor(Math.random() * anime.themes.length)]
+
+        return {
+          name: anime.name,
+          link: theme.mirror.mirrorURL,
+          type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
+          full: anime,
+        }
       }
     }
   }
