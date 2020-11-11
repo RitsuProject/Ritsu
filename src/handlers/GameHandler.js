@@ -102,7 +102,6 @@ module.exports.GameService = class GameService {
     const loading = await this.message.channel.send(
       `\`Waiting for the stream... (It may take a few seconds.)\``
     )
-    console.log(link)
     const response = await phin({
       // Let's get the stream!'
       method: 'GET',
@@ -125,6 +124,10 @@ module.exports.GameService = class GameService {
 
     /* console.log(answser)
     console.log(link) */
+
+    if (mode === 'event') {
+      this.message.author.send(`**[EVENT MODE]** The answer is: ${answser}`)
+    }
 
     const animeData = await this.getAnimeDetails(answser)
     const answsers = await this.getAnswsers(animeData)
