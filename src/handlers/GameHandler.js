@@ -125,7 +125,7 @@ module.exports.GameService = class GameService {
     /* console.log(answser)
     console.log(link) */
 
-    if (mode === 'event') {
+    if (this.mode === 'event') {
       this.message.author.send(`**[EVENT MODE]** The answer is: ${answser}`)
     }
 
