@@ -46,7 +46,11 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       m.content.toLowerCase() === 'event'
     ) {
       await primary.delete()
-      await m.delete()
+      await m.delete().catch(() => {
+        return this.message.channel.send(
+          'I have detected that I am without the permission of **MANAGE_MESSAGES**, without it, I cannot continue! Please give me the permission and try again to start a match.'
+        )
+      })
       return m.content.toLowerCase()
     } else {
       return this.message.channel.send(
