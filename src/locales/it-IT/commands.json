@@ -1,11 +1,6 @@
 {
   "start": {
     "helpDescription": "Inizia il gioco.",
-    "fields": {
-      "default": {
-        "helpUsage": "OPTIONAL: default (per utilizzare la configurazione di default)"
-      }
-    },
     "roundConfig": {
       "eventModeWarning": "**ATTENZIONE**: utilizzando questa modalità di gioco, i vincitori non verranno conteggiati nella classifica! Ulteriori informazioni sulle modalità di gioco sul mio server di supporto.",
       "whatMode": "In quale modalità vuoi giocare? {{modes}}",
@@ -56,5 +51,21 @@
     "helpDescription": "Cambia il prefisso del bot.",
     "noPrefix": "Devi specificare il prefisso.",
     "changedPrefix": "Il prefisso del server è stato modificato: {{newPrefix}}"
+  },
+  "lang": {
+    "helpDescription": "",
+    "embedDescription": "",
+    "languages": ""
+  },
+  "bio": {
+    "helpDescription": "",
+    "changedBio": "",
+    "noBio": ""
+  },
+  "leaderboard": {
+    "helpDescription": "",
+    "embedAuthor": "",
+    "wonMatches": "",
+    "playedMatches": ""
   }
 }
