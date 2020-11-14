@@ -1,22 +1,17 @@
 {
   "start": {
     "helpDescription": "Iniciar o jogo.",
-    "fields": {
-      "default": {
-        "helpUsage": "OPCIONAL: padrão (para usar a configuração padrão)"
-      }
-    },
     "roundConfig": {
-      "eventModeWarning": "**WARNING**: Using this game mode, the winners will not be counted in the ranking! Learn more about game modes on my support server.",
+      "eventModeWarning": "**AVISO**. Jogando nesse modo de jogo, as vitorias não vão contar no rank. Leia mais sobre os modos de jogo da Ritsu no meu servidor de suporte.",
       "whatMode": "Que modo de jogo você quer jogar?{{modes}}",
-      "expiredMatch": "O jogo expirou, por favor tente de novo.",
+      "expiredMatch": "O jogo expirou, por favor tente novamente.",
       "cancelledMatch": "Partida cancelada.",
-      "noManageMessagesPermission": "Eu detectei que eu estou sem a permisão de{{MANAGE_MESSAGES}}, sem isso, eu não posso continuar! Por favor me essa permisão e tente de novo para começar a partida.",
-      "invalidMode": "Isso não parece um modo valido. Cancelando..",
+      "noManageMessagesPermission": "Eu detectei que eu estou sem a permissão de {{MANAGE_MESSAGES}}, sem isso, eu não posso continuar! Por favor me essa permissão e tente de novo para começar a partida.",
+      "invalidMode": "Isso não parece um modo de jogo valido. Cancelando..",
       "whatRounds": "Qual são o número de rodadas desta partida?",
       "isNaN": "Isso não parece um número valido! Cancelando...",
       "roundsLimit": "O número máximo de rodadas é 10! Cancelando...",
-      "whatDuration": "Qual é a duração de para está rodada? (Mínimo: 20 segundos)",
+      "whatDuration": "Qual é a duração de para a partida? (Mínimo: 20 segundos)",
       "minimiumTime": "O tempo mínimo é 20 segundos! Por favor tente um valor igual ou maior. Cancelando...",
       "invalidDuration": "Isso não parece uma duração valida. Cancelando...",
       "whatAnimeListWebsite": "Que website está sua animelist? (Supported: {{websites}})",
@@ -25,7 +20,7 @@
       "invalidUsername": "Eu não encontrei seu username no website escolhido! Cancelando..."
     },
     "rollingMatch": "Já está ocorrendo uma partida no canal de voz nesse server.",
-    "tip": "**DICA**: Se você quer mudar a configuração destá partida, mande **{{prefix}}stop**"
+    "tip": "**DICA**: Se você quer mudar a configuração destá partida, digite **{{prefix}}stop**"
   },
   "botinfo": {
     "helpDescription": "Mostrar as informações do bot.",
@@ -36,17 +31,17 @@
     "creditsDescriptions": {
       "themes": "Para fornercer os temas para o bot tocar",
       "animemusicquiz": "Claro, a maior inspiração para este projeto",
-      "kyuuchan": "Muitas parte deste code foram inspiradas por",
+      "kyuuchan": "Muitas parte deste codig\no foram inspiradas por",
       "creators": "Ideias, desenvolvimento e muita paciência. Sem essas 3 pessoas o bot provavelmente não existiria."
     }
   },
   "help": {
     "helpDescription": "Esse comando :P",
     "available": "Comandos Acessiveis",
-    "howtoplay": "**Como jogar**: Quando usar este comando para começar o jogo, o bot irá tocar uma abertura de ou encerramento de um anime (ou se especificamente o ano dos temas no comando de começar) e quem acertar mais aberturas ou encerramentos ganhar de acordo com os rounds, ganha."
+    "howtoplay": "**Como jogar**: Quando usar este comando para começar o jogo, o bot irá tocar uma abertura de ou encerramento de um anime (ou se especificamente o ano dos temas no comando de começar) e quem acertar mais aberturas ou encerramentos de acordo com os rounds, ganha."
   },
   "invite": {
-    "helpDescription": "Me adicione no seu server!",
+    "helpDescription": "Me adicione em seu servidor!",
     "inviteMessage": "**Você pode me adicionar no seu server usando este link {{inviteUrl}}**\n\nQuer estar sempre atualizado de novos atualizações e conversar com um desenvolvedor? Entre no nosso server!\nSó olhe para o **{{prefix}}botinfo** ^w^"
   },
   "ping": {
@@ -56,5 +51,21 @@
     "helpDescription": "Mudar o prefixo do bot.",
     "noPrefix": "Você precisa especificar o prefixo.",
     "changedPrefix": "O prefixo do server foi alterado: {{newPrefix}}"
+  },
+  "lang": {
+    "helpDescription": "Escolher idioma do servidor.",
+    "embedDescription": "Use {{prefix}}lang <language> para escolher idioma.",
+    "languages": "Idiomas disponíveis"
+  },
+  "bio": {
+    "helpDescription": "Editar sua biografia.",
+    "changedBio": "A biografia de seu perfil foi atualizada.",
+    "noBio": "Você não adicionou uma nova biografia."
+  },
+  "leaderboard": {
+    "helpDescription": "Mostra a classificação global.",
+    "embedAuthor": "Os 10 usuários com mais vitorias.",
+    "wonMatches": "Partidas ganhas:",
+    "playedMatches": "Partidas jogadas:"
   }
 }
