@@ -17,19 +17,20 @@ module.exports = class Help extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message, args, guild) {
+  async run({ message, args, guild }, t) {
     const embed = new MessageEmbed()
-    embed.setTitle('Available commands')
+    embed.setTitle(t('commands:help.available'))
     embed.setColor('#3486eb')
-    embed.setDescription(
-      '**How to Play**: When using the command to start the game, the bot will play a song from a random opening or ending (or if you specify the year of the themes in the start command) and whoever can guess the anime from the largest number of openings or endings according to the rounds , wins.'
+    embed.setDescription(t('commands:help.howtoplay'))
+    embed.addField(
+      t('commands:botinfo.commands'),
+      this.getCommands(guild.prefix, t)
     )
-    embed.addField('Commands', this.getCommands(guild.prefix))
 
     message.channel.send(embed)
   }
 
-  getCommands(prefix) {
+  getCommands(prefix, t) {
     // Get all the commands and format them using the server prefix.
     return this.client.commands
       .filter((c) => !c.dev)
@@ -39,7 +40,7 @@ module.exports = class Help extends Command {
             c.fields === null
               ? ''
               : `${c.fields.map((f) => `<${f}>`).join(' ')}`
-          }\` - ${c.description}`
+          }\` - ${t(`commands:${c.name}.helpDescription`)}`
       )
       .join('\n ')
   }

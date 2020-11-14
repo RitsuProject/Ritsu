@@ -15,9 +15,12 @@ module.exports = class Invite extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message, args, guild) {
+  async run({ message, args, guild }, t) {
     message.channel.send(
-      `**You can add me to your server using this link https://sazz.fail/ritsu/invite**\n\nWant to stay on top of new updates and chat with the developers? Join to my support server! Just take a look at **${guild.prefix}botinfo** ^w^`
+      t('commands:invite.inviteMessage', {
+        inviteUrl: 'https://sazz.fail/ritsu',
+        prefix: guild.prefix,
+      })
     )
   }
 }

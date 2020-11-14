@@ -16,10 +16,12 @@ module.exports = class Prefix extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message, args, guild) {
-    if (!args[0]) return message.channel.send('You need to specify the prefix.')
+  async run({ message, args, guild }, t) {
+    if (!args[0]) return message.channel.send(t('commands:prefix.noPrefix'))
     guild.prefix = args[0]
     guild.save()
-    message.channel.send(`The server prefix has been changed: ${args[0]}`)
+    message.channel.send(
+      t('commands:prefix.changedPrefix', { newPrefix: args[0] })
+    )
   }
 }

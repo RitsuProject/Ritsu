@@ -1,3 +1,4 @@
+const i18next = require('i18next')
 const { Guilds } = require('../models/Guild')
 const { Users } = require('../models/User')
 const { log } = require('../utils/Logger')
@@ -22,6 +23,9 @@ module.exports = class message {
         admin: false,
       }).save()
     }
+
+    const t = i18next.getFixedT(guild.lang)
+
     if (
       message.content.replace(/!/g, '') ==
       message.guild.me.toString().replace(/!/g, '')
@@ -57,7 +61,7 @@ module.exports = class message {
     try {
       new Promise((resolve) => {
         // eslint-disable-line no-new
-        resolve(fancyCommand.run(message, args, guild))
+        resolve(fancyCommand.run({ message, args, guild }, t))
       })
     } catch (e) {
       log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)
