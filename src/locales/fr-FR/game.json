@@ -1,0 +1,18 @@
+{
+  "roundStarted": "",
+  "eventModeAnswer": "",
+  "correctAnswer": "",
+  "answserIs": "",
+  "searchingTheme": "",
+  "waitingStream": "",
+  "correctUsers": "",
+  "winner": "",
+  "nobodyWon": "",
+  "roundEnded": "",
+  "errors": {
+    "noVoiceChannel": "",
+    "noUsersInVoiceChannel": "",
+    "fatalError": "",
+    "streamTimeout": ""
+  }
+}
