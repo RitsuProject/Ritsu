@@ -1,56 +1,56 @@
 {
   "start": {
-    "helpDescription": "Inizia il gioco.",
+    "helpDescription": "Start the game.",
     "fields": {
       "default": {
-        "helpUsage": "OPTIONAL: default (per utilizzare la configurazione di default)"
+        "helpUsage": "OPTIONAL: default (to use the default configuration)"
       }
     },
     "roundConfig": {
-      "eventModeWarning": "**ATTENZIONE**: utilizzando questa modalità di gioco, i vincitori non verranno conteggiati nella classifica! Ulteriori informazioni sulle modalità di gioco sul mio server di supporto.",
-      "whatMode": "In quale modalità vuoi giocare? {{modes}}",
-      "expiredMatch": "Il gioco è scaduto, riavvialo.",
-      "cancelledMatch": "Partita annullata.",
-      "noManageMessagesPermission": "Ho rilevato di essere senza l'autorizzazione di {{MANAGE_MESSAGES}}, senza di essa non posso continuare! Per favore, dammi il permesso e riprova ad avviare una partita.",
-      "invalidMode": "Questa non sembra una modalità valida. Annullamento in corso ...",
-      "whatRounds": "Qual è il numero di round della partita?",
-      "isNaN": "Non sembra un numero! Annullamento...",
-      "roundsLimit": "Puoi iniziare solo fino a 10 round! Annullamento...",
-      "whatDuration": "Qual è la durata dei round? (Minimo: 20 secondi)",
-      "minimiumTime": "Il tempo minimo è di 20 secondi! Inserisci un valore più alto. Annullamento...",
-      "invalidDuration": "Questa non sembra essere una durata valida. Annullamento...",
-      "whatAnimeListWebsite": "Su quale sito web è la tua lista animata? (Supportato: {{websites}})",
-      "invalidWebsite": "Il suo non sembra essere un sito web supportato. Annullamento...",
-      "whatUsername": "Qual è il tuo nome utente sul sito web scelto?",
-      "invalidUsername": "Non ha trovato questo nome utente sul sito web che hai scelto! Annullamento..."
+      "eventModeWarning": "**ADVERTENCIA**: ¡Con este modo de juego, los ganadores no se contarán en la clasificación! Obtenga más información sobre los modos de juego en mi servidor de soporte.",
+      "whatMode": "What mode do you want to play? {{modes}}",
+      "expiredMatch": "The game has expired, please start it again.",
+      "cancelledMatch": "Partido cancelado.",
+      "noManageMessagesPermission": "I have detected that I am without the permission of {{MANAGE_MESSAGES}}, without it, I cannot continue! Please give me the permission and try again to start a match.",
+      "invalidMode": "Este no parece un modo válido. Cancelado..",
+      "whatRounds": "¿Cuál es el número de rondas del partido?",
+      "isNaN": "¡Eso no parece un número! Cancelado...",
+      "roundsLimit": "¡Solo puedes iniciar hasta 10 rondas! Cancelado...",
+      "whatDuration": "¿Cuál es la duración de las rondas? (Mínimo: 20 segundos)",
+      "minimiumTime": "¡El tiempo mínimo es de 20 segundos! Ingrese un valor más alto. Cancelado...",
+      "invalidDuration": "Esta no parece ser una duración válida. Cancelado...",
+      "whatAnimeListWebsite": "What website is your animelist on? (Supported: {{websites}})",
+      "invalidWebsite": "Este no parece ser un sitio web compatible. Cancelado...",
+      "whatUsername": "¿Cuál es su nombre de usuario en el sitio web que eligió?",
+      "invalidUsername": "¡No encontré este nombre de usuario en el sitio web que eligió! Cancelado..."
     },
-    "rollingMatch": "C'è già una corrispondenza in esecuzione su un canale vocale su quel server.",
-    "tip": "**SUGGERIMENTO**: se desideri interrompere la configurazione della corrispondenza, invia **{{prefix}}stop**"
+    "rollingMatch": "There is already a match running on a voice channel on that server.",
+    "tip": "**TIP**: If you want to stop the match configuration, send **{{prefix}}stop**"
   },
   "botinfo": {
-    "helpDescription": "Mostra le informazioni sul bot.",
-    "ritsuAbout": "Ciao! Sono **Ritsu** e sono un bot basato sul gioco **Anime Music Quiz** realizzato con {{jsEmoji}} **Javascript** utilizzando discord.js, il tuo obiettivo nel gioco è semplice, lo farò gioca un'apertura o un finale e devi indovinare qual è il suo anime! Sono su {{servers}} server, sono online da **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s ** e con** {{matches}}** corrispondenze attuali adesso!",
-    "commands": "Comandi",
-    "usefulLinks": "Link utili",
-    "credits": "Crediti",
+    "helpDescription": "Muestra la información del bot.\n",
+    "ritsuAbout": "¡Hola! Soy **Ritsu** y soy un bot basado en el juego **Anime Music Quiz** hecho con {{jsEmoji}} **Javascript** usando discord.js, tu objetivo en el juego es simple, lo haré juega una apertura o un final y debes adivinar cuál es su anime. Estoy en {{servers}} servidores, estoy en línea desde **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** y con **{{matches}}** ¡coincidencias actuales ahora mismo!",
+    "commands": "comandos",
+    "usefulLinks": "Enlaces útiles",
+    "credits": "creditos",
     "creditsDescriptions": {
-      "themes": "Per aver fornito i temi per far giocare il bot",
-      "animemusicquiz": "Ovviamente, la più grande ispirazione per questo progetto",
-      "kyuuchan": "Molte parti del codice mi hanno ispirato",
-      "creators": "Idee, sviluppo e tanta pazienza, senza queste 3 persone il bot probabilmente non esisterebbe."
+      "themes": "Para proporcionar los temas para que juegue el bot",
+      "animemusicquiz": "Por supuesto, la mayor inspiración para este proyecto",
+      "kyuuchan": "Muchas partes del código me inspiraron",
+      "creators": "Ideas, desarrollo y mucha paciencia, sin estas 3 personas probablemente el bot no existiría."
     }
   },
   "help": {
-    "helpDescription": "Questo comando :P",
-    "available": "Comandi disponibili",
-    "howtoplay": "**Come giocare**: quando si utilizza il comando per avviare il gioco, il bot riprodurrà una canzone da un'apertura o una fine casuale (o se si specifica l'anno dei temi nel comando di avvio) e chiunque può indovinare l'anime dal maggior numero di aperture o finali in base ai round, vince."
+    "helpDescription": "Este comando: P",
+    "available": "Comandos disponibles",
+    "howtoplay": "**Cómo jugar**: al usar el comando para iniciar el juego, el bot reproducirá una canción de una apertura o final aleatoria (o si especificas el año de los temas en el comando de inicio) y quien pueda adivinar el anime del mayor número de aperturas o finales según las rondas, gana."
   },
   "invite": {
-    "helpDescription": "Aggiungimi nel tuo server!",
-    "inviteMessage": "**Puoi aggiungermi al tuo server usando questo link {{inviteUrl}}**\n\nVuoi rimanere aggiornato sui nuovi aggiornamenti e chattare con gli sviluppatori? Unisciti al mio server di supporto! Dai un'occhiata a **{{prefix}} botinfo** ^ w ^"
+    "helpDescription": "¡Agrégame en tu servidor!",
+    "inviteMessage": "**You can add me to your server using this link {{inviteUrl}}**\n\nWant to stay on top of new updates and chat with the developers? Join to my support server! Just take a look at **{{prefix}}botinfo** ^w^"
   },
   "ping": {
-    "helpDescription": "Mostra la latenza del bot."
+    "helpDescription": "Show the bot latency."
   },
   "prefix": {
     "helpDescription": "Change the bot prefix.",
