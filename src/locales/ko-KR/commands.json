@@ -1,0 +1,71 @@
+{
+  "start": {
+    "helpDescription": "",
+    "roundConfig": {
+      "eventModeWarning": "",
+      "whatMode": "",
+      "expiredMatch": "",
+      "cancelledMatch": "",
+      "noManageMessagesPermission": "",
+      "invalidMode": "",
+      "whatRounds": "",
+      "isNaN": "",
+      "roundsLimit": "",
+      "whatDuration": "",
+      "minimiumTime": "",
+      "invalidDuration": "",
+      "whatAnimeListWebsite": "",
+      "invalidWebsite": "",
+      "whatUsername": "",
+      "invalidUsername": ""
+    },
+    "rollingMatch": "",
+    "tip": ""
+  },
+  "botinfo": {
+    "helpDescription": "",
+    "ritsuAbout": "",
+    "commands": "",
+    "usefulLinks": "",
+    "credits": "",
+    "creditsDescriptions": {
+      "themes": "",
+      "animemusicquiz": "",
+      "kyuuchan": "",
+      "creators": ""
+    }
+  },
+  "help": {
+    "helpDescription": "",
+    "available": "",
+    "howtoplay": ""
+  },
+  "invite": {
+    "helpDescription": "",
+    "inviteMessage": ""
+  },
+  "ping": {
+    "helpDescription": ""
+  },
+  "prefix": {
+    "helpDescription": "",
+    "noPrefix": "",
+    "changedPrefix": ""
+  },
+  "lang": {
+    "helpDescription": "",
+    "embedDescription": "",
+    "languages": ""
+  },
+  "bio": {
+    "helpDescription": "",
+    "changedBio": "",
+    "noBio": ""
+  },
+  "leaderboard": {
+    "helpDescription": "",
+    "embedAuthor": "",
+    "wonMatches": "",
+    "playedMatches": ""
+  }
+}
