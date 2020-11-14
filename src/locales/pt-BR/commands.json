@@ -1,60 +1,60 @@
 {
   "start": {
-    "helpDescription": "Iniciar o jogo.",
+    "helpDescription": "Start the game.",
     "fields": {
       "default": {
-        "helpUsage": "OPCIONAL: padrão (para usar a configuração padrão)"
+        "helpUsage": "OPTIONAL: default (to use the default configuration)"
       }
     },
     "roundConfig": {
-      "eventModeWarning": "**começar configuração de partida aviso de modo de evento**",
-      "whatMode": "Que modo de jogo você quer jogar?{{modes}}",
-      "expiredMatch": "O jogo expirou, por favor tente de novo.",
-      "cancelledMatch": "Partida cancelada.",
-      "noManageMessagesPermission": "Eu detectei que eu estou sem a permisão de{{MANAGE_MESSAGES}}, sem isso, eu não posso continuar! Por favor me essa permisão e tente de novo para começar a partida.",
-      "invalidMode": "Isso não parece um modo valido. Cancelando..",
-      "whatRounds": "Qual são o número de rodadas desta partida?",
-      "isNaN": "Isso não parece um número valido! Cancelando...",
-      "roundsLimit": "O número máximo de rodadas é 10! Cancelando...",
-      "whatDuration": "Qual é a duração de para está rodada? (Mínimo: 20 segundos)",
-      "minimiumTime": "O tempo mínimo é 20 segundos! Por favor tente um valor igual ou maior. Cancelando...",
-      "invalidDuration": "Isso não parece uma duração valida. Cancelando...",
-      "whatAnimeListWebsite": "Que website está sua animelist? (Supported: {{websites}})",
-      "invalidWebsite": "Isso não parece ser um website que suportamos. Cancelando...",
-      "whatUsername": "Qual é seu username no website escolhido?",
-      "invalidUsername": "Eu não encontrei seu username no website escolhido! Cancelando..."
+      "eventModeWarning": "**ADVERTENCIA**: ¡Con este modo de juego, los ganadores no se contarán en la clasificación! Obtenga más información sobre los modos de juego en mi servidor de soporte.",
+      "whatMode": "What mode do you want to play? {{modes}}",
+      "expiredMatch": "The game has expired, please start it again.",
+      "cancelledMatch": "Partido cancelado.",
+      "noManageMessagesPermission": "I have detected that I am without the permission of {{MANAGE_MESSAGES}}, without it, I cannot continue! Please give me the permission and try again to start a match.",
+      "invalidMode": "Este no parece un modo válido. Cancelado..",
+      "whatRounds": "¿Cuál es el número de rondas del partido?",
+      "isNaN": "¡Eso no parece un número! Cancelado...",
+      "roundsLimit": "¡Solo puedes iniciar hasta 10 rondas! Cancelado...",
+      "whatDuration": "¿Cuál es la duración de las rondas? (Mínimo: 20 segundos)",
+      "minimiumTime": "¡El tiempo mínimo es de 20 segundos! Ingrese un valor más alto. Cancelado...",
+      "invalidDuration": "Esta no parece ser una duración válida. Cancelado...",
+      "whatAnimeListWebsite": "What website is your animelist on? (Supported: {{websites}})",
+      "invalidWebsite": "Este no parece ser un sitio web compatible. Cancelado...",
+      "whatUsername": "¿Cuál es su nombre de usuario en el sitio web que eligió?",
+      "invalidUsername": "¡No encontré este nombre de usuario en el sitio web que eligió! Cancelado..."
     },
-    "rollingMatch": "Já está ocorrendo uma partida no canal de voz nesse server.",
-    "tip": "**DICA**: Se você quer mudar a configuração destá partida, mande **{{prefix}}stop**"
+    "rollingMatch": "There is already a match running on a voice channel on that server.",
+    "tip": "**TIP**: If you want to stop the match configuration, send **{{prefix}}stop**"
   },
   "botinfo": {
-    "helpDescription": "Mostrar as informações do bot.",
-    "ritsuAbout": "Olá! Eu sou **Ritsu** e eu sou um bot baseado em um jogo chamado **Anime Music Quiz** feito com {{jsEmoji}} **Javascript** usando discord.js, Eu vou tocar uma abertura ou encerramento e seu objetivo é acertar a de que anime é! Eu estou nos {{servers}} servers.Eu estou online a **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** e com **{{matches}}**Com partidas ocorrendo agora!",
-    "commands": "Comandos",
-    "usefulLinks": "Links úteis",
-    "credits": "Créditos",
+    "helpDescription": "Muestra la información del bot.\n",
+    "ritsuAbout": "¡Hola! Soy **Ritsu** y soy un bot basado en el juego **Anime Music Quiz** hecho con {{jsEmoji}} **Javascript** usando discord.js, tu objetivo en el juego es simple, lo haré juega una apertura o un final y debes adivinar cuál es su anime. Estoy en {{servers}} servidores, estoy en línea desde **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** y con **{{matches}}** ¡coincidencias actuales ahora mismo!",
+    "commands": "comandos",
+    "usefulLinks": "Enlaces útiles",
+    "credits": "creditos",
     "creditsDescriptions": {
-      "themes": "Para fornercer os temas para o bot tocar",
-      "animemusicquiz": "Claro, a maior inspiração para este projeto",
-      "kyuuchan": "Muitas parte deste code foram inspiradas por",
-      "creators": "Ideias, desenvolvimento e muita paciência. Sem essas 3 pessoas o bot provavelmente não existiria."
+      "themes": "Para proporcionar los temas para que juegue el bot",
+      "animemusicquiz": "Por supuesto, la mayor inspiración para este proyecto",
+      "kyuuchan": "Muchas partes del código me inspiraron",
+      "creators": "Ideas, desarrollo y mucha paciencia, sin estas 3 personas probablemente el bot no existiría."
     }
   },
   "help": {
-    "helpDescription": "Esse comando :P",
-    "available": "Comandos Acessiveis",
-    "howtoplay": "**Como jogar**: Quando usar este comando para começar o jogo, o bot irá tocar uma abertura de ou encerramento de um anime (ou se especificamente o ano dos temas no comando de começar) e quem acertar mais aberturas ou encerramentos ganhar de acordo com os rounds, ganha."
+    "helpDescription": "Este comando: P",
+    "available": "Comandos disponibles",
+    "howtoplay": "**Cómo jugar**: al usar el comando para iniciar el juego, el bot reproducirá una canción de una apertura o final aleatoria (o si especificas el año de los temas en el comando de inicio) y quien pueda adivinar el anime del mayor número de aperturas o finales según las rondas, gana."
   },
   "invite": {
-    "helpDescription": "Me adicione no seu server!",
-    "inviteMessage": "**Você pode me adicionar no seu server usando este link {{inviteUrl}}**\n\nQuer estar sempre atualizado de novos atualizações e conversar com um desenvolvedor? Entre no nosso server!\nSó olhe para o **{{prefix}}botinfo** ^w^"
+    "helpDescription": "¡Agrégame en tu servidor!",
+    "inviteMessage": "**You can add me to your server using this link {{inviteUrl}}**\n\nWant to stay on top of new updates and chat with the developers? Join to my support server! Just take a look at **{{prefix}}botinfo** ^w^"
   },
   "ping": {
-    "helpDescription": "Mostrar a latência do bot."
+    "helpDescription": "Show the bot latency."
   },
   "prefix": {
-    "helpDescription": "Mudar o prefixo do bot.",
-    "noPrefix": "Você precisa especificar o prefixo.",
-    "changedPrefix": "O prefixo do server foi alterado: {{newPrefix}}"
+    "helpDescription": "Change the bot prefix.",
+    "noPrefix": "You need to specify the prefix.",
+    "changedPrefix": "The server prefix has been changed: {{newPrefix}}"
   }
 }
