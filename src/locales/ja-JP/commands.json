@@ -1,0 +1,71 @@
+{
+  "start": {
+    "helpDescription": "ゲームを始める。",
+    "roundConfig": {
+      "eventModeWarning": "**警告**：このゲームモードを使用すると、勝者はランキングにカウントされません！サポートサーバーのゲームモードの詳細をご覧ください。",
+      "whatMode": "どのモードでプレイしますか？ {{モード}}",
+      "expiredMatch": "ゲームの有効期限が切れました。もう一度開始してください。",
+      "cancelledMatch": " 試合はキャンセルされました。",
+      "noManageMessagesPermission": "{{MANAGE_MESSAGES}}の許可がないことを検出しました。許可がないと、続行できません。許可を与えて、もう一度試合を開始してください。",
+      "invalidMode": "これは有効なモードではないようです。キャンセルします。",
+      "whatRounds": "試合のラウンド数はいくつですか？",
+      "isNaN": "それは数字のようには見えません！キャンセル中...",
+      "roundsLimit": "あなたは10ラウンドまでしか始めることができません！キャンセル中...",
+      "whatDuration": "ラウンドの期間はどのくらいですか？ （最小：20秒）",
+      "minimiumTime": "最短時間は20秒です！より高い値を入力してください。キャンセル中...",
+      "invalidDuration": "これは有効な期間ではないようです。キャンセル中...",
+      "whatAnimeListWebsite": "あなたのアニメリストはどのウェブサイトにいますか？ （サポート：{{ウェブサイト}}）",
+      "invalidWebsite": "これはサポートされているWebサイトではないようです。キャンセル中...",
+      "whatUsername": "選択したWebサイトでのユーザー名は何ですか？",
+      "invalidUsername": "選択したウェブサイトでこのユーザー名が見つかりませんでした。キャンセル中..."
+    },
+    "rollingMatch": "そのサーバーの音声チャネルで実行されている一致がすでにあります。",
+    "tip": "**ヒント**：一致設定を停止する場合は、** {{prefix}} stop **を送信してください"
+  },
+  "botinfo": {
+    "helpDescription": "ボット情報を表示します。",
+    "ritsuAbout": "こんにちは！私は** Ritsu **で、discord.jsを使用して{{jsEmoji}} ** Javascript **で作成されたゲーム** Anime Music Quiz **に基づくボットです。ゲームの目的は単純です。オープニングまたはエンディングを再生すると、彼のアニメが何であるかを推測する必要があります！私は{{servers}}サーバーを使用しており、** {{days}} d {{hours}} h {{minutes}} m {{seconds}} s **から** {{matches }} **現在の試合は現在！",
+    "commands": "コマンド",
+    "usefulLinks": "便利なリンク",
+    "credits": "クレジット",
+    "creditsDescriptions": {
+      "themes": "ボットが再生するテーマを提供するため",
+      "animemusicquiz": "もちろん、このプロジェクトの最大のインスピレーションは",
+      "kyuuchan": "私がそれに触発されたコードの多くの部分",
+      "creators": "アイデア、開発、そして多くの忍耐がなければ、これらの3人がいなければ、ボットはおそらく存在しなかったでしょう。"
+    }
+  },
+  "help": {
+    "helpDescription": "このコマンド：P",
+    "available": "利用可能なコマンド",
+    "howtoplay": "**再生方法**：コマンドを使用してゲームを開始すると、ボットはランダムなオープニングまたはエンディングから（または開始コマンドでテーマの年を指定した場合）、アニメを推測できる人なら誰でも曲を再生しますラウンドに応じた最大数のオープニングまたはエンディングから、勝ちます。"
+  },
+  "invite": {
+    "helpDescription": "あなたのサーバーに私を追加してください！",
+    "inviteMessage": "**このリンク{{inviteUrl}} **を使用してサーバーに私を追加できます\n\n新しいアップデートを常に把握し、開発者とチャットしたいですか？私のサポートサーバーに参加してください！ ** {{prefix}} botinfo ** ^ w ^をご覧ください。"
+  },
+  "ping": {
+    "helpDescription": "ボットの待ち時間を表示します。"
+  },
+  "prefix": {
+    "helpDescription": " ボットプレフィックスを変更します。",
+    "noPrefix": "プレフィックスを指定する必要があります。",
+    "changedPrefix": "サーバープレフィックスが変更されました：{{newPrefix}}"
+  },
+  "lang": {
+    "helpDescription": "",
+    "embedDescription": "",
+    "languages": ""
+  },
+  "bio": {
+    "helpDescription": "",
+    "changedBio": "",
+    "noBio": ""
+  },
+  "leaderboard": {
+    "helpDescription": "",
+    "embedAuthor": "",
+    "wonMatches": "",
+    "playedMatches": ""
+  }
+}
