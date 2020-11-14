@@ -1,0 +1,60 @@
+{
+  "start": {
+    "helpDescription": "Iniciar o jogo.",
+    "fields": {
+      "default": {
+        "helpUsage": "OPCIONAL: padrão (para usar a configuração padrão)"
+      }
+    },
+    "roundConfig": {
+      "eventModeWarning": "**começar configuração de partida aviso de modo de evento**",
+      "whatMode": "Que modo de jogo você quer jogar?{{modes}}",
+      "expiredMatch": "O jogo expirou, por favor tente de novo.",
+      "cancelledMatch": "Partida cancelada.",
+      "noManageMessagesPermission": "Eu detectei que eu estou sem a permisão de{{MANAGE_MESSAGES}}, sem isso, eu não posso continuar! Por favor me essa permisão e tente de novo para começar a partida.",
+      "invalidMode": "Isso não parece um modo valido. Cancelando..",
+      "whatRounds": "Qual são o número de rodadas desta partida?",
+      "isNaN": "Isso não parece um número valido! Cancelando...",
+      "roundsLimit": "O número máximo de rodadas é 10! Cancelando...",
+      "whatDuration": "Qual é a duração de para está rodada? (Mínimo: 20 segundos)",
+      "minimiumTime": "O tempo mínimo é 20 segundos! Por favor tente um valor igual ou maior. Cancelando...",
+      "invalidDuration": "Isso não parece uma duração valida. Cancelando...",
+      "whatAnimeListWebsite": "Que website está sua animelist? (Supported: {{websites}})",
+      "invalidWebsite": "Isso não parece ser um website que suportamos. Cancelando...",
+      "whatUsername": "Qual é seu username no website escolhido?",
+      "invalidUsername": "Eu não encontrei seu username no website escolhido! Cancelando..."
+    },
+    "rollingMatch": "Já está ocorrendo uma partida no canal de voz nesse server.",
+    "tip": "**DICA**: Se você quer mudar a configuração destá partida, mande **{{prefix}}stop**"
+  },
+  "botinfo": {
+    "helpDescription": "Mostrar as informações do bot.",
+    "ritsuAbout": "Olá! Eu sou **Ritsu** e eu sou um bot baseado em um jogo chamado **Anime Music Quiz** feito com {{jsEmoji}} **Javascript** usando discord.js, Eu vou tocar uma abertura ou encerramento e seu objetivo é acertar a de que anime é! Eu estou nos {{servers}} servers.Eu estou online a **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** e com **{{matches}}**Com partidas ocorrendo agora!",
+    "commands": "Comandos",
+    "usefulLinks": "Links úteis",
+    "credits": "Créditos",
+    "creditsDescriptions": {
+      "themes": "Para fornercer os temas para o bot tocar",
+      "animemusicquiz": "Claro, a maior inspiração para este projeto",
+      "kyuuchan": "Muitas parte deste code foram inspiradas por",
+      "creators": "Ideias, desenvolvimento e muita paciência. Sem essas 3 pessoas o bot provavelmente não existiria."
+    }
+  },
+  "help": {
+    "helpDescription": "Esse comando :P",
+    "available": "Comandos Acessiveis",
+    "howtoplay": "**Como jogar**: Quando usar este comando para começar o jogo, o bot irá tocar uma abertura de ou encerramento de um anime (ou se especificamente o ano dos temas no comando de começar) e quem acertar mais aberturas ou encerramentos ganhar de acordo com os rounds, ganha."
+  },
+  "invite": {
+    "helpDescription": "Me adicione no seu server!",
+    "inviteMessage": "**Você pode me adicionar no seu server usando este link {{inviteUrl}}**\n\nQuer estar sempre atualizado de novos atualizações e conversar com um desenvolvedor? Entre no nosso server!\nSó olhe para o **{{prefix}}botinfo** ^w^"
+  },
+  "ping": {
+    "helpDescription": "Mostrar a latência do bot."
+  },
+  "prefix": {
+    "helpDescription": "Mudar o prefixo do bot.",
+    "noPrefix": "Você precisa especificar o prefixo.",
+    "changedPrefix": "O prefixo do server foi alterado: {{newPrefix}}"
+  }
+}
