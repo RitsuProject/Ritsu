@@ -14,7 +14,7 @@
       "whatDuration": "Qual é a duração de para a partida? (Mínimo: 20 segundos)",
       "minimiumTime": "O tempo mínimo é 20 segundos! Por favor tente um valor igual ou maior. Cancelando...",
       "invalidDuration": "Isso não parece uma duração valida. Cancelando...",
-      "whatAnimeListWebsite": "Que website está sua animelist? (Supported: {{websites}})",
+      "whatAnimeListWebsite": "Que website está sua animelist? (Suportados: {{websites}})",
       "invalidWebsite": "Isso não parece ser um website que suportamos. Cancelando...",
       "whatUsername": "Qual é seu username no website escolhido?",
       "invalidUsername": "Eu não encontrei seu username no website escolhido! Cancelando..."
