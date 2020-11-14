@@ -1,0 +1,18 @@
+{
+  "roundStarted": "Starting the #{{round}} round! What is the anime for this Ending / Opening theme? Send in chat the answer! You have {{time}}}.\nSend **{{prefix}}stop** in the chat if you want to stop the match.",
+  "eventModeAnswer": "",
+  "correctAnswer": "",
+  "answserIs": "",
+  "searchingTheme": "",
+  "waitingStream": "",
+  "correctUsers": "",
+  "winner": "",
+  "nobodyWon": "",
+  "roundEnded": "",
+  "errors": {
+    "noVoiceChannel": "",
+    "noUsersInVoiceChannel": "",
+    "fatalError": "",
+    "streamTimeout": ""
+  }
+}
