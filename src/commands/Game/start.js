@@ -18,7 +18,7 @@ module.exports = class Start extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message, args, guild) {
+  async run({ message, args, guild }) {
     if (guild.rolling)
       return message.channel.send(
         'There is already a match running on a voice channel on that server.'
