@@ -20,7 +20,7 @@ module.exports = class Leaderboard extends Command {
   async run(message) {
     const embed = new MessageEmbed()
     embed.setAuthor(
-      'Top 10 users with the most matches won.',
+      t('commands:leaderboard.embedAuthor'),
       message.author.displayAvatarURL()
     )
     embed.setColor('#7289DA')
@@ -34,7 +34,11 @@ module.exports = class Leaderboard extends Command {
           const rankNumber = fakeResult + 1
           embed.addField(
             `${rankNumber}.${results[result].name}`,
-            `Won Matches: **${results[result].wonMatches}**\nMatches played: **${results[result].played}**`
+            `${t('commands:leaderboard.wonMatches')} **${
+              results[result].wonMatches
+            }**\n${t('commands:leaderboard.playedMatches')} **${
+              results[result].played
+            }**`
           )
         }
       })

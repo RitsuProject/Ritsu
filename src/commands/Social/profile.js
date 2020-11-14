@@ -17,7 +17,7 @@ module.exports = class Profile extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message, args) {
+  async run({ message, args }, t) {
     const member =
       message.mentions.users.first() ||
       this.client.users.cache.get(args[0]) ||
@@ -31,11 +31,11 @@ module.exports = class Profile extends Command {
       )
       .setDescription(user.bio)
       .setColor('#44e02f')
-      .addField(':trophy: Won Matches', user.wonMatches, true)
-      .addField(':video_game: Matches played', user.played, true)
-      .addField(':medal: Rank', user.rank, true)
+      .addField(`:trophy: ${t('utils:wonMatches')}`, user.wonMatches, true)
+      .addField(`:video_game: ${t('utils:playedMatches')}`, user.played, true)
+      .addField(`:medal: ${t('utils:rank')}`, user.rank, true)
       .addField(
-        '<:msn_star:764659791175221258> Badges',
+        `<:msn_star:764659791175221258> ${t('utils:badges')}`,
         `${user.admin ? '<:Administrator:764650181127176207>' : 'None'} `,
         true
       )

@@ -16,15 +16,15 @@ module.exports = class Bio extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message, args) {
+  async run({ message, args }, t) {
     const user = await Users.findById(message.author.id)
     if (!user) return
 
     const bio = args.slice(0).join(' ')
-    if (!bio) return message.channel.send('You have not added a new biography.')
+    if (!bio) return message.channel.send(t('commands:bio.noBio'))
 
     user.bio = bio
     await user.save()
-    message.channel.send('Your profile bio has been updated.')
+    message.channel.send(t('commands:bio.changedBio'))
   }
 }
