@@ -5,14 +5,16 @@
   "answserIs": "A resposta é...",
   "searchingTheme": "Procurando musica... (Isso pode levar algum tempo)",
   "waitingStream": "Esperando a stream... (Isso pode levar algum tempo.)",
-  "correctUsers": "{{users}} respondeu corretamente!",
+  "correctUsers": "{{users}} ganharam esse round!",
   "winner": "{{user}} é o vencedor dessa partida!",
   "nobodyWon": "Ninguém ganhou a partida.",
   "roundEnded": "As rodadas acabaram! Espero que vocês tenham se divertido.",
+  "nobody": "Ninguém",
   "errors": {
     "noVoiceChannel": "Você precisa estar em um canal de voz para iniciar uma partida!",
     "noUsersInVoiceChannel": "Parece que não tem ninguém no canal de voz, encerrando partida.",
     "fatalError": "**Oopise! Parece que ocorreu um erro enquanto tentava começar o round**! {{error}}",
-    "streamTimeout": "Parece que está levando um bom tempo para eu terminar a stream, talvez eu esteja um pouco lenta? Por favor reinicie o jogo."
+    "streamTimeout": "Parece que está levando um bom tempo para eu terminar a stream, talvez eu esteja um pouco lenta? Por favor reinicie o jogo.",
+    "onlyHostCanFinish": "Apenas quem iniciou a partida pode encerrá-la."
   }
 }
