@@ -26,6 +26,9 @@
     "helpDescription": "Show the bot information.",
     "ritsuAbout": "Hi! I am **Ritsu** and I am a bot based on the game **Anime Music Quiz** made with {{jsEmoji}} **Javascript** using discord.js, your objective in the game is simple, I will play an opening or ending and you must guess what his anime is! I am on {{servers}} servers,  i'm online since **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** and with **{{matches}}**current matches right now!",
     "commands": "Commands",
+    "supportServer": "Support Server",
+    "upvote": "Upvote the bot!",
+    "useHelpCommand": "Use the `help` command!",
     "usefulLinks": "Useful links",
     "credits": "Credits",
     "creditsDescriptions": {
