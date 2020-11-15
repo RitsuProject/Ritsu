@@ -53,6 +53,31 @@ https://crowdin.com/project/ritsu
 
 **We do not recommend you to self-host the bot yourself, unless it is to contribute to the code, but if you still want to, study the bot ecosystem and be on your own, it is not difficult, we will not give support you if not to contribute to the code or learn something from Ritsu.**
 
+#### .env Structure
+```ascii
+.env
+└── TOKEN
+    ├── Your Bot Discord Token
+└── BOT_PREFIX
+    ├── Default Prefix to all the servers
+└── MONGOURI
+    ├── The URL of your MongoDB database that Ritsu will use.
+└── VERSION
+    ├── Your bot's environment, use canary for the development version or production for the production version.
+└── BOTLIST_TOKEN
+    ├── discordbotlist.com API Token (You don't need to put anything here if the environment is canary.)
+└── DBL_TOKEN
+    ├── top.gg API Token (You don't need to put anything here if the environment is canary.)
+└── API URL
+    ├── Ritsu API URL (https://github.com/RitsuProject/Mio)
+```
+
+#### Starting Ritsu
+```
+yarn (or npm install, but we uses yarn)
+node index.js (or node .)
+```
+
 ### Branch's
 
 - ``Canary`` - Work here, it is the branch we use for development and it is tested at Ritsu Canary.
