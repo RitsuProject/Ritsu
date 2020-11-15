@@ -1,0 +1,20 @@
+{
+  "roundStarted": "Starting the #{{round}} round! What is the anime for this Ending / Opening theme? Send in chat the answer! You have {{time}}}.\nSend **{{prefix}}stop** in the chat if you want to stop the match.",
+  "eventModeAnswer": "**[EVENT MODE]** The answer is: {{answer}}",
+  "correctAnswer": "Congratulations {{user}}! You got the correct answer!",
+  "answserIs": "The answser is...",
+  "searchingTheme": "Searching for the theme... (it may take a few moments)",
+  "waitingStream": "Waiting for the stream... (It may take a few seconds.)",
+  "correctUsers": "{{users}} won this round!",
+  "winner": "{{user}} is the winner of this match!",
+  "nobodyWon": "Nobody won this match.",
+  "roundEnded": "All rounds are over! I hope you guys had fun.",
+  "nobody": "Nobody",
+  "errors": {
+    "noVoiceChannel": "You need to be on a voice channel to start a match!",
+    "noUsersInVoiceChannel": "It seems that there are no more people on the voice channel, ending the match.",
+    "fatalError": "**Oopsie! It looks like an error occurred while trying to start the round**! {{error}}",
+    "streamTimeout": "It seems like it took a long time for me to finish loading the stream, maybe I'm a little slow? Please restart the game.",
+    "onlyHostCanFinish": "Only the one who started the game can finish it."
+  }
+}
