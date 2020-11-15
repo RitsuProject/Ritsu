@@ -177,7 +177,7 @@ module.exports.GameService = class GameService {
 
       const embed = EmbedGen(answser, type, animeData) // Time to generate the final embed of the round.
 
-      this.message.channel.send('The answser is...', { embed })
+      this.message.channel.send(this.t('game:answserIs'), { embed })
       this.message.channel.send(
         `${this.t('game:correctUsers', {
           users: `${

@@ -86,7 +86,9 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       })
     const m = collector.first()
     if (m.content === `${this.guild.prefix}stop`)
-      return this.t('commands:start.roundConfig.cancelledMatch')
+      return this.message.channel.send(
+        this.t('commands:start.roundConfig.cancelledMatch')
+      )
     const int = parseInt(m.content)
     if (isNaN(int))
       return this.message.channel.send(
