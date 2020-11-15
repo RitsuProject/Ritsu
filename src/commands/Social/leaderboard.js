@@ -17,7 +17,7 @@ module.exports = class Leaderboard extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message) {
+  async run({ message }, t) {
     const embed = new MessageEmbed()
     embed.setAuthor(
       t('commands:leaderboard.embedAuthor'),

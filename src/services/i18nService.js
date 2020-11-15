@@ -4,13 +4,13 @@ const fs = require('fs')
 
 module.exports.i18nService = class i18nService {
   constructor() {
-    // this.types = ['commands']
-    this.langs = ['pt-BR', 'ja-JP', 'en-US', 'es-ES']
+    this.types = ['commands', 'utils', 'permissions', 'game']
+    this.langs = ['pt-BR', 'en-US', 'es-ES', 'it-IT']
   }
 
   async loadLocales() {
     i18next.use(backend).init({
-      ns: 'commands',
+      ns: this.types,
       supportedLngs: this.langs,
       preload: await fs.readdirSync('./src/locales'),
       fallbackLng: 'en-US',

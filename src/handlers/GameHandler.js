@@ -33,6 +33,8 @@ module.exports.GameService = class GameService {
 
     this.listService = options.listService || null
     this.listUsername = options.listUsername || null
+
+    this.t = options.t || null
   }
 
   /**
@@ -53,26 +55,18 @@ module.exports.GameService = class GameService {
         guild.rolling = false
         guild.currentChannel = null
         await guild.save()
-        this.message.channel.send(
-          'It seems that there are no more people on the voice channel, ending the match.'
-        )
+        this.message.channel.send(this.t('game:noUsersInVoiceChannel'))
         return
       } // Don't have a match at the moment? But did the user try to start a game without being on the voice channel? Turn back.
-      return this.message.channel.send(
-        'You need to be on a voice channel to start a match!'
-      )
+      return this.message.channel.send(this.t('game:noVoiceChannel'))
     }
-
-    if (this.time < 20000)
-      // Avoid matches with less than 20 seconds.
-      return this.message.channel.send(
-        'Please specify a time greater than 20 seconds.'
-      )
 
     this.startNewRound(guild, voicech).catch((e) => {
       log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
       this.message.channel.send(
-        `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\``
+        `<a:bongo_cat:772152200851226684> | ${this.t('game:fatalError', {
+          error: `\`${e}\``,
+        })}`
       )
     })
   }
@@ -85,22 +79,11 @@ module.exports.GameService = class GameService {
    */
 
   async startNewRound(guild, voicech) {
-    if (this.time > 60000) {
-      // Often, some themes do not have enough time that the user has specified (like more than 1 minute), so we will let you know!
-      this.message.channel.send(
-        '**WARNING:** Perhaps the openings are not big enough for this specified time, if that happens, it will end and you will need to wait for the round to end.'
-      )
-    }
-
     const theme = await this.getTheme()
-    if (!theme)
-      return this.message.channel.send(
-        "I couldn't find an anime corresponding to that year."
-      )
     const { answser, link, type } = theme
 
     const loading = await this.message.channel.send(
-      `\`Waiting for the stream... (It may take a few seconds.)\``
+      `\`${this.t('game:waitingStream')}\``
     )
     const response = await phin({
       // Let's get the stream!'
@@ -110,7 +93,7 @@ module.exports.GameService = class GameService {
       timeout: 20000,
     }).catch(() => {
       loading.delete()
-      throw `It seems like it took a long time for me to finish loading the stream, maybe I'm a little slow? Please restart the game.`
+      throw this.t('game:streamTimeout')
     })
     loading.delete()
 
@@ -119,14 +102,20 @@ module.exports.GameService = class GameService {
     const room = await this.roomHandler(answser) // Create a new Room ^w^
 
     this.message.channel.send(
-      `Starting the #${room.currentRound} round! What is the anime for this Ending / Opening theme? Send in chat the answer! You have ${this.realTime}.\nSend **${guild.prefix}stop** in the chat if you want to stop the match.`
+      this.t('game:roundStarted', {
+        round: room.currentRound,
+        time: this.realTime,
+        prefix: guild.prefix,
+      })
     )
 
     /* console.log(answser)
     console.log(link) */
 
     if (this.mode === 'event') {
-      this.message.author.send(`**[EVENT MODE]** The answer is: ${answser}`)
+      this.message.author.send(
+        this.t('game:eventModeAnswer', { answer: answser })
+      )
     }
 
     const animeData = await this.getAnimeDetails(answser)
@@ -155,7 +144,7 @@ module.exports.GameService = class GameService {
           room.leaderboard.push({ id: msg.author.id })
         }
         this.message.channel.send(
-          `Congratulations <@${msg.author.id}>! You got the correct answer!`
+          this.t('game:correctAnswer', { user: `<@${msg.author.id}>` })
         )
         await msg.delete()
         await room.save()
@@ -164,9 +153,7 @@ module.exports.GameService = class GameService {
 
     commanderCollector.on('collect', async (msg) => {
       if (msg.author.id !== room.startedBy)
-        return msg.channel.send(
-          'Only the one who started the game can finish it.'
-        )
+        return msg.channel.send(this.t('game:onlyHostCanFinish'))
       answserCollector.stop('forceFinished')
     })
 
@@ -192,11 +179,13 @@ module.exports.GameService = class GameService {
 
       this.message.channel.send('The answser is...', { embed })
       this.message.channel.send(
-        `${
-          room.answerers.length > 0
-            ? room.answerers.map((id) => `<@${id}>`).join(', ')
-            : 'Nobody'
-        } got the correct answer!`
+        `${this.t('game:correctUsers', {
+          users: `${
+            room.answerers.length > 0
+              ? room.answerers.map((id) => `<@${id}>`).join(', ')
+              : this.t('game:nobody')
+          }`,
+        })}`
       )
 
       if (room.currentRound >= this.rounds) {
@@ -207,7 +196,9 @@ module.exports.GameService = class GameService {
         await this.startNewRound(guild, voicech).catch(async (e) => {
           log(`GUILD -> ${this.message.guild.id} | ${e}`, 'GAME_SERVICE', true)
           this.message.channel.send(
-            `<a:bongo_cat:772152200851226684> | **Oopsie! It looks like an error occurred while trying to start the round**! \`${e}\``
+            `<a:bongo_cat:772152200851226684> | ${this.t('game:fatalError', {
+              error: `\`${e}\``,
+            })}`
           )
           await this.clear()
           await this.finish(voicech, room, true)
@@ -238,12 +229,12 @@ module.exports.GameService = class GameService {
       }
       if (winner) {
         this.message.channel.send(
-          `<@${winner.id}> is the winner of this match!`
+          this.t('game:winner', { user: `<@${winner.id}>` })
         )
       } else {
-        this.message.channel.send('Nobody won this match.')
+        this.message.channel.send(this.t('game:nobodyWon'))
       }
-      this.message.channel.send('All rounds are over! I hope you guys had fun.')
+      this.message.channel.send(this.t('game:roundEnded'))
     }
     await voicech.leave()
   }
@@ -271,7 +262,7 @@ module.exports.GameService = class GameService {
     let randomTheme
 
     const loading = await this.message.channel.send(
-      `\`Searching for the theme... (it may take a few moments)\``
+      `\`${this.t('game:searchingTheme')}\``
     )
     randomTheme = await this.choose()
     const answser = randomTheme.name

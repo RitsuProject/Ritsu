@@ -65,6 +65,7 @@ module.exports = class Start extends Command {
       realTime: time.value,
       listService: `${mode === 'list' ? listService : null}`,
       listUsername: `${mode === 'list' ? listUsername : null}`,
+      t: t,
     })
     gameService.init()
     tip.delete()
