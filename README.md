@@ -41,7 +41,7 @@ Want to add new things to Ritsu? First, know that Ritsu is extremely simple, the
 
 ### Discussion and Planning
 
-Want to discuss an idea? Login to the support server and feel free to say your opinion! We always create a small project on github with issues that should go to the next update, feel free to take a look [here](https://github.com/orgs/RitsuProject/projects) too!
+Want to discuss an idea? Join to the support server and feel free to say your opinion! We always create a small project on github with issues that should go to the next update, feel free to take a look [here](https://github.com/orgs/RitsuProject/projects) too!
 
 ### Translate Ritsu!
 
