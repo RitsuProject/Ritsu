@@ -10,6 +10,7 @@
   "nobodyWon": "Nobody won this match.",
   "roundEnded": "All rounds are over! I hope you guys had fun.",
   "nobody": "Nobody",
+  "originalTitle": "Original Title: {{title}}",
   "errors": {
     "noVoiceChannel": "You need to be on a voice channel to start a match!",
     "noUsersInVoiceChannel": "It seems that there are no more people on the voice channel, ending the match.",
