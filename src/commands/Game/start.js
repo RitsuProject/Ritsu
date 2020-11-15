@@ -18,14 +18,12 @@ module.exports = class Start extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run({ message, args, guild }) {
+  async run({ message, args, guild }, t) {
     if (guild.rolling)
-      return message.channel.send(
-        'There is already a match running on a voice channel on that server.'
-      )
+      return message.channel.send(t('commands:start.rollingMatch'))
 
     const tip = await message.channel.send(
-      `**TIP**: If you want to stop the match configuration, send **${guild.prefix}stop**`
+      t('commands:start.tip', { prefix: guild.prefix })
     )
 
     // Default Configuration
@@ -39,7 +37,7 @@ module.exports = class Start extends Command {
     if (args[0] !== 'default') {
       // If user specified default in the command, skip configuration.
       // Get the user configuration.
-      const roundConfig = new RoundConfigHandler(message, guild)
+      const roundConfig = new RoundConfigHandler(message, guild, t)
       mode = await roundConfig.getGamemode()
       if (typeof mode !== 'string') return
       if (mode === 'list') {
@@ -48,9 +46,7 @@ module.exports = class Start extends Command {
         listUsername = await roundConfig.getListUsername(listService)
         if (typeof listUsername !== 'string') return
       } else if (mode === 'event') {
-        message.channel.send(
-          '**WARNING**: Using this game mode, the winners will not be counted in the ranking! Learn more about game modes on my support server.'
-        )
+        message.channel.send(t('commands:start.roundConfig.eventModeWarning'))
       }
       rounds = await roundConfig.getRounds()
       if (typeof rounds !== 'number') return
