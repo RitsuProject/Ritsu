@@ -1,14 +1,14 @@
 {
   "start": {
-    "helpDescription": "Iniciar o jogo.",
+    "helpDescription": "Inicia o jogo.",
     "roundConfig": {
       "eventModeWarning": "**AVISO**. Jogando nesse modo de jogo, as vitorias não vão contar no rank. Leia mais sobre os modos de jogo da Ritsu no meu servidor de suporte.",
-      "whatMode": "Que modo de jogo você quer jogar?{{modes}}",
+      "whatMode": "Que modo de jogo você quer jogar? {{modes}}",
       "expiredMatch": "O jogo expirou, por favor tente novamente.",
       "cancelledMatch": "Partida cancelada.",
       "noManageMessagesPermission": "Eu detectei que eu estou sem a permissão de {{MANAGE_MESSAGES}}, sem isso, eu não posso continuar! Por favor me essa permissão e tente de novo para começar a partida.",
       "invalidMode": "Isso não parece um modo de jogo valido. Cancelando..",
-      "whatRounds": "Qual são o número de rodadas desta partida?",
+      "whatRounds": "Quais são os número de rodadas desta partida?",
       "isNaN": "Isso não parece um número valido! Cancelando...",
       "roundsLimit": "O número máximo de rodadas é 10! Cancelando...",
       "whatDuration": "Qual é a duração de para a partida? (Mínimo: 20 segundos)",
@@ -16,28 +16,28 @@
       "invalidDuration": "Isso não parece uma duração valida. Cancelando...",
       "whatAnimeListWebsite": "Que website está sua animelist? (Suportados: {{websites}})",
       "invalidWebsite": "Isso não parece ser um website que suportamos. Cancelando...",
-      "whatUsername": "Qual é seu username no website escolhido?",
-      "invalidUsername": "Eu não encontrei seu username no website escolhido! Cancelando..."
+      "whatUsername": "Qual é seu nome de usuário no website escolhido?",
+      "invalidUsername": "Eu não encontrei seu perfil no website escolhido! Cancelando..."
     },
-    "rollingMatch": "Já está ocorrendo uma partida no canal de voz nesse server.",
+    "rollingMatch": "Já tem uma partida acontecendo em um canal de voz nesse servidor.",
     "tip": "**DICA**: Se você quer mudar a configuração destá partida, digite **{{prefix}}stop**"
   },
   "botinfo": {
     "helpDescription": "Mostrar as informações do bot.",
-    "ritsuAbout": "Olá! Eu sou **Ritsu** e eu sou um bot baseado em um jogo chamado **Anime Music Quiz** feito com {{jsEmoji}} **Javascript** usando discord.js, Eu vou tocar uma abertura ou encerramento e seu objetivo é acertar a de que anime é! Eu estou nos {{servers}} servers.Eu estou online a **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** e com **{{matches}}**Com partidas ocorrendo agora!",
+    "ritsuAbout": "Olá! Eu sou a **Ritsu** e eu sou um bot baseado em um jogo chamado **Anime Music Quiz** fui feita com {{jsEmoji}} **Javascript** usando discord.js. Seu objetivo é simples! Eu vou tocar a abertura ou um encerramento de algum anime e você precisa acertar o nome dele! Eu estou nos {{servers}} servers. Eu estou online á **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** e com **{{matches}}** partidas ocorrendo agora!",
     "commands": "Comandos",
     "usefulLinks": "Links úteis",
     "credits": "Créditos",
     "creditsDescriptions": {
-      "themes": "Para fornercer os temas para o bot tocar",
+      "themes": "Para fornercer as musicas para o bot tocar",
       "animemusicquiz": "Claro, a maior inspiração para este projeto",
       "kyuuchan": "Muitas parte deste codig\no foram inspiradas por",
-      "creators": "Ideias, desenvolvimento e muita paciência. Sem essas 3 pessoas o bot provavelmente não existiria."
+      "creators": "Ideias, desenvolvimento e bastante paciência. Sem essas três pessoas o bot provavelmente não existiria."
     }
   },
   "help": {
     "helpDescription": "Esse comando :P",
-    "available": "Comandos Acessiveis",
+    "available": "Comandos disponíveis",
     "howtoplay": "**Como jogar**: Quando usar este comando para começar o jogo, o bot irá tocar uma abertura de ou encerramento de um anime (ou se especificamente o ano dos temas no comando de começar) e quem acertar mais aberturas ou encerramentos de acordo com os rounds, ganha."
   },
   "invite": {
