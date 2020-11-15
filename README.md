@@ -53,6 +53,8 @@ https://crowdin.com/project/ritsu
 
 **We do not recommend you to self-host the bot yourself, unless it is to contribute to the code, but if you still want to, study the bot ecosystem and be on your own, it is not difficult, we will not give support you if not to contribute to the code or learn something from Ritsu.**
 
+- Fork the project and clone to your computer.
+
 #### .env Structure
 ```ascii
 .env
