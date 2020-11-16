@@ -56,6 +56,7 @@ https://crowdin.com/project/ritsu
 - Fork the project and clone to your computer.
 
 #### .env Structure
+
 ```ascii
 .env
 └── TOKEN
@@ -75,6 +76,7 @@ https://crowdin.com/project/ritsu
 ```
 
 #### Starting Ritsu
+
 ```
 yarn (or npm install, but we uses yarn)
 node index.js (or node .)
@@ -82,9 +84,9 @@ node index.js (or node .)
 
 ### Branch's
 
-- ``Canary`` - Work here, it is the branch we use for development and it is tested at Ritsu Canary.
-- ``Master`` - It is **just** to release the final code to Ritsu, all that is in it is what is currently running in production.
-- ``Crowdin-Locales`` - Used by Crowdin to put the current translations, we always give a PR to the canary frequently, thus keeping the locales up to date.
+- `Canary` - Work here, it is the branch we use for development and it is tested at Ritsu Canary.
+- `Master` - It is **just** to release the final code to Ritsu, all that is in it is what is currently running in production.
+- `Crowdin-Locales` - Used by Crowdin to put the current translations, we always give a PR to the canary frequently, thus keeping the locales up to date.
 
 ## Credits
 
