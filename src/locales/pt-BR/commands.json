@@ -23,8 +23,8 @@
     "tip": "**DICA**: Se você quer parar a configuração destá partida, digite **{{prefix}}stop**"
   },
   "botinfo": {
-    "helpDescription": "Mostrar as informações do bot.",
-    "ritsuAbout": "Olá! Eu sou a **Ritsu** e eu sou um bot baseado em um jogo chamado **Anime Music Quiz** fui feita com {{jsEmoji}} **Javascript** usando discord.js. Seu objetivo é simples! Eu vou tocar a abertura ou um encerramento de algum anime e você precisa acertar o nome dele! Eu estou nos {{servers}} servers. Eu estou online á **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** e com **{{matches}}** partidas ocorrendo agora!",
+    "helpDescription": "Mostra as informações do bot.",
+    "ritsuAbout": "Olá! Eu sou a **Ritsu** e eu sou um bot baseado em um jogo chamado **Anime Music Quiz** fui feita com {{jsEmoji}} **Javascript** usando discord.js. Seu objetivo é simples! Eu vou tocar a abertura ou um encerramento de algum anime e você precisa acertar o nome dele! Eu estou em {{servers}} servers. Eu estou online á **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** e com **{{matches}}** partidas ocorrendo agora!",
     "commands": "Comandos",
     "supportServer": "Servidor de Suporte",
     "upvote": "Vote no Bot!",
@@ -32,7 +32,7 @@
     "usefulLinks": "Links úteis",
     "credits": "Créditos",
     "creditsDescriptions": {
-      "themes": "Para fornercer as musicas para o bot tocar",
+      "themes": "Para fornecer as musicas para o bot tocar",
       "animemusicquiz": "Claro, a maior inspiração para este projeto",
       "kyuuchan": "Muitas parte deste codigo foram inspiradas nele",
       "creators": "Ideias, desenvolvimento e bastante paciência. Sem essas três pessoas o bot provavelmente não existiria."
@@ -45,7 +45,7 @@
   },
   "invite": {
     "helpDescription": "Me adicione em seu servidor!",
-    "inviteMessage": "**Você pode me adicionar no seu server usando este link {{inviteUrl}}**\n\nQuer estar sempre atualizado de novos atualizações e conversar com os desenvolvedores?Entre no nosso server!\nO link está presente em **{{prefix}}botinfo** ^w^"
+    "inviteMessage": "**Você pode me adicionar no seu server usando este link {{inviteUrl}}**\n\nQuer estar sempre atualizado de novos atualizações e conversar com os desenvolvedores? Entre no nosso servidor de suporte!\nO link está presente em **{{prefix}}botinfo** ^w^"
   },
   "ping": {
     "helpDescription": "Mostrar a latência do bot."
