@@ -2,5 +2,6 @@
   "wonMatches": "Won Matches",
   "playedMatches": "Matches played",
   "badges": "Badges",
-  "rank": "Rank"
+  "rank": "Rank",
+  "mentionRitsu": "Hi! I'm Ritsu! A bot based on the game AnimeMusicQuiz! My prefix on that server is **{{prefix}}**and you can see all of my commands using **{{prefix}}help**"
 }
