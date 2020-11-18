@@ -30,9 +30,7 @@ module.exports = class message {
       message.content.replace(/!/g, '') ==
       message.guild.me.toString().replace(/!/g, '')
     ) {
-      message.channel.send(
-        `Hi! I'm Ritsu! A bot based on the game AnimeMusicQuiz! My prefix on that server is **${guild.prefix}** and you can see all of my commands using **${guild.prefix}help**`
-      )
+      message.channel.send(t('utils:mentionRitsu', { prefix: guild.prefix }))
     }
     if (!message.content.startsWith(guild.prefix)) return
     const args = message.content.slice(guild.prefix.length).trim().split(/ +/g)
@@ -61,7 +59,7 @@ module.exports = class message {
     try {
       new Promise((resolve) => {
         // eslint-disable-line no-new
-        resolve(fancyCommand.run({ message, args, guild }, t))
+        resolve(fancyCommand.run({ message, args }, guild, t))
       })
     } catch (e) {
       log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)

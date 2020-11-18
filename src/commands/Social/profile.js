@@ -17,7 +17,7 @@ module.exports = class Profile extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run({ message, args }, t) {
+  async run({ message, args }, _, t) {
     const member =
       message.mentions.users.first() ||
       this.client.users.cache.get(args[0]) ||

@@ -18,7 +18,7 @@ module.exports = class Start extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run({ message, args, guild }, t) {
+  async run({ message, args }, guild, t) {
     if (guild.rolling)
       return message.channel.send(t('commands:start.rollingMatch'))
 

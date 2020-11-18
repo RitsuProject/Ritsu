@@ -19,7 +19,7 @@ module.exports = class BotInfo extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run({ message }, t) {
+  async run({ message }, _, t) {
     const matches = await Rooms.countDocuments({})
     const uptime = moment.duration(this.client.uptime)
     const embed = new MessageEmbed()

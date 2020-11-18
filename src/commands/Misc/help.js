@@ -17,7 +17,7 @@ module.exports = class Help extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run({ message, args, guild }, t) {
+  async run({ message }, guild, t) {
     const embed = new MessageEmbed()
     embed.setTitle(t('commands:help.available'))
     embed.setColor('#3486eb')

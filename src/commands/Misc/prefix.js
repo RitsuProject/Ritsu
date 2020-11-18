@@ -16,7 +16,7 @@ module.exports = class Prefix extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run({ message, args, guild }, t) {
+  async run({ message, args }, guild, t) {
     if (!args[0]) return message.channel.send(t('commands:prefix.noPrefix'))
     guild.prefix = args[0]
     guild.save()

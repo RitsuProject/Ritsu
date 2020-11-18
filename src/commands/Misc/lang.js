@@ -15,7 +15,7 @@ module.exports = class Ping extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run({ message, args, guild }) {
+  async run({ message, args }, guild, t) {
     const lang = args[0]
     guild.lang = lang
     guild.save()
