@@ -5,7 +5,7 @@ module.exports = class Bio extends Command {
   constructor(client) {
     super(client, {
       name: 'bio',
-      aliases: [],
+      aliases: ['about'],
       description: 'Change your profile bio.',
       requiredPermissions: null,
       dev: false,

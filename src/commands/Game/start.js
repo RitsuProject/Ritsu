@@ -6,7 +6,7 @@ module.exports = class Start extends Command {
   constructor(client) {
     super(client, {
       name: 'start',
-      aliases: [],
+      aliases: ['play'],
       description: 'Start the game.',
       requiredPermissions: null,
       fields: ['OPTIONAL: default (to use the default configuration)'],
