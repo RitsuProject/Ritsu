@@ -1,3 +1,5 @@
+const { TranslationStatus } = require('@crowdin/crowdin-api-client')
+const { MessageEmbed } = require('discord.js')
 const { Command } = require('../../structures/Command')
 
 module.exports = class Ping extends Command {
@@ -9,16 +11,128 @@ module.exports = class Ping extends Command {
       requiredPermissions: ['MANAGE_GUILD'],
       dev: false,
     })
+    this.client = client
   }
   /**
    * Run
    * @param {Message} message
    * @param {Array} args
    */
-  async run({ message, args }, guild, t) {
-    const lang = args[0]
-    guild.lang = lang
-    guild.save()
-    message.channel.send('jojo')
+  async run({ message }, guild, t) {
+    const translationsStatus = new TranslationStatus({
+      token: process.env.CROWDIN_TOKEN,
+    })
+    const projectProgress = await translationsStatus.getProjectProgress(
+      '428912'
+    ) // Get Ritsu Crowdin Project
+
+    // Language Progress
+    const ptBRProgress = projectProgress.data.filter(
+      (d) => d.data.languageId === 'pt-BR'
+    )[0].data.translationProgress
+    const enUSProgress = projectProgress.data.filter(
+      (d) => d.data.languageId === 'en'
+    )[0].data.translationProgress
+    const esESProgress = projectProgress.data.filter(
+      (d) => d.data.languageId === 'es-ES'
+    )[0].data.translationProgress
+    const itITProgress = projectProgress.data.filter(
+      (d) => d.data.languageId === 'it'
+    )[0].data.translationProgress
+    const deDeProgress = projectProgress.data.filter(
+      (d) => d.data.languageId === 'de'
+    )[0].data.translationProgress
+
+    const embed = new MessageEmbed() // Time to mount the embed!
+    embed.setTitle(t('commands:lang.languages'))
+    embed.setDescription(t('commands:lang.embedDescription'))
+    embed.setColor('#eb4034')
+    embed.addFields(
+      {
+        name: ':flag_br: pt-BR',
+        value: `Progress: **${ptBRProgress}%**`,
+        inline: true,
+      },
+      {
+        name: ':flag_us: en-US',
+        value: `Progress: **${enUSProgress}%**`,
+        inline: true,
+      },
+      {
+        name: ':flag_es: es-ES',
+        value: `Progress: **${esESProgress}%**`,
+        inline: true,
+      },
+      {
+        name: ':flag_it: it-IT',
+        value: `Progress: **${itITProgress}%**`,
+        inline: true,
+      },
+      {
+        name: ':flag_de: de-DE',
+        value: `Progress: **${deDeProgress}%**`,
+        inline: true,
+      }
+    )
+
+    message.channel.send(embed).then((m) => {
+      setTimeout(() => {
+        m.react('🇧🇷')
+      }, 600)
+      setTimeout(() => {
+        m.react('🇺🇸')
+      }, 600)
+      setTimeout(() => {
+        m.react('🇪🇸')
+      }, 600)
+      setTimeout(() => {
+        m.react('🇩🇪')
+      }, 600)
+      setTimeout(() => {
+        m.react('🇮🇹')
+      }, 600)
+
+      const collector = m.createReactionCollector(
+        (r, u) =>
+          (r.emoji.name === '🇧🇷', '🇺🇸', '🇪🇸', '🇩🇪', '🇮🇹') &&
+          u.id !== this.client.user.id &&
+          u.id === message.author.id
+      ) // Create a fancy reaction collector to listen the flags reactions!
+
+      collector.on('collect', (r) => {
+        switch (r.emoji.name) {
+          case '🇧🇷': {
+            guild.lang = 'pt-BR'
+            guild.save()
+            message.channel.send(t('commands:lang.success', { lang: 'pt-BR' }))
+            break
+          }
+          case '🇺🇸': {
+            guild.lang = 'en-US'
+            guild.save()
+            message.channel.send(t('commands:lang.success', { lang: 'en-US' }))
+            break
+          }
+          case '🇪🇸': {
+            guild.lang = 'es-ES'
+            guild.save()
+            message.channel.send(t('commands:lang.success', { lang: 'es-ES' }))
+            break
+          }
+          case '🇩🇪': {
+            guild.lang = 'de-DE'
+            guild.save()
+            message.channel.send(t('commands:lang.success', { lang: 'de-DE' }))
+            break
+          }
+          case '🇮🇹': {
+            guild.lang = 'it-IT'
+            guild.save()
+            message.channel.send(t('commands:lang.success', { lang: 'it-IT' }))
+            break
+          }
+        }
+      })
+    })
   }
 }

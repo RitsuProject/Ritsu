@@ -16,6 +16,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@crowdin/crowdin-api-client@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@crowdin/crowdin-api-client/-/crowdin-api-client-1.9.0.tgz#6c769de38606c0c26ab501b616e245135e6ae3c8"
+  integrity sha512-oyP0YcK00JVGKilL/V/HeD/YCsbWiiIShCN+BpR/UWG0ybVIMf6i2bVEablSI4n8R1NjcK9UHqhKx5Krooa0eA==
+  dependencies:
+    axios "^0.19.0"
+
 "@derhuerst/http-basic@^8.2.0":
   version "8.2.1"
   resolved "https://registry.yarnpkg.com/@derhuerst/http-basic/-/http-basic-8.2.1.tgz#11e3964cf1f2fb40806f9a0fff0c451bb7526093"

@@ -6,6 +6,7 @@
   "author": "FelipeSazz <felipe@sazz.fail>",
   "license": "MIT",
   "dependencies": {
+    "@crowdin/crowdin-api-client": "^1.9.0",
     "@discordjs/opus": "^0.3.2",
     "chalk": "^4.1.0",
     "dblapi.js": "^2.4.1",
