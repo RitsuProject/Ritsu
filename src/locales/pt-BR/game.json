@@ -1,6 +1,7 @@
 {
   "roundStarted": "Começando a #{{round}} rodada! Qual é o anime para esta Abertura/ Encerramento? Digite a resposta no chat! Você tem {{time}}.\nEnvie **{{prefix}}stop** no chat se você quiser encerrar a partida.",
   "eventModeAnswer": "**[Modo de Evento]** A resposta é: {{answer}}",
+  "easteregg": "Você descobriu um Easter Egg! Sua partida começará em {{seconds}} segundos.",
   "correctAnswer": "Parabéns {{user}}! Você respondeu corretamente!",
   "answserIs": "A resposta é...",
   "searchingTheme": "Procurando música... (Isso pode levar algum tempo)",
@@ -8,6 +9,7 @@
   "correctUsers": "{{users}} ganhou(ram) esse round!",
   "winner": "{{user}} é o vencedor dessa partida!",
   "nobodyWon": "Ninguém ganhou a partida.",
+  "forceFinished": "Essa partida foi encerrada á força.",
   "roundEnded": "As rodadas acabaram! Espero que vocês tenham se divertido.",
   "nobody": "Ninguém",
   "originalTitle": "Titulo Original: {{title}}",
