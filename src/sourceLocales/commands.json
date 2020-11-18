@@ -57,7 +57,7 @@
   },
   "lang": {
     "helpDescription": "Change the server language.",
-    "embedDescription": "Use {{prefix}}lang <language> to change.",
+    "embedDescription": "Select one of the languages ​​below by reacting to their flags' emoji.",
     "languages": "Available Languages"
   },
   "bio": {
