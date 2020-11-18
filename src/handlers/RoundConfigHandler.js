@@ -205,10 +205,16 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       )
     const themesMoe = new ThemesMoeService()
     let user
-    if (service === 'mal') {
-      user = await themesMoe.getAnimesByMal(m.content)
-    } else if (service === 'anilist') {
-      user = await themesMoe.getAnimesByAnilist(m.content)
+    try {
+      if (service === 'mal') {
+        user = await themesMoe.getAnimesByMal(m.content)
+      } else if (service === 'anilist') {
+        user = await themesMoe.getAnimesByAnilist(m.content)
+      }
+    } catch (e) {
+      return this.message.channel.send(
+        this.t('game:errors.fatalError', { error: `\`${e}\`` })
+      )
     }
 
     if (user) {
