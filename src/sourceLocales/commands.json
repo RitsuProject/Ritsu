@@ -59,6 +59,7 @@
     "helpDescription": "Change the server language.",
     "embedDescription": "Select one of the languages ​​below by reacting to their flags' emoji.",
     "languages": "Available Languages",
+    "progress": "Progress: **{{progress}}%**",
     "success": "My language is now marked as: **{{lang}}**"
   },
   "bio": {

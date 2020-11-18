@@ -50,27 +50,27 @@ module.exports = class Ping extends Command {
     embed.addFields(
       {
         name: ':flag_br: pt-BR',
-        value: `Progress: **${ptBRProgress}%**`,
+        value: t('commands:lang.progress', { progress: ptBRProgress }),
         inline: true,
       },
       {
         name: ':flag_us: en-US',
-        value: `Progress: **${enUSProgress}%**`,
+        value: t('commands:lang.progress', { progress: enUSProgress }),
         inline: true,
       },
       {
         name: ':flag_es: es-ES',
-        value: `Progress: **${esESProgress}%**`,
+        value: t('commands:lang.progress', { progress: esESProgress }),
         inline: true,
       },
       {
         name: ':flag_it: it-IT',
-        value: `Progress: **${itITProgress}%**`,
+        value: t('commands:lang.progress', { progress: itITProgress }),
         inline: true,
       },
       {
         name: ':flag_de: de-DE',
-        value: `Progress: **${deDeProgress}%**`,
+        value: t('commands:lang.progress', { progress: deDeProgress }),
         inline: true,
       }
     )
