@@ -11,6 +11,7 @@ const EmbedGen = require('../utils/EmbedGen')
 const getProviderStatus = require('../utils/getProviderStatus')
 const { Message, VoiceChannel } = require('discord.js')
 const { HostHandler } = require('./HostHandler')
+const { EasterEggHandler } = require('./EasterEggHandler')
 
 /**
  * Game Service
@@ -59,6 +60,12 @@ module.exports.GameService = class GameService {
         return
       } // Don't have a match at the moment? But did the user try to start a game without being on the voice channel? Turn back.
       return this.message.channel.send(this.t('game:noVoiceChannel'))
+    }
+
+    const easteregg = new EasterEggHandler(this.message, voicech)
+    const secret = await easteregg.isValid()
+    if (secret) {
+      await easteregg.start(secret)
     }
 
     this.startNewRound(guild, voicech).catch((e) => {

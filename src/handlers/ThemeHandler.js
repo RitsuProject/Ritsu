@@ -14,10 +14,9 @@ module.exports.ThemeService = class ThemeService {
     switch (mode) {
       case 'event':
       case 'easy': {
-        const randomPage = Math.floor(Math.random() * (60 - 1)) + 1
         const rank = await p({
           method: 'GET',
-          url: `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`,
+          url: `https://api.jikan.moe/v3/top/anime/0/bypopularity`,
           parse: 'json',
         })
 
