@@ -7,9 +7,10 @@ module.exports.EasterEggHandler = class EasterEggHandler {
    * @param {Message} message
    * @param {VoiceChannel} voicech
    */
-  constructor(message, voicech) {
+  constructor(message, voicech, t) {
     this.message = message
     this.voicech = voicech
+    this.t = t
   }
 
   async isValid() {
@@ -52,7 +53,9 @@ module.exports.EasterEggHandler = class EasterEggHandler {
           const dispatch = connection.play(response.stream)
 
           this.message.channel.send(
-            '🍡 **Dango Dango Dango!** You just discovered an easter egg! Your match will start in 20 seconds.'
+            `🍡 **Dango Dango Dango!** ${this.t('game:easteregg', {
+              seconds: '20',
+            })}`
           )
 
           dispatch.on('start', () => {
@@ -74,7 +77,12 @@ module.exports.EasterEggHandler = class EasterEggHandler {
           const dispatch = connection.play(response.stream)
 
           this.message.channel.send(
-            `<:shinji:778688760648826880> **Oh! I'm seeing a tsundere...** You just discovered an easter egg! Your match will start in 20 seconds.`
+            `<:shinji:778688760648826880> **Oh! I'm seeing a tsundere...** ${this.t(
+              'game:easteregg',
+              {
+                seconds: '20',
+              }
+            )}`
           )
 
           dispatch.on('start', () => {
@@ -96,7 +104,12 @@ module.exports.EasterEggHandler = class EasterEggHandler {
           const dispatch = connection.play(response.stream)
 
           this.message.channel.send(
-            `<a:kurisupatpat:755754404807704686> **Hououin Kyouma!** You just discovered an easter egg! Your match will start in 30 seconds.`
+            `<a:kurisupatpat:755754404807704686> **Hououin Kyouma!** ${this.t(
+              'game:easteregg',
+              {
+                seconds: '30',
+              }
+            )}`
           )
 
           dispatch.on('start', () => {

@@ -62,7 +62,7 @@ module.exports.GameService = class GameService {
       return this.message.channel.send(this.t('game:noVoiceChannel'))
     }
 
-    const easteregg = new EasterEggHandler(this.message, voicech)
+    const easteregg = new EasterEggHandler(this.message, voicech, this.t)
     const secret = await easteregg.isValid()
     if (secret) {
       await easteregg.start(secret)
