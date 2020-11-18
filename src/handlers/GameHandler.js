@@ -64,7 +64,7 @@ module.exports.GameService = class GameService {
     this.startNewRound(guild, voicech).catch((e) => {
       log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
       this.message.channel.send(
-        `<a:bongo_cat:772152200851226684> | ${this.t('game:fatalError', {
+        `<a:bongo_cat:772152200851226684> | ${this.t('game:errors.fatalError', {
           error: `\`${e}\``,
         })}`
       )
@@ -93,7 +93,7 @@ module.exports.GameService = class GameService {
       timeout: 20000,
     }).catch(() => {
       loading.delete()
-      throw this.t('game:streamTimeout')
+      throw this.t('game:errors.streamTimeout')
     })
     loading.delete()
 
@@ -165,7 +165,7 @@ module.exports.GameService = class GameService {
           true,
           'green'
         )
-        this.message.channel.send('This match was ended by force.')
+        this.message.channel.send(this.t('game:forceFinished'))
         await this.clear()
         this.finish(voicech, room, true)
         return
@@ -196,9 +196,12 @@ module.exports.GameService = class GameService {
         await this.startNewRound(guild, voicech).catch(async (e) => {
           log(`GUILD -> ${this.message.guild.id} | ${e}`, 'GAME_SERVICE', true)
           this.message.channel.send(
-            `<a:bongo_cat:772152200851226684> | ${this.t('game:fatalError', {
-              error: `\`${e}\``,
-            })}`
+            `<a:bongo_cat:772152200851226684> | ${this.t(
+              'game:errors.fatalError',
+              {
+                error: `\`${e}\``,
+              }
+            )}`
           )
           await this.clear()
           await this.finish(voicech, room, true)
@@ -490,9 +493,7 @@ module.exports.GameService = class GameService {
       return malAnime
     } catch (e) {
       log(e, 'GAME_SERVICE', true)
-      this.message.channel.send(
-        `An error occurred in trying to get MyAnimeList data from this anime.\n${e.message}`
-      )
+      throw `An error occurred in trying to get MyAnimeList data from this anime.\n${e.message}`
     }
   }
 }
