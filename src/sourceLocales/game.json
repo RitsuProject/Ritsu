@@ -18,6 +18,7 @@
     "noUsersInVoiceChannel": "It seems that there are no more people on the voice channel, ending the match.",
     "fatalError": "**Oopsie! It looks like an error occurred while trying to start the round**! {{error}}",
     "streamTimeout": "It seems like it took a long time for me to finish loading the stream, maybe I'm a little slow? Please restart the game.",
-    "onlyHostCanFinish": "Only the one who started the game can finish it."
+    "onlyHostCanFinish": "Only the one who started the game can finish it.",
+    "unavailable": "**I'm burning! I am unavailable for new rounds at the moment (probably due to some instability), enter my support server for updates. In the meantime stay with Amelia Watson Vibing.**"
   }
 }
