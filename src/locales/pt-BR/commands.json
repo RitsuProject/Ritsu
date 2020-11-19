@@ -24,7 +24,7 @@
   },
   "botinfo": {
     "helpDescription": "Mostra as informações do bot.",
-    "ritsuAbout": "Olá! Eu sou a **Ritsu** e eu sou um bot baseado em um jogo chamado **Anime Music Quiz** fui feita com {{jsEmoji}} **Javascript** usando discord.js. Seu objetivo é simples! Eu vou tocar a abertura ou um encerramento de algum anime e você precisa acertar o nome dele! Eu estou em {{servers}} servers. Eu estou online á **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** e com **{{matches}}** partidas ocorrendo agora!",
+    "ritsuAbout": "Olá! Eu sou a **Ritsu** e eu sou um bot baseado em um jogo chamado **Anime Music Quiz**, fui feita com {{jsEmoji}} **Javascript** usando discord.js. Seu objetivo é simples! Eu vou tocar a abertura ou um encerramento de algum anime e você precisa acertar o nome dele! Eu estou em {{servers}} servers. Eu estou online á **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** e com **{{matches}}** partidas ocorrendo agora!",
     "commands": "Comandos",
     "supportServer": "Servidor de Suporte",
     "upvote": "Vote no Bot!",
@@ -57,8 +57,10 @@
   },
   "lang": {
     "helpDescription": "Escolher idioma do servidor.",
-    "embedDescription": "Use {{prefix}}lang <language> para escolher idioma.",
-    "languages": "Idiomas disponíveis"
+    "embedDescription": "Selecione um dos idiomas abaixo reagindo no emoji da bandeira dele.",
+    "languages": "Idiomas disponíveis",
+    "progress": "Progresso: **{{progress}}%**",
+    "success": "Meu idioma foi selecionado como: **{{lang}}**"
   },
   "bio": {
     "helpDescription": "Editar sua biografia.",

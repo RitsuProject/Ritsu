@@ -2,5 +2,6 @@
   "wonMatches": "Partidas ganhas",
   "playedMatches": "Partidas jogadas",
   "badges": "Emblemas",
-  "rank": "Rank"
+  "rank": "Rank",
+  "mentionRitsu": "Olá! Eu sou a Ritsu! Um bot baseado no jogo AnimeMusicQuiz! Meu prefixo nesse servidor é **{{prefix}}**, e você pode dar uma olhada nos meus comandos usando o comando **{{prefix}}help**"
 }

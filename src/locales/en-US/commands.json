@@ -58,7 +58,9 @@
   "lang": {
     "helpDescription": "Change the server language.",
     "embedDescription": "Use {{prefix}}lang <language> to change.",
-    "languages": "Available Languages"
+    "languages": "Available Languages",
+    "progress": "Progress: **{{progress}}%**",
+    "success": "My language is now marked as: **{{lang}}**"
   },
   "bio": {
     "helpDescription": "Change your profile bio.",
