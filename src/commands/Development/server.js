@@ -17,7 +17,7 @@ module.exports = class Eval extends Command {
    * @param {Message} message
    * @param {Array} args
    */
-  async run(message, args) {
+  async run({ message, args }) {
     const server = args[0]
     const status = args[1]
     const server_ = await Servers.findById('status')

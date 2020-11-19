@@ -1,5 +1,6 @@
 const p = require('phin')
 const { ThemesMoeService } = require('../services/ThemesMoeService')
+const getProviderStatus = require('../utils/getProviderStatus')
 const { log } = require('../utils/Logger')
 
 /**
@@ -11,6 +12,8 @@ module.exports.ThemeService = class ThemeService {
   constructor() {}
 
   async getAnimeByMode(provider, mode, listService, listUsername) {
+    const status = await getProviderStatus(provider)
+    if (!status) return 'unavailable'
     switch (mode) {
       case 'event':
       case 'easy': {

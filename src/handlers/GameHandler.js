@@ -124,8 +124,19 @@ module.exports.GameService = class GameService {
       )
     }
 
-    const animeData = await this.getAnimeDetails(answser)
-    const answsers = await this.getAnswsers(animeData)
+    let animeData
+    let answsers
+    if (type !== 'on fire') {
+      animeData = await this.getAnimeDetails(answser)
+      answsers = await this.getAnswsers(animeData)
+    } else {
+      animeData = {
+        picture: 'https://cdn.myanimelist.net/images/anime/9/23479.jpg',
+        englishTitle: 'Ritsu is Unavailable',
+      }
+      answsers = ['Ritsu is Unavailable']
+      this.message.channel.send(this.t('game:errors.unavailable'))
+    }
 
     const answserFilter = (msg) => this.isAnswser(answsers, msg)
     const commanderFilter = (msg) => this.isCommand(guild.prefix, msg)
@@ -286,19 +297,23 @@ module.exports.GameService = class GameService {
     const themeService = new ThemeService()
     const hostHandler = new HostHandler()
     let provider = hostHandler.getProvider()
-    const status = await getProviderStatus(provider)
     const theme = await themeService.getAnimeByMode(
       provider,
       this.mode,
       this.listService,
       this.listUsername
     )
-    if (status) {
-      if (!theme) {
-        return await this.choose()
-      } else {
-        return theme
+    if (theme === 'unavailable')
+      return {
+        name: 'Ritsu is Unavailable',
+        link: 'https://files.catbox.moe/e9k222.mp3',
+        type: 'on fire',
+        full: {},
       }
+    if (!theme) {
+      return await this.choose()
+    } else {
+      return theme
     }
   }
 
@@ -387,6 +402,8 @@ module.exports.GameService = class GameService {
       .replace(/[^\w\s]/gi, '')
       .toLowerCase()
     let score = 0
+    // Just return false if Ritsu is unavailable.
+    if (answsers.includes('Ritsu is Unavailable')) return false
     answsers.forEach((a) => {
       // Let's compare all the titles!
       const similarity = stringSimilarity.compareTwoStrings(a, msg)
