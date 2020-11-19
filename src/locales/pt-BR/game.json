@@ -18,6 +18,7 @@
     "noUsersInVoiceChannel": "Parece que não tem ninguém no canal de voz, encerrando partida.",
     "fatalError": "**Oopise! Parece que ocorreu um erro enquanto tentava começar o round**! {{error}}",
     "streamTimeout": "Parece que está levando um bom tempo para eu terminar a stream, talvez eu esteja um pouco lenta? Por favor reinicie o jogo.",
-    "onlyHostCanFinish": "Apenas quem iniciou a partida pode encerrá-la."
+    "onlyHostCanFinish": "Apenas quem iniciou a partida pode encerrá-la.",
+    "unavailable": "**Estou queimando! Estou indisponivel para novas rodadas no momento (provavelmente por causa de uma instabilidade), entre no meu servidor para atualizações. Por enquanto fique com a Amelia Watson Vibing.**"
   }
 }
