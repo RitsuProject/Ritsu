@@ -12,18 +12,21 @@ const getProviderStatus = require('../utils/getProviderStatus')
 const { Message, VoiceChannel } = require('discord.js')
 const { HostHandler } = require('./HostHandler')
 const { EasterEggHandler } = require('./EasterEggHandler')
+const { getStream } = require('../utils/getStream')
 
 /**
  * Game Service
  * @class
  * @desc The main service of Ritsu, responsible for handling games, getting the themes and playing them.
- * @param {Message} message - Message
- * @param {Object} [options = {}] - Game Options
  * @exemple
  * const gameService = new GameService(message)
  */
 
 module.exports.GameService = class GameService {
+  /**
+   * @param {Message} message
+   * @param {Object} options
+   */
   constructor(message, options = {}) {
     this.message = message
     this.mode = options.mode || 'normal'
@@ -47,28 +50,7 @@ module.exports.GameService = class GameService {
     const guild = await Guilds.findById(this.message.guild.id)
     if (!guild) return
 
-    const voicech = this.message.member.voice.channel
-    if (!voicech) {
-      const room_ = await Rooms.findById(this.message.guild.id)
-      if (room_) {
-        // If the match host itself is no longer on the voice channel, cancel it.
-        await room_.deleteOne()
-        guild.rolling = false
-        guild.currentChannel = null
-        await guild.save()
-        this.message.channel.send(this.t('game:noUsersInVoiceChannel'))
-        return
-      } // Don't have a match at the moment? But did the user try to start a game without being on the voice channel? Turn back.
-      return this.message.channel.send(this.t('game:noVoiceChannel'))
-    }
-
-    const easteregg = new EasterEggHandler(this.message, voicech, this.t)
-    const secret = await easteregg.isValid()
-    if (secret) {
-      await easteregg.start(secret)
-    }
-
-    this.startNewRound(guild, voicech).catch((e) => {
+    this.startNewRound(guild).catch((e) => {
       log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
       this.message.channel.send(
         `<a:bongo_cat:772152200851226684> | ${this.t('game:errors.fatalError', {
@@ -82,23 +64,39 @@ module.exports.GameService = class GameService {
    * Start a new Round.
    * @async
    * @param {Document} guild - The server that belongs to the round.
-   * @param {VoiceChannel} voicech - The voice channel at which the round will start.
    */
 
-  async startNewRound(guild, voicech) {
+  async startNewRound(guild) {
+    const voicech = this.message.member.voice.channel
+
+    // owo eastereggs
+    const easteregg = new EasterEggHandler(this.message, voicech, this.t)
+    const secret = await easteregg.isValid()
+    if (secret) {
+      await easteregg.start(secret)
+    }
+
+    if (!voicech) {
+      const room_ = await Rooms.findById(this.message.guild.id)
+      if (room_) {
+        // If the match host itself is no longer on the voice channel, cancel it.
+        const roomChannel = this.message.guild.channels.cache.get(room_.channel)
+        roomChannel.leave()
+        await this.clear()
+
+        this.message.channel.send(this.t('game:errors.noUsersInVoiceChannel'))
+        return
+      } // Don't have a match at the moment? But did the user try to start a game without being on the voice channel? Turn back.
+      return this.message.channel.send(this.t('game:errors.noVoiceChannel'))
+    }
+
     const theme = await this.getTheme()
     const { answser, link, type } = theme
 
     const loading = await this.message.channel.send(
       `\`${this.t('game:waitingStream')}\``
     )
-    const response = await phin({
-      // Let's get the stream!'
-      method: 'GET',
-      url: link,
-      stream: true,
-      timeout: 20000,
-    }).catch(() => {
+    const stream = await getStream(link).catch(() => {
       loading.delete()
       throw this.t('game:errors.streamTimeout')
     })
@@ -106,7 +104,7 @@ module.exports.GameService = class GameService {
 
     guild.rolling = true
     await guild.save()
-    const room = await this.roomHandler(answser) // Create a new Room ^w^
+    const room = await this.roomHandler(answser, voicech.id) // Create a new Room ^w^
 
     this.message.channel.send(
       this.t('game:roundStarted', {
@@ -216,7 +214,7 @@ module.exports.GameService = class GameService {
       }
     })
 
-    this.playTheme(voicech, response.stream, guild, room)
+    this.playTheme(voicech, stream, guild, room)
   }
 
   /**
@@ -257,7 +255,6 @@ module.exports.GameService = class GameService {
     const guild = await Guilds.findById(this.message.guild.id)
     const room = await Rooms.findById(this.message.guild.id)
     guild.rolling = false
-    guild.currentChannel = null
     guild.save()
     room.deleteOne()
   }
@@ -309,14 +306,15 @@ module.exports.GameService = class GameService {
    * @async
    * @desc - Responsible for creating the rooms or checking if they already exist and returning them.
    * @param {String} answser - The answer (the anime)
+   * @param {String} channelID - Voice Channel ID
    * @returns {Promise<Document>} The room.
    */
 
-  async roomHandler(answser) {
+  async roomHandler(answser, channelID) {
     let room = await Rooms.findById(this.message.guild.id)
     if (!room) {
       // If you don't already have a room, create one.
-      room = await this.createRoom(answser)
+      room = await this.createRoom(answser, channelID)
       room.currentRound++
       await room.save()
     } else {
@@ -469,14 +467,16 @@ module.exports.GameService = class GameService {
    * Create the room.
    * @async
    * @param {String} answser - The answser.
+   * @param {String} channelID - VoiceChannel ID
    * @return {Promise<Document>} Room
    */
 
-  async createRoom(answser) {
+  async createRoom(answser, channelID) {
     const newRoom = new Rooms({
       _id: this.message.guild.id,
       answerers: [],
       answser: answser,
+      channel: channelID,
       startedBy: this.message.author.id,
       leaderboard: [],
       currentRound: 0,
