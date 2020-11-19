@@ -1,5 +1,6 @@
 const { VoiceChannel, Message } = require('discord.js')
 const phin = require('phin')
+const { getStream } = require('../utils/getStream')
 
 module.exports.EasterEggHandler = class EasterEggHandler {
   /**
@@ -43,14 +44,8 @@ module.exports.EasterEggHandler = class EasterEggHandler {
 
       switch (secret) {
         case 'clannad': {
-          const response = await phin({
-            // Let's get the stream!'
-            method: 'GET',
-            url: clannadED,
-            stream: true,
-            timeout: 20000,
-          })
-          const dispatch = connection.play(response.stream)
+          const stream = await getStream(clannadED)
+          const dispatch = connection.play(stream)
 
           this.message.channel.send(
             `🍡 **Dango Dango Dango!** ${this.t('game:easteregg', {
@@ -67,14 +62,8 @@ module.exports.EasterEggHandler = class EasterEggHandler {
           break
         }
         case 'evangelion': {
-          const response = await phin({
-            // Let's get the stream!'
-            method: 'GET',
-            url: evangelionOP,
-            stream: true,
-            timeout: 20000,
-          })
-          const dispatch = connection.play(response.stream)
+          const stream = await getStream(evangelionOP)
+          const dispatch = connection.play(stream)
 
           this.message.channel.send(
             `<:shinji:778688760648826880> **Oh! I'm seeing a tsundere...** ${this.t(
@@ -94,14 +83,8 @@ module.exports.EasterEggHandler = class EasterEggHandler {
           break
         }
         case 'steins;gate': {
-          const response = await phin({
-            // Let's get the stream!'
-            method: 'GET',
-            url: steinsGateOP,
-            stream: true,
-            timeout: 20000,
-          })
-          const dispatch = connection.play(response.stream)
+          const stream = await getStream(steinsGateOP)
+          const dispatch = connection.play(stream)
 
           this.message.channel.send(
             `<a:kurisupatpat:755754404807704686> **Hououin Kyouma!** ${this.t(

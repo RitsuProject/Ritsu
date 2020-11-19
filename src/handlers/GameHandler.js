@@ -96,6 +96,7 @@ module.exports.GameService = class GameService {
     const loading = await this.message.channel.send(
       `\`${this.t('game:waitingStream')}\``
     )
+    // Let's get the stream!
     const stream = await getStream(link).catch(() => {
       loading.delete()
       throw this.t('game:errors.streamTimeout')
