@@ -72,5 +72,26 @@
     "embedAuthor": "Top 10 users with the most matches won.",
     "wonMatches": "Won Matches:",
     "playedMatches": "Matches played:"
+  },
+  "anime": {
+    "helpDescription": "Search for a anime from MyaAnimeList.",
+    "noAnimeSpecified": "You need to specify which anime you want to search for.",
+    "gettingAnime": "Getting the data from this anime...",
+    "noAnime": "No anime was found under that name.",
+    "fields": {
+      "type": "Type",
+      "status": "Status",
+      "score": "Score",
+      "trailer": "Trailer",
+      "episodes": "Episodes",
+      "source": "Source",
+      "popularity": "Popularity",
+      "rank": "Rank",
+      "members": "Members",
+      "favorites": "Favorites",
+      "synonyms": "Synonyms",
+      "genres": "Genres",
+      "themes": "Themes"
+    }
   }
 }
