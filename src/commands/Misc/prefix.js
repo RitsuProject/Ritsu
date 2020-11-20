@@ -1,7 +1,9 @@
 const { Guilds } = require('../../models/Guild')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Prefix extends Command {
+module.exports = class Prefix extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: 'prefix',
