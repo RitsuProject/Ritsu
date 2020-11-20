@@ -1,5 +1,4 @@
 const { VoiceChannel, Message } = require('discord.js')
-const phin = require('phin')
 const { getStream } = require('../utils/getStream')
 
 module.exports.EasterEggHandler = class EasterEggHandler {
