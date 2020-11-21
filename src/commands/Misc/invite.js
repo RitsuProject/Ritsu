@@ -1,6 +1,8 @@
 const { Command } = require('../../structures/Command')
 
-module.exports = class Invite extends Command {
+module.exports = class Invite extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: 'invite',
