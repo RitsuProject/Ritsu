@@ -9,23 +9,28 @@
 <p align="center">
 <a title="Crowdin" target="_blank" href="https://crowdin.com/project/ritsu"><img src="https://badges.crowdin.net/ritsu/localized.svg"></a>
 <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"></a>
+<a href="https://discord.gg/XuDysZg"><img src="https://discordapp.com/api/guilds/764929033723969567/widget.png"></a>
+<a href="https://ritsu.sazz.fail"><img alt="website" src="https://img.shields.io/badge/website-Ritsu-ff3860"></a>
 <br>
 <a href="https://top.gg/bot/763934732420382751">
 <img src="https://top.gg/api/widget/763934732420382751.svg" alt="Ritsu" />
 </a>
 </p>
 
-## Add the Bot
+Ritsu is a bot on Discord based on the game AnimeMusicQuiz, guessing anime by its opening / ending music! Cool huh? And even better, it is completely open-source.
 
-Invite: https://sazz.fail/ritsu
+Our goal here in this repository is learning and contributing! We want more people to learn how Ritsu works and maybe in the future even contribute with bug fixes and new features! So, feel free to play around with the code, did you find something that is not documented, wrong or poorly explained? We'd love to know! Open a pull request with the correction or addition and we will receive it.
+
+## Public Version
+
+Don't you want to know about codes or complicated blah blah blah and just want to play and have fun? You can add the incredible public version (｡･∀･)ﾉﾞ
+
+Invite: https://sazz.fail/ritsu/invite
 <br>
-Support Server: https://discord.gg/XuDysZg
 
-## How to Play
-
-When using the command to start `(ritsu!start)` the game, the bot will play a song from a random opening or ending (or if you specify the year of the themes in the start command) and whoever can guess the anime from the largest number of openings or endings according to the rounds , wins.
-
-Check the `ritsu!help` for more information
+Having problems, do you want to make a suggestion or talk to us? Feel free to join our support server!
+<br>
+https://discord.gg/XuDysZg
 
 ## Contributing or Self-Hosting.
 
@@ -74,6 +79,7 @@ https://crowdin.com/project/ritsu
 └── API URL
     ├── Ritsu API URL (https://github.com/RitsuProject/Mio)
 ```
+(Remember, this is just what you need to make Ritsu work, maybe it has more values ​​than if empty, some things may not work properly...)
 
 #### Starting Ritsu
 
@@ -94,14 +100,8 @@ If it weren't for them, maybe Ritsu wouldn't even exist (or development would be
 
 > https://github.com/LeNitrous/kyuu-chan-hackweek -> Many parts of the code I was inspired by it.
 
-<br>
-
 > https://animethemes.moe -> For providing the themes for the bot to play.
 
-<br>
-
 > https://openings.moe -> For providing the themes for the bot to play.
-
-<br>
 
 > https://animemusicquiz.com -> Of course, the biggest inspiration for this project was the Anime Music Quiz.
