@@ -1,9 +1,7 @@
 const { Guilds } = require('../../models/Guild')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Prefix extends (
-  Command
-) {
+module.exports = class Prefix extends Command {
   constructor(client) {
     super(client, {
       name: 'prefix',
@@ -15,8 +13,9 @@ module.exports = class Prefix extends (
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
   async run({ message, args }, guild, t) {
     if (!args[0]) return message.channel.send(t('commands:prefix.noPrefix'))

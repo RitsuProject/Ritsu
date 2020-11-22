@@ -1,5 +1,5 @@
 const { VoiceChannel, Message } = require('discord.js')
-const { getStream } = require('../utils/getStream')
+const { getStream } = require('../utils/functions/getStream')
 
 module.exports.EasterEggHandler = class EasterEggHandler {
   /**

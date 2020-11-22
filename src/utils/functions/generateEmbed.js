@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js')
+const { Constants } = require('../constants')
 
 /**
  * The Answser Embed generator.
@@ -26,7 +27,7 @@ module.exports = function EmbedGen(answser, type, animeData) {
       "I couldn't get the cover of this anime because of errors."
     )
   }
-  embed.setColor('#ff3860')
+  embed.setColor(Constants.EMBED_COLOR)
   embed.setFooter(`Original Title: ${answser}`)
   return embed
 }

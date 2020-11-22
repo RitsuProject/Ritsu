@@ -1,18 +1,18 @@
 const { Guilds } = require('../models/Guild')
 const { ThemeService } = require('./ThemeHandler')
 const { Rooms } = require('../models/Room')
-const { log } = require('../utils/Logger')
+const { log } = require('../utils/logger')
 const { UserService } = require('./UserHandler')
 
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
 const phin = require('phin')
-const EmbedGen = require('../utils/EmbedGen')
-const getProviderStatus = require('../utils/getProviderStatus')
+const EmbedGen = require('../utils/functions/generateEmbed')
+const getProviderStatus = require('../utils/functions/getProviderStatus')
 const { Message, VoiceChannel } = require('discord.js')
 const { HostHandler } = require('./HostHandler')
 const { EasterEggHandler } = require('./EasterEggHandler')
-const { getStream } = require('../utils/getStream')
+const { getStream } = require('../utils/functions/getStream')
 
 /**
  * Game Service

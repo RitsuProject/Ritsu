@@ -15,8 +15,9 @@ module.exports = class Profile extends Command {
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
   async run({ message, args }, _, t) {
     const member =

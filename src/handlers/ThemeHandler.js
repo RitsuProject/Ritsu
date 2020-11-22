@@ -1,7 +1,7 @@
 const p = require('phin')
 const { ThemesMoeService } = require('../services/ThemesMoeService')
-const getProviderStatus = require('../utils/getProviderStatus')
-const { log } = require('../utils/Logger')
+const getProviderStatus = require('../utils/functions/getProviderStatus')
+const { log } = require('../utils/logger')
 
 /**
  * Service responsible for extracting themes from Ritsu API/MAL API.
