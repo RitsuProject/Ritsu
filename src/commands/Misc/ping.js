@@ -1,8 +1,6 @@
 const { Command } = require('../../structures/Command')
 
-module.exports = class Ping extends (
-  Command
-) {
+module.exports = class Ping extends Command {
   constructor(client) {
     super(client, {
       name: 'ping',
@@ -14,8 +12,8 @@ module.exports = class Ping extends (
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
    */
   async run({ message }) {
     message.reply(

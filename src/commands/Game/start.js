@@ -2,9 +2,7 @@ const { GameService } = require('../../handlers/GameHandler')
 const { Command } = require('../../structures/Command')
 const { RoundConfigHandler } = require('../../handlers/RoundConfigHandler')
 
-module.exports = class Start extends (
-  Command
-) {
+module.exports = class Start extends Command {
   constructor(client) {
     super(client, {
       name: 'start',
@@ -17,8 +15,9 @@ module.exports = class Start extends (
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
   async run({ message, args }, guild, t) {
     if (guild.rolling)

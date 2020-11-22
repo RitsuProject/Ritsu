@@ -2,9 +2,7 @@ const { MessageEmbed } = require('discord.js')
 const { Users } = require('../../models/User')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Leaderboard extends (
-  Command
-) {
+module.exports = class Leaderboard extends Command {
   constructor(client) {
     super(client, {
       name: 'leaderboard',
@@ -16,8 +14,8 @@ module.exports = class Leaderboard extends (
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
    */
   async run({ message }, guild, t) {
     const embed = new MessageEmbed()

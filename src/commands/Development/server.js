@@ -14,8 +14,9 @@ module.exports = class Server extends Command {
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
   async run({ message, args }) {
     const server = args[0]

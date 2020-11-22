@@ -1,8 +1,6 @@
 const { Command } = require('../../structures/Command')
 
-module.exports = class Invite extends (
-  Command
-) {
+module.exports = class Invite extends Command {
   constructor(client) {
     super(client, {
       name: 'invite',
@@ -14,8 +12,8 @@ module.exports = class Invite extends (
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
    */
   async run({ message }, guild, t) {
     message.channel.send(

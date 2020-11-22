@@ -3,9 +3,7 @@ const moment = require('moment')
 const { Rooms } = require('../../models/Room')
 const { Command } = require('../../structures/Command')
 
-module.exports = class BotInfo extends (
-  Command
-) {
+module.exports = class BotInfo extends Command {
   constructor(client) {
     super(client, {
       name: 'botinfo',
@@ -18,8 +16,8 @@ module.exports = class BotInfo extends (
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
    */
   async run({ message }, _, t) {
     const matches = await Rooms.countDocuments({})

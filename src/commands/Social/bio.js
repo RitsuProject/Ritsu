@@ -1,9 +1,7 @@
 const { Users } = require('../../models/User')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Bio extends (
-  Command
-) {
+module.exports = class Bio extends Command {
   constructor(client) {
     super(client, {
       name: 'bio',
@@ -15,8 +13,9 @@ module.exports = class Bio extends (
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
   async run({ message, args }, _, t) {
     const user = await Users.findById(message.author.id)

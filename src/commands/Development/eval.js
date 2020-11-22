@@ -19,8 +19,9 @@ module.exports = class Eval extends Command {
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
   async run({ message, args }) {
     const code = args.slice(0).join(' ')
