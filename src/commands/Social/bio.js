@@ -1,7 +1,9 @@
 const { Users } = require('../../models/User')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Bio extends Command {
+module.exports = class Bio extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: 'bio',
