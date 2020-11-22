@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
   played: { type: Number, required: true },
   bio: { type: String, required: false },
   admin: { type: Boolean, required: true },
+  badges: { type: Array, required: true, default: [] },
 })
 
 const Users = mongoose.model('Users', UserSchema)
