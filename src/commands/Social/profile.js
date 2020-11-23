@@ -41,6 +41,7 @@ module.exports = class Profile extends Command {
       .addField(`:trophy: ${t('utils:wonMatches')}`, user.wonMatches, true)
       .addField(`:video_game: ${t('utils:playedMatches')}`, user.played, true)
       .addField(`:medal: ${t('utils:rank')}`, user.rank, true)
+      .addField(`:cake: Cakes`, user.cakes, true)
       .addField(
         `<:msn_star:764659791175221258> ${t('utils:badges')}`,
         user.badges.length > 0
