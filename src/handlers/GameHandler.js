@@ -14,7 +14,6 @@ const { HostHandler } = require('./HostHandler')
 const { EasterEggHandler } = require('./EasterEggHandler')
 const { getStream } = require('../utils/functions/getStream')
 const { DiscordLogger } = require('../utils/discordLogger')
-const { default: Client } = require('@crowdin/crowdin-api-client')
 
 /**
  * Game Service
@@ -41,6 +40,8 @@ module.exports.GameService = class GameService {
 
     this.listService = options.listService || null
     this.listUsername = options.listUsername || null
+    this.year = options.year || null
+    this.season = options.season || null
 
     this.t = options.t || null
   }
@@ -325,7 +326,9 @@ module.exports.GameService = class GameService {
       provider,
       this.mode,
       this.listService,
-      this.listUsername
+      this.listUsername,
+      this.year,
+      this.season
     )
     if (theme === 'unavailable')
       return {

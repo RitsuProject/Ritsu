@@ -35,6 +35,7 @@ module.exports = class Start extends Command {
 
     let listService
     let listUsername
+    let season
 
     if (args[0] !== 'default') {
       // If user specified default in the command, skip configuration.
@@ -49,6 +50,9 @@ module.exports = class Start extends Command {
         if (typeof listUsername !== 'string') return
       } else if (mode === 'event') {
         message.channel.send(t('commands:start.roundConfig.eventModeWarning'))
+      } else if (mode === 'season') {
+        season = await roundConfig.getSeason()
+        if (typeof season.year !== 'string') return
       }
       rounds = await roundConfig.getRounds()
       if (typeof rounds !== 'number') return
@@ -62,6 +66,9 @@ module.exports = class Start extends Command {
       time: time.parsed,
       realTime: time.value,
       listService: `${mode === 'list' ? listService : null}`,
+      listUsername: `${mode === 'list' ? listUsername : null}`,
+      year: `${mode === 'season' ? season.year : null}`,
+      season: `${mode === 'season' ? season.season : null}`,
       listUsername: `${mode === 'list' ? listUsername : null}`,
       t: t,
     })

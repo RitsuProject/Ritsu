@@ -25,7 +25,7 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
   async getGamemode() {
     const primary = await this.message.channel.send(
       this.t('commands:start.roundConfig.whatMode', {
-        modes: '(easy, normal, hard, list, event)',
+        modes: '(easy, normal, hard, list, event, season)',
       })
     )
     const collector = await this.message.channel
@@ -49,7 +49,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
       m.content.toLowerCase() === 'normal' ||
       m.content.toLowerCase() === 'hard' ||
       m.content.toLowerCase() === 'list' ||
-      m.content.toLowerCase() === 'event'
+      m.content.toLowerCase() === 'event' ||
+      m.content.toLowerCase() === 'season'
     ) {
       await primary.delete()
       await m.delete().catch(() => {
@@ -224,6 +225,46 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     } else {
       return this.message.channel.send(
         this.t('commands:start.roundConfig.invalidUsername')
+      )
+    }
+  }
+  async getSeason() {
+    const primary = await this.message.channel.send(
+      'What is the year and season? (Example: 2020, Winter)'
+    )
+    const collector = await this.message.channel
+      .awaitMessages((m) => m.author.id === this.message.author.id, {
+        max: 1,
+        time: 60000,
+        errors: ['time'],
+      })
+      .catch(() => {
+        return this.message.channel.send(
+          this.t('commands:start.roundConfig.expiredMatch')
+        )
+      })
+    const m = collector.first()
+    if (m.content === `${this.guild.prefix}stop`)
+      return this.message.channel.send(
+        this.t('commands:start.roundConfig.cancelledMatch')
+      )
+    const themesMoe = new ThemesMoeService()
+    const season = m.content.split(',')
+    if (season[0] && season[1]) {
+      const themes = await themesMoe.getAnimesPerSeason(season[0])
+      if (!themes)
+        return this.message.channel.send(
+          "I couldn't find any anime in the specified year."
+        )
+      await primary.delete()
+      await m.delete()
+      return {
+        year: season[0],
+        season: season[1].trim().toLowerCase(),
+      }
+    } else {
+      return this.message.channel.send(
+        'This does not seem to be in the right format.'
       )
     }
   }

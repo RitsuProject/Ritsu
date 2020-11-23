@@ -11,7 +11,14 @@ const { log } = require('../utils/logger')
 module.exports.ThemeService = class ThemeService {
   constructor() {}
 
-  async getAnimeByMode(provider, mode, listService, listUsername) {
+  async getAnimeByMode(
+    provider,
+    mode,
+    listService,
+    listUsername,
+    year,
+    season
+  ) {
     const status = await getProviderStatus(provider)
     if (!status) return 'unavailable'
     switch (mode) {
@@ -107,6 +114,20 @@ module.exports.ThemeService = class ThemeService {
         const theme =
           anime.themes[Math.floor(Math.random() * anime.themes.length)]
 
+        return {
+          name: anime.name,
+          link: theme.mirror.mirrorURL,
+          type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
+          full: anime,
+        }
+      }
+      case 'season': {
+        const themesMoe = new ThemesMoeService()
+        const animes = await themesMoe.getAnimesPerSeason(year, season)
+        if (animes.length < 0) return false
+        const anime = animes[Math.floor(Math.random() * animes.length)]
+        const theme =
+          anime.themes[Math.floor(Math.random() * anime.themes.length)]
         return {
           name: anime.name,
           link: theme.mirror.mirrorURL,
