@@ -79,6 +79,7 @@ https://crowdin.com/project/ritsu
 └── API URL
     ├── Ritsu API URL (https://github.com/RitsuProject/Mio)
 ```
+
 (Remember, this is just what you need to make Ritsu work, maybe it has more values ​​than if empty, some things may not work properly...)
 
 #### Starting Ritsu

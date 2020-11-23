@@ -1,7 +1,9 @@
 const { Servers } = require('../../models/Servers')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Server extends Command {
+module.exports = class Server extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: 'server',

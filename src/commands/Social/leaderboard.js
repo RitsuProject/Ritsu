@@ -3,7 +3,9 @@ const { Users } = require('../../models/User')
 const { Command } = require('../../structures/Command')
 const { Constants } = require('../../utils/constants')
 
-module.exports = class Leaderboard extends Command {
+module.exports = class Leaderboard extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: 'leaderboard',

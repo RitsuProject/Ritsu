@@ -4,7 +4,9 @@ const { Message, MessageEmbed } = require('discord.js')
 const mal = require('mal-scraper')
 const phin = require('phin')
 
-module.exports = class Anime extends Command {
+module.exports = class Anime extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: 'anime',

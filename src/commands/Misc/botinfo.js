@@ -3,7 +3,9 @@ const moment = require('moment')
 const { Rooms } = require('../../models/Room')
 const { Command } = require('../../structures/Command')
 
-module.exports = class BotInfo extends Command {
+module.exports = class BotInfo extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: 'botinfo',

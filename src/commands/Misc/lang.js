@@ -2,7 +2,9 @@ const { TranslationStatus } = require('@crowdin/crowdin-api-client')
 const { MessageEmbed } = require('discord.js')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Ping extends Command {
+module.exports = class Ping extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: 'lang',
