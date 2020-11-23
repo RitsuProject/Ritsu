@@ -266,7 +266,11 @@ module.exports.GameService = class GameService {
     let cakes
     if (!force) {
       const winner = await this.getWinner(room)
-      cakes = Math.floor(Math.random() * (150 - 50)) + 50
+      if ((mode !== 'list', 'season')) {
+        cakes = Math.floor(Math.random() * (150 - 50)) + 50
+      } else {
+        cakes = Math.floor(Math.random() * (120 - 25)) + 25
+      }
       if (this.mode != 'event') {
         voicech.members.each(async (u) => {
           // Let's update the number of games played by everyone who was on the voice channel!
