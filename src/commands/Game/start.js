@@ -12,6 +12,7 @@ module.exports = class Start extends Command {
       fields: ['OPTIONAL: default (to use the default configuration)'],
       dev: false,
     })
+    this.client = client
   }
   /**
    * Run
@@ -55,7 +56,7 @@ module.exports = class Start extends Command {
       if (typeof time.parsed !== 'number') return
     }
 
-    const gameService = new GameService(message, {
+    const gameService = new GameService(message, this.client, {
       mode: mode,
       rounds: rounds,
       time: time.parsed,

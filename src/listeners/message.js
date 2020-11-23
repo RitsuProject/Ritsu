@@ -1,6 +1,7 @@
 const i18next = require('i18next')
 const { Guilds } = require('../models/Guild')
 const { Users } = require('../models/User')
+const { DiscordLogger } = require('../utils/discordLogger')
 const { log } = require('../utils/Logger')
 
 module.exports = class message {
@@ -41,6 +42,9 @@ module.exports = class message {
     if (!fancyCommand) return
     const requiredPermissions = fancyCommand.requiredPermissions
     if (message.channel.type === 'dm') return
+
+    const discordLogger = new DiscordLogger(this.client)
+    await discordLogger.logCommand(command, message.author.id, message.guild.id)
 
     if (fancyCommand.dev === true) {
       if (!this.client.owners.includes(message.author.id)) {

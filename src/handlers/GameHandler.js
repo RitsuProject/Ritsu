@@ -13,6 +13,8 @@ const { Message, VoiceChannel } = require('discord.js')
 const { HostHandler } = require('./HostHandler')
 const { EasterEggHandler } = require('./EasterEggHandler')
 const { getStream } = require('../utils/functions/getStream')
+const { DiscordLogger } = require('../utils/discordLogger')
+const { default: Client } = require('@crowdin/crowdin-api-client')
 
 /**
  * Game Service
@@ -25,10 +27,12 @@ const { getStream } = require('../utils/functions/getStream')
 module.exports.GameService = class GameService {
   /**
    * @param {Message} message
+   * @param {Client} client
    * @param {Object} options
    */
-  constructor(message, options = {}) {
+  constructor(message, client, options = {}) {
     this.message = message
+    this.client = client
     this.mode = options.mode || 'normal'
     this.rounds = options.rounds || 3
 
@@ -50,12 +54,26 @@ module.exports.GameService = class GameService {
     const guild = await Guilds.findById(this.message.guild.id)
     if (!guild) return
 
-    this.startNewRound(guild).catch((e) => {
+    const discordLogger = new DiscordLogger(this.client)
+    await discordLogger.logMatch(
+      this.rounds,
+      this.realTime,
+      this.message.author.id,
+      this.mode,
+      this.message.guild.id
+    )
+
+    this.startNewRound(guild).catch(async (e) => {
       log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
       this.message.channel.send(
         `<a:bongo_cat:772152200851226684> | ${this.t('game:errors.fatalError', {
           error: `\`${e}\``,
         })}`
+      )
+      await discordLogger.logError(
+        e,
+        this.message.author.id,
+        this.message.guild.id
       )
     })
   }
@@ -219,6 +237,12 @@ module.exports.GameService = class GameService {
                 error: `\`${e}\``,
               }
             )}`
+          )
+          const discordLogger = new DiscordLogger(this.client)
+          await discordLogger.logError(
+            e,
+            this.message.author.id,
+            this.message.guild.id
           )
           await this.clear()
           await this.finish(voicech, room, true)
