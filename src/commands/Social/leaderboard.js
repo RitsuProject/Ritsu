@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js')
 const { Users } = require('../../models/User')
 const { Command } = require('../../structures/Command')
+const { Constants } = require('../../utils/constants')
 
 module.exports = class Leaderboard extends Command {
   constructor(client) {
@@ -11,6 +12,7 @@ module.exports = class Leaderboard extends Command {
       requiredPermissions: null,
       dev: false,
     })
+    this.client = client
   }
   /**
    * Run
@@ -23,22 +25,23 @@ module.exports = class Leaderboard extends Command {
       t('commands:leaderboard.embedAuthor'),
       message.author.displayAvatarURL()
     )
-    embed.setColor('#7289DA')
+    embed.setColor(Constants.EMBED_COLOR)
     // Take all users from the database of won matches and use only 10 of them.
     await Users.find()
-      .sort({ wonMatches: -1 })
-      .limit(10)
+      .sort({ cakes: -1 })
+      .limit(5)
       .then((results) => {
         for (const result in results) {
+          const user = this.client.users.cache.get(results[result]._id)
           let fakeResult = parseInt(result)
           const rankNumber = fakeResult + 1
           embed.addField(
-            `${rankNumber}.${results[result].name}`,
-            `${t('commands:leaderboard.wonMatches')} **${
-              results[result].wonMatches
-            }**\n${t('commands:leaderboard.playedMatches')} **${
-              results[result].played
-            }**`
+            `${rankNumber}.${user.tag}`,
+            `
+            Cakes: **${results[result].cakes}**
+            Won Matches: **${results[result].wonMatches}**
+            Matches played: **${results[result].played}**
+            `
           )
         }
       })

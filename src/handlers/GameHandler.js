@@ -263,18 +263,23 @@ module.exports.GameService = class GameService {
 
   async finish(voicech, room, force) {
     const userService = new UserService()
+    let cakes
     if (!force) {
       const winner = await this.getWinner(room)
+      cakes = Math.floor(Math.random() * (150 - 50)) + 50
       if (this.mode != 'event') {
         voicech.members.each(async (u) => {
           // Let's update the number of games played by everyone who was on the voice channel!
           userService.updatePlayed(u.id)
         })
-        userService.updateEarnings(winner.id) // Update the number of won matches by the winner of the game.
+        userService.updateEarnings(winner.id, cakes) // Update the number of won matches by the winner of the game.
       }
       if (winner) {
         this.message.channel.send(
-          this.t('game:winner', { user: `<@${winner.id}>` })
+          this.t('game:winner', {
+            user: `<@${winner.id}>`,
+            cakes: `**${cakes}** 🍰`,
+          })
         )
       } else {
         this.message.channel.send(this.t('game:nobodyWon'))
@@ -375,6 +380,7 @@ module.exports.GameService = class GameService {
    */
 
   getWinner(room) {
+    console.log(room.leaderboard)
     const highestValue = Math.max.apply(
       // (Small hack) Let's get the highest score!
       Math,
