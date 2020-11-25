@@ -11,6 +11,7 @@
 <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"></a>
 <a href="https://discord.gg/XuDysZg"><img src="https://discordapp.com/api/guilds/764929033723969567/widget.png"></a>
 <a href="https://ritsu.sazz.fail"><img alt="website" src="https://img.shields.io/badge/website-Ritsu-ff3860"></a>
+<img alt="code quality" src="https://www.code-inspector.com/project/16601/status/svg"></a>
 <br>
 <a href="https://top.gg/bot/763934732420382751">
 <img src="https://top.gg/api/widget/763934732420382751.svg" alt="Ritsu" />
