@@ -17,7 +17,10 @@
       "whatAnimeListWebsite": "Que website está sua animelist? (Suportados: {{websites}})",
       "invalidWebsite": "Isso não parece ser um website que suportamos. Cancelando...",
       "whatUsername": "Qual é seu nome de usuário no website escolhido?",
-      "invalidUsername": "Eu não encontrei seu perfil no website escolhido! Cancelando..."
+      "invalidUsername": "Eu não encontrei seu perfil no website escolhido! Cancelando...",
+      "whatYearAndSeason": "Qual é o ano e a temporada? (Exemplo: 2020, inverno)",
+      "noAnimeFound": "Eu não consegui encontrar nenhum anime para esse ano ou temporada.",
+      "invalidFormat": "Isso não parece um formato correto."
     },
     "rollingMatch": "Já tem uma partida acontecendo em um canal de voz nesse servidor.",
     "tip": "**DICA**: Se você quer parar a configuração destá partida, digite **{{prefix}}stop**"
@@ -72,5 +75,26 @@
     "embedAuthor": "Os 10 usuários com mais vitorias.",
     "wonMatches": "Partidas ganhas:",
     "playedMatches": "Partidas jogadas:"
+  },
+  "anime": {
+    "helpDescription": "Procura animes pela MyAnimeList.",
+    "noAnimeSpecified": "Você precisa especificar cada anime você quer procurar.",
+    "gettingAnime": "Procurando data desse anime...",
+    "noAnime": "Nenhum anime correspondente á esse nome foi encontrado.",
+    "fields": {
+      "type": "Tipo",
+      "status": "Status",
+      "score": "Pontuação",
+      "trailer": "Trailer",
+      "episodes": "Episodios",
+      "source": "Fonte",
+      "popularity": "Popularidade",
+      "rank": "Rank",
+      "members": "Membros",
+      "favorites": "Favoritos",
+      "synonyms": "Sinônimos",
+      "genres": "Gêneros",
+      "themes": "Musicas"
+    }
   }
 }
