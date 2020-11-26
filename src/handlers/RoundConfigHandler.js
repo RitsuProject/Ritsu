@@ -19,6 +19,29 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     this.t = t
   }
 
+  async startCollector() {
+    const collector = await this.message.channel
+      .awaitMessages((m) => m.author.id === this.message.author.id, {
+        max: 1,
+        time: 60000,
+        errors: ['time'],
+      })
+      .catch(() => {
+        this.message.channel.send(
+          this.t('commands:start.roundConfig.expiredMatch')
+        )
+        return false
+      })
+    const m = collector.first()
+    if (m.content === `${this.guild.prefix}stop`) {
+      this.message.channel.send(
+        this.t('commands:start.roundConfig.cancelledMatch')
+      )
+      return false
+    }
+    return m
+  }
+
   /**
    * Get the round gamemode (easy, normal, hard, list, event)
    */
@@ -28,22 +51,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
         modes: '(easy, normal, hard, list, event, season)',
       })
     )
-    const collector = await this.message.channel
-      .awaitMessages((m) => m.author.id === this.message.author.id, {
-        max: 1,
-        time: 60000,
-        errors: ['time'],
-      })
-      .catch(() => {
-        return this.message.channel.send(
-          this.t('commands:start.roundConfig.expiredMatch')
-        )
-      })
-    const m = collector.first()
-    if (m.content === `${this.guild.prefix}stop`)
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.cancelledMatch')
-      )
+    const m = await this.startCollector()
+    if (!m) return
     if (
       m.content.toLowerCase() === 'easy' ||
       m.content.toLowerCase() === 'normal' ||
@@ -74,22 +83,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     const primary = await this.message.channel.send(
       this.t('commands:start.roundConfig.whatRounds')
     )
-    const collector = await this.message.channel
-      .awaitMessages((m) => m.author.id === this.message.author.id, {
-        max: 1,
-        time: 60000,
-        errors: ['time'],
-      })
-      .catch(() => {
-        return this.message.channel.send(
-          this.t('commands:start.roundConfig.expiredMatch')
-        )
-      })
-    const m = collector.first()
-    if (m.content === `${this.guild.prefix}stop`)
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.cancelledMatch')
-      )
+    const m = await this.startCollector()
+    if (!m) return
     const int = parseInt(m.content)
     if (isNaN(int))
       return this.message.channel.send(
@@ -110,22 +105,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     const primary = await this.message.channel.send(
       this.t('commands:start.roundConfig.whatDuration')
     )
-    const collector = await this.message.channel
-      .awaitMessages((m) => m.author.id === this.message.author.id, {
-        max: 1,
-        time: 60000,
-        errors: ['time'],
-      })
-      .catch(() => {
-        return this.message.channel.send(
-          this.t('commands:start.roundConfig.expiredMatch')
-        )
-      })
-    const m = collector.first()
-    if (m.content === `${this.guild.prefix}stop`)
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.cancelledMatch')
-      )
+    const m = await this.startCollector()
+    if (!m) return
     if (m.content.endsWith('s')) {
       const parsed = parse(m.content)
       if (parsed < 20000)
@@ -150,22 +131,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
         websites: 'MyAnimeList, AniList',
       })
     )
-    const collector = await this.message.channel
-      .awaitMessages((m) => m.author.id === this.message.author.id, {
-        max: 1,
-        time: 60000,
-        errors: ['time'],
-      })
-      .catch(() => {
-        return this.message.channel.send(
-          this.t('commands:start.roundConfig.expiredMatch')
-        )
-      })
-    const m = collector.first()
-    if (m.content === `${this.guild.prefix}stop`)
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.cancelledMatch')
-      )
+    const m = await this.startCollector()
+    if (!m) return
     if (
       m.content.toLowerCase() === 'myanimelist' ||
       m.content.toLowerCase() === 'anilist'
@@ -188,22 +155,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     const primary = await this.message.channel.send(
       this.t('commands:start.roundConfig.whatUsername')
     )
-    const collector = await this.message.channel
-      .awaitMessages((m) => m.author.id === this.message.author.id, {
-        max: 1,
-        time: 60000,
-        errors: ['time'],
-      })
-      .catch(() => {
-        return this.message.channel.send(
-          this.t('commands:start.roundConfig.expiredMatch')
-        )
-      })
-    const m = collector.first()
-    if (m.content === `${this.guild.prefix}stop`)
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.cancelledMatch')
-      )
+    const m = await this.startCollector()
+    if (!m) return
     const themesMoe = new ThemesMoeService()
     let user
     try {
@@ -232,22 +185,8 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     const primary = await this.message.channel.send(
       'What is the year and season? (Example: 2020, Winter)'
     )
-    const collector = await this.message.channel
-      .awaitMessages((m) => m.author.id === this.message.author.id, {
-        max: 1,
-        time: 60000,
-        errors: ['time'],
-      })
-      .catch(() => {
-        return this.message.channel.send(
-          this.t('commands:start.roundConfig.expiredMatch')
-        )
-      })
-    const m = collector.first()
-    if (m.content === `${this.guild.prefix}stop`)
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.cancelledMatch')
-      )
+    const m = await this.startCollector()
+    if (!m) return
     const themesMoe = new ThemesMoeService()
     const season = m.content.split(',')
     if (season[0] && season[1]) {
