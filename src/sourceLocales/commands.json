@@ -72,7 +72,7 @@
   },
   "leaderboard": {
     "helpDescription": "Show the global leaderboard/rank.",
-    "embedAuthor": "Top 10 users with the most matches won.",
+    "embedAuthor": "Top 10 users with the higher level.",
     "wonMatches": "Won Matches:",
     "playedMatches": "Matches played:"
   },
