@@ -8,11 +8,12 @@
   "waitingStream": "Aguardando a stream... (Isso poderá levar algum tempo.)",
   "correctUsers": "{{users}} ganhou(ram) esse round!",
   "winner": "{{user}} é o vencedor dessa partida!",
+  "levelup": "Parabéns {{user}}! Você acaba de upar de nível para **{{level}}**!",
   "nobodyWon": "Ninguém ganhou a partida.",
   "forceFinished": "Essa partida foi encerrada á força.",
   "roundEnded": "As rodadas acabaram! Espero que vocês tenham se divertido.",
   "nobody": "Ninguém",
-  "originalTitle": "Titulo Original: {{title}}",
+  "songDetails": "{{songName}} | Artista: {{songArtist}}",
   "errors": {
     "noVoiceChannel": "Você precisa estar em um canal de voz para iniciar uma partida!",
     "noUsersInVoiceChannel": "Parece que não tem ninguém no canal de voz, encerrando partida.",
