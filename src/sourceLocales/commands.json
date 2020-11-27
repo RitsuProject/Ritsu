@@ -17,7 +17,10 @@
       "whatAnimeListWebsite": "What website is your animelist on? (Supported: {{websites}})",
       "invalidWebsite": "This does not appear to be a supported website. Canceling...",
       "whatUsername": "What is your username on your chosen website?",
-      "invalidUsername": "I didn't find this username on the website you chose! Canceling..."
+      "invalidUsername": "I didn't find this username on the website you chose! Canceling...",
+      "whatYearAndSeason": "What is the year and season? (Example: 2020, Winter)",
+      "noAnimeFound": "I couldn't find any anime in the specified year or season.",
+      "invalidFormat": "This does not seem to be in the right format."
     },
     "rollingMatch": "There is already a match running on a voice channel on that server.",
     "tip": "**TIP**: If you want to stop the match configuration, send **{{prefix}}stop**"
@@ -69,7 +72,7 @@
   },
   "leaderboard": {
     "helpDescription": "Show the global leaderboard/rank.",
-    "embedAuthor": "Top 10 users with the most matches won.",
+    "embedAuthor": "Top 10 users with the higher level.",
     "wonMatches": "Won Matches:",
     "playedMatches": "Matches played:"
   },
