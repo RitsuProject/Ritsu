@@ -14,6 +14,8 @@ const { HostHandler } = require('./HostHandler')
 const { EasterEggHandler } = require('./EasterEggHandler')
 const { getStream } = require('../utils/functions/getStream')
 const { DiscordLogger } = require('../utils/discordLogger')
+const { LevelHandler } = require('./LevelHandler')
+const { Users } = require('../models/User')
 
 /**
  * Game Service
@@ -134,6 +136,8 @@ module.exports.GameService = class GameService {
       })
     )
 
+    console.log(answser)
+
     /* console.log(answser)
     console.log(link) */
 
@@ -207,8 +211,17 @@ module.exports.GameService = class GameService {
         return
       }
 
+      const levelHandler = new LevelHandler()
+
       await room.answerers.forEach(async (id) => {
+        const user = await Users.findById(id)
         this.bumpScore(id)
+        const stats = await levelHandler.bump(id, this.mode)
+        if (stats.level !== user.level) {
+          this.message.channel.send(
+            `Congratulations <@${id}>! You just level up to **${stats.level}**!`
+          )
+        }
       })
 
       const embed = EmbedGen(answser, type, animeData) // Time to generate the final embed of the round.
@@ -266,11 +279,6 @@ module.exports.GameService = class GameService {
     let cakes
     if (!force) {
       const winner = await this.getWinner(room)
-      if ((mode !== 'list', 'season')) {
-        cakes = Math.floor(Math.random() * (150 - 50)) + 50
-      } else {
-        cakes = Math.floor(Math.random() * (120 - 25)) + 25
-      }
       if (this.mode != 'event') {
         voicech.members.each(async (u) => {
           // Let's update the number of games played by everyone who was on the voice channel!
@@ -282,7 +290,6 @@ module.exports.GameService = class GameService {
         this.message.channel.send(
           this.t('game:winner', {
             user: `<@${winner.id}>`,
-            cakes: `**${cakes}** 🍰`,
           })
         )
       } else {

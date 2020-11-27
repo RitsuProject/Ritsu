@@ -31,13 +31,11 @@ module.exports.UserService = class UserService {
    * @param {Number} id
    */
 
-  async updateEarnings(id, cakes) {
+  async updateEarnings(id) {
     const user = await Users.findById(id)
     if (user) {
       const newValue = user.wonMatches + 1
       user.wonMatches = newValue
-      const newCakes = user.cakes + cakes
-      user.cakes = newCakes
       const newRank = this.ranker(newValue)
       if (newRank) {
         user.rank = newRank

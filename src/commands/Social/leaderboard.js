@@ -3,9 +3,7 @@ const { Users } = require('../../models/User')
 const { Command } = require('../../structures/Command')
 const { Constants } = require('../../utils/constants')
 
-module.exports = class Leaderboard extends (
-  Command
-) {
+module.exports = class Leaderboard extends Command {
   constructor(client) {
     super(client, {
       name: 'leaderboard',
@@ -30,8 +28,8 @@ module.exports = class Leaderboard extends (
     embed.setColor(Constants.EMBED_COLOR)
     // Take all users from the database of won matches and use only 10 of them.
     await Users.find()
-      .sort({ cakes: -1 })
-      .limit(5)
+      .sort({ level: -1 })
+      .limit(10)
       .then((results) => {
         for (const result in results) {
           const user = this.client.users.cache.get(results[result]._id)
@@ -40,10 +38,10 @@ module.exports = class Leaderboard extends (
           embed.addField(
             `${rankNumber}.${user.tag}`,
             `
-            Cakes: **${results[result].cakes}**
+            Level: **${results[result].level}**
             Won Matches: **${results[result].wonMatches}**
-            Matches played: **${results[result].played}**
-            `
+            `,
+            true
           )
         }
       })
