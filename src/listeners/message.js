@@ -12,8 +12,8 @@ module.exports = class message {
     const guild = await Guilds.findById(message.guild.id)
     if (!guild) {
       const guild_ = new Guilds({
-        _id: guild.id,
-        name: guild.name,
+        _id: message.guild.id,
+        name: message.guild.name,
         rolling: false,
         currentChannel: null,
         premium: false,
