@@ -2,9 +2,7 @@ const { MessageEmbed } = require('discord.js')
 const { Users } = require('../../models/User')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Profile extends (
-  Command
-) {
+module.exports = class Profile extends Command {
   constructor(client) {
     super(client, {
       name: 'profile',
