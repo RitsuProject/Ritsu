@@ -1,3 +1,4 @@
+const { Message } = require('discord.js')
 const i18next = require('i18next')
 const { Guilds } = require('../models/Guild')
 const { Users } = require('../models/User')

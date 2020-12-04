@@ -9,7 +9,14 @@ const { Constants } = require('../constants')
  * @returns {MessageEmbed} Message Embed
  */
 
-module.exports = function EmbedGen(answser, type, animeData) {
+module.exports = function EmbedGen(
+  t,
+  answser,
+  type,
+  songName,
+  songArtists,
+  animeData
+) {
   const embed = new MessageEmbed()
   if (type.includes('ED')) {
     type = 'Ending'
@@ -28,6 +35,13 @@ module.exports = function EmbedGen(answser, type, animeData) {
     )
   }
   embed.setColor(Constants.EMBED_COLOR)
-  embed.setFooter(`Original Title: ${answser}`)
+  embed.setFooter(
+    t('game:songDetails', {
+      songName: songName,
+      songArtist: songArtists
+        .map((artist) => (artist.name ? artist.name : artist))
+        .join(', '),
+    })
+  )
   return embed
 }

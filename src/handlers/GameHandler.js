@@ -112,7 +112,7 @@ module.exports.GameService = class GameService {
     }
 
     const theme = await this.getTheme()
-    const { answser, link, type } = theme
+    const { answer, link, type, songName, songArtists } = theme
 
     const loading = await this.message.channel.send(
       `\`${this.t('game:waitingStream')}\``
@@ -126,7 +126,7 @@ module.exports.GameService = class GameService {
 
     guild.rolling = true
     await guild.save()
-    const room = await this.roomHandler(answser, voicech.id) // Create a new Room ^w^
+    const room = await this.roomHandler(answer, voicech.id) // Create a new Room ^w^
 
     this.message.channel.send(
       this.t('game:roundStarted', {
@@ -135,37 +135,31 @@ module.exports.GameService = class GameService {
         prefix: guild.prefix,
       })
     )
-
-    console.log(answser)
-
-    /* console.log(answser)
-    console.log(link) */
-
     if (this.mode === 'event') {
       this.message.author.send(
-        this.t('game:eventModeAnswer', { answer: answser })
+        this.t('game:eventModeAnswer', { answer: answer })
       )
     }
 
     let animeData
-    let answsers
+    let answers
     if (type !== 'on fire') {
-      animeData = await this.getAnimeDetails(answser)
-      answsers = await this.getAnswsers(animeData)
+      animeData = await this.getAnimeDetails(answer)
+      answers = await this.getAnswers(animeData)
     } else {
       animeData = {
         picture: 'https://cdn.myanimelist.net/images/anime/9/23479.jpg',
         englishTitle: 'Ritsu is Unavailable',
       }
-      answsers = ['Ritsu is Unavailable']
+      answers = ['Ritsu is Unavailable']
       this.message.channel.send(this.t('game:errors.unavailable'))
     }
 
-    const answserFilter = (msg) => this.isAnswser(answsers, msg)
+    const answerFilter = (msg) => this.isAnswer(answers, msg)
     const commanderFilter = (msg) => this.isCommand(guild.prefix, msg)
 
-    const answserCollector = this.message.channel.createMessageCollector(
-      answserFilter,
+    const answerCollector = this.message.channel.createMessageCollector(
+      answerFilter,
       { time: this.time }
     )
     const commanderCollector = this.message.channel.createMessageCollector(
@@ -173,7 +167,7 @@ module.exports.GameService = class GameService {
       { time: this.time }
     )
 
-    answserCollector.on('collect', async (msg) => {
+    answerCollector.on('collect', async (msg) => {
       if (!room.answerers.includes(msg.author.id)) {
         room.answerers.push(msg.author.id)
         const leader = room.leaderboard.find((u) => {
@@ -194,10 +188,10 @@ module.exports.GameService = class GameService {
     commanderCollector.on('collect', async (msg) => {
       if (msg.author.id !== room.startedBy)
         return msg.channel.send(this.t('game:onlyHostCanFinish'))
-      answserCollector.stop('forceFinished')
+      answerCollector.stop('forceFinished')
     })
 
-    answserCollector.on('end', async (_, reason) => {
+    answerCollector.on('end', async (_, reason) => {
       if (reason === 'forceFinished') {
         log(
           `GUILD -> ${guild._id} | The match was ended by force.`,
@@ -224,7 +218,17 @@ module.exports.GameService = class GameService {
         }
       })
 
-      const embed = EmbedGen(answser, type, animeData) // Time to generate the final embed of the round.
+      console.log(songName)
+      console.log(songArtists)
+
+      const embed = EmbedGen(
+        this.t,
+        answer,
+        type,
+        songName,
+        songArtists,
+        animeData
+      ) // Time to generate the final embed of the round.
 
       this.message.channel.send(this.t('game:answserIs'), { embed })
       this.message.channel.send(
@@ -325,13 +329,9 @@ module.exports.GameService = class GameService {
       `\`${this.t('game:searchingTheme')}\``
     )
     randomTheme = await this.choose()
-    const answser = randomTheme.name
+    randomTheme.answer = randomTheme.name
     loading.delete()
-    return {
-      answser: answser,
-      link: randomTheme.link,
-      type: randomTheme.type,
-    }
+    return randomTheme
   }
 
   async choose() {
@@ -351,7 +351,8 @@ module.exports.GameService = class GameService {
         name: 'Ritsu is Unavailable',
         link: 'https://files.catbox.moe/e9k222.mp3',
         type: 'on fire',
-        full: {},
+        songName: 'Watson Vibing',
+        songArtists: ['Amelia Watson'],
       }
     if (!theme) {
       return await this.choose()
@@ -364,16 +365,16 @@ module.exports.GameService = class GameService {
    * Room Handler
    * @async
    * @desc - Responsible for creating the rooms or checking if they already exist and returning them.
-   * @param {String} answser - The answer (the anime)
+   * @param {String} answer - The answer (the anime)
    * @param {String} channelID - Voice Channel ID
    * @returns {Promise<Document>} The room.
    */
 
-  async roomHandler(answser, channelID) {
+  async roomHandler(answer, channelID) {
     let room = await Rooms.findById(this.message.guild.id)
     if (!room) {
       // If you don't already have a room, create one.
-      room = await this.createRoom(answser, channelID)
+      room = await this.createRoom(answer, channelID)
       room.currentRound++
       await room.save()
     } else {
@@ -435,20 +436,20 @@ module.exports.GameService = class GameService {
 
   /**
    * Is it the answer of the round?
-   * @param {Array} answsers
+   * @param {Array} answers
    * @param {Message} msg
    * @return {Promise<Boolean>} True or false.
    */
 
-  isAnswser(answsers, msg) {
+  isAnswer(answers, msg) {
     msg = msg.content
       .trim()
       .replace(/[^\w\s]/gi, '')
       .toLowerCase()
     let score = 0
     // Just return false if Ritsu is unavailable.
-    if (answsers.includes('Ritsu is Unavailable')) return false
-    answsers.forEach((a) => {
+    if (answers.includes('Ritsu is Unavailable')) return false
+    answers.forEach((a) => {
       // Let's compare all the titles!
       const similarity = stringSimilarity.compareTwoStrings(a, msg)
       score = similarity > score ? similarity : score
@@ -462,7 +463,7 @@ module.exports.GameService = class GameService {
    * @returns {Promise<Array<String>>} - The titles.
    */
 
-  getAnswsers(data) {
+  getAnswers(data) {
     const ans = []
     ans.push(data.title)
     if (data.englishTitle != '') {
@@ -528,16 +529,16 @@ module.exports.GameService = class GameService {
   /**
    * Create the room.
    * @async
-   * @param {String} answser - The answser.
+   * @param {String} answer - The answer.
    * @param {String} channelID - VoiceChannel ID
    * @return {Promise<Document>} Room
    */
 
-  async createRoom(answser, channelID) {
+  async createRoom(answer, channelID) {
     const newRoom = new Rooms({
       _id: this.message.guild.id,
       answerers: [],
-      answser: answser,
+      answer: answer,
       channel: channelID,
       startedBy: this.message.author.id,
       leaderboard: [],

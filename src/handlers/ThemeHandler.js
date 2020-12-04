@@ -39,16 +39,12 @@ module.exports.ThemeService = class ThemeService {
           parse: 'json',
         })
         if (search.statusCode === 200) {
-          return {
-            name: search.body.name,
-            link: search.body.link,
-            type: search.body.type,
-            full: search.body.full,
-          }
+          return search.body
         } else if (search.body.err === 'no_anime') {
           return false
+        } else {
+          throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
         }
-        break
       }
       case 'normal': {
         const random = await p({
@@ -58,12 +54,7 @@ module.exports.ThemeService = class ThemeService {
         })
 
         if (random.statusCode === 200) {
-          return {
-            name: random.body.name,
-            link: random.body.link,
-            type: random.body.type,
-            full: random.body.full,
-          }
+          return random.body
         } else {
           throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
         }
@@ -91,14 +82,11 @@ module.exports.ThemeService = class ThemeService {
           parse: 'json',
         })
         if (search.statusCode === 200) {
-          return {
-            name: search.body.name,
-            link: search.body.link,
-            type: search.body.type,
-            full: search.body.full,
-          }
+          return search.body
         } else if (search.body.err === 'no_anime') {
           return false
+        } else {
+          throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
         }
         break
       }
@@ -118,7 +106,8 @@ module.exports.ThemeService = class ThemeService {
           name: anime.name,
           link: theme.mirror.mirrorURL,
           type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
-          full: anime,
+          songName: theme.themeName,
+          songArtists: ['Not Found'],
         }
       }
       case 'season': {
@@ -132,7 +121,8 @@ module.exports.ThemeService = class ThemeService {
           name: anime.name,
           link: theme.mirror.mirrorURL,
           type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
-          full: anime,
+          songName: theme.themeName,
+          songArtists: ['Not Found'],
         }
       }
     }
