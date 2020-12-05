@@ -3,6 +3,7 @@ const { readdir } = require('fs')
 const connect = require('./db')
 const { log } = require('./utils/Logger')
 const dbl = require('dblapi.js')
+const { i18nService } = require('./services/i18nService')
 
 /**
  * Ritsu Client
@@ -37,6 +38,9 @@ module.exports.Ritsu = class Ritsu extends Client {
       process.exit(0)
     })
 
+    this.loadLocales()
+    log('Loaded Locales', 'MAIN', false)
+
     // top.gg Post Server Count
 
     if (process.env.VERSION === 'production') {
@@ -46,6 +50,11 @@ module.exports.Ritsu = class Ritsu extends Client {
     this.login(this.token).then(() => {
       log('Logged', 'MAIN', false)
     })
+  }
+
+  async loadLocales() {
+    const i18n = new i18nService()
+    await i18n.loadLocales()
   }
 
   loadCommands() {

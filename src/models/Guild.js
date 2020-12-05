@@ -5,7 +5,7 @@ const GuildSchema = new mongoose.Schema({
   name: { type: String, required: true },
   prefix: { type: String, required: false, default: process.env.BOT_PREFIX },
   rolling: { type: Boolean, required: false, default: false },
-  currentChannel: { type: String, required: false, default: null },
+  lang: { type: String, required: false, default: 'en-US' },
   premium: { type: Boolean, required: true },
 })
 

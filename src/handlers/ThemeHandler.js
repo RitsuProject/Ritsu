@@ -1,6 +1,8 @@
 const p = require('phin')
 const { ThemesMoeService } = require('../services/ThemesMoeService')
-const { log } = require('../utils/Logger')
+const getProviderStatus = require('../utils/functions/getProviderStatus')
+const { randomInt } = require('../utils/functions/randomInt')
+const { log } = require('../utils/logger')
 
 /**
  * Service responsible for extracting themes from Ritsu API/MAL API.
@@ -10,11 +12,20 @@ const { log } = require('../utils/Logger')
 module.exports.ThemeService = class ThemeService {
   constructor() {}
 
-  async getAnimeByMode(provider, mode, listService, listUsername) {
+  async getAnimeByMode(
+    provider,
+    mode,
+    listService,
+    listUsername,
+    year,
+    season
+  ) {
+    const status = await getProviderStatus(provider)
+    if (!status) return 'unavailable'
     switch (mode) {
       case 'event':
       case 'easy': {
-        const randomPage = Math.floor(Math.random() * (60 - 1)) + 1
+        const randomPage = randomInt(1, 3)
         const rank = await p({
           method: 'GET',
           url: `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`,
@@ -30,16 +41,12 @@ module.exports.ThemeService = class ThemeService {
           parse: 'json',
         })
         if (search.statusCode === 200) {
-          return {
-            name: search.body.name,
-            link: search.body.link,
-            type: search.body.type,
-            full: search.body.full,
-          }
+          return search.body
         } else if (search.body.err === 'no_anime') {
           return false
+        } else {
+          throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
         }
-        break
       }
       case 'normal': {
         const random = await p({
@@ -49,12 +56,7 @@ module.exports.ThemeService = class ThemeService {
         })
 
         if (random.statusCode === 200) {
-          return {
-            name: random.body.name,
-            link: random.body.link,
-            type: random.body.type,
-            full: random.body.full,
-          }
+          return random.body
         } else {
           throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
         }
@@ -82,14 +84,11 @@ module.exports.ThemeService = class ThemeService {
           parse: 'json',
         })
         if (search.statusCode === 200) {
-          return {
-            name: search.body.name,
-            link: search.body.link,
-            type: search.body.type,
-            full: search.body.full,
-          }
+          return search.body
         } else if (search.body.err === 'no_anime') {
           return false
+        } else {
+          throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
         }
         break
       }
@@ -109,7 +108,23 @@ module.exports.ThemeService = class ThemeService {
           name: anime.name,
           link: theme.mirror.mirrorURL,
           type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
-          full: anime,
+          songName: theme.themeName,
+          songArtists: ['Not Found'],
+        }
+      }
+      case 'season': {
+        const themesMoe = new ThemesMoeService()
+        const animes = await themesMoe.getAnimesPerSeason(year, season)
+        if (animes.length < 0) return false
+        const anime = animes[Math.floor(Math.random() * animes.length)]
+        const theme =
+          anime.themes[Math.floor(Math.random() * anime.themes.length)]
+        return {
+          name: anime.name,
+          link: theme.mirror.mirrorURL,
+          type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
+          songName: theme.themeName,
+          songArtists: ['Not Found'],
         }
       }
     }

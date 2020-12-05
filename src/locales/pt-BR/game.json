@@ -1,0 +1,26 @@
+{
+  "roundStarted": "Começando a #{{round}} rodada! Qual é o anime para esta Abertura/ Encerramento? Digite a resposta no chat! Você tem {{time}}.\nEnvie **{{prefix}}stop** no chat se você quiser encerrar a partida.",
+  "eventModeAnswer": "**[Modo de Evento]** A resposta é: {{answer}}",
+  "easteregg": "Você descobriu um Easter Egg! Sua partida começará em {{seconds}} segundos.",
+  "correctAnswer": "Parabéns {{user}}! Você respondeu corretamente!",
+  "answserIs": "A resposta é...",
+  "searchingTheme": "Procurando música... (Isso pode levar algum tempo)",
+  "waitingStream": "Aguardando a stream... (Isso poderá levar algum tempo.)",
+  "correctUsers": "{{users}} ganhou(ram) esse round!",
+  "wonXP": "{{user}} ganhou {{xp}}",
+  "winner": "{{user}} é o ganhador dessa partida! {{prizes}} (Os ganhadores ganham XP extra)",
+  "levelup": "Parabéns {{user}}! Você acaba de upar de nível para **{{level}}**!",
+  "nobodyWon": "Ninguém ganhou a partida.",
+  "forceFinished": "Essa partida foi encerrada á força.",
+  "roundEnded": "As rodadas acabaram! Espero que vocês tenham se divertido.",
+  "nobody": "Ninguém",
+  "songDetails": "{{songName}} | Artista: {{songArtist}}",
+  "errors": {
+    "noVoiceChannel": "Você precisa estar em um canal de voz para iniciar uma partida!",
+    "noUsersInVoiceChannel": "Parece que não tem ninguém no canal de voz, encerrando partida.",
+    "fatalError": "**Oopise! Parece que ocorreu um erro enquanto tentava começar o round**! {{error}}",
+    "streamTimeout": "Parece que está levando um bom tempo para eu terminar a stream, talvez eu esteja um pouco lenta? Por favor reinicie o jogo.",
+    "onlyHostCanFinish": "Apenas quem iniciou a partida pode encerrá-la.",
+    "unavailable": "**Estou queimando! Estou indisponivel para novas rodadas no momento (provavelmente por causa de uma instabilidade), entre no meu servidor para atualizações. Por enquanto fique com a Amelia Watson Vibing.**"
+  }
+}

@@ -6,26 +6,26 @@ module.exports = class Start extends Command {
   constructor(client) {
     super(client, {
       name: 'start',
-      aliases: [],
+      aliases: ['play'],
       description: 'Start the game.',
       requiredPermissions: null,
       fields: ['OPTIONAL: default (to use the default configuration)'],
       dev: false,
     })
+    this.client = client
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
-  async run(message, args, guild) {
+  async run({ message, args }, guild, t) {
     if (guild.rolling)
-      return message.channel.send(
-        'There is already a match running on a voice channel on that server.'
-      )
+      return message.channel.send(t('commands:start.rollingMatch'))
 
     const tip = await message.channel.send(
-      `**TIP**: If you want to stop the match configuration, send **${guild.prefix}stop**`
+      t('commands:start.tip', { prefix: guild.prefix })
     )
 
     // Default Configuration
@@ -35,11 +35,12 @@ module.exports = class Start extends Command {
 
     let listService
     let listUsername
+    let season
 
     if (args[0] !== 'default') {
       // If user specified default in the command, skip configuration.
       // Get the user configuration.
-      const roundConfig = new RoundConfigHandler(message, guild)
+      const roundConfig = new RoundConfigHandler(message, guild, t)
       mode = await roundConfig.getGamemode()
       if (typeof mode !== 'string') return
       if (mode === 'list') {
@@ -48,9 +49,10 @@ module.exports = class Start extends Command {
         listUsername = await roundConfig.getListUsername(listService)
         if (typeof listUsername !== 'string') return
       } else if (mode === 'event') {
-        message.channel.send(
-          '**WARNING**: Using this game mode, the winners will not be counted in the ranking! Learn more about game modes on my support server.'
-        )
+        message.channel.send(t('commands:start.roundConfig.eventModeWarning'))
+      } else if (mode === 'season') {
+        season = await roundConfig.getSeason()
+        if (typeof season.year !== 'string') return
       }
       rounds = await roundConfig.getRounds()
       if (typeof rounds !== 'number') return
@@ -58,13 +60,17 @@ module.exports = class Start extends Command {
       if (typeof time.parsed !== 'number') return
     }
 
-    const gameService = new GameService(message, {
+    const gameService = new GameService(message, this.client, {
       mode: mode,
       rounds: rounds,
       time: time.parsed,
       realTime: time.value,
       listService: `${mode === 'list' ? listService : null}`,
       listUsername: `${mode === 'list' ? listUsername : null}`,
+      year: `${mode === 'season' ? season.year : null}`,
+      season: `${mode === 'season' ? season.season : null}`,
+      listUsername: `${mode === 'list' ? listUsername : null}`,
+      t: t,
     })
     gameService.init()
     tip.delete()

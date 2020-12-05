@@ -12,10 +12,10 @@ module.exports = class Ping extends Command {
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
    */
-  async run(message) {
+  async run({ message }) {
     message.reply(
       `Pong! \`${Math.round(this.client.ws.ping)}\`ms! | API: \`${
         Date.now() - message.createdTimestamp

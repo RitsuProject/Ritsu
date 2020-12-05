@@ -1,0 +1,100 @@
+{
+  "start": {
+    "helpDescription": "Start the game.",
+    "roundConfig": {
+      "eventModeWarning": "**WARNING**: This game mode is unranked! Learn more about game modes on my support server.",
+      "whatMode": "What mode do you want to play? {{modes}}",
+      "expiredMatch": "The game has expired, please start another match.",
+      "cancelledMatch": "Match cancelled.",
+      "noManageMessagesPermission": "I am without the permission of {{MANAGE_MESSAGES}}. Without it I can't continue! Please give me the permission and try again.",
+      "invalidMode": "This does not seem like a valid mode. Canceling..",
+      "whatRounds": "What is the number of rounds of the match?",
+      "isNaN": "That doesn't look like a number! Canceling...",
+      "roundsLimit": "You can only start up to 10 rounds! Canceling...",
+      "whatDuration": "What's each round time duration? (Minimum: 20 seconds)",
+      "minimiumTime": "The minimum time is 20 seconds! Please enter a higher or equal value. Canceling...",
+      "invalidDuration": "This does not seem to be a valid duration. Canceling...",
+      "whatAnimeListWebsite": "What website is your animelist on? (Supported: {{websites}})",
+      "invalidWebsite": "This does not appear to be a supported website. Canceling...",
+      "whatUsername": "What is your username on your chosen website?",
+      "invalidUsername": "I didn't find this username on the website you chose! Canceling...",
+      "whatYearAndSeason": "What is the year and season? (Example: 2020, Winter)",
+      "noAnimeFound": "I couldn't find any anime in the specified year or season.",
+      "invalidFormat": "This does not seem to be in the right format."
+    },
+    "rollingMatch": "There is already a match running on a voice channel on that server.",
+    "tip": "**TIP**: If you want to stop the match configuration, send **{{prefix}}stop**"
+  },
+  "botinfo": {
+    "helpDescription": "Show the bot information.",
+    "ritsuAbout": "Hi! I am **Ritsu** and I am a bot based on the game **Anime Music Quiz** made with {{jsEmoji}} **Javascript** using discord.js, I will play an opening or ending and you must guess from what anime is from! I am on {{servers}} servers,  i'm online since **{{days}}d {{hours}}h {{minutes}}m {{seconds}}s** and with **{{matches}}**current matches right now!",
+    "commands": "Commands",
+    "supportServer": "Support Server",
+    "upvote": "Upvote the bot!",
+    "useHelpCommand": "Use the `help` command!",
+    "usefulLinks": "Useful links",
+    "credits": "Credits",
+    "creditsDescriptions": {
+      "themes": "For providing the themes for the bot to play",
+      "animemusicquiz": "Of course, the biggest inspiration for this project",
+      "kyuuchan": "Many parts of the code I was inspired by it",
+      "creators": "Ideas, development and a lot of patience, without these 3 people the bot probably wouldn't exist."
+    }
+  },
+  "help": {
+    "helpDescription": "This command :P",
+    "available": "Available commands",
+    "howtoplay": "**How to Play**: When using the command to start the game, the bot will play a song from a random opening or ending (or if you specified a specific gamemode) and whoever can guess the anime from the largest number of openings or endings according to the rounds , wins."
+  },
+  "invite": {
+    "helpDescription": "Add me in your server!",
+    "inviteMessage": "**You can add me to your server using this link {{inviteUrl}}**\n\nWant to stay on top of new updates and chat with the developers? Join to my support server! Just take a look at **{{prefix}}botinfo** ^w^"
+  },
+  "ping": {
+    "helpDescription": "Show the bot latency."
+  },
+  "prefix": {
+    "helpDescription": "Change the bot prefix.",
+    "noPrefix": "You need to specify the prefix.",
+    "changedPrefix": "The server prefix has been changed: {{newPrefix}}"
+  },
+  "lang": {
+    "helpDescription": "Change the server language.",
+    "embedDescription": "Use {{prefix}}lang <language> to change.",
+    "languages": "Available Languages",
+    "progress": "Progress: **{{progress}}%**",
+    "success": "My language is now marked as: **{{lang}}**"
+  },
+  "bio": {
+    "helpDescription": "Change your profile bio.",
+    "changedBio": "Your profile bio has been updated.",
+    "noBio": "You have not added a new biography."
+  },
+  "leaderboard": {
+    "helpDescription": "Show the global leaderboard/rank.",
+    "embedAuthor": "Top 10 users with the higher level.",
+    "wonMatches": "Won Matches:",
+    "playedMatches": "Matches played:"
+  },
+  "anime": {
+    "helpDescription": "Search for a anime from MyaAnimeList.",
+    "noAnimeSpecified": "You need to specify which anime you want to search for.",
+    "gettingAnime": "Getting the data from this anime...",
+    "noAnime": "No anime was found under that name.",
+    "fields": {
+      "type": "Type",
+      "status": "Status",
+      "score": "Score",
+      "trailer": "Trailer",
+      "episodes": "Episodes",
+      "source": "Source",
+      "popularity": "Popularity",
+      "rank": "Rank",
+      "members": "Members",
+      "favorites": "Favorites",
+      "synonyms": "Synonyms",
+      "genres": "Genres",
+      "themes": "Themes"
+    }
+  }
+}
