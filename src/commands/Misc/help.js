@@ -2,9 +2,7 @@ const { MessageEmbed } = require('discord.js')
 const { Guilds } = require('../../models/Guild')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Help extends (
-  Command
-) {
+module.exports = class Help extends Command {
   constructor(client) {
     super(client, {
       name: 'help',
