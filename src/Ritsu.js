@@ -11,9 +11,7 @@ const { i18nService } = require('./services/i18nService')
  * @param {String} token - Discord Token
  * @param {Object} options - Client Options (such as prefix)
  */
-module.exports.Ritsu = class Ritsu extends (
-  Client
-) {
+module.exports.Ritsu = class Ritsu extends Client {
   constructor(token, options) {
     super(token)
     this.token = token

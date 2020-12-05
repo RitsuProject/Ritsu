@@ -2,9 +2,7 @@ const { GameService } = require('../../handlers/GameHandler')
 const { Command } = require('../../structures/Command')
 const { RoundConfigHandler } = require('../../handlers/RoundConfigHandler')
 
-module.exports = class Start extends (
-  Command
-) {
+module.exports = class Start extends Command {
   constructor(client) {
     super(client, {
       name: 'start',
