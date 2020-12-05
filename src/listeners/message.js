@@ -13,6 +13,16 @@ module.exports = class message {
     if (message.author.bot) return
     const user = await Users.findById(message.author.id)
     const guild = await Guilds.findById(message.guild.id)
+    if (!guild) {
+      const guild_ = new Guilds({
+        _id: message.guild.id,
+        name: message.guild.name,
+        rolling: false,
+        currentChannel: null,
+        premium: false,
+      })
+      await guild_.save()
+    }
     if (!user) {
       // Create a user in the database
       new Users({

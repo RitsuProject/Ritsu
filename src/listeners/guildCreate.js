@@ -5,13 +5,14 @@ module.exports = class guildCreate {
     this.client = client
   }
   async run(guild) {
-    new Guilds({
+    const guild_ = new Guilds({
       _id: guild.id,
       name: guild.name,
       rolling: false,
       currentChannel: null,
       premium: false,
-    }).save()
+    })
+    await guild_.save()
     if (process.env.VERSION === 'production') {
       await botListPost(this.client.guilds.cache.size)
     }
