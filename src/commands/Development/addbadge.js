@@ -3,9 +3,7 @@ const { Badges } = require('../../models/Badge')
 const { Users } = require('../../models/User')
 const { Command } = require('../../structures/Command')
 
-module.exports = class AddBadge extends (
-  Command
-) {
+module.exports = class AddBadge extends Command {
   constructor(client) {
     super(client, {
       name: 'addbadge',
