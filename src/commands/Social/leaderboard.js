@@ -32,6 +32,7 @@ module.exports = class Leaderboard extends Command {
       .limit(10)
       .then((results) => {
         for (const result in results) {
+          console.log(`Fetching user ${results[result]._id}...`)
           const user = this.client.users.cache.get(results[result]._id)
           let fakeResult = parseInt(result)
           const rankNumber = fakeResult + 1
