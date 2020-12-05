@@ -72,7 +72,7 @@
   },
   "leaderboard": {
     "helpDescription": "Mostra a classificação global.",
-    "embedAuthor": "Os 10 usuários com mais vitorias.",
+    "embedAuthor": "Top 10 users with the higher level.",
     "wonMatches": "Partidas ganhas:",
     "playedMatches": "Partidas jogadas:"
   },
