@@ -44,7 +44,7 @@
   "help": {
     "helpDescription": "Esse comando :P",
     "available": "Comandos disponíveis",
-    "howtoplay": "**Como jogar**: Quando usar este comando para começar o jogo, o bot irá tocar uma abertura de ou encerramento de um anime (ou se especificamente o ano dos temas no comando de começar) e quem acertar mais aberturas ou encerramentos de acordo com os rounds, ganha."
+    "howtoplay": "**Como jogar**: Quando usar este comando para começar o jogo, o bot irá tocar uma abertura de ou encerramento de um anime (ou se você especificar um modo de jogo) e quem acertar mais aberturas ou encerramentos de acordo com os rounds, ganha."
   },
   "invite": {
     "helpDescription": "Me adicione em seu servidor!",
