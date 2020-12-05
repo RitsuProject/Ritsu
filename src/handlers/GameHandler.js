@@ -218,10 +218,7 @@ module.exports.GameService = class GameService {
         }
       })
 
-      console.log(songName)
-      console.log(songArtists)
-
-      const embed = EmbedGen(
+      const embed = await EmbedGen(
         this.t,
         answer,
         type,
