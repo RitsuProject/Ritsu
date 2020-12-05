@@ -30,8 +30,8 @@ module.exports.LevelHandler = class LevelHandler {
           user.levelxp = bumpLevel.xp
         }
 
-        user.save()
-        return { level: user.level, xp: user.xp }
+        await user.save()
+        return { level: user.level, xp: xp }
       }
       case 'hard': {
         const xp = randomInt(10, 85)
@@ -45,8 +45,8 @@ module.exports.LevelHandler = class LevelHandler {
           user.levelxp = bumpLevel.xp
         }
 
-        user.save()
-        return { level: user.level, xp: user.xp }
+        await user.save()
+        return { level: user.level, xp: xp }
       }
       default: {
         const xp = randomInt(10, 30)
@@ -60,8 +60,8 @@ module.exports.LevelHandler = class LevelHandler {
           user.levelxp = bumpLevel.xp
         }
 
-        user.save()
-        return { level: user.level, xp: user.xp }
+        await user.save()
+        return { level: user.level, xp: xp }
       }
     }
   }
@@ -74,8 +74,8 @@ module.exports.LevelHandler = class LevelHandler {
   async leveling(user, xp) {
     if (xp >= user.requiredToUP) {
       const newLevel = user.level + user.level
-      const newLevelXP = user.levelxp + 500
-      const newRequiredToUP = user.requiredToUP + 500
+      const newLevelXP = user.level >= 20 ? 10000 : user.levelxp + 500
+      const newRequiredToUP = user.level >= 20 ? 10000 : user.requiredToUP + 500
       return { level: newLevel, xp: newLevelXP, newRequired: newRequiredToUP }
     } else {
       return false

@@ -167,6 +167,8 @@ module.exports.GameService = class GameService {
       { time: this.time }
     )
 
+    console.log(answers)
+
     answerCollector.on('collect', async (msg) => {
       if (!room.answerers.includes(msg.author.id)) {
         room.answerers.push(msg.author.id)
@@ -207,17 +209,6 @@ module.exports.GameService = class GameService {
 
       const levelHandler = new LevelHandler()
 
-      await room.answerers.forEach(async (id) => {
-        const user = await Users.findById(id)
-        this.bumpScore(id)
-        const stats = await levelHandler.bump(id, this.mode)
-        if (stats.level !== user.level) {
-          this.message.channel.send(
-            `Congratulations <@${id}>! You just level up to **${stats.level}**!`
-          )
-        }
-      })
-
       const embed = await EmbedGen(
         this.t,
         answer,
@@ -227,7 +218,8 @@ module.exports.GameService = class GameService {
         animeData
       ) // Time to generate the final embed of the round.
 
-      this.message.channel.send(this.t('game:answserIs'), { embed })
+      await this.message.channel.send(this.t('game:answserIs'), { embed })
+
       this.message.channel.send(
         `${this.t('game:correctUsers', {
           users: `${
@@ -237,6 +229,18 @@ module.exports.GameService = class GameService {
           }`,
         })}`
       )
+
+      await room.answerers.forEach(async (id) => {
+        const user = await Users.findById(id)
+        this.bumpScore(id)
+        const stats = await levelHandler.bump(id, this.mode)
+        this.message.channel.send(`<@${id}> won :star: **${stats.xp}** XP`)
+        if (stats.level !== user.level) {
+          this.message.channel.send(
+            `Congratulations <@${id}>! You just level up to **${stats.level}**!`
+          )
+        }
+      })
 
       if (room.currentRound >= this.rounds) {
         // If there are no rounds left, end the game.
@@ -288,9 +292,12 @@ module.exports.GameService = class GameService {
         userService.updateEarnings(winner.id, cakes) // Update the number of won matches by the winner of the game.
       }
       if (winner) {
+        const levelHandler = new LevelHandler()
+        const stats = await levelHandler.bump(winner.id, this.mode)
         this.message.channel.send(
           this.t('game:winner', {
             user: `<@${winner.id}>`,
+            prizes: `:star: **${stats.xp}** XP`,
           })
         )
       } else {
