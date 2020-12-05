@@ -6,9 +6,8 @@ const { UserService } = require('./UserHandler')
 
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
-const phin = require('phin')
+
 const EmbedGen = require('../utils/functions/generateEmbed')
-const getProviderStatus = require('../utils/functions/getProviderStatus')
 const { Message, VoiceChannel } = require('discord.js')
 const { HostHandler } = require('./HostHandler')
 const { EasterEggHandler } = require('./EasterEggHandler')
@@ -90,12 +89,12 @@ module.exports.GameService = class GameService {
   async startNewRound(guild) {
     const voicech = this.message.member.voice.channel
 
-    // owo eastereggs
-    const easteregg = new EasterEggHandler(this.message, voicech, this.t)
+    // owo eastereggs (Blocked)
+    /*  const easteregg = new EasterEggHandler(this.message, voicech, this.t)
     const secret = await easteregg.isValid()
     if (secret) {
       await easteregg.start(secret)
-    }
+    } */
 
     if (!voicech) {
       const room_ = await Rooms.findById(this.message.guild.id)
@@ -396,7 +395,6 @@ module.exports.GameService = class GameService {
    */
 
   getWinner(room) {
-    console.log(room.leaderboard)
     const highestValue = Math.max.apply(
       // (Small hack) Let's get the highest score!
       Math,

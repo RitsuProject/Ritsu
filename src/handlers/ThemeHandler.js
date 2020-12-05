@@ -1,6 +1,7 @@
 const p = require('phin')
 const { ThemesMoeService } = require('../services/ThemesMoeService')
 const getProviderStatus = require('../utils/functions/getProviderStatus')
+const { randomInt } = require('../utils/functions/randomInt')
 const { log } = require('../utils/logger')
 
 /**
@@ -24,9 +25,10 @@ module.exports.ThemeService = class ThemeService {
     switch (mode) {
       case 'event':
       case 'easy': {
+        const randomPage = randomInt(1, 3)
         const rank = await p({
           method: 'GET',
-          url: `https://api.jikan.moe/v3/top/anime/0/bypopularity`,
+          url: `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`,
           parse: 'json',
         })
 
