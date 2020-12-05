@@ -12,8 +12,8 @@ module.exports = class Ping extends Command {
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
    */
   async run({ message }) {
     message.reply(

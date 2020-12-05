@@ -12,8 +12,8 @@ module.exports = class Invite extends Command {
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
    */
   async run({ message }, guild, t) {
     message.channel.send(

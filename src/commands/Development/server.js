@@ -1,7 +1,9 @@
 const { Servers } = require('../../models/Servers')
 const { Command } = require('../../structures/Command')
 
-module.exports = class Eval extends Command {
+module.exports = class Server extends (
+  Command
+) {
   constructor(client) {
     super(client, {
       name: 'server',
@@ -14,10 +16,11 @@ module.exports = class Eval extends Command {
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
-  async run(message, args) {
+  async run({ message, args }) {
     const server = args[0]
     const status = args[1]
     const server_ = await Servers.findById('status')

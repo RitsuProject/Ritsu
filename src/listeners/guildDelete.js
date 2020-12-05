@@ -1,5 +1,5 @@
 const { Guilds } = require('../models/Guild')
-const { botListPost } = require('../utils/botListPost')
+const { botListPost } = require('../utils/functions/updateBotList.js')
 module.exports = class guildDelete {
   constructor(client) {
     this.client = client

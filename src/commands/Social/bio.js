@@ -5,7 +5,7 @@ module.exports = class Bio extends Command {
   constructor(client) {
     super(client, {
       name: 'bio',
-      aliases: [],
+      aliases: ['about'],
       description: 'Change your profile bio.',
       requiredPermissions: null,
       dev: false,
@@ -13,8 +13,9 @@ module.exports = class Bio extends Command {
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
   async run({ message, args }, _, t) {
     const user = await Users.findById(message.author.id)

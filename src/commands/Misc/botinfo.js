@@ -16,8 +16,8 @@ module.exports = class BotInfo extends Command {
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
    */
   async run({ message }, _, t) {
     const matches = await Rooms.countDocuments({})

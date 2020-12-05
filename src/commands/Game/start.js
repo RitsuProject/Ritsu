@@ -6,17 +6,19 @@ module.exports = class Start extends Command {
   constructor(client) {
     super(client, {
       name: 'start',
-      aliases: [],
+      aliases: ['play'],
       description: 'Start the game.',
       requiredPermissions: null,
       fields: ['OPTIONAL: default (to use the default configuration)'],
       dev: false,
     })
+    this.client = client
   }
   /**
    * Run
-   * @param {Message} message
-   * @param {Array} args
+   * @param {Object} run
+   * @param {Message} run.message
+   * @param {Array} run.args
    */
   async run({ message, args }, guild, t) {
     if (guild.rolling)
@@ -33,6 +35,7 @@ module.exports = class Start extends Command {
 
     let listService
     let listUsername
+    let season
 
     if (args[0] !== 'default') {
       // If user specified default in the command, skip configuration.
@@ -47,6 +50,9 @@ module.exports = class Start extends Command {
         if (typeof listUsername !== 'string') return
       } else if (mode === 'event') {
         message.channel.send(t('commands:start.roundConfig.eventModeWarning'))
+      } else if (mode === 'season') {
+        season = await roundConfig.getSeason()
+        if (typeof season.year !== 'string') return
       }
       rounds = await roundConfig.getRounds()
       if (typeof rounds !== 'number') return
@@ -54,12 +60,15 @@ module.exports = class Start extends Command {
       if (typeof time.parsed !== 'number') return
     }
 
-    const gameService = new GameService(message, {
+    const gameService = new GameService(message, this.client, {
       mode: mode,
       rounds: rounds,
       time: time.parsed,
       realTime: time.value,
       listService: `${mode === 'list' ? listService : null}`,
+      listUsername: `${mode === 'list' ? listUsername : null}`,
+      year: `${mode === 'season' ? season.year : null}`,
+      season: `${mode === 'season' ? season.season : null}`,
       listUsername: `${mode === 'list' ? listUsername : null}`,
       t: t,
     })
