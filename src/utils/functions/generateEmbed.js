@@ -27,10 +27,12 @@ module.exports = async function EmbedGen(
     type = 'Opening'
   }
   if (animeData !== undefined) {
-    const cardBuffer = await getAnswerCard(animeData, answer, type)
+    /*  const cardBuffer = await getAnswerCard(animeData, answer, type)
     const attachment = new MessageAttachment(cardBuffer, 'card.png')
     embed.attachFiles(attachment)
-    embed.setImage('attachment://card.png')
+    embed.setImage('attachment://card.png') */
+    embed.setImage(animeData.picture)
+    embed.setTitle(answer)
   } else {
     embed.setDescription(
       "I couldn't get the cover of this anime because of errors."
