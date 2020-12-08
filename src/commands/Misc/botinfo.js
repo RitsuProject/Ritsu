@@ -27,7 +27,7 @@ module.exports = class BotInfo extends Command {
       .setDescription(
         t('commands:botinfo.ritsuAbout', {
           jsEmoji: '<:JavaScript:764559579153432616>',
-          servers: this.client.guilds.size,
+          servers: `**${this.client.guilds.cache.size}**`,
           days: uptime.days(),
           hours: uptime.hours(),
           minutes: uptime.minutes(),

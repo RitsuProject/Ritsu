@@ -1,7 +1,7 @@
 const { Guilds } = require('../models/Guild')
 const { ThemeService } = require('./ThemeHandler')
 const { Rooms } = require('../models/Room')
-const { log } = require('../utils/logger')
+const { log } = require('../utils/Logger')
 const { UserService } = require('./UserHandler')
 
 const stringSimilarity = require('string-similarity')

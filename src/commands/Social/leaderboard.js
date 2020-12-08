@@ -35,14 +35,25 @@ module.exports = class Leaderboard extends Command {
           const user = this.client.users.cache.get(results[result]._id)
           let fakeResult = parseInt(result)
           const rankNumber = fakeResult + 1
-          embed.addField(
-            `${rankNumber}.${user.tag}`,
-            `
+          if (user) {
+            embed.addField(
+              `${rankNumber}.${user.tag}`,
+              `
             Level: **${results[result].level}**
             Won Matches: **${results[result].wonMatches}**
             `,
-            true
-          )
+              true
+            )
+          } else {
+            embed.addField(
+              `${rankNumber}.Anonymous User`,
+              `
+            Level: **${results[result].level}**
+            Won Matches: **${results[result].wonMatches}**
+            `,
+              true
+            )
+          }
         }
       })
     message.channel.send(embed)
