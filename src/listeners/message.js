@@ -2,10 +2,15 @@ const { Message } = require('discord.js')
 const i18next = require('i18next')
 const { Guilds } = require('../models/Guild')
 const { Users } = require('../models/User')
+const { Ritsu } = require('../Ritsu')
 const { DiscordLogger } = require('../utils/discordLogger')
 const { log } = require('../utils/Logger')
 
 module.exports = class message {
+  /**
+   *
+   * @param {Ritsu} client
+   */
   constructor(client) {
     this.client = client
   }
@@ -56,6 +61,7 @@ module.exports = class message {
 
     const discordLogger = new DiscordLogger(this.client)
     await discordLogger.logCommand(command, message.author.id, message.guild.id)
+    this.client.prometheus.commandCounter.inc()
 
     if (fancyCommand.dev === true) {
       if (!this.client.owners.includes(message.author.id)) {
@@ -81,6 +87,7 @@ module.exports = class message {
       message.reply(
         `Oopsie! A fatal error, report this to <@326123612153053184>\n\`${e.stack}\``
       )
+      this.client.prometheus.errorCounter.inc()
     }
   }
 }

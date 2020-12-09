@@ -14,6 +14,7 @@
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "ffmpeg-static": "^4.2.7",
+    "http": "^0.0.1-security",
     "i18next": "^19.8.3",
     "i18next-node-fs-backend": "^2.1.3",
     "mal-scraper": "^2.11.2",
@@ -21,16 +22,17 @@
     "mongoose": "^5.9.23",
     "parse-duration": "^0.4.4",
     "phin": "^3.5.0",
+    "prom-client": "^12.0.0",
     "string-similarity": "^4.0.2"
   },
   "devDependencies": {
-    "prettier": "^2.2.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-promise": "^4.2.1"
+    "eslint-plugin-promise": "^4.2.1",
+    "prettier": "^2.2.0"
   }
 }

@@ -15,6 +15,7 @@ const { getStream } = require('../utils/functions/getStream')
 const { DiscordLogger } = require('../utils/discordLogger')
 const { LevelHandler } = require('./LevelHandler')
 const { Users } = require('../models/User')
+const { Ritsu } = require('../Ritsu')
 
 /**
  * Game Service
@@ -27,7 +28,7 @@ const { Users } = require('../models/User')
 module.exports.GameService = class GameService {
   /**
    * @param {Message} message
-   * @param {Client} client
+   * @param {Ritsu} client
    * @param {Object} options
    */
   constructor(message, client, options = {}) {
@@ -45,6 +46,7 @@ module.exports.GameService = class GameService {
     this.season = options.season || null
 
     this.t = options.t || null
+    this.client = client
   }
 
   /**
@@ -64,6 +66,7 @@ module.exports.GameService = class GameService {
       this.mode,
       this.message.guild.id
     )
+    this.client.prometheus.matchesCounter.inc()
 
     this.startNewRound(guild).catch(async (e) => {
       log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
@@ -77,6 +80,7 @@ module.exports.GameService = class GameService {
         this.message.author.id,
         this.message.guild.id
       )
+      this.client.prometheus.errorCounter.inc()
     })
   }
 
@@ -262,6 +266,7 @@ module.exports.GameService = class GameService {
             this.message.author.id,
             this.message.guild.id
           )
+          this.client.prometheus.errorCounter.inc()
           await this.clear()
           await this.finish(voicech, room, true)
         })
