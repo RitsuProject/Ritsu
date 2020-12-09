@@ -77,7 +77,7 @@
     "playedMatches": "Matches played:"
   },
   "anime": {
-    "helpDescription": "Search for a anime from MyaAnimeList.",
+    "helpDescription": "Search for a anime from MyAnimeList.",
     "noAnimeSpecified": "You need to specify which anime you want to search for.",
     "gettingAnime": "Getting the data from this anime...",
     "noAnime": "No anime was found under that name.",
