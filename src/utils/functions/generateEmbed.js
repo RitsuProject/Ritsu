@@ -39,6 +39,7 @@ module.exports = async function EmbedGen(
     )
   }
   embed.setColor(Constants.EMBED_COLOR)
+  console.log(songArtists)
   embed.setFooter(
     t('game:songDetails', {
       songName: songName,
