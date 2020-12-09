@@ -1,6 +1,11 @@
 const { Guilds } = require('../models/Guild')
+const { Ritsu } = require('../Ritsu')
 const { botListPost } = require('../utils/functions/updateBotList')
 module.exports = class guildCreate {
+  /**
+   *
+   * @param {Ritsu} client
+   */
   constructor(client) {
     this.client = client
   }
@@ -23,5 +28,6 @@ module.exports = class guildCreate {
     
     If you have any problems, or just want to chat with the developers and give your feedback, feel free to join my little support server! https://discord.gg/XuDysZg
     `)
+    this.client.prometheus.serverCounter.inc()
   }
 }

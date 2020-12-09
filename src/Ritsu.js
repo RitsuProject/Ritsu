@@ -4,6 +4,9 @@ const connect = require('./db')
 const { log } = require('./utils/Logger')
 const dbl = require('dblapi.js')
 const { i18nService } = require('./services/i18nService')
+const { Counter, register } = require('prom-client')
+const { createServer } = require('http')
+const { parse } = require('url')
 
 /**
  * Ritsu Client
@@ -23,6 +26,36 @@ module.exports.Ritsu = class Ritsu extends Client {
     ]
     this.commands = new Collection()
     this.aliases = new Collection()
+    this.prometheus = {
+      commandCounter: new Counter({
+        name: 'ritsu_commands_counter',
+        help: 'Number of commands executed.',
+      }),
+      matchesCounter: new Counter({
+        name: 'ritsu_matches_counter',
+        help: 'Number of matches created.',
+      }),
+      errorCounter: new Counter({
+        name: 'ritsu_error_counter',
+        help: 'Number of errors occurred.',
+      }),
+      serverCounter: new Counter({
+        name: 'ritsu_servers_counter',
+        help: 'Number of servers that Ritsu joined.',
+      }),
+      register,
+    }
+    this.promServer = createServer((req, res) => {
+      if (req.url != null) {
+        if (parse(req.url).pathname === '/metrics') {
+          res.writeHead(200, {
+            'Content-Type': this.prometheus.register.contentType,
+          })
+          res.write(this.prometheus.register.metrics())
+        }
+      }
+      res.end()
+    })
   }
 
   async start() {
@@ -46,6 +79,9 @@ module.exports.Ritsu = class Ritsu extends Client {
     if (process.env.VERSION === 'production') {
       new dbl(process.env.DBL_TOKEN, this)
     }
+
+    this.promServer.listen('8080')
+    log('Prometheus Server is running at 8080', 'MAIN', false)
 
     this.login(this.token).then(() => {
       log('Logged', 'MAIN', false)
