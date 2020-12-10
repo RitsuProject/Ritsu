@@ -4,9 +4,10 @@ const connect = require('./db')
 const { log } = require('./utils/Logger')
 const dbl = require('dblapi.js')
 const { i18nService } = require('./services/i18nService')
-const { Counter, register } = require('prom-client')
 const { createServer } = require('http')
 const { parse } = require('url')
+const { prometheusMetrics } = require('./utils/prometheusMetrics')
+const cpu = require('cpu-stat')
 
 /**
  * Ritsu Client
@@ -26,25 +27,7 @@ module.exports.Ritsu = class Ritsu extends Client {
     ]
     this.commands = new Collection()
     this.aliases = new Collection()
-    this.prometheus = {
-      commandCounter: new Counter({
-        name: 'ritsu_commands_counter',
-        help: 'Number of commands executed.',
-      }),
-      matchesCounter: new Counter({
-        name: 'ritsu_matches_counter',
-        help: 'Number of matches created.',
-      }),
-      errorCounter: new Counter({
-        name: 'ritsu_error_counter',
-        help: 'Number of errors occurred.',
-      }),
-      serverCounter: new Counter({
-        name: 'ritsu_servers_counter',
-        help: 'Number of servers that Ritsu joined.',
-      }),
-      register,
-    }
+    this.prometheus = prometheusMetrics
     this.promServer = createServer((req, res) => {
       if (req.url != null) {
         if (parse(req.url).pathname === '/metrics') {
@@ -83,6 +66,8 @@ module.exports.Ritsu = class Ritsu extends Client {
     this.promServer.listen('8080')
     log('Prometheus Server is running at 8080', 'MAIN', false)
 
+    this.updatePromatheusStats() // Update Prometheus CPU and Memory Usage every 2 seconds.
+
     this.login(this.token).then(() => {
       log('Logged', 'MAIN', false)
     })
@@ -91,6 +76,18 @@ module.exports.Ritsu = class Ritsu extends Client {
   async loadLocales() {
     const i18n = new i18nService()
     await i18n.loadLocales()
+  }
+
+  updatePromatheusStats() {
+    setInterval(() => {
+      this.prometheus.ramUsage.set(
+        {},
+        process.memoryUsage().heapUsed / 1024 / 1024
+      )
+      cpu.usagePercent((_, percent) => {
+        this.prometheus.cpuUsage.set({}, percent)
+      })
+    }, 2000)
   }
 
   loadCommands() {

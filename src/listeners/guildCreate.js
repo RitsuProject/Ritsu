@@ -28,6 +28,6 @@ module.exports = class guildCreate {
     
     If you have any problems, or just want to chat with the developers and give your feedback, feel free to join my little support server! https://discord.gg/XuDysZg
     `)
-    this.client.prometheus.serverCounter.inc()
+    this.client.prometheus.serversJoined.inc()
   }
 }
