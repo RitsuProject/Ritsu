@@ -66,7 +66,7 @@ module.exports.GameService = class GameService {
       this.mode,
       this.message.guild.id
     )
-    this.client.prometheus.matchesCounter.inc()
+    this.client.prometheus.matchStarted.inc()
 
     this.startNewRound(guild).catch(async (e) => {
       log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
@@ -193,6 +193,7 @@ module.exports.GameService = class GameService {
     commanderCollector.on('collect', async (msg) => {
       if (msg.author.id !== room.startedBy)
         return msg.channel.send(this.t('game:onlyHostCanFinish'))
+      this.client.prometheus.matchStarted.dec()
       answerCollector.stop('forceFinished')
     })
 

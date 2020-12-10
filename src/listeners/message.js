@@ -61,7 +61,9 @@ module.exports = class message {
 
     const discordLogger = new DiscordLogger(this.client)
     await discordLogger.logCommand(command, message.author.id, message.guild.id)
-    this.client.prometheus.commandCounter.inc()
+    const promTimer = this.client.prometheus.commandLatency.startTimer()
+    const sendDate = new Date().getTime()
+    this.client.prometheus.commandCounter.labels(fancyCommand.name).inc()
 
     if (fancyCommand.dev === true) {
       if (!this.client.owners.includes(message.author.id)) {
@@ -81,6 +83,16 @@ module.exports = class message {
       new Promise((resolve) => {
         // eslint-disable-line no-new
         resolve(fancyCommand.run({ message, args }, guild, t))
+      }).then(() => {
+        const receivedDate = new Date().getTime()
+        log(
+          `Command ${fancyCommand.name} took to run ${
+            receivedDate - sendDate
+          }ms`,
+          'COMMAND_HANDLER',
+          false
+        )
+        promTimer({ name: fancyCommand.name })
       })
     } catch (e) {
       log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)
