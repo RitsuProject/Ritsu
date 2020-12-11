@@ -1,5 +1,7 @@
+const { green } = require('chalk')
 const { MessageEmbed, MessageAttachment } = require('discord.js')
 const { Constants } = require('../constants')
+const { log } = require('../Logger')
 const { getAnswerCard } = require('./getAnswerCard')
 
 /**
@@ -20,6 +22,7 @@ module.exports = async function EmbedGen(
   songArtists,
   animeData
 ) {
+  const sendDate = new Date().getTime()
   const embed = new MessageEmbed()
   if (type.includes('ED')) {
     type = 'Ending'
@@ -32,14 +35,13 @@ module.exports = async function EmbedGen(
     embed.attachFiles(attachment)
     embed.setImage('attachment://card.png') */
     embed.setImage(animeData.picture)
-    embed.setTitle(answer)
+    embed.setTitle(`${answer} (${type})`)
   } else {
     embed.setDescription(
       "I couldn't get the cover of this anime because of errors."
     )
   }
   embed.setColor(Constants.EMBED_COLOR)
-  console.log(songArtists)
   embed.setFooter(
     t('game:songDetails', {
       songName: songName,
@@ -47,6 +49,13 @@ module.exports = async function EmbedGen(
         .map((artist) => (artist.name ? artist.name : artist))
         .join(', '),
     })
+  )
+  const receivedDate = new Date().getTime()
+  log(
+    `Answer Embed took to generate ${receivedDate - sendDate}ms`,
+    'EMBED_GEN',
+    false,
+    green
   )
   return embed
 }

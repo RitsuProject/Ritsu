@@ -16,6 +16,7 @@ const { DiscordLogger } = require('../utils/discordLogger')
 const { LevelHandler } = require('./LevelHandler')
 const { Users } = require('../models/User')
 const { Ritsu } = require('../Ritsu')
+const { captureException } = require('@sentry/node')
 
 /**
  * Game Service
@@ -68,6 +69,13 @@ module.exports.GameService = class GameService {
     )
     this.client.prometheus.matchStarted.inc()
 
+    log(
+      `Starting a match in the server ${this.message.guild.id}`,
+      'GAME_SERVICE',
+      false,
+      green
+    )
+
     this.startNewRound(guild).catch(async (e) => {
       log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
       this.message.channel.send(
@@ -80,6 +88,7 @@ module.exports.GameService = class GameService {
         this.message.author.id,
         this.message.guild.id
       )
+      captureException(e)
       this.client.prometheus.errorCounter.inc()
     })
   }
@@ -169,8 +178,6 @@ module.exports.GameService = class GameService {
       commanderFilter,
       { time: this.time }
     )
-
-    console.log(answers)
 
     answerCollector.on('collect', async (msg) => {
       if (!room.answerers.includes(msg.author.id)) {
@@ -268,6 +275,7 @@ module.exports.GameService = class GameService {
             this.message.guild.id
           )
           this.client.prometheus.errorCounter.inc()
+          captureException(e)
           await this.clear()
           await this.finish(voicech, room, true)
         })
@@ -513,16 +521,13 @@ module.exports.GameService = class GameService {
    */
 
   async playTheme(voice, stream, guild, room) {
-    const connection = await voice.join()
+    const connection = await voice.join().catch((e) => {
+      throw e.message
+    })
     const dispatch = connection.play(stream)
 
     dispatch.on('start', () => {
-      log(
-        `GUILD -> ${guild._id} | Starting the Track`,
-        'GAME_SERVICE',
-        false,
-        'green'
-      )
+      log(`${guild._id} | Starting the track.`, 'GAME_SERVICE', false, 'green')
       this.timeout = setTimeout(() => {
         dispatch.end()
       }, this.time - 2000) // When the time is up, finish the music. (Yes, we subtract 2 seconds to be more precise, as there is a delay for the music to end)

@@ -30,5 +30,13 @@ module.exports.prometheusMetrics = {
     name: 'ritsu_cpu_usage',
     help: 'CPU Usage',
   }),
+  ping: new Gauge({
+    name: 'ritsu_ping',
+    help: 'Ritsu Ping',
+  }),
+  messagesSeen: new Counter({
+    name: 'ritsu_messages_seen',
+    help: 'Messages Seen',
+  }),
   register,
 }

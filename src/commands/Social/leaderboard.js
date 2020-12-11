@@ -44,15 +44,6 @@ module.exports = class Leaderboard extends Command {
             `,
               true
             )
-          } else {
-            embed.addField(
-              `${rankNumber}.Anonymous User`,
-              `
-            Level: **${results[result].level}**
-            Won Matches: **${results[result].wonMatches}**
-            `,
-              true
-            )
           }
         }
       })
