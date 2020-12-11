@@ -1,10 +1,4 @@
-<p>
-<img src="https://ritsu.sazz.fail/assets/ritsu_header.png" width="450px" align="right">
-</p>
-
-<p>
-<img src="https://ritsu.sazz.fail/assets/ritsu-logo.svg" width="50%">
-</p>
+# <img src="https://ritsu.sazz.fail/assets/ritsu-logo.svg" width="50%"> <img src="https://ritsu.sazz.fail/assets/ritsu_header.png" width="450px" align="right">
 
 <p align="center">🎶 A bot on Discord based on the game of guessing the anime by its Ending or Opening theme!</p>
 
