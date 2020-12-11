@@ -55,7 +55,7 @@ module.exports = async function EmbedGen(
     `Answer Embed took to generate ${receivedDate - sendDate}ms`,
     'EMBED_GEN',
     false,
-    green
+    'green'
   )
   return embed
 }

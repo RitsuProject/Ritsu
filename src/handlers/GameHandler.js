@@ -73,7 +73,7 @@ module.exports.GameService = class GameService {
       `Starting a match in the server ${this.message.guild.id}`,
       'GAME_SERVICE',
       false,
-      green
+      "green"
     )
 
     this.startNewRound(guild).catch(async (e) => {
