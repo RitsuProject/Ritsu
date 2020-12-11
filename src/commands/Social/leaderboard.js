@@ -44,6 +44,15 @@ module.exports = class Leaderboard extends Command {
             `,
               true
             )
+          } else {
+            embed.addField(
+              `${rankNumber}.Cute User (User is no longer in the cache)`,
+              `
+            Level: **${results[result].level}**
+            Won Matches: **${results[result].wonMatches}**
+            `,
+              true
+            )
           }
         }
       })
