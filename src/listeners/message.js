@@ -1,3 +1,4 @@
+const { captureException } = require('@sentry/node')
 const { Message } = require('discord.js')
 const i18next = require('i18next')
 const { Guilds } = require('../models/Guild')
@@ -16,6 +17,7 @@ module.exports = class message {
   }
   async run(message) {
     if (message.author.bot) return
+    this.client.prometheus.messagesSeen.inc()
     const user = await Users.findById(message.author.id)
     const guild = await Guilds.findById(message.guild.id)
     if (!guild) {
@@ -79,11 +81,21 @@ module.exports = class message {
         )
       }
     }
-    try {
-      new Promise((resolve) => {
-        // eslint-disable-line no-new
-        resolve(fancyCommand.run({ message, args }, guild, t))
-      }).then(() => {
+    new Promise((resolve) => {
+      // eslint-disable-line no-new
+      resolve(fancyCommand.run({ message, args }, guild, t))
+    })
+      .catch((e) => {
+        log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)
+        message.reply(
+          `<a:bongo_cat:772152200851226684> | ${t('game:errors.fatalError', {
+            error: `\`${e}\``,
+          })}`
+        )
+        captureException(e)
+        this.client.prometheus.errorCounter.inc()
+      })
+      .then(() => {
         const receivedDate = new Date().getTime()
         log(
           `Command ${fancyCommand.name} took to run ${
@@ -94,12 +106,5 @@ module.exports = class message {
         )
         promTimer({ name: fancyCommand.name })
       })
-    } catch (e) {
-      log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)
-      message.reply(
-        `Oopsie! A fatal error, report this to <@326123612153053184>\n\`${e.stack}\``
-      )
-      this.client.prometheus.errorCounter.inc()
-    }
   }
 }

@@ -8,6 +8,7 @@ const { createServer } = require('http')
 const { parse } = require('url')
 const { prometheusMetrics } = require('./utils/prometheusMetrics')
 const cpu = require('cpu-stat')
+const { init } = require('@sentry/node')
 
 /**
  * Ritsu Client
@@ -48,12 +49,6 @@ module.exports.Ritsu = class Ritsu extends Client {
     log('Loaded Commands', 'MAIN', false)
     connect()
 
-    process.on('SIGTERM', () => {
-      // Destroy the client when the signal that Heroku usually sends at the end of the process, so that the bot will exit all voice channels.
-      this.destroy()
-      process.exit(0)
-    })
-
     this.loadLocales()
     log('Loaded Locales', 'MAIN', false)
 
@@ -67,9 +62,16 @@ module.exports.Ritsu = class Ritsu extends Client {
     log('Prometheus Server is running at 8080', 'MAIN', false)
 
     this.updatePromatheusStats() // Update Prometheus CPU and Memory Usage every 2 seconds.
+    await this.startSentry().then(() => {
+      log('Sentry is running.', 'MAIN', false)
+    })
 
     this.login(this.token).then(() => {
-      log('Logged', 'MAIN', false)
+      log(
+        `Logged in ${this.user.tag}! Ready to serve ${this.guilds.cache.size} guilds.`,
+        'MAIN',
+        false
+      )
     })
   }
 
@@ -78,12 +80,22 @@ module.exports.Ritsu = class Ritsu extends Client {
     await i18n.loadLocales()
   }
 
+  async startSentry() {
+    init({
+      dsn: process.env.SENTRY_DSN,
+      environment: process.env.NODE_ENV,
+      release: process.env.VERSION,
+    })
+  }
+
   updatePromatheusStats() {
+    this.prometheus.serversJoined.set({}, this.guilds.cache.size)
     setInterval(() => {
       this.prometheus.ramUsage.set(
         {},
         process.memoryUsage().heapUsed / 1024 / 1024
       )
+      this.prometheus.ping.set({}, this.ws.ping)
       cpu.usagePercent((_, percent) => {
         this.prometheus.cpuUsage.set({}, percent)
       })
