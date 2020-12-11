@@ -17,6 +17,7 @@ module.exports = class message {
   }
   async run(message) {
     if (message.author.bot) return
+    this.client.prometheus.messagesSeen.inc()
     const user = await Users.findById(message.author.id)
     const guild = await Guilds.findById(message.guild.id)
     if (!guild) {
