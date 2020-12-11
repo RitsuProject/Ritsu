@@ -1,8 +1,5 @@
-<p align="center">
+<img src="https://ritsu.sazz.fail/assets/ritsu_header.png" width="450px" align="right">
 <img src="https://ritsu.sazz.fail/assets/ritsu-logo.svg" width="50%">
-</p>
-
-<h1 align="center">Ritsu</h1>
 
 <p align="center">🎶 A bot on Discord based on the game of guessing the anime by its Ending or Opening theme!</p>
 
@@ -95,7 +92,7 @@ node index.js (or node .)
 - `Canary` - Work here, it is the branch we use for development and it is tested at Ritsu Canary.
 - `Master` - It is **just** to release the final code to Ritsu, all that is in it is what is currently running in production.
 - `Crowdin-Locales` - Used by Crowdin to put the current translations, we always give a PR to the canary frequently, thus keeping the locales up to date.
-
+___
 ## Credits
 
 If it weren't for them, maybe Ritsu wouldn't even exist (or development would be much more complicated).
