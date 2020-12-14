@@ -2,7 +2,7 @@
 const { Message } = require('discord.js')
 // eslint-disable-next-line no-unused-vars
 const { Document } = require('mongoose')
-const { default: parse } = require('parse-duration')
+const ms = require('ms')
 const { ThemesMoeService } = require('../services/ThemesMoeService')
 
 /**
@@ -105,14 +105,15 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     const duration = await this.startCollector().then(async (m) => {
       if (!m) return
       if (m.content.endsWith('s')) {
-        const parsed = parse(m.content)
-        if (parsed < 20000)
+        const miliseconds = ms(m.content)
+        const long = ms(miliseconds, { long: true })
+        if (miliseconds < 20000)
           return this.message.channel.send(
             this.t('commands:start.roundConfig.minimiumTime')
           )
         await primary.delete()
         await m.delete()
-        return { parsed: parsed, value: m.content }
+        return { parsed: miliseconds, value: long }
       } else {
         throw new Error(this.t('commands:start.roundConfig.invalidDuration'))
       }
