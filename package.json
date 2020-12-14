@@ -12,6 +12,7 @@
     "@sentry/tracing": "^5.29.0",
     "bluebird": "^3.7.2",
     "chalk": "^4.1.0",
+    "consola": "^2.15.0",
     "dblapi.js": "^2.4.1",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",

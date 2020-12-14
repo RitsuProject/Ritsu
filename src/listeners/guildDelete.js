@@ -1,7 +1,7 @@
 const { Guilds } = require('../database/models/Guild')
 // eslint-disable-next-line no-unused-vars
 const { Ritsu } = require('../client/RitsuClient')
-const { botListPost } = require('../utils/functions/updateBotList.js')
+const { updateBotList } = require('../utils/functions/updateBotList.js')
 module.exports = class guildDelete {
   /**
    *
@@ -15,7 +15,7 @@ module.exports = class guildDelete {
     const guild_ = await Guilds.findById(guild.id)
     guild_.remove()
     if (process.env.VERSION === 'production') {
-      await botListPost(this.client.guilds.cache.size)
+      await updateBotList(this.client.guilds.cache.size)
     }
     this.client.prometheus.serversJoined.dec()
   }

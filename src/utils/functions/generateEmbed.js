@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 const { Constants } = require('../constants')
-const { log } = require('../Logger')
+const { logger } = require('../Logger')
 
 /**
  * The Answser Embed generator.
@@ -12,7 +12,7 @@ const { log } = require('../Logger')
  * @returns {Promise<MessageEmbed>} Message Embed
  */
 
-module.exports = async function EmbedGen(
+module.exports = async function generateEmbed(
   t,
   answer,
   type,
@@ -49,11 +49,8 @@ module.exports = async function EmbedGen(
     })
   )
   const receivedDate = new Date().getTime()
-  log(
-    `Answer Embed took to generate ${receivedDate - sendDate}ms`,
-    'EMBED_GEN',
-    false,
-    'green'
-  )
+  logger
+    .withTag('GAME')
+    .info(`Answer Embed took to generate ${receivedDate - sendDate}ms`)
   return embed
 }

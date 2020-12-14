@@ -8,7 +8,7 @@ const p = require('phin')
  * await botListPost(30)
  */
 
-module.exports.botListPost = async function botListPost(number) {
+module.exports.updateBotList = async function updateBotList(number) {
   await p({
     method: 'POST',
     url: 'https://discordbotlist.com/api/v1/bots/763934732420382751/stats',

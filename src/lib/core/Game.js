@@ -1,7 +1,7 @@
 const { Guilds } = require('../../database/models/Guild')
 const { Themes } = require('./Themes')
 const { Rooms } = require('../../database/models/Room')
-const { log } = require('../../utils/Logger')
+const { logger } = require('../../utils/logger')
 const { UserLib } = require('../Users')
 
 const stringSimilarity = require('string-similarity')
@@ -15,7 +15,7 @@ const { EasterEggs } = require('../EasterEggs')
 // eslint-disable-next-line no-unused-vars
 const { Ritsu } = require('../../client/RitsuClient')
 
-const EmbedGen = require('../../utils/functions/generateEmbed')
+const generateEmbed = require('../../utils/functions/generateEmbed')
 const { Host } = require('./Host')
 const { getStream } = require('../../utils/functions/getStream')
 const { DiscordLogger } = require('../../utils/discordLogger')
@@ -74,15 +74,12 @@ module.exports.Game = class Game {
     )
     this.client.prometheus.matchStarted.inc()
 
-    log(
-      `Starting a match in the server ${this.message.guild.id}`,
-      'GAME_SERVICE',
-      false,
-      'green'
-    )
+    logger
+      .withTag('GAME')
+      .success(`GUILD -> ${this.message.guild.id} | Starting a new match...`)
 
     this.startNewRound(guild).catch(async (e) => {
-      log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
+      logger.withTag('GAME').error(`GUILD -> ${guild._id} | ${e}`)
       this.message.channel.send(
         `<a:bongo_cat:772152200851226684> | ${this.t('game:errors.fatalError', {
           error: `\`${e}\``,
@@ -211,12 +208,9 @@ module.exports.Game = class Game {
 
     answerCollector.on('end', async (_, reason) => {
       if (reason === 'forceFinished') {
-        log(
-          `GUILD -> ${guild._id} | The match was ended by force.`,
-          'GAME_SERVICE',
-          true,
-          'green'
-        )
+        logger
+          .withTag('GAME')
+          .info(`GUILD -> ${guild._id} | The match was ended by force.`)
         this.message.channel.send(this.t('game:forceFinished'))
         await this.clear()
         this.finish(voicech, room, true)
@@ -225,7 +219,7 @@ module.exports.Game = class Game {
 
       const leveling = new Leveling()
 
-      const embed = await EmbedGen(
+      const embed = await generateEmbed(
         this.t,
         answer,
         type,
@@ -264,7 +258,9 @@ module.exports.Game = class Game {
         this.finish(voicech, room)
       } else {
         await this.startNewRound(guild, voicech).catch(async (e) => {
-          log(`GUILD -> ${this.message.guild.id} | ${e}`, 'GAME_SERVICE', true)
+          logger
+            .withTag('GAME')
+            .error(`GUILD -> ${this.message.guild.id} | ${e}`)
           this.message.channel.send(
             `<a:bongo_cat:772152200851226684> | ${this.t(
               'game:errors.fatalError',
@@ -530,14 +526,16 @@ module.exports.Game = class Game {
     const dispatch = connection.play(stream)
 
     dispatch.on('start', () => {
-      log(`${guild._id} | Starting the track.`, 'GAME_SERVICE', false, 'green')
+      logger
+        .withTag('GAME')
+        .success(`GUILD -> ${guild._id} | Starting the track.`)
       this.timeout = setTimeout(() => {
         dispatch.end()
       }, this.time - 2000) // When the time is up, finish the music. (Yes, we subtract 2 seconds to be more precise, as there is a delay for the music to end)
     })
 
     dispatch.on('error', (error) => {
-      console.log(error)
+      logger.withTag('GAME').error(error)
       throw error
     })
   }
@@ -578,7 +576,7 @@ module.exports.Game = class Game {
       const malAnime = await mal.getInfoFromName(name)
       return malAnime
     } catch (e) {
-      log(e, 'GAME_SERVICE', true)
+      logger.withTag('GAME').info(e, 'GAME_SERVICE', true)
       throw new Error(
         `An error occurred in trying to get MyAnimeList data from this anime.\n${e.message}`
       )

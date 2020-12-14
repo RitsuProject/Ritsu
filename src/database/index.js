@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { log } = require('../utils/Logger')
+const { logger } = require('../utils/Logger')
 mongoose.Promise = require('bluebird')
 module.exports = () => {
   /**
@@ -13,10 +13,14 @@ module.exports = () => {
         useUnifiedTopology: true,
       })
       .then(() => {
-        return log(`Successfully connected.`, 'DATABASE', false)
+        return logger
+          .withTag('DATABASE')
+          .success(`Successfully connected to the Database.`)
       })
       .catch((error) => {
-        log(`Error connecting to database: ${error}`, 'DATABASE', true)
+        logger
+          .withTag('DATABASE')
+          .error(`Error connecting to database: ${error}`)
         return process.exit(1)
       })
   }

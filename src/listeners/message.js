@@ -9,7 +9,7 @@ const i18next = require('i18next')
 const { Guilds } = require('../database/models/Guild')
 const { Users } = require('../database/models/User')
 const { DiscordLogger } = require('../utils/discordLogger')
-const { log } = require('../utils/Logger')
+const { logger } = require('../utils/logger')
 
 module.exports = class message {
   /**
@@ -82,7 +82,7 @@ module.exports = class message {
       resolve(fancyCommand.run({ message, args }, guild, t))
     })
       .catch((e) => {
-        log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)
+        logger.withTag('COMMAND HANDLER').error(e)
         message.reply(
           `<a:bongo_cat:772152200851226684> | ${t('game:errors.fatalError', {
             error: `\`${e}\``,
@@ -93,13 +93,13 @@ module.exports = class message {
       })
       .then(() => {
         const receivedDate = new Date().getTime()
-        log(
-          `Command ${fancyCommand.name} took to run ${
-            receivedDate - sendDate
-          }ms`,
-          'COMMAND_HANDLER',
-          false
-        )
+        logger
+          .withTag('COMMAND HANDLER')
+          .info(
+            `Command ${fancyCommand.name} took to run ${
+              receivedDate - sendDate
+            }ms`
+          )
         promTimer({ name: fancyCommand.name })
       })
   }

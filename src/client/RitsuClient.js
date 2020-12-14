@@ -1,12 +1,12 @@
 const { Client, Collection } = require('discord.js')
 const { readdir } = require('fs')
 const connect = require('../database')
-const { log } = require('../utils/Logger')
 const { I18n } = require('../lib/i18n')
 const { createServer } = require('http')
 const { prometheusMetrics } = require('../utils/prometheusMetrics')
 const { init } = require('@sentry/node')
 const { join } = require('path')
+const { logger } = require('../utils/Logger')
 
 /**
  * Ritsu Client
@@ -42,21 +42,21 @@ module.exports.Ritsu = class Ritsu extends Client {
 
   async start() {
     this.loadListeners()
-    log('Loaded Listeners', 'MAIN', false)
+    logger.withTag('CLIENT').success('Loaded Listeners.')
     this.loadCommands()
-    log('Loaded Commands', 'MAIN', false)
+    logger.withTag('CLIENT').success('Loaded Commands')
     connect()
 
     await this.loadLocales().then(() => {
-      log('Loaded Locales', 'MAIN', false)
+      logger.withTag('CLIENT').success('Loaded Locales')
     })
 
     this.login(this.token).then(() => {
-      log(
-        `Logged in ${this.user.tag}! Ready to serve ${this.guilds.cache.size} guilds.`,
-        'MAIN',
-        false
-      )
+      logger
+        .withTag('CLIENT')
+        .success(
+          `Logged in ${this.user.tag}! Ready to serve ${this.guilds.cache.size} guilds.`
+        )
     })
   }
 
