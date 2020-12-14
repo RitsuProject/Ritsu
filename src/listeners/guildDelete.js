@@ -1,6 +1,6 @@
-const { Guilds } = require('../models/Guild')
+const { Guilds } = require('../database/models/Guild')
 // eslint-disable-next-line no-unused-vars
-const { Ritsu } = require('../Ritsu')
+const { Ritsu } = require('../client/RitsuClient')
 const { botListPost } = require('../utils/functions/updateBotList.js')
 module.exports = class guildDelete {
   /**

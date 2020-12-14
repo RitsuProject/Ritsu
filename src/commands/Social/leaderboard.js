@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const { Users } = require('../../models/User')
+const { Users } = require('../../database/models/User')
 const { Command } = require('../../structures/Command')
 const { Constants } = require('../../utils/constants')
 

@@ -1,14 +1,14 @@
 const p = require('phin')
-const { ThemesMoeService } = require('../services/ThemesMoeService')
-const getProviderStatus = require('../utils/functions/getProviderStatus')
-const { randomInt } = require('../utils/functions/randomInt')
+const { ThemesMoeService } = require('../../rest/ThemesMoeAPI')
+const getProviderStatus = require('../../utils/functions/getProviderStatus')
+const { randomInt } = require('../../utils/functions/randomInt')
 
 /**
  * Service responsible for extracting themes from Ritsu API/MAL API.
  * @class
  */
 
-module.exports.ThemeService = class ThemeService {
+module.exports.Themes = class Themes {
   async getAnimeByMode(
     provider,
     mode,

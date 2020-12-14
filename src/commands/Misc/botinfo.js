@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 const { MessageEmbed, Message } = require('discord.js')
 const moment = require('moment')
-const { Rooms } = require('../../models/Room')
+const { Rooms } = require('../../database/models/Room')
 const { Command } = require('../../structures/Command')
 
 module.exports = class BotInfo extends Command {
@@ -19,6 +20,7 @@ module.exports = class BotInfo extends Command {
    * @param {Object} run
    * @param {Message} run.message
    */
+
   async run({ message }, _, t) {
     const matches = await Rooms.countDocuments({})
     const uptime = moment.duration(this.client.uptime)

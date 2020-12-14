@@ -1,4 +1,4 @@
-const { Ritsu } = require('./src/Ritsu')
+const { Ritsu } = require('./src/client/RitsuClient')
 const DBL = require('dblapi.js')
 const { readFileSync } = require('fs')
 

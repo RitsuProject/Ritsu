@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 const { Message } = require('discord.js')
-const { Badges } = require('../../models/Badge')
-const { Users } = require('../../models/User')
+const { Badges } = require('../../database/models/Badge')
+const { Users } = require('../../database/models/User')
 const { Command } = require('../../structures/Command')
 
 module.exports = class AddBadge extends Command {
@@ -13,6 +14,7 @@ module.exports = class AddBadge extends Command {
     })
     this.client = client
   }
+
   /**
    * Run
    * @param {Object} run

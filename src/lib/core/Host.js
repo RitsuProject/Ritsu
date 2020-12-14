@@ -2,7 +2,7 @@
  * Host Handler
  * @desc Responsible for choosing which host Ritsu will use.
  */
-module.exports.HostHandler = class HostHandler {
+module.exports.Host = class Host {
   /**
    * Get Provider
    * @desc Catch a random host.

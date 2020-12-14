@@ -2,12 +2,12 @@
 // eslint-disable-next-line no-unused-vars
 const { Message } = require('discord.js')
 // eslint-disable-next-line no-unused-vars
-const { Ritsu } = require('../Ritsu')
+const { Ritsu } = require('../client/RitsuClient')
 
 const { captureException } = require('@sentry/node')
 const i18next = require('i18next')
-const { Guilds } = require('../models/Guild')
-const { Users } = require('../models/User')
+const { Guilds } = require('../database/models/Guild')
+const { Users } = require('../database/models/User')
 const { DiscordLogger } = require('../utils/discordLogger')
 const { log } = require('../utils/Logger')
 

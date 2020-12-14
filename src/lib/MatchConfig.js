@@ -3,12 +3,12 @@ const { Message } = require('discord.js')
 // eslint-disable-next-line no-unused-vars
 const { Document } = require('mongoose')
 const ms = require('ms')
-const { ThemesMoeService } = require('../services/ThemesMoeService')
+const { ThemesMoeAPI } = require('../rest/ThemesMoeAPI')
 
 /**
  * Round Configuration Handler
  */
-module.exports.RoundConfigHandler = class RoundConfigHandler {
+module.exports.MatchConfig = class MatchConfig {
   /**
    * Constructor
    * @param {Message} message
@@ -157,7 +157,7 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     )
     const username = await this.startCollector().then(async (m) => {
       if (!m) return
-      const themesMoe = new ThemesMoeService()
+      const themesMoe = new ThemesMoeAPI()
       let user
       try {
         if (service === 'mal') {
@@ -188,7 +188,7 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     )
     const season = await this.startCollector().then(async (m) => {
       if (!m) return
-      const themesMoe = new ThemesMoeService()
+      const themesMoe = new ThemesMoeAPI()
       const season = m.content.split(',')
       if (season[0] && season[1]) {
         const themes = await themesMoe.getAnimesPerSeason(season[0])

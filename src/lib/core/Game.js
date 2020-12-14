@@ -1,8 +1,8 @@
-const { Guilds } = require('../models/Guild')
-const { ThemeService } = require('./ThemeHandler')
-const { Rooms } = require('../models/Room')
-const { log } = require('../utils/Logger')
-const { UserService } = require('./UserHandler')
+const { Guilds } = require('../../database/models/Guild')
+const { Themes } = require('./Themes')
+const { Rooms } = require('../../database/models/Room')
+const { log } = require('../../utils/Logger')
+const { UserLib } = require('../Users')
 
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
@@ -11,16 +11,16 @@ const mal = require('mal-scraper')
 // eslint-disable-next-line no-unused-vars
 const { Message, VoiceChannel } = require('discord.js')
 // eslint-disable-next-line no-unused-vars
-const { EasterEggHandler } = require('./EasterEggHandler')
+const { EasterEggs } = require('../EasterEggs')
 // eslint-disable-next-line no-unused-vars
-const { Ritsu } = require('../Ritsu')
+const { Ritsu } = require('../../client/RitsuClient')
 
-const EmbedGen = require('../utils/functions/generateEmbed')
-const { HostHandler } = require('./HostHandler')
-const { getStream } = require('../utils/functions/getStream')
-const { DiscordLogger } = require('../utils/discordLogger')
-const { LevelHandler } = require('./LevelHandler')
-const { Users } = require('../models/User')
+const EmbedGen = require('../../utils/functions/generateEmbed')
+const { Host } = require('./Host')
+const { getStream } = require('../../utils/functions/getStream')
+const { DiscordLogger } = require('../../utils/discordLogger')
+const { Leveling } = require('../Leveling')
+const { Users } = require('../../database/models/User')
 const { captureException } = require('@sentry/node')
 
 /**
@@ -31,7 +31,7 @@ const { captureException } = require('@sentry/node')
  * const gameService = new GameService(message)
  */
 
-module.exports.GameService = class GameService {
+module.exports.Game = class Game {
   /**
    * @param {Message} message
    * @param {Ritsu} client
@@ -108,7 +108,7 @@ module.exports.GameService = class GameService {
     const voicech = this.message.member.voice.channel
 
     // owo eastereggs (Blocked)
-    /*  const easteregg = new EasterEggHandler(this.message, voicech, this.t)
+    /*  const easteregg = new EasterEggs(this.message, voicech, this.t)
     const secret = await easteregg.isValid()
     if (secret) {
       await easteregg.start(secret)
@@ -223,7 +223,7 @@ module.exports.GameService = class GameService {
         return
       }
 
-      const levelHandler = new LevelHandler()
+      const leveling = new Leveling()
 
       const embed = await EmbedGen(
         this.t,
@@ -249,7 +249,7 @@ module.exports.GameService = class GameService {
       await room.answerers.forEach(async (id) => {
         const user = await Users.findById(id)
         this.bumpScore(id)
-        const stats = await levelHandler.bump(id, this.mode)
+        const stats = await leveling.bump(id, this.mode)
         this.message.channel.send(`<@${id}> won :star: **${stats.xp}** XP`)
         if (stats.level !== user.level) {
           this.message.channel.send(
@@ -298,7 +298,7 @@ module.exports.GameService = class GameService {
    */
 
   async finish(voicech, room, force) {
-    const userService = new UserService()
+    const userService = new UserLib()
     let cakes
     if (!force) {
       const winner = await this.getWinner(room)
@@ -310,8 +310,8 @@ module.exports.GameService = class GameService {
         userService.updateEarnings(winner.id, cakes) // Update the number of won matches by the winner of the game.
       }
       if (winner) {
-        const levelHandler = new LevelHandler()
-        const stats = await levelHandler.bump(winner.id, this.mode)
+        const leveling = new Leveling()
+        const stats = await leveling.bump(winner.id, this.mode)
         this.message.channel.send(
           this.t('game:winner', {
             user: `<@${winner.id}>`,
@@ -355,10 +355,10 @@ module.exports.GameService = class GameService {
   }
 
   async choose() {
-    const themeService = new ThemeService()
-    const hostHandler = new HostHandler()
-    const provider = hostHandler.getProvider()
-    const theme = await themeService.getAnimeByMode(
+    const themes = new Themes()
+    const host = new Host()
+    const provider = host.getProvider()
+    const theme = await themes.getAnimeByMode(
       provider,
       this.mode,
       this.listService,

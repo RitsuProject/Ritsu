@@ -1,10 +1,14 @@
 const { Command } = require('../../structures/Command')
 const { inspect } = require('util')
 
-const { Users } = require('../../models/User')
-const { Guilds } = require('../../models/Guild')
-const { Rooms } = require('../../models/Room')
-const { Badges } = require('../../models/Badge')
+// eslint-disable-next-line no-unused-vars
+const { Users } = require('../../database/models/User')
+// eslint-disable-next-line no-unused-vars
+const { Guilds } = require('../../database/models/Guild')
+// eslint-disable-next-line no-unused-vars
+const { Rooms } = require('../../database/models/Room')
+// eslint-disable-next-line no-unused-vars
+const { Badges } = require('../../database/models/Badge')
 
 module.exports = class Eval extends Command {
   constructor(client) {
@@ -17,6 +21,7 @@ module.exports = class Eval extends Command {
     })
     this.client = client
   }
+
   /**
    * Run
    * @param {Object} run
@@ -26,6 +31,7 @@ module.exports = class Eval extends Command {
   async run({ message, args }) {
     const code = args.slice(0).join(' ')
     try {
+      // eslint-disable-next-line no-eval
       let evaled = await eval(code)
       evaled = inspect(evaled, { depth: 1 })
       if (evaled.length > 1800) evaled = `${evaled.slice(0, 1800)}...`

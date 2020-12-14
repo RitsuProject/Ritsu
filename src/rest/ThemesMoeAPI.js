@@ -1,7 +1,7 @@
 const p = require('phin')
 
 // TODO: Send this to the backend (Mio)
-module.exports.ThemesMoeService = class ThemesMoeService {
+module.exports.ThemesMoeAPI = class ThemesMoeAPI {
   /**
    * Get animes from the user MAL animelist
    * @param {String} username

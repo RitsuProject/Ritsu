@@ -1,6 +1,6 @@
-const { GameService } = require('../../handlers/GameHandler')
+const { Game } = require('../../lib/core/Game')
 const { Command } = require('../../structures/Command')
-const { RoundConfigHandler } = require('../../handlers/RoundConfigHandler')
+const { MatchConfig } = require('../../lib/MatchConfig')
 
 module.exports = class Start extends Command {
   constructor(client) {
@@ -41,7 +41,7 @@ module.exports = class Start extends Command {
     if (args[0] !== 'default') {
       // If user specified default in the command, skip configuration.
       // Get the user configuration.
-      const roundConfig = new RoundConfigHandler(message, guild, t)
+      const roundConfig = new MatchConfig(message, guild, t)
       mode = await roundConfig.getGamemode()
       if (typeof mode !== 'string') return
       if (mode === 'list') {
@@ -61,7 +61,7 @@ module.exports = class Start extends Command {
       if (typeof time.parsed !== 'number') return
     }
 
-    const gameService = new GameService(message, this.client, {
+    const game = new Game(message, this.client, {
       mode: mode,
       rounds: rounds,
       time: time.parsed,
@@ -72,7 +72,7 @@ module.exports = class Start extends Command {
       season: `${mode === 'season' ? season.season : null}`,
       t: t,
     })
-    gameService.init()
+    game.init()
     tip.delete()
   }
 }

@@ -1,10 +1,10 @@
 const { Client, Collection } = require('discord.js')
 const { readdir } = require('fs')
-const connect = require('./db')
-const { log } = require('./utils/Logger')
-const { I18nService } = require('./services/i18nService')
+const connect = require('../database')
+const { log } = require('../utils/Logger')
+const { I18n } = require('../lib/i18n')
 const { createServer } = require('http')
-const { prometheusMetrics } = require('./utils/prometheusMetrics')
+const { prometheusMetrics } = require('../utils/prometheusMetrics')
 const { init } = require('@sentry/node')
 const { join } = require('path')
 
@@ -47,8 +47,9 @@ module.exports.Ritsu = class Ritsu extends Client {
     log('Loaded Commands', 'MAIN', false)
     connect()
 
-    this.loadLocales()
-    log('Loaded Locales', 'MAIN', false)
+    await this.loadLocales().then(() => {
+      log('Loaded Locales', 'MAIN', false)
+    })
 
     this.login(this.token).then(() => {
       log(
@@ -60,7 +61,7 @@ module.exports.Ritsu = class Ritsu extends Client {
   }
 
   async loadLocales() {
-    const i18n = new I18nService()
+    const i18n = new I18n()
     await i18n.loadLocales()
   }
 
@@ -73,14 +74,15 @@ module.exports.Ritsu = class Ritsu extends Client {
   }
 
   loadCommands() {
-    readdir(join(__dirname, '/commands'), (err, files) => {
+    readdir(join(__dirname, '..', '/commands'), (err, files) => {
       if (err) console.error(err)
       files.forEach((category) => {
-        readdir(join(__dirname, '/commands/', category), (err, cmd) => {
+        readdir(join(__dirname, '..', '/commands/', category), (err, cmd) => {
           if (err) return console.log(err)
           cmd.forEach((cmd) => {
             const command = new (require(join(
               __dirname,
+              '..',
               '/commands/',
               category,
               cmd
@@ -95,10 +97,10 @@ module.exports.Ritsu = class Ritsu extends Client {
   }
 
   loadListeners() {
-    readdir(join(__dirname, '/listeners'), (err, files) => {
+    readdir(join(__dirname, '..', '/listeners'), (err, files) => {
       if (err) console.error(err)
       files.forEach(async (em) => {
-        const Event = require(join(__dirname, '/listeners/', em))
+        const Event = require(join(__dirname, '..', '/listeners/', em))
         const eventa = new Event(this)
         const name = em.split('.')[0]
         super.on(name, (...args) => eventa.run(...args))

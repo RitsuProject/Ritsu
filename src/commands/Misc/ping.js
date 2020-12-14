@@ -15,6 +15,7 @@ module.exports = class Ping extends Command {
    * @param {Object} run
    * @param {Message} run.message
    */
+
   async run({ message }) {
     message.reply(
       `Pong! \`${Math.round(this.client.ws.ping)}\`ms! | API: \`${

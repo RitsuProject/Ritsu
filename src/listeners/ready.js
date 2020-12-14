@@ -1,6 +1,6 @@
-const { Rooms } = require('../models/Room')
-const { Guilds } = require('../models/Guild')
-const os = require("os-utils")
+const { Rooms } = require('../database/models/Room')
+const { Guilds } = require('../database/models/Guild')
+const os = require('os-utils')
 module.exports = class ready {
   constructor(client) {
     this.client = client
@@ -22,8 +22,8 @@ module.exports = class ready {
         {},
         process.memoryUsage().heapUsed / 1024 / 1024
       )
-       
-      os.cpuUsage(p => {
+
+      os.cpuUsage((p) => {
         this.client.prometheus.cpuUsage.set({}, p)
       })
     }, 2000)

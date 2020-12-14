@@ -1,11 +1,11 @@
-const { Users } = require('../models/User')
+const { Users } = require('../database/models/User')
 
 /**
  * Service responsible for actions related to users (such as updating won matches.)
  * @class
  */
 
-module.exports.UserService = class UserService {
+module.exports.UserLib = class UserLib {
   /**
    * Update the played matches.
    * @async
