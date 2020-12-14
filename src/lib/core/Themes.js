@@ -1,16 +1,14 @@
 const p = require('phin')
-const { ThemesMoeService } = require('../services/ThemesMoeService')
-const getProviderStatus = require('../utils/functions/getProviderStatus')
-const { randomInt } = require('../utils/functions/randomInt')
+const { ThemesMoeService } = require('../../rest/ThemesMoeAPI')
+const getProviderStatus = require('../../utils/functions/getProviderStatus')
+const { randomInt } = require('../../utils/functions/randomInt')
 
 /**
  * Service responsible for extracting themes from Ritsu API/MAL API.
  * @class
  */
 
-module.exports.ThemeService = class ThemeService {
-  constructor() {}
-
+module.exports.Themes = class Themes {
   async getAnimeByMode(
     provider,
     mode,
@@ -44,7 +42,9 @@ module.exports.ThemeService = class ThemeService {
         } else if (search.body.err === 'no_anime') {
           return false
         } else {
-          throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
+          throw new Error(
+            `The API returned a status code that is not 200! | Code: ${search.statusCode}`
+          )
         }
       }
       case 'normal': {
@@ -57,7 +57,9 @@ module.exports.ThemeService = class ThemeService {
         if (random.statusCode === 200) {
           return random.body
         } else {
-          throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
+          throw new Error(
+            `The API returned a status code that is not 200! | Code: ${random.statusCode}`
+          )
         }
       }
       case 'hard': {
@@ -87,9 +89,10 @@ module.exports.ThemeService = class ThemeService {
         } else if (search.body.err === 'no_anime') {
           return false
         } else {
-          throw `The API returned a status code that is not 200! | Code: ${random.statusCode}`
+          throw new Error(
+            `The API returned a status code that is not 200! | Code: ${search.statusCode}`
+          )
         }
-        break
       }
       case 'list': {
         const themesMoe = new ThemesMoeService()

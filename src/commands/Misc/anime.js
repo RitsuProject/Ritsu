@@ -1,4 +1,5 @@
 const { Command } = require('../../structures/Command')
+// eslint-disable-next-line no-unused-vars
 const { Message, MessageEmbed } = require('discord.js')
 
 const mal = require('mal-scraper')
@@ -20,6 +21,7 @@ module.exports = class Anime extends Command {
    * @param {Message} run.message
    * @param {Array} run.args
    */
+
   async run({ message, args }) {
     const search = args.slice(0).join(' ')
     if (!search)

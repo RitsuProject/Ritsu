@@ -1,13 +1,12 @@
+// eslint-disable-next-line no-unused-vars
 const { Document } = require('mongoose')
-const { Users } = require('../models/User')
+const { Users } = require('../database/models/User')
 const { randomInt } = require('../utils/functions/randomInt')
 
 /**
  * Level Handler
  */
-module.exports.LevelHandler = class LevelHandler {
-  constructor() {}
-
+module.exports.Leveling = class Leveling {
   /**
    * Bump XP and Level.
    * @param {String} id - User ID

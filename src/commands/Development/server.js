@@ -1,4 +1,4 @@
-const { Servers } = require('../../models/Servers')
+const { Servers } = require('../../database/models/Servers')
 const { Command } = require('../../structures/Command')
 
 module.exports = class Server extends Command {
@@ -12,6 +12,7 @@ module.exports = class Server extends Command {
     })
     this.client = client
   }
+
   /**
    * Run
    * @param {Object} run

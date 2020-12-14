@@ -1,6 +1,7 @@
-const { Guilds } = require('../models/Guild')
-const { Ritsu } = require('../Ritsu')
-const { botListPost } = require('../utils/functions/updateBotList')
+const { Guilds } = require('../database/models/Guild')
+// eslint-disable-next-line no-unused-vars
+const { Ritsu } = require('../client/RitsuClient')
+const { updateBotList } = require('../utils/functions/updateBotList')
 module.exports = class guildCreate {
   /**
    *
@@ -9,6 +10,7 @@ module.exports = class guildCreate {
   constructor(client) {
     this.client = client
   }
+
   async run(guild) {
     const guild_ = new Guilds({
       _id: guild.id,
@@ -19,7 +21,7 @@ module.exports = class guildCreate {
     })
     await guild_.save()
     if (process.env.VERSION === 'production') {
-      await botListPost(this.client.guilds.cache.size)
+      await updateBotList(this.client.guilds.cache.size)
     }
     // Send a fancy message to the owner.
     const owner = await this.client.users.fetch(guild.ownerID)

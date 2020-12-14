@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
-const { Badges } = require('../../models/Badge')
-const { Users } = require('../../models/User')
+const { Badges } = require('../../database/models/Badge')
+const { Users } = require('../../database/models/User')
 const { Command } = require('../../structures/Command')
 
 module.exports = class Profile extends Command {
@@ -19,6 +19,7 @@ module.exports = class Profile extends Command {
    * @param {Message} run.message
    * @param {Array} run.args
    */
+
   async run({ message, args }, _, t) {
     const member =
       message.mentions.users.first() ||

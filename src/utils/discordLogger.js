@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const { Client, MessageEmbed } = require('discord.js')
 const { Constants } = require('./constants')
 
@@ -24,6 +25,7 @@ module.exports.DiscordLogger = class DiscordLogger {
 
     this.client.channels.cache.get(Constants.LOG_CHANNEL).send(embed)
   }
+
   async logMatch(rounds, time, host, mode, server) {
     const hostUser = this.client.users.cache.get(host)
     const guild = this.client.guilds.cache.get(server)
@@ -40,6 +42,7 @@ module.exports.DiscordLogger = class DiscordLogger {
 
     this.client.channels.cache.get(Constants.LOG_CHANNEL).send(embed)
   }
+
   async logError(error, author, server) {
     const authorUser = this.client.users.cache.get(author)
     const guild = this.client.guilds.cache.get(server)

@@ -1,14 +1,12 @@
 const { Client, Collection } = require('discord.js')
 const { readdir } = require('fs')
-const connect = require('./db')
-const { log } = require('./utils/Logger')
-const dbl = require('dblapi.js')
-const { i18nService } = require('./services/i18nService')
+const connect = require('../database')
+const { I18n } = require('../lib/i18n')
 const { createServer } = require('http')
-const { parse } = require('url')
-const { prometheusMetrics } = require('./utils/prometheusMetrics')
-const cpu = require('cpu-stat')
+const { prometheusMetrics } = require('../utils/prometheusMetrics')
 const { init } = require('@sentry/node')
+const { join } = require('path')
+const { logger } = require('../utils/Logger')
 
 /**
  * Ritsu Client
@@ -18,7 +16,7 @@ const { init } = require('@sentry/node')
  */
 module.exports.Ritsu = class Ritsu extends Client {
   constructor(token, options) {
-    super(token)
+    super(token, options)
     this.token = token
     this.prefix = options.prefix
     this.owners = [
@@ -31,7 +29,7 @@ module.exports.Ritsu = class Ritsu extends Client {
     this.prometheus = prometheusMetrics
     this.promServer = createServer((req, res) => {
       if (req.url != null) {
-        if (parse(req.url).pathname === '/metrics') {
+        if (req.url === '/metrics') {
           res.writeHead(200, {
             'Content-Type': this.prometheus.register.contentType,
           })
@@ -44,39 +42,26 @@ module.exports.Ritsu = class Ritsu extends Client {
 
   async start() {
     this.loadListeners()
-    log('Loaded Listeners', 'MAIN', false)
+    logger.withTag('CLIENT').success('Loaded Listeners.')
     this.loadCommands()
-    log('Loaded Commands', 'MAIN', false)
+    logger.withTag('CLIENT').success('Loaded Commands')
     connect()
 
-    this.loadLocales()
-    log('Loaded Locales', 'MAIN', false)
-
-    // top.gg Post Server Count
-
-    if (process.env.VERSION === 'production') {
-      new dbl(process.env.DBL_TOKEN, this)
-    }
-
-    this.promServer.listen('8080')
-    log('Prometheus Server is running at 8080', 'MAIN', false)
-
-    this.updatePromatheusStats() // Update Prometheus CPU and Memory Usage every 2 seconds.
-    await this.startSentry().then(() => {
-      log('Sentry is running.', 'MAIN', false)
+    await this.loadLocales().then(() => {
+      logger.withTag('CLIENT').success('Loaded Locales')
     })
 
     this.login(this.token).then(() => {
-      log(
-        `Logged in ${this.user.tag}! Ready to serve ${this.guilds.cache.size} guilds.`,
-        'MAIN',
-        false
-      )
+      logger
+        .withTag('CLIENT')
+        .success(
+          `Logged in ${this.user.tag}! Ready to serve ${this.guilds.cache.size} guilds.`
+        )
     })
   }
 
   async loadLocales() {
-    const i18n = new i18nService()
+    const i18n = new I18n()
     await i18n.loadLocales()
   }
 
@@ -88,30 +73,20 @@ module.exports.Ritsu = class Ritsu extends Client {
     })
   }
 
-  updatePromatheusStats() {
-    this.prometheus.serversJoined.set({}, this.guilds.cache.size)
-    setInterval(() => {
-      this.prometheus.ramUsage.set(
-        {},
-        process.memoryUsage().heapUsed / 1024 / 1024
-      )
-      this.prometheus.ping.set({}, this.ws.ping)
-      cpu.usagePercent((_, percent) => {
-        this.prometheus.cpuUsage.set({}, percent)
-      })
-    }, 2000)
-  }
-
   loadCommands() {
-    readdir(`${__dirname}/commands`, (err, files) => {
+    readdir(join(__dirname, '..', '/commands'), (err, files) => {
       if (err) console.error(err)
       files.forEach((category) => {
-        readdir(`${__dirname}/commands/${category}`, (err, cmd) => {
+        readdir(join(__dirname, '..', '/commands/', category), (err, cmd) => {
           if (err) return console.log(err)
           cmd.forEach((cmd) => {
-            const command = new (require(`${__dirname}/commands/${category}/${cmd}`))(
-              this
-            )
+            const command = new (require(join(
+              __dirname,
+              '..',
+              '/commands/',
+              category,
+              cmd
+            )))(this)
             command.dir = `./src/commands/${category}/${cmd}`
             this.commands.set(command.name, command)
             command.aliases.forEach((a) => this.aliases.set(a, command.name))
@@ -122,10 +97,10 @@ module.exports.Ritsu = class Ritsu extends Client {
   }
 
   loadListeners() {
-    readdir(`${__dirname}/listeners`, (err, files) => {
+    readdir(join(__dirname, '..', '/listeners'), (err, files) => {
       if (err) console.error(err)
       files.forEach(async (em) => {
-        const Event = require(`${__dirname}/listeners/${em}`)
+        const Event = require(join(__dirname, '..', '/listeners/', em))
         const eventa = new Event(this)
         const name = em.split('.')[0]
         super.on(name, (...args) => eventa.run(...args))

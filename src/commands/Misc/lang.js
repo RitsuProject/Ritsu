@@ -19,6 +19,7 @@ module.exports = class Ping extends Command {
    * @param {Message} run.message
    * @param {Array} run.args
    */
+
   async run({ message }, guild, t) {
     const translationsStatus = new TranslationStatus({
       token: process.env.CROWDIN_TOKEN,

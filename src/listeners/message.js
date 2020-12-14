@@ -1,11 +1,15 @@
-const { captureException } = require('@sentry/node')
+// JSDocs Requires:
+// eslint-disable-next-line no-unused-vars
 const { Message } = require('discord.js')
+// eslint-disable-next-line no-unused-vars
+const { Ritsu } = require('../client/RitsuClient')
+
+const { captureException } = require('@sentry/node')
 const i18next = require('i18next')
-const { Guilds } = require('../models/Guild')
-const { Users } = require('../models/User')
-const { Ritsu } = require('../Ritsu')
+const { Guilds } = require('../database/models/Guild')
+const { Users } = require('../database/models/User')
 const { DiscordLogger } = require('../utils/discordLogger')
-const { log } = require('../utils/Logger')
+const { logger } = require('../utils/logger')
 
 module.exports = class message {
   /**
@@ -15,21 +19,13 @@ module.exports = class message {
   constructor(client) {
     this.client = client
   }
+
   async run(message) {
     if (message.author.bot) return
     this.client.prometheus.messagesSeen.inc()
+    this.client.prometheus.ping.set({}, this.client.ws.ping)
     const user = await Users.findById(message.author.id)
     const guild = await Guilds.findById(message.guild.id)
-    if (!guild) {
-      const guild_ = new Guilds({
-        _id: message.guild.id,
-        name: message.guild.name,
-        rolling: false,
-        currentChannel: null,
-        premium: false,
-      })
-      await guild_.save()
-    }
     if (!user) {
       // Create a user in the database
       new Users({
@@ -46,7 +42,7 @@ module.exports = class message {
     const t = i18next.getFixedT(guild.lang)
 
     if (
-      message.content.replace(/!/g, '') ==
+      message.content.replace(/!/g, '') ===
       message.guild.me.toString().replace(/!/g, '')
     ) {
       message.channel.send(t('utils:mentionRitsu', { prefix: guild.prefix }))
@@ -86,7 +82,7 @@ module.exports = class message {
       resolve(fancyCommand.run({ message, args }, guild, t))
     })
       .catch((e) => {
-        log(`Oopsie! ${e.stack}`, 'COMMAND_HANDLER', true)
+        logger.withTag('COMMAND HANDLER').error(e)
         message.reply(
           `<a:bongo_cat:772152200851226684> | ${t('game:errors.fatalError', {
             error: `\`${e}\``,
@@ -97,13 +93,13 @@ module.exports = class message {
       })
       .then(() => {
         const receivedDate = new Date().getTime()
-        log(
-          `Command ${fancyCommand.name} took to run ${
-            receivedDate - sendDate
-          }ms`,
-          'COMMAND_HANDLER',
-          false
-        )
+        logger
+          .withTag('COMMAND HANDLER')
+          .info(
+            `Command ${fancyCommand.name} took to run ${
+              receivedDate - sendDate
+            }ms`
+          )
         promTimer({ name: fancyCommand.name })
       })
   }
