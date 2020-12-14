@@ -7,15 +7,20 @@ const { UserService } = require('./UserHandler')
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
 
-const EmbedGen = require('../utils/functions/generateEmbed')
+// JSDocs Requires:
+// eslint-disable-next-line no-unused-vars
 const { Message, VoiceChannel } = require('discord.js')
-const { HostHandler } = require('./HostHandler')
+// eslint-disable-next-line no-unused-vars
 const { EasterEggHandler } = require('./EasterEggHandler')
+// eslint-disable-next-line no-unused-vars
+const { Ritsu } = require('../Ritsu')
+
+const EmbedGen = require('../utils/functions/generateEmbed')
+const { HostHandler } = require('./HostHandler')
 const { getStream } = require('../utils/functions/getStream')
 const { DiscordLogger } = require('../utils/discordLogger')
 const { LevelHandler } = require('./LevelHandler')
 const { Users } = require('../models/User')
-const { Ritsu } = require('../Ritsu')
 const { captureException } = require('@sentry/node')
 
 /**
@@ -297,7 +302,7 @@ module.exports.GameService = class GameService {
     let cakes
     if (!force) {
       const winner = await this.getWinner(room)
-      if (this.mode != 'event') {
+      if (this.mode !== 'event') {
         voicech.members.each(async (u) => {
           // Let's update the number of games played by everyone who was on the voice channel!
           userService.updatePlayed(u.id)
@@ -340,12 +345,10 @@ module.exports.GameService = class GameService {
    */
 
   async getTheme() {
-    let randomTheme
-
     const loading = await this.message.channel.send(
       `\`${this.t('game:searchingTheme')}\``
     )
-    randomTheme = await this.choose()
+    const randomTheme = await this.choose()
     randomTheme.answer = randomTheme.name
     loading.delete()
     return randomTheme
@@ -354,7 +357,7 @@ module.exports.GameService = class GameService {
   async choose() {
     const themeService = new ThemeService()
     const hostHandler = new HostHandler()
-    let provider = hostHandler.getProvider()
+    const provider = hostHandler.getProvider()
     const theme = await themeService.getAnimeByMode(
       provider,
       this.mode,
@@ -482,11 +485,11 @@ module.exports.GameService = class GameService {
   getAnswers(data) {
     const ans = []
     ans.push(data.title)
-    if (data.englishTitle != '') {
+    if (data.englishTitle !== '') {
       // If is not empty, add to the array.
       ans.push(data.englishTitle)
     }
-    if (data.synonyms[0] != '') {
+    if (data.synonyms[0] !== '') {
       // If is not empty, add to the array.
       data.synonyms.forEach((s) => {
         ans.push(s)
@@ -576,7 +579,9 @@ module.exports.GameService = class GameService {
       return malAnime
     } catch (e) {
       log(e, 'GAME_SERVICE', true)
-      throw `An error occurred in trying to get MyAnimeList data from this anime.\n${e.message}`
+      throw new Error(
+        `An error occurred in trying to get MyAnimeList data from this anime.\n${e.message}`
+      )
     }
   }
 }

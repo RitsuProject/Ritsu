@@ -19,6 +19,7 @@ module.exports = class Leaderboard extends Command {
    * @param {Object} run
    * @param {Message} run.message
    */
+
   async run({ message }, guild, t) {
     const embed = new MessageEmbed()
     embed.setAuthor(
@@ -33,7 +34,7 @@ module.exports = class Leaderboard extends Command {
       .then((results) => {
         for (const result in results) {
           const user = this.client.users.cache.get(results[result]._id)
-          let fakeResult = parseInt(result)
+          const fakeResult = parseInt(result)
           const rankNumber = fakeResult + 1
           if (user) {
             embed.addField(

@@ -1,4 +1,5 @@
 const { Guilds } = require('../models/Guild')
+// eslint-disable-next-line no-unused-vars
 const { Ritsu } = require('../Ritsu')
 const { botListPost } = require('../utils/functions/updateBotList')
 module.exports = class guildCreate {
@@ -9,6 +10,7 @@ module.exports = class guildCreate {
   constructor(client) {
     this.client = client
   }
+
   async run(guild) {
     const guild_ = new Guilds({
       _id: guild.id,

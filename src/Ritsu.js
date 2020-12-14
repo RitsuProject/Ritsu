@@ -2,13 +2,11 @@ const { Client, Collection } = require('discord.js')
 const { readdir } = require('fs')
 const connect = require('./db')
 const { log } = require('./utils/Logger')
-const dbl = require('dblapi.js')
-const { i18nService } = require('./services/i18nService')
+const { I18nService } = require('./services/i18nService')
 const { createServer } = require('http')
-const { parse } = require('url')
 const { prometheusMetrics } = require('./utils/prometheusMetrics')
-const cpu = require('cpu-stat')
 const { init } = require('@sentry/node')
+const { join } = require('path')
 
 /**
  * Ritsu Client
@@ -18,7 +16,7 @@ const { init } = require('@sentry/node')
  */
 module.exports.Ritsu = class Ritsu extends Client {
   constructor(token, options) {
-    super(token)
+    super(token, options)
     this.token = token
     this.prefix = options.prefix
     this.owners = [
@@ -31,7 +29,7 @@ module.exports.Ritsu = class Ritsu extends Client {
     this.prometheus = prometheusMetrics
     this.promServer = createServer((req, res) => {
       if (req.url != null) {
-        if (parse(req.url).pathname === '/metrics') {
+        if (req.url === '/metrics') {
           res.writeHead(200, {
             'Content-Type': this.prometheus.register.contentType,
           })
@@ -52,20 +50,6 @@ module.exports.Ritsu = class Ritsu extends Client {
     this.loadLocales()
     log('Loaded Locales', 'MAIN', false)
 
-    // top.gg Post Server Count
-
-    if (process.env.VERSION === 'production') {
-      new dbl(process.env.DBL_TOKEN, this)
-    }
-
-    this.promServer.listen('8080')
-    log('Prometheus Server is running at 8080', 'MAIN', false)
-
-    this.updatePromatheusStats() // Update Prometheus CPU and Memory Usage every 2 seconds.
-    await this.startSentry().then(() => {
-      log('Sentry is running.', 'MAIN', false)
-    })
-
     this.login(this.token).then(() => {
       log(
         `Logged in ${this.user.tag}! Ready to serve ${this.guilds.cache.size} guilds.`,
@@ -76,7 +60,7 @@ module.exports.Ritsu = class Ritsu extends Client {
   }
 
   async loadLocales() {
-    const i18n = new i18nService()
+    const i18n = new I18nService()
     await i18n.loadLocales()
   }
 
@@ -88,30 +72,19 @@ module.exports.Ritsu = class Ritsu extends Client {
     })
   }
 
-  updatePromatheusStats() {
-    this.prometheus.serversJoined.set({}, this.guilds.cache.size)
-    setInterval(() => {
-      this.prometheus.ramUsage.set(
-        {},
-        process.memoryUsage().heapUsed / 1024 / 1024
-      )
-      this.prometheus.ping.set({}, this.ws.ping)
-      cpu.usagePercent((_, percent) => {
-        this.prometheus.cpuUsage.set({}, percent)
-      })
-    }, 2000)
-  }
-
   loadCommands() {
-    readdir(`${__dirname}/commands`, (err, files) => {
+    readdir(join(__dirname, '/commands'), (err, files) => {
       if (err) console.error(err)
       files.forEach((category) => {
-        readdir(`${__dirname}/commands/${category}`, (err, cmd) => {
+        readdir(join(__dirname, '/commands/', category), (err, cmd) => {
           if (err) return console.log(err)
           cmd.forEach((cmd) => {
-            const command = new (require(`${__dirname}/commands/${category}/${cmd}`))(
-              this
-            )
+            const command = new (require(join(
+              __dirname,
+              '/commands/',
+              category,
+              cmd
+            )))(this)
             command.dir = `./src/commands/${category}/${cmd}`
             this.commands.set(command.name, command)
             command.aliases.forEach((a) => this.aliases.set(a, command.name))
@@ -122,10 +95,10 @@ module.exports.Ritsu = class Ritsu extends Client {
   }
 
   loadListeners() {
-    readdir(`${__dirname}/listeners`, (err, files) => {
+    readdir(join(__dirname, '/listeners'), (err, files) => {
       if (err) console.error(err)
       files.forEach(async (em) => {
-        const Event = require(`${__dirname}/listeners/${em}`)
+        const Event = require(join(__dirname, '/listeners/', em))
         const eventa = new Event(this)
         const name = em.split('.')[0]
         super.on(name, (...args) => eventa.run(...args))

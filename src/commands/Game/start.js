@@ -20,6 +20,7 @@ module.exports = class Start extends Command {
    * @param {Message} run.message
    * @param {Array} run.args
    */
+
   async run({ message, args }, guild, t) {
     if (guild.rolling)
       return message.channel.send(t('commands:start.rollingMatch'))
@@ -69,7 +70,6 @@ module.exports = class Start extends Command {
       listUsername: `${mode === 'list' ? listUsername : null}`,
       year: `${mode === 'season' ? season.year : null}`,
       season: `${mode === 'season' ? season.season : null}`,
-      listUsername: `${mode === 'list' ? listUsername : null}`,
       t: t,
     })
     gameService.init()

@@ -1,4 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 const { Message } = require('discord.js')
+// eslint-disable-next-line no-unused-vars
 const { Document } = require('mongoose')
 const { default: parse } = require('parse-duration')
 const { ThemesMoeService } = require('../services/ThemesMoeService')
@@ -20,26 +22,25 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
   }
 
   async startCollector() {
-    const collector = await this.message.channel
+    return await this.message.channel
       .awaitMessages((m) => m.author.id === this.message.author.id, {
         max: 1,
         time: 60000,
         errors: ['time'],
       })
-      .catch(() => {
-        this.message.channel.send(
-          this.t('commands:start.roundConfig.expiredMatch')
-        )
-        return false
+      .then((c) => {
+        const m = c.first()
+        if (m.content === `${this.guild.prefix}stop`) {
+          this.message.channel.send(
+            this.t('commands:start.roundConfig.cancelledMatch')
+          )
+          return false
+        }
+        return m
       })
-    const m = collector.first()
-    if (m.content === `${this.guild.prefix}stop`) {
-      this.message.channel.send(
-        this.t('commands:start.roundConfig.cancelledMatch')
-      )
-      return false
-    }
-    return m
+      .catch(() => {
+        throw new Error(this.t('commands:start.roundConfig.expiredMatch'))
+      })
   }
 
   /**
@@ -51,31 +52,26 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
         modes: '(easy, normal, hard, list, event, season)',
       })
     )
-    const m = await this.startCollector()
-    if (!m) return
-    if (
-      m.content.toLowerCase() === 'easy' ||
-      m.content.toLowerCase() === 'normal' ||
-      m.content.toLowerCase() === 'hard' ||
-      m.content.toLowerCase() === 'list' ||
-      m.content.toLowerCase() === 'event' ||
-      m.content.toLowerCase() === 'season'
-    ) {
-      await primary.delete()
-      await m.delete().catch(() => {
-        return this.message.channel.send(
-          this.t('commands:start.roundConfig.noManageMessagesPermission', {
-            MANAGE_MESSAGES: this.t('permissions:MANAGE_MESSAGES'),
-          })
-        )
-      })
-      return m.content.toLowerCase()
-    } else {
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.invalidMode')
-      )
-    }
+    const mode = await this.startCollector().then(async (m) => {
+      if (!m) return
+      if (
+        m.content.toLowerCase() === 'easy' ||
+        m.content.toLowerCase() === 'normal' ||
+        m.content.toLowerCase() === 'hard' ||
+        m.content.toLowerCase() === 'list' ||
+        m.content.toLowerCase() === 'event' ||
+        m.content.toLowerCase() === 'season'
+      ) {
+        await primary.delete()
+        await m.delete()
+        return m.content
+      } else {
+        throw new Error(this.t('commands:start.roundConfig.invalidMode'))
+      }
+    })
+    return mode
   }
+
   /**
    * Get the number of rounds of the match.
    */
@@ -83,21 +79,22 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     const primary = await this.message.channel.send(
       this.t('commands:start.roundConfig.whatRounds')
     )
-    const m = await this.startCollector()
-    if (!m) return
-    const int = parseInt(m.content)
-    if (isNaN(int))
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.isNaN')
-      )
-    if (int > 10)
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.roundsLimit')
-      )
-    await primary.delete()
-    await m.delete()
-    return int
+    const rounds = await this.startCollector().then(async (m) => {
+      if (!m) return
+      const int = parseInt(m.content)
+      if (isNaN(int))
+        return this.message.channel.send(
+          this.t('commands:start.roundConfig.isNaN')
+        )
+      if (int > 10)
+        throw new Error(this.t('commands:start.roundConfig.roundsLimit'))
+      await primary.delete()
+      await m.delete()
+      return int
+    })
+    return rounds
   }
+
   /**
    * Get the duration of all the rounds.
    */
@@ -105,23 +102,24 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     const primary = await this.message.channel.send(
       this.t('commands:start.roundConfig.whatDuration')
     )
-    const m = await this.startCollector()
-    if (!m) return
-    if (m.content.endsWith('s')) {
-      const parsed = parse(m.content)
-      if (parsed < 20000)
-        return this.message.channel.send(
-          this.t('commands:start.roundConfig.minimiumTime')
-        )
-      await primary.delete()
-      await m.delete()
-      return { parsed: parsed, value: m.content }
-    } else {
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.invalidDuration')
-      )
-    }
+    const duration = await this.startCollector().then(async (m) => {
+      if (!m) return
+      if (m.content.endsWith('s')) {
+        const parsed = parse(m.content)
+        if (parsed < 20000)
+          return this.message.channel.send(
+            this.t('commands:start.roundConfig.minimiumTime')
+          )
+        await primary.delete()
+        await m.delete()
+        return { parsed: parsed, value: m.content }
+      } else {
+        throw new Error(this.t('commands:start.roundConfig.invalidDuration'))
+      }
+    })
+    return duration
   }
+
   /**
    * Get the List Service (MyAnimeList, Anilist)
    */
@@ -131,22 +129,23 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
         websites: 'MyAnimeList, AniList',
       })
     )
-    const m = await this.startCollector()
-    if (!m) return
-    if (
-      m.content.toLowerCase() === 'myanimelist' ||
-      m.content.toLowerCase() === 'anilist'
-    ) {
-      await primary.delete()
-      await m.delete()
-      if (m.content.toLowerCase() === 'myanimelist') return 'mal'
-      return m.content.toLowerCase()
-    } else {
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.invalidWebsite')
-      )
-    }
+    const service = await this.startCollector().then(async (m) => {
+      if (!m) return
+      if (
+        m.content.toLowerCase() === 'myanimelist' ||
+        m.content.toLowerCase() === 'anilist'
+      ) {
+        await primary.delete()
+        await m.delete()
+        if (m.content.toLowerCase() === 'myanimelist') return 'mal'
+        return m.content.toLowerCase()
+      } else {
+        throw new Error(this.t('commands:start.roundConfig.invalidWebsite'))
+      }
+    })
+    return service
   }
+
   /**
    * Get Animelist Username
    * @param {String} service - Website
@@ -155,56 +154,57 @@ module.exports.RoundConfigHandler = class RoundConfigHandler {
     const primary = await this.message.channel.send(
       this.t('commands:start.roundConfig.whatUsername')
     )
-    const m = await this.startCollector()
-    if (!m) return
-    const themesMoe = new ThemesMoeService()
-    let user
-    try {
-      if (service === 'mal') {
-        user = await themesMoe.getAnimesByMal(m.content)
-      } else if (service === 'anilist') {
-        user = await themesMoe.getAnimesByAnilist(m.content)
+    const username = await this.startCollector().then(async (m) => {
+      if (!m) return
+      const themesMoe = new ThemesMoeService()
+      let user
+      try {
+        if (service === 'mal') {
+          user = await themesMoe.getAnimesByMal(m.content)
+        } else if (service === 'anilist') {
+          user = await themesMoe.getAnimesByAnilist(m.content)
+        }
+      } catch (e) {
+        return this.message.channel.send(
+          this.t('game:errors.fatalError', { error: `\`${e}\`` })
+        )
       }
-    } catch (e) {
-      return this.message.channel.send(
-        this.t('game:errors.fatalError', { error: `\`${e}\`` })
-      )
-    }
 
-    if (user) {
-      await primary.delete()
-      await m.delete()
-      return m.content
-    } else {
-      return this.message.channel.send(
-        this.t('commands:start.roundConfig.invalidUsername')
-      )
-    }
+      if (user) {
+        await primary.delete()
+        await m.delete()
+        return m.content
+      } else {
+        throw new Error(this.t('commands:start.roundConfig.invalidUsername'))
+      }
+    })
+    return username
   }
+
   async getSeason() {
     const primary = await this.message.channel.send(
       'What is the year and season? (Example: 2020, Winter)'
     )
-    const m = await this.startCollector()
-    if (!m) return
-    const themesMoe = new ThemesMoeService()
-    const season = m.content.split(',')
-    if (season[0] && season[1]) {
-      const themes = await themesMoe.getAnimesPerSeason(season[0])
-      if (!themes)
-        return this.message.channel.send(
-          "I couldn't find any anime in the specified year."
-        )
-      await primary.delete()
-      await m.delete()
-      return {
-        year: season[0],
-        season: season[1].trim().toLowerCase(),
+    const season = await this.startCollector().then(async (m) => {
+      if (!m) return
+      const themesMoe = new ThemesMoeService()
+      const season = m.content.split(',')
+      if (season[0] && season[1]) {
+        const themes = await themesMoe.getAnimesPerSeason(season[0])
+        if (!themes)
+          return this.message.channel.send(
+            "I couldn't find any anime in the specified year."
+          )
+        await primary.delete()
+        await m.delete()
+        return {
+          year: season[0],
+          season: season[1].trim().toLowerCase(),
+        }
+      } else {
+        throw new Error('This does not seem to be in the right format.')
       }
-    } else {
-      return this.message.channel.send(
-        'This does not seem to be in the right format.'
-      )
-    }
+    })
+    return season
   }
 }

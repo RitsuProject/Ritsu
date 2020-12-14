@@ -1,8 +1,6 @@
-const { green } = require('chalk')
-const { MessageEmbed, MessageAttachment } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const { Constants } = require('../constants')
 const { log } = require('../Logger')
-const { getAnswerCard } = require('./getAnswerCard')
 
 /**
  * The Answser Embed generator.

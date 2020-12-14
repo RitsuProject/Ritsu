@@ -6,8 +6,6 @@ const { Users } = require('../models/User')
  */
 
 module.exports.UserService = class UserService {
-  constructor() {}
-
   /**
    * Update the played matches.
    * @async
