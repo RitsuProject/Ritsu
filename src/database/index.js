@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const { logger } = require('../utils/Logger')
+const { logger } = require('../utils/logger')
 mongoose.Promise = require('bluebird')
 module.exports = () => {
   /**

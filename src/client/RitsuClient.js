@@ -6,7 +6,7 @@ const { createServer } = require('http')
 const { prometheusMetrics } = require('../utils/prometheusMetrics')
 const { init } = require('@sentry/node')
 const { join } = require('path')
-const { logger } = require('../utils/Logger')
+const { logger } = require('../utils/logger')
 
 /**
  * Ritsu Client
