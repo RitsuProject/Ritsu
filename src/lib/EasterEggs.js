@@ -1,7 +1,8 @@
+// eslint-disable-next-line no-unused-vars
 const { VoiceChannel, Message } = require('discord.js')
 const { getStream } = require('../utils/functions/getStream')
 
-module.exports.EasterEggHandler = class EasterEggHandler {
+module.exports.EasterEggs = class EasterEggs {
   /**
    * Constructor
    * @param {Message} message
@@ -32,7 +33,9 @@ module.exports.EasterEggHandler = class EasterEggHandler {
       }
     }
   }
-  start(secret) {
+
+  async start(secret) {
+    // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
       const connection = await this.voicech.join()
       // Easter Egg URL's

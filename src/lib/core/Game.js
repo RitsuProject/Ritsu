@@ -1,21 +1,26 @@
-const { Guilds } = require('../models/Guild')
-const { ThemeService } = require('./ThemeHandler')
-const { Rooms } = require('../models/Room')
-const { log } = require('../utils/Logger')
-const { UserService } = require('./UserHandler')
+const { Guilds } = require('../../database/models/Guild')
+const { Themes } = require('./Themes')
+const { Rooms } = require('../../database/models/Room')
+const { logger } = require('../../utils/logger')
+const { UserLib } = require('../Users')
 
 const stringSimilarity = require('string-similarity')
 const mal = require('mal-scraper')
 
-const EmbedGen = require('../utils/functions/generateEmbed')
+// JSDocs Requires:
+// eslint-disable-next-line no-unused-vars
 const { Message, VoiceChannel } = require('discord.js')
-const { HostHandler } = require('./HostHandler')
-const { EasterEggHandler } = require('./EasterEggHandler')
-const { getStream } = require('../utils/functions/getStream')
-const { DiscordLogger } = require('../utils/discordLogger')
-const { LevelHandler } = require('./LevelHandler')
-const { Users } = require('../models/User')
-const { Ritsu } = require('../Ritsu')
+// eslint-disable-next-line no-unused-vars
+const { EasterEggs } = require('../EasterEggs')
+// eslint-disable-next-line no-unused-vars
+const { Ritsu } = require('../../client/RitsuClient')
+
+const generateEmbed = require('../../utils/functions/generateEmbed')
+const { Host } = require('./Host')
+const { getStream } = require('../../utils/functions/getStream')
+const { DiscordLogger } = require('../../utils/discordLogger')
+const { Leveling } = require('../Leveling')
+const { Users } = require('../../database/models/User')
 const { captureException } = require('@sentry/node')
 
 /**
@@ -26,7 +31,7 @@ const { captureException } = require('@sentry/node')
  * const gameService = new GameService(message)
  */
 
-module.exports.GameService = class GameService {
+module.exports.Game = class Game {
   /**
    * @param {Message} message
    * @param {Ritsu} client
@@ -69,15 +74,12 @@ module.exports.GameService = class GameService {
     )
     this.client.prometheus.matchStarted.inc()
 
-    log(
-      `Starting a match in the server ${this.message.guild.id}`,
-      'GAME_SERVICE',
-      false,
-      'green'
-    )
+    logger
+      .withTag('GAME')
+      .success(`GUILD -> ${this.message.guild.id} | Starting a new match...`)
 
     this.startNewRound(guild).catch(async (e) => {
-      log(`GUILD -> ${guild._id} | ${e}`, 'GAME_SERVICE', true)
+      logger.withTag('GAME').error(`GUILD -> ${guild._id} | ${e}`)
       this.message.channel.send(
         `<a:bongo_cat:772152200851226684> | ${this.t('game:errors.fatalError', {
           error: `\`${e}\``,
@@ -103,7 +105,7 @@ module.exports.GameService = class GameService {
     const voicech = this.message.member.voice.channel
 
     // owo eastereggs (Blocked)
-    /*  const easteregg = new EasterEggHandler(this.message, voicech, this.t)
+    /*  const easteregg = new EasterEggs(this.message, voicech, this.t)
     const secret = await easteregg.isValid()
     if (secret) {
       await easteregg.start(secret)
@@ -206,21 +208,18 @@ module.exports.GameService = class GameService {
 
     answerCollector.on('end', async (_, reason) => {
       if (reason === 'forceFinished') {
-        log(
-          `GUILD -> ${guild._id} | The match was ended by force.`,
-          'GAME_SERVICE',
-          true,
-          'green'
-        )
+        logger
+          .withTag('GAME')
+          .info(`GUILD -> ${guild._id} | The match was ended by force.`)
         this.message.channel.send(this.t('game:forceFinished'))
         await this.clear()
         this.finish(voicech, room, true)
         return
       }
 
-      const levelHandler = new LevelHandler()
+      const leveling = new Leveling()
 
-      const embed = await EmbedGen(
+      const embed = await generateEmbed(
         this.t,
         answer,
         type,
@@ -244,7 +243,7 @@ module.exports.GameService = class GameService {
       await room.answerers.forEach(async (id) => {
         const user = await Users.findById(id)
         this.bumpScore(id)
-        const stats = await levelHandler.bump(id, this.mode)
+        const stats = await leveling.bump(id, this.mode)
         this.message.channel.send(`<@${id}> won :star: **${stats.xp}** XP`)
         if (stats.level !== user.level) {
           this.message.channel.send(
@@ -259,7 +258,9 @@ module.exports.GameService = class GameService {
         this.finish(voicech, room)
       } else {
         await this.startNewRound(guild, voicech).catch(async (e) => {
-          log(`GUILD -> ${this.message.guild.id} | ${e}`, 'GAME_SERVICE', true)
+          logger
+            .withTag('GAME')
+            .error(`GUILD -> ${this.message.guild.id} | ${e}`)
           this.message.channel.send(
             `<a:bongo_cat:772152200851226684> | ${this.t(
               'game:errors.fatalError',
@@ -293,11 +294,11 @@ module.exports.GameService = class GameService {
    */
 
   async finish(voicech, room, force) {
-    const userService = new UserService()
+    const userService = new UserLib()
     let cakes
     if (!force) {
       const winner = await this.getWinner(room)
-      if (this.mode != 'event') {
+      if (this.mode !== 'event') {
         voicech.members.each(async (u) => {
           // Let's update the number of games played by everyone who was on the voice channel!
           userService.updatePlayed(u.id)
@@ -305,8 +306,8 @@ module.exports.GameService = class GameService {
         userService.updateEarnings(winner.id, cakes) // Update the number of won matches by the winner of the game.
       }
       if (winner) {
-        const levelHandler = new LevelHandler()
-        const stats = await levelHandler.bump(winner.id, this.mode)
+        const leveling = new Leveling()
+        const stats = await leveling.bump(winner.id, this.mode)
         this.message.channel.send(
           this.t('game:winner', {
             user: `<@${winner.id}>`,
@@ -340,22 +341,20 @@ module.exports.GameService = class GameService {
    */
 
   async getTheme() {
-    let randomTheme
-
     const loading = await this.message.channel.send(
       `\`${this.t('game:searchingTheme')}\``
     )
-    randomTheme = await this.choose()
+    const randomTheme = await this.choose()
     randomTheme.answer = randomTheme.name
     loading.delete()
     return randomTheme
   }
 
   async choose() {
-    const themeService = new ThemeService()
-    const hostHandler = new HostHandler()
-    let provider = hostHandler.getProvider()
-    const theme = await themeService.getAnimeByMode(
+    const themes = new Themes()
+    const host = new Host()
+    const provider = host.getProvider()
+    const theme = await themes.getAnimeByMode(
       provider,
       this.mode,
       this.listService,
@@ -482,11 +481,11 @@ module.exports.GameService = class GameService {
   getAnswers(data) {
     const ans = []
     ans.push(data.title)
-    if (data.englishTitle != '') {
+    if (data.englishTitle !== '') {
       // If is not empty, add to the array.
       ans.push(data.englishTitle)
     }
-    if (data.synonyms[0] != '') {
+    if (data.synonyms[0] !== '') {
       // If is not empty, add to the array.
       data.synonyms.forEach((s) => {
         ans.push(s)
@@ -527,14 +526,16 @@ module.exports.GameService = class GameService {
     const dispatch = connection.play(stream)
 
     dispatch.on('start', () => {
-      log(`${guild._id} | Starting the track.`, 'GAME_SERVICE', false, 'green')
+      logger
+        .withTag('GAME')
+        .success(`GUILD -> ${guild._id} | Starting the track.`)
       this.timeout = setTimeout(() => {
         dispatch.end()
       }, this.time - 2000) // When the time is up, finish the music. (Yes, we subtract 2 seconds to be more precise, as there is a delay for the music to end)
     })
 
     dispatch.on('error', (error) => {
-      console.log(error)
+      logger.withTag('GAME').error(error)
       throw error
     })
   }
@@ -575,8 +576,10 @@ module.exports.GameService = class GameService {
       const malAnime = await mal.getInfoFromName(name)
       return malAnime
     } catch (e) {
-      log(e, 'GAME_SERVICE', true)
-      throw `An error occurred in trying to get MyAnimeList data from this anime.\n${e.message}`
+      logger.withTag('GAME').info(e, 'GAME_SERVICE', true)
+      throw new Error(
+        `An error occurred in trying to get MyAnimeList data from this anime.\n${e.message}`
+      )
     }
   }
 }

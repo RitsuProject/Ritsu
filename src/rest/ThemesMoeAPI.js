@@ -1,9 +1,7 @@
 const p = require('phin')
 
 // TODO: Send this to the backend (Mio)
-module.exports.ThemesMoeService = class ThemesMoeService {
-  constructor() {}
-
+module.exports.ThemesMoeAPI = class ThemesMoeAPI {
   /**
    * Get animes from the user MAL animelist
    * @param {String} username
@@ -23,9 +21,12 @@ module.exports.ThemesMoeService = class ThemesMoeService {
         return false
       }
     } else {
-      throw `themes.moe returned a ${tmRes.statusCode} [${tmRes.statusMessage}] status code/message!`
+      throw new Error(
+        `themes.moe returned a ${tmRes.statusCode} [${tmRes.statusMessage}] status code/message!`
+      )
     }
   }
+
   /**
    * Get animes from user Anilist animelist.
    * @param {String} username
@@ -43,9 +44,12 @@ module.exports.ThemesMoeService = class ThemesMoeService {
         return false
       }
     } else {
-      throw `themes.moe returned a ${tmRes.statusCode} [${tmRes.statusMessage}] status code/message!`
+      throw new Error(
+        `themes.moe returned a ${tmRes.statusCode} [${tmRes.statusMessage}] status code/message!`
+      )
     }
   }
+
   async getAnimesPerSeason(year, season) {
     const tmRes = await p({
       method: 'GET',
@@ -62,7 +66,9 @@ module.exports.ThemesMoeService = class ThemesMoeService {
         return false
       }
     } else {
-      throw `themes.moe returned a ${tmRes.statusCode} [${tmRes.statusMessage}] status code/message!`
+      throw new Error(
+        `themes.moe returned a ${tmRes.statusCode} [${tmRes.statusMessage}] status code/message!`
+      )
     }
   }
 }

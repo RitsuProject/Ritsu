@@ -1,5 +1,4 @@
 const { MessageEmbed } = require('discord.js')
-const { Guilds } = require('../../models/Guild')
 const { Command } = require('../../structures/Command')
 
 module.exports = class Help extends Command {
@@ -17,6 +16,7 @@ module.exports = class Help extends Command {
    * @param {Object} run
    * @param {Message} run.message
    */
+
   async run({ message }, guild, t) {
     const embed = new MessageEmbed()
     embed.setTitle(t('commands:help.available'))

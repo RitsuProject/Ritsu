@@ -1,4 +1,4 @@
-const { Users } = require('../../models/User')
+const { Users } = require('../../database/models/User')
 const { Command } = require('../../structures/Command')
 
 module.exports = class Bio extends Command {
@@ -11,6 +11,7 @@ module.exports = class Bio extends Command {
       dev: false,
     })
   }
+
   /**
    * Run
    * @param {Object} run
