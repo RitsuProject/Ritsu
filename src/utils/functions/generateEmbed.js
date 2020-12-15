@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js')
 const { Constants } = require('../constants')
-const { logger } = require('../Logger')
+const { logger } = require('../logger')
 
 /**
  * The Answser Embed generator.
