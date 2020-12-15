@@ -53,6 +53,7 @@ module.exports.Game = class Game {
 
     this.t = options.t || null
     this.client = client
+    this.discordLogger = new DiscordLogger(client)
   }
 
   /**
@@ -64,8 +65,7 @@ module.exports.Game = class Game {
     const guild = await Guilds.findById(this.message.guild.id)
     if (!guild) return
 
-    const discordLogger = new DiscordLogger(this.client)
-    await discordLogger.logMatch(
+    await this.discordLogger.logMatch(
       this.rounds,
       this.realTime,
       this.message.author.id,
@@ -85,7 +85,7 @@ module.exports.Game = class Game {
           error: `\`${e}\``,
         })}`
       )
-      await discordLogger.logError(
+      await this.discordLogger.logError(
         e,
         this.message.author.id,
         this.message.guild.id
@@ -269,8 +269,7 @@ module.exports.Game = class Game {
               }
             )}`
           )
-          const discordLogger = new DiscordLogger(this.client)
-          await discordLogger.logError(
+          await this.discordLogger.logError(
             e,
             this.message.author.id,
             this.message.guild.id
@@ -344,6 +343,7 @@ module.exports.Game = class Game {
     const loading = await this.message.channel.send(
       `\`${this.t('game:searchingTheme')}\``
     )
+
     const randomTheme = await this.choose()
     randomTheme.answer = randomTheme.name
     loading.delete()
