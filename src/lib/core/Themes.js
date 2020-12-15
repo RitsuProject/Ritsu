@@ -1,5 +1,5 @@
 const p = require('phin')
-const { ThemesMoeService } = require('../../rest/ThemesMoeAPI')
+const { ThemesMoeAPI } = require('../../rest/ThemesMoeAPI')
 const getProviderStatus = require('../../utils/functions/getProviderStatus')
 const { randomInt } = require('../../utils/functions/randomInt')
 
@@ -95,7 +95,7 @@ module.exports.Themes = class Themes {
         }
       }
       case 'list': {
-        const themesMoe = new ThemesMoeService()
+        const themesMoe = new ThemesMoeAPI()
         let userAnimes
         if (listService === 'mal') {
           userAnimes = await themesMoe.getAnimesByMal(listUsername)
@@ -115,7 +115,7 @@ module.exports.Themes = class Themes {
         }
       }
       case 'season': {
-        const themesMoe = new ThemesMoeService()
+        const themesMoe = new ThemesMoeAPI()
         const animes = await themesMoe.getAnimesPerSeason(year, season)
         if (animes.length < 0) return false
         const anime = animes[Math.floor(Math.random() * animes.length)]
