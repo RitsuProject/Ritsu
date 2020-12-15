@@ -93,7 +93,9 @@ node index.js (or node .)
 - `Canary` - Work here, it is the branch we use for development and it is tested at Ritsu Canary.
 - `Master` - It is **just** to release the final code to Ritsu, all that is in it is what is currently running in production.
 - `Crowdin-Locales` - Used by Crowdin to put the current translations, we always give a PR to the canary frequently, thus keeping the locales up to date.
-___
+
+---
+
 ## Credits
 
 If it weren't for them, maybe Ritsu wouldn't even exist (or development would be much more complicated).
