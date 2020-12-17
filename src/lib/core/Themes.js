@@ -36,6 +36,11 @@ module.exports.Themes = class Themes {
           method: 'GET',
           url: `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`,
           parse: 'json',
+          timeout: 20000,
+        }).catch(() => {
+          throw new Error(
+            "I couldn't find any theme! Perhaps this is due to instability? Please restart the match."
+          )
         })
         if (search.statusCode === 200) {
           return search.body

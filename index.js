@@ -16,7 +16,7 @@ client.promServer.listen(8080)
 // top.gg Post Server Count
 
 if (process.env.VERSION === 'production') {
-  const topGG = new DBL(process.env.DBL_TOKEN, this)
+  const topGG = new DBL(process.env.DBL_TOKEN, client)
   topGG.on('posted', () => {
     console.log('Top.gg posted stats.')
   })
