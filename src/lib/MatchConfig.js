@@ -54,17 +54,18 @@ module.exports.MatchConfig = class MatchConfig {
     )
     const mode = await this.startCollector().then(async (m) => {
       if (!m) return
+      const specifiedMode = m.content.toLowerCase()
       if (
-        m.content.toLowerCase() === 'easy' ||
-        m.content.toLowerCase() === 'normal' ||
-        m.content.toLowerCase() === 'hard' ||
-        m.content.toLowerCase() === 'list' ||
-        m.content.toLowerCase() === 'event' ||
-        m.content.toLowerCase() === 'season'
+        specifiedMode === 'easy' ||
+        specifiedMode === 'normal' ||
+        specifiedMode === 'hard' ||
+        specifiedMode === 'list' ||
+        specifiedMode === 'event' ||
+        specifiedMode === 'season'
       ) {
         await primary.delete()
         await m.delete()
-        return m.content
+        return specifiedMode
       } else {
         throw new Error(this.t('commands:start.roundConfig.invalidMode'))
       }

@@ -134,6 +134,11 @@ module.exports.Themes = class Themes {
           songArtists: ['Not Found'],
         }
       }
+      default: {
+        throw new Error(
+          'An unknown theme appears! Unfortunately, I cannot continue, if this seems strange, report it on my support server.'
+        )
+      }
     }
   }
 }
