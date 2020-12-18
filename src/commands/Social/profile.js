@@ -23,7 +23,7 @@ module.exports = class Profile extends Command {
   async run({ message, args }, _, t) {
     const member =
       message.mentions.users.first() ||
-      this.client.users.cache.get(args[0]) ||
+      (await this.client.users.fetch(args[0])) ||
       message.author
     const user = await Users.findById(member.id)
     if (!user) return

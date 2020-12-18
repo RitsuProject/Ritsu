@@ -31,9 +31,9 @@ module.exports = class Leaderboard extends Command {
     await Users.find()
       .sort({ level: -1 })
       .limit(10)
-      .then((results) => {
+      .then(async (results) => {
         for (const result in results) {
-          const user = this.client.users.cache.get(results[result]._id)
+          const user = await this.client.users.fetch(results[result]._id)
           const fakeResult = parseInt(result)
           const rankNumber = fakeResult + 1
           if (user) {
