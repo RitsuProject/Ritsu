@@ -68,7 +68,7 @@ module.exports = class BotInfo extends Command {
             )}](https://discord.ly/ritsu-5101)
             <:dbl:775006065250009129> [(top.gg) ${t(
               'commands:botinfo.upvote'
-            )}}](https://top.gg/bot/763934732420382751/vote)
+            )}](https://top.gg/bot/763934732420382751/vote)
             `,
           inline: true,
         },

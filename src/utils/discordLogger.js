@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-const { Client, MessageEmbed } = require('discord.js')
+const { Client, MessageEmbed } = require('discord.js-light')
 const { Constants } = require('./constants')
 
 module.exports.DiscordLogger = class DiscordLogger {
@@ -12,7 +12,7 @@ module.exports.DiscordLogger = class DiscordLogger {
   }
 
   async logCommand(command, author, server) {
-    const authorUser = this.client.users.cache.get(author)
+    const authorUser = await this.client.users.fetch(author)
     const guild = this.client.guilds.cache.get(server)
     const embed = new MessageEmbed()
     embed.setAuthor(authorUser.username, authorUser.displayAvatarURL())
@@ -23,11 +23,11 @@ module.exports.DiscordLogger = class DiscordLogger {
     embed.addField('Server:', `${guild.name} (${guild.id})`)
     embed.setTimestamp()
 
-    this.client.channels.cache.get(Constants.LOG_CHANNEL).send(embed)
+    await this.client.channels.forge(Constants.LOG_CHANNEL).send(embed)
   }
 
   async logMatch(rounds, time, host, mode, server) {
-    const hostUser = this.client.users.cache.get(host)
+    const hostUser = await this.client.users.fetch(host)
     const guild = this.client.guilds.cache.get(server)
     const embed = new MessageEmbed()
     embed.setAuthor(hostUser.username, hostUser.displayAvatarURL())
@@ -40,11 +40,11 @@ module.exports.DiscordLogger = class DiscordLogger {
     embed.addField('Server:', `${guild.name} (${guild.id})`)
     embed.setTimestamp()
 
-    this.client.channels.cache.get(Constants.LOG_CHANNEL).send(embed)
+    await this.client.channels.forge(Constants.LOG_CHANNEL).send(embed)
   }
 
   async logError(error, author, server) {
-    const authorUser = this.client.users.cache.get(author)
+    const authorUser = await this.client.users.fetch(author)
     const guild = this.client.guilds.cache.get(server)
     const embed = new MessageEmbed()
     embed.setAuthor(authorUser.username, authorUser.displayAvatarURL())
@@ -55,6 +55,6 @@ module.exports.DiscordLogger = class DiscordLogger {
     embed.addField('Server:', `${guild.name} (${guild.id})`)
     embed.setTimestamp()
 
-    this.client.channels.cache.get(Constants.LOG_CHANNEL).send(embed)
+    await this.client.channels.forge(Constants.LOG_CHANNEL).send(embed)
   }
 }

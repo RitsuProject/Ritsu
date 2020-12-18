@@ -57,6 +57,12 @@ module.exports = class message {
     const requiredPermissions = fancyCommand.requiredPermissions
     if (message.channel.type === 'dm') return
 
+    if (process.env.VERSION === 'canary') {
+      message.channel.send(
+        ':warning: **You are using an unstable (and testing) version of Ritsu! This is not recommended and instabilities may occur.**'
+      )
+    }
+
     const discordLogger = new DiscordLogger(this.client)
     await discordLogger.logCommand(command, message.author.id, message.guild.id)
     const promTimer = this.client.prometheus.commandLatency.startTimer()
