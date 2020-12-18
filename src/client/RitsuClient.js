@@ -1,4 +1,4 @@
-const { Client, Collection } = require('discord.js')
+const { Client, Collection } = require('discord.js-light')
 const { readdir } = require('fs')
 const connect = require('../database')
 const { I18n } = require('../lib/i18n')
