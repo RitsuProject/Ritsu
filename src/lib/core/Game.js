@@ -9,7 +9,7 @@ const mal = require('mal-scraper')
 
 // JSDocs Requires:
 // eslint-disable-next-line no-unused-vars
-const { Message, VoiceChannel } = require('discord.js')
+const { Message, VoiceChannel } = require('discord.js-light')
 // eslint-disable-next-line no-unused-vars
 const { EasterEggs } = require('../EasterEggs')
 // eslint-disable-next-line no-unused-vars
@@ -115,7 +115,10 @@ module.exports.Game = class Game {
       const room_ = await Rooms.findById(this.message.guild.id)
       if (room_) {
         // If the match host itself is no longer on the voice channel, cancel it.
-        const roomChannel = this.message.guild.channels.cache.get(room_.channel)
+        const roomChannel = this.message.guild.channels.forge(
+          room_.channel,
+          'voice'
+        )
         roomChannel.leave()
         await this.clear()
 

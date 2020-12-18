@@ -27,7 +27,7 @@ module.exports.DiscordLogger = class DiscordLogger {
   }
 
   async logMatch(rounds, time, host, mode, server) {
-    const hostUser = this.client.users.cache.get(host)
+    const hostUser = await this.client.users.fetch(host)
     const guild = this.client.guilds.cache.get(server)
     const embed = new MessageEmbed()
     embed.setAuthor(hostUser.username, hostUser.displayAvatarURL())
@@ -44,7 +44,7 @@ module.exports.DiscordLogger = class DiscordLogger {
   }
 
   async logError(error, author, server) {
-    const authorUser = this.client.users.cache.get(author)
+    const authorUser = await this.client.users.fetch(author)
     const guild = this.client.guilds.cache.get(server)
     const embed = new MessageEmbed()
     embed.setAuthor(authorUser.username, authorUser.displayAvatarURL())
