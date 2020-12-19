@@ -16,7 +16,7 @@ const { logger } = require('../utils/logger')
  */
 module.exports.Ritsu = class Ritsu extends Client {
   constructor(token, options) {
-    super(token, options)
+    super(options)
     this.token = token
     this.prefix = options.prefix
     this.owners = [
@@ -51,7 +51,7 @@ module.exports.Ritsu = class Ritsu extends Client {
       logger.withTag('CLIENT').success('Loaded Locales')
     })
 
-    this.login(this.token).then(() => {
+    super.login(this.token).then(() => {
       logger
         .withTag('CLIENT')
         .success(

@@ -72,7 +72,8 @@ module.exports.Leveling = class Leveling {
    */
   async leveling(user, xp) {
     if (xp >= user.requiredToUP) {
-      const newLevel = user.level + user.level
+      const level = parseInt(user.level)
+      const newLevel = level + 1
       const newLevelXP = user.level >= 20 ? 10000 : user.levelxp + 500
       const newRequiredToUP = user.level >= 20 ? 10000 : user.requiredToUP + 500
       return { level: newLevel, xp: newLevelXP, newRequired: newRequiredToUP }
