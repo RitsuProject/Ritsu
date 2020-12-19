@@ -20,7 +20,6 @@ module.exports.Themes = class Themes {
     const status = await getProviderStatus(provider)
     if (!status) return 'unavailable'
     switch (mode) {
-      case 'event':
       case 'easy': {
         const randomPage = randomInt(1, 3)
         const rank = await p({

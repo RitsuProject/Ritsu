@@ -19,4 +19,14 @@ module.exports.updateBotList = async function updateBotList(number) {
       guilds: number,
     },
   })
+  await p({
+    method: 'POST',
+    url: 'https://discord.bots.gg/api/v1/bots/763934732420382751/stats',
+    headers: {
+      Authorization: process.env.DISCORDBOTS_TOKEN,
+    },
+    data: {
+      guildCount: number,
+    },
+  })
 }

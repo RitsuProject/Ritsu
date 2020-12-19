@@ -23,7 +23,7 @@ module.exports = class Profile extends Command {
   async run({ message, args }, _, t) {
     const member =
       message.mentions.users.first() ||
-      (await this.client.users.fetch(args[0])) ||
+      this.client.users.cache.get(args[0]) ||
       message.author
     const user = await Users.findById(member.id)
     if (!user) return
@@ -44,7 +44,7 @@ module.exports = class Profile extends Command {
       .addField(`:medal: ${t('utils:rank')}`, user.rank, true)
       .addField(
         `:star: Stats`,
-        `Level: ${user.level} | XP: ${user.xp}/${user.requiredToUP}`,
+        `Level: ${user.level} | XP: ${user.xp}/${user.requiredToUP}\n**(The stats were reset this week, please join in to my support server to find out why)**`,
         true
       )
       .addField(

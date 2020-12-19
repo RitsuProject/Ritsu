@@ -49,7 +49,7 @@ module.exports.MatchConfig = class MatchConfig {
   async getGamemode() {
     const primary = await this.message.channel.send(
       this.t('commands:start.roundConfig.whatMode', {
-        modes: '(easy, normal, hard, list, event, season)',
+        modes: '(easy, normal, hard, list, season)',
       })
     )
     const mode = await this.startCollector().then(async (m) => {
@@ -60,7 +60,6 @@ module.exports.MatchConfig = class MatchConfig {
         specifiedMode === 'normal' ||
         specifiedMode === 'hard' ||
         specifiedMode === 'list' ||
-        specifiedMode === 'event' ||
         specifiedMode === 'season'
       ) {
         await primary.delete()
@@ -185,7 +184,7 @@ module.exports.MatchConfig = class MatchConfig {
 
   async getSeason() {
     const primary = await this.message.channel.send(
-      'What is the year and season? (Example: 2020, Winter)'
+      this.t('commands:start.roundConfig.whatYearAndSeason')
     )
     const season = await this.startCollector().then(async (m) => {
       if (!m) return
@@ -195,7 +194,7 @@ module.exports.MatchConfig = class MatchConfig {
         const themes = await themesMoe.getAnimesPerSeason(season[0])
         if (!themes)
           return this.message.channel.send(
-            "I couldn't find any anime in the specified year."
+            this.t('commands:start.roundConfig.noAnimeFound')
           )
         await primary.delete()
         await m.delete()
@@ -204,7 +203,7 @@ module.exports.MatchConfig = class MatchConfig {
           season: season[1].trim().toLowerCase(),
         }
       } else {
-        throw new Error('This does not seem to be in the right format.')
+        throw new Error(this.t('commands:start.roundConfig.invalidFormat'))
       }
     })
     return season
