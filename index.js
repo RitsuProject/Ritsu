@@ -10,7 +10,6 @@ console.log(readFileSync('title.txt', 'utf8').toString())
 const client = new Ritsu(process.env.TOKEN, {
   prefix: process.env.BOT_PREFIX,
   disableMentions: 'everyone',
-  fetchAllMembers: true,
 })
 client.start()
 client.startSentry()

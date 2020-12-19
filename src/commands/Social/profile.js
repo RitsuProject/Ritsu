@@ -1,9 +1,16 @@
-const { MessageEmbed } = require('discord.js')
+// eslint-disable-next-line no-unused-vars
+const { MessageEmbed, Message } = require('discord.js-light')
+// eslint-disable-next-line no-unused-vars
+const { Ritsu } = require('../../client/RitsuClient')
 const { Badges } = require('../../database/models/Badge')
 const { Users } = require('../../database/models/User')
 const { Command } = require('../../structures/Command')
 
 module.exports = class Profile extends Command {
+  /**
+   *
+   * @param {Ritsu} client
+   */
   constructor(client) {
     super(client, {
       name: 'profile',
@@ -12,6 +19,7 @@ module.exports = class Profile extends Command {
       requiredPermissions: null,
       dev: false,
     })
+    this.client = client
   }
   /**
    * Run
@@ -22,9 +30,9 @@ module.exports = class Profile extends Command {
 
   async run({ message, args }, _, t) {
     const member =
-      message.mentions.users.first() ||
-      this.client.users.cache.get(args[0]) ||
-      message.author
+      message.mentions.users.first() || args[0]
+        ? await this.client.users.fetch(args[0])
+        : message.author
     const user = await Users.findById(member.id)
     if (!user) return
 
