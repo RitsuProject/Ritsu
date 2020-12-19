@@ -1,6 +1,7 @@
 const { Ritsu } = require('./src/client/RitsuClient')
 const DBL = require('dblapi.js')
 const { readFileSync } = require('fs')
+const { logger } = require('./src/utils/logger')
 
 require('dotenv').config()
 
@@ -20,6 +21,6 @@ client.promServer.listen(8080)
 if (process.env.VERSION === 'production') {
   const topGG = new DBL(process.env.DBL_TOKEN, client)
   topGG.on('posted', () => {
-    console.log('Top.gg posted stats.')
+    logger.success('Yay ^ w ^! I successfully posted my new stats on top.gg.')
   })
 }
