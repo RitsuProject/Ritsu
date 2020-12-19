@@ -152,11 +152,6 @@ module.exports.Game = class Game {
         prefix: guild.prefix,
       })
     )
-    if (this.mode === 'event') {
-      this.message.author.send(
-        this.t('game:eventModeAnswer', { answer: answer })
-      )
-    }
 
     let animeData
     let answers
