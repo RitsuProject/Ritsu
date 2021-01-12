@@ -1,8 +1,4 @@
-import { Client, ClientOptions, Collection } from 'eris'
-import { readdir } from 'fs'
-import { join } from 'path'
-import RitsuCommand from 'src/structures/RitsuCommand'
-import RitsuEvent from 'src/structures/RitsuEvent'
+import { Client, ClientOptions } from 'eris'
 import { CommandManager } from './managers/CommandManager'
 import { ListenerManager } from './managers/ListenerManager'
 
@@ -13,7 +9,8 @@ import { ListenerManager } from './managers/ListenerManager'
 export default class RitsuClient extends Client {
   public commandManager: CommandManager = new CommandManager(this)
   public listenerManager: ListenerManager = new ListenerManager(this)
-  constructor(token, options?: ClientOptions) {
+  public env = process.env
+  constructor(token: string, options?: ClientOptions) {
     super(token, options)
   }
 
