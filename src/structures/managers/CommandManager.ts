@@ -1,8 +1,8 @@
-import Collection from "@discordjs/collection";
-import { readdir } from "fs";
-import { join } from "path";
-import RitsuClient from "../RitsuClient";
-import RitsuCommand from "../RitsuCommand";
+import Collection from '@discordjs/collection'
+import { readdir } from 'fs'
+import { join } from 'path'
+import RitsuClient from '../RitsuClient'
+import RitsuCommand from '../RitsuCommand'
 
 /**
  * Command Manager
@@ -10,37 +10,36 @@ import RitsuCommand from "../RitsuCommand";
  */
 
 export class CommandManager {
-  public commands: Collection<String, RitsuCommand> = new Collection();
-  public client: RitsuClient;
+  public commands: Collection<String, RitsuCommand> = new Collection()
+  public client: RitsuClient
   constructor(client: RitsuClient) {
-    this.commands = new Collection();
-    this.client = client;
+    this.commands = new Collection()
+    this.client = client
   }
 
   build() {
-    readdir(join(__dirname, "..", "..", "/commands"), (err, files) => {
-      if (err) console.error(err);
+    readdir(join(__dirname, '..', '..', '/commands'), (err, files) => {
+      if (err) console.error(err)
       files.forEach((category) => {
         readdir(
-          join(__dirname, "..", "..", "/commands/", category),
+          join(__dirname, '..', '..', '/commands/', category),
           (err, cmd) => {
-            if (err) return console.log(err);
+            if (err) return console.log(err)
             cmd.forEach((cmd) => {
               const Command = require(join(
                 __dirname,
-                "..",
-                "..",
-                "/commands/",
+                '..',
+                '..',
+                '/commands/',
                 category,
                 cmd
-              ));
-              console.log(Command);
-              const command: RitsuCommand = new Command(this.client);
-              this.commands.set(command.name, command);
-            });
+              ))
+              const command: RitsuCommand = new Command(this.client)
+              this.commands.set(command.name, command)
+            })
           }
-        );
-      });
-    });
+        )
+      })
+    })
   }
 }

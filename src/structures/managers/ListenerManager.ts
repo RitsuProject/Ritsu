@@ -1,8 +1,8 @@
-import Collection from "@discordjs/collection";
-import { readdir } from "fs";
-import { join } from "path";
-import RitsuClient from "../RitsuClient";
-import RitsuEvent from "../RitsuEvent";
+import Collection from '@discordjs/collection'
+import { readdir } from 'fs'
+import { join } from 'path'
+import RitsuClient from '../RitsuClient'
+import RitsuEvent from '../RitsuEvent'
 
 /**
  * Listener Manager
@@ -10,19 +10,19 @@ import RitsuEvent from "../RitsuEvent";
  */
 
 export class ListenerManager {
-  public client: RitsuClient;
+  public client: RitsuClient
   constructor(client: RitsuClient) {
-    this.client = client;
+    this.client = client
   }
 
   build() {
-    readdir(join(__dirname, "..", "..", "/listeners"), (err, files) => {
-      if (err) console.error(err);
+    readdir(join(__dirname, '..', '..', '/listeners'), (err, files) => {
+      if (err) console.error(err)
       files.forEach(async (em) => {
-        const Event = require(join(__dirname, "..", "..", "/listeners/", em));
-        const event: RitsuEvent = new Event(this.client);
-        this.client.on(event.name, (...args) => event.run(...args));
-      });
-    });
+        const Event = require(join(__dirname, '..', '..', '/listeners/', em))
+        const event: RitsuEvent = new Event(this.client)
+        this.client.on(event.name, (...args) => event.run(...args))
+      })
+    })
   }
 }
