@@ -171,6 +171,12 @@ module.exports.MatchConfig = class MatchConfig {
         )
       }
 
+      if (user.length <= 10) {
+        throw new Error(
+          'You need at least 10 animes in list to use this gamemode.'
+        )
+      }
+
       if (user) {
         await primary.delete()
         await m.delete()
