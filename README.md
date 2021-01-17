@@ -1,6 +1,6 @@
-<p align="center">
-<img src="https://ritsu.sazz.fail/assets/ritsu-logo.svg" width="50%">
-<p>
+<h1 align="center">
+Ritsu
+<h1>
    
 <p align="center">🎶 A bot on Discord based on the game of guessing the anime by its Ending or Opening theme!</p>
 
@@ -14,6 +14,8 @@
 <a href="https://top.gg/bot/763934732420382751">
 <img src="https://top.gg/api/widget/763934732420382751.svg" alt="Ritsu" />
 </a>
+<br>
+<img src="https://invidget.switchblade.xyz/XuDysZg">
 </p>
 
 Ritsu is a bot on Discord based on the game AnimeMusicQuiz, guessing anime by its opening / ending music! Cool huh? And even better, it is completely open-source.
