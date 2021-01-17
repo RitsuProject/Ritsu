@@ -22,7 +22,7 @@ Ritsu is a bot on Discord based on the game AnimeMusicQuiz, guessing anime by it
 
 Our goal here in this repository is learning and contributing! We want more people to learn how Ritsu works and maybe in the future even contribute with bug fixes and new features! So, feel free to play around with the code, did you find something that is not documented, wrong or poorly explained? We'd love to know! Open a pull request with the correction or addition and we will receive it.
 
-## Public Version <img src="https://ritsu.sazz.fail/assets/ritsu_header.png" width="450px" align="right">
+## Public Version
 
 Don't you want to know about codes or complicated blah blah blah and just want to play and have fun? You can add the incredible public version (｡･∀･)ﾉﾞ
 
