@@ -1,6 +1,6 @@
 <h1 align="center">
 Ritsu
-<h1>
+</h1>
    
 <p align="center">🎶 A bot on Discord based on the game of guessing the anime by its Ending or Opening theme!</p>
 
