@@ -1,5 +1,6 @@
 import { Message } from 'eris'
 import RitsuClient from 'src/structures/RitsuClient'
+import Emojis from '../utils/Emojis'
 import RitsuEvent from '../structures/RitsuEvent'
 
 class messageCreate extends RitsuEvent {
@@ -23,6 +24,10 @@ class messageCreate extends RitsuEvent {
 
     new Promise((resolve) => {
       resolve(command.run(message, args))
+    }).catch((e: Error) => {
+      message.channel.createMessage(
+        `${Emojis.BONGOCAT} | Oh, no! A fatal error!\n${e.message}`
+      )
     })
   }
 }

@@ -1,6 +1,7 @@
 import { Client, ClientOptions } from 'eris'
 import { CommandManager } from './managers/CommandManager'
 import { ListenerManager } from './managers/ListenerManager'
+import mongoConnect from '../db/MongoConnect'
 
 /**
  * Ritsu Client
@@ -9,15 +10,16 @@ import { ListenerManager } from './managers/ListenerManager'
 export default class RitsuClient extends Client {
   public commandManager: CommandManager = new CommandManager(this)
   public listenerManager: ListenerManager = new ListenerManager(this)
-  public env = process.env
+
   constructor(token: string, options?: ClientOptions) {
     super(token, options)
   }
 
   async start() {
-    this.commandManager.build()
-    this.listenerManager.build()
+    mongoConnect(process.env.MONGODB_URI) // Connect to the MongoDB Cluster.
+    this.commandManager.build() // Build/Load all the commands.
+    this.listenerManager.build() // Build/Load all the listeners.
 
-    await this.connect()
+    await this.connect() // And now, connect to the wonderland!
   }
 }
