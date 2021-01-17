@@ -9,6 +9,7 @@ class Ping extends RitsuCommand {
       description: 'Pong!',
       dev: false,
       aliases: [],
+      requiredPermissions: null,
     })
     this.client = client
   }

@@ -1,0 +1,20 @@
+import { Guild } from 'eris'
+import Guilds from '../models/Guild'
+import RitsuClient from '../structures/RitsuClient'
+import RitsuEvent from '../structures/RitsuEvent'
+
+class guildDelete extends RitsuEvent {
+  public client: RitsuClient
+  constructor(client: RitsuClient) {
+    super(client, {
+      name: 'guildDelete',
+    })
+    this.client = client
+  }
+
+  async run(guild: Guild) {
+    await Guilds.findByIdAndDelete(guild.id)
+  }
+}
+
+export = guildDelete
