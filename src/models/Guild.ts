@@ -1,13 +1,5 @@
-import mongoose, { Schema, Document } from 'mongoose'
-
-interface GuildsInterface extends Document {
-  _id: String
-  name: String
-  prefix: string
-  rolling: Boolean
-  lang: String
-  premium: Boolean
-}
+import mongoose, { Schema } from 'mongoose'
+import GuildsInterface from '../interfaces/GuildsInterface'
 
 const GuildsSchema: Schema = new Schema({
   _id: { type: String, required: true },
