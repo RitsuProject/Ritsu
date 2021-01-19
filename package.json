@@ -20,6 +20,7 @@
     "http": "^0.0.1-security",
     "i18next": "^19.8.3",
     "i18next-node-fs-backend": "^2.1.3",
+    "jikan-node": "^1.2.1",
     "mal-scraper": "^2.11.2",
     "moment": "^2.29.1",
     "mongoose": "^5.9.23",

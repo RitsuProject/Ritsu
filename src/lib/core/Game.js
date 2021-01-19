@@ -5,7 +5,9 @@ const { logger } = require('../../utils/logger')
 const { UserLib } = require('../Users')
 
 const stringSimilarity = require('string-similarity')
-const mal = require('mal-scraper')
+// const mal = require('mal-scraper')
+const Jikan = require('jikan-node')
+const jikan = new Jikan()
 
 // JSDocs Requires:
 // eslint-disable-next-line no-unused-vars
@@ -479,13 +481,13 @@ module.exports.Game = class Game {
   getAnswers(data) {
     const ans = []
     ans.push(data.title)
-    if (data.englishTitle !== '') {
+    if (data.title_english !== '') {
       // If is not empty, add to the array.
-      ans.push(data.englishTitle)
+      ans.push(data.title_english)
     }
-    if (data.synonyms[0] !== '') {
+    if (data.title_synonyms[0] !== '') {
       // If is not empty, add to the array.
-      data.synonyms.forEach((s) => {
+      data.title_synonyms.forEach((s) => {
         ans.push(s)
       })
     }
@@ -571,7 +573,8 @@ module.exports.Game = class Game {
 
   async getAnimeDetails(name) {
     try {
-      const malAnime = await mal.getInfoFromName(name)
+      const searchAnime = await jikan.search('anime', name, { page: 1 })
+      const malAnime = await jikan.findAnime(searchAnime.results[0].mal_id)
       return malAnime
     } catch (e) {
       logger.withTag('GAME').info(e, 'GAME_SERVICE', true)
