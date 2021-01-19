@@ -94,6 +94,7 @@ module.exports.Game = class Game {
       )
       captureException(e)
       this.client.prometheus.errorCounter.inc()
+      await this.clear()
     })
   }
 
@@ -574,8 +575,14 @@ module.exports.Game = class Game {
   async getAnimeDetails(name) {
     try {
       const searchAnime = await jikan.search('anime', name, { page: 1 })
-      const malAnime = await jikan.findAnime(searchAnime.results[0].mal_id)
-      return malAnime
+      if (searchAnime.length > 0) {
+        const malAnime = await jikan.findAnime(searchAnime.results[0].mal_id)
+        return malAnime
+      } else {
+        throw new Error(
+          "Hey Hey! I'm experiencing problems at the moment and the solution for them is temporary and therefore, some errors like this, that I didn't find any anime in MAL are happening. Please restart the game and try again, if you want news, enter the support server."
+        )
+      }
     } catch (e) {
       logger.withTag('GAME').info(e, 'GAME_SERVICE', true)
       throw new Error(
