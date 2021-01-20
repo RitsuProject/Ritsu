@@ -575,7 +575,7 @@ module.exports.Game = class Game {
   async getAnimeDetails(name) {
     try {
       const searchAnime = await jikan.search('anime', name, { page: 1 })
-      if (searchAnime.results.length > 0) {
+      if (searchAnime.length > 0) {
         const malAnime = await jikan.findAnime(searchAnime.results[0].mal_id)
         return malAnime
       } else {
