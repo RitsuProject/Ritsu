@@ -32,7 +32,7 @@ module.exports = async function generateEmbed(
     const attachment = new MessageAttachment(cardBuffer, 'card.png')
     embed.attachFiles(attachment)
     embed.setImage('attachment://card.png') */
-    embed.setImage(animeData.image_url)
+    embed.setImage(animeData.picture)
     embed.setTitle(`${answer} (${type})`)
   } else {
     embed.setDescription(

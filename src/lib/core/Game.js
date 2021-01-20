@@ -5,9 +5,7 @@ const { logger } = require('../../utils/logger')
 const { UserLib } = require('../Users')
 
 const stringSimilarity = require('string-similarity')
-// const mal = require('mal-scraper')
-const Jikan = require('jikan-node')
-const jikan = new Jikan()
+const mal = require('mal-scraper')
 
 // JSDocs Requires:
 // eslint-disable-next-line no-unused-vars
@@ -482,13 +480,13 @@ module.exports.Game = class Game {
   getAnswers(data) {
     const ans = []
     ans.push(data.title)
-    if (data.title_english !== '') {
+    if (data.englishTitle !== '') {
       // If is not empty, add to the array.
-      ans.push(data.title_english)
+      ans.push(data.englishTitle)
     }
-    if (data.title_synonyms[0] !== '') {
+    if (data.synonyms[0] !== '') {
       // If is not empty, add to the array.
-      data.title_synonyms.forEach((s) => {
+      data.synonyms.forEach((s) => {
         ans.push(s)
       })
     }
@@ -574,15 +572,8 @@ module.exports.Game = class Game {
 
   async getAnimeDetails(name) {
     try {
-      const searchAnime = await jikan.search('anime', name, { page: 1 })
-      if (searchAnime.length > 0) {
-        const malAnime = await jikan.findAnime(searchAnime.results[0].mal_id)
-        return malAnime
-      } else {
-        throw new Error(
-          "Hey Hey! I'm experiencing problems at the moment and the solution for them is temporary and therefore, some errors like this, that I didn't find any anime in MAL are happening. Please restart the game and try again, if you want news, enter the support server."
-        )
-      }
+      const malAnime = await mal.getInfoFromName(name)
+      return malAnime
     } catch (e) {
       logger.withTag('GAME').info(e, 'GAME_SERVICE', true)
       throw new Error(
