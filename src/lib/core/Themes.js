@@ -21,7 +21,7 @@ module.exports.Themes = class Themes {
     if (!status) return 'unavailable'
     switch (mode) {
       case 'easy': {
-        const randomPage = randomInt(0, 3)
+        const randomPage = randomInt(1, 3)
         const rank = await p({
           method: 'GET',
           url: `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`,
