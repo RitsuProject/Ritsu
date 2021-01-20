@@ -4,6 +4,8 @@ import Guilds from '../models/Guild'
 import Rooms from '../models/Room'
 import GameOptions from '../interfaces/GameOptions'
 import RitsuClient from '../structures/RitsuClient'
+import Themes from './Themes'
+import getStreamFromURL from '../utils/GetStream'
 
 export default class Game {
   public message: Message
@@ -18,6 +20,7 @@ export default class Game {
   async init() {
     const guild = await Guilds.findById(this.message.guildID)
     if (!guild) return
+    await this.startNewRound(guild)
   }
 
   async startNewRound(guild: GuildsInterface) {
@@ -30,5 +33,41 @@ export default class Game {
       }
       return this.message.channel.createMessage('No Users in Voice Channel.')
     }
+
+    const theme = await this.getTheme()
+    const stream = await getStreamFromURL(theme.link)
+
+    this.playTheme(voiceChannel, stream)
+  }
+
+  async getTheme() {
+    const loadingMessage = await this.message.channel.createMessage(
+      `\`Fetching the Anime Theme...\``
+    )
+
+    const choosedTheme = await this.chooseTheme()
+    loadingMessage.delete()
+    return choosedTheme
+  }
+
+  async chooseTheme() {
+    const themes = new Themes()
+    const theme = await themes.getThemeByMode(this.gameOptions)
+    if (!theme) {
+      this.chooseTheme
+    } else {
+      return theme
+    }
+  }
+
+  async playTheme(voiceChannel: string, stream) {
+    this.client
+      .joinVoiceChannel(voiceChannel)
+      .then((connection) => {
+        connection.play(stream)
+      })
+      .catch((e) => {
+        throw new Error(`Failed to connect to the Voice Channel | ${e.message}`)
+      })
   }
 }
