@@ -92,6 +92,7 @@ module.exports.Game = class Game {
       )
       captureException(e)
       this.client.prometheus.errorCounter.inc()
+      await this.clear()
     })
   }
 

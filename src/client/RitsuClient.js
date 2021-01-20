@@ -26,6 +26,7 @@ module.exports.Ritsu = class Ritsu extends Client {
     ]
     this.commands = new Collection()
     this.aliases = new Collection()
+    this.m = false
     this.prometheus = prometheusMetrics
     this.promServer = createServer((req, res) => {
       if (req.url != null) {
