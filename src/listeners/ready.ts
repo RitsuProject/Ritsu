@@ -1,3 +1,5 @@
+import Guilds from '../models/Guild'
+import Rooms from '../models/Room'
 import RitsuClient from '../structures/RitsuClient'
 import RitsuEvent from '../structures/RitsuEvent'
 
@@ -10,7 +12,9 @@ class Ready extends RitsuEvent {
     this.client = client
   }
 
-  run() {
+  async run() {
+    await Guilds.updateMany({}, { rolling: false, currentChannel: null })
+    await Rooms.deleteMany({})
     this.client.editStatus('online', { name: 'ritsu!help | @Ritsu', type: 2 })
   }
 }

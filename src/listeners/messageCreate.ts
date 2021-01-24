@@ -40,6 +40,7 @@ class messageCreate extends RitsuEvent {
     new Promise((resolve) => {
       resolve(command.run(message, args))
     }).catch((e: Error) => {
+      console.log(e)
       message.channel.createMessage(
         `${Emojis.BONGOCAT} | Oh, no! A fatal error!\n${e.message}`
       )
