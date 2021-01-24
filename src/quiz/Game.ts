@@ -13,6 +13,7 @@ import MioSong from '../interfaces/MioSong'
 
 import { MessageCollector } from 'eris-collector'
 import RoomInterface from '../interfaces/RoomInterface'
+import generateEmbed from '../utils/GenerateEmbed'
 
 export default class Game {
   public message: Message
@@ -27,7 +28,10 @@ export default class Game {
   async init() {
     const guild = await Guilds.findById(this.message.guildID)
     if (!guild) return
-    await this.startNewRound(guild)
+    await this.startNewRound(guild).catch((e) => {
+      console.log(e)
+      throw new Error(e.message)
+    })
   }
 
   async startNewRound(guild: GuildsInterface) {
@@ -75,17 +79,18 @@ export default class Game {
     })
 
     answerCollector.on('end', async (_, reason: string) => {
+      console.log(room.answerers)
       const answerers =
         room.answerers.length > 0
-          ? room.answerers
-              .map((id) => {
-                ;`<@${id}>`
-              })
-              .join(', ')
+          ? room.answerers.map((id) => `<@${id}>`).join(', ')
           : 'Nobody'
 
       await this.message.channel.createMessage(`The answer is: ${theme.name}`)
       await this.message.channel.createMessage(`Correct Users: ${answerers}`)
+
+      const embed = generateEmbed(theme, animeData)
+
+      await this.message.channel.createMessage({ embed })
 
       if (room.currentRound >= this.gameOptions.rounds) {
         this.message.channel.createMessage('Match ended.')
@@ -105,11 +110,9 @@ export default class Game {
       return newRoom
     } else {
       console.log('room already exist')
-      console.log(oldRoom.currentRound)
       oldRoom.currentRound++
       oldRoom.answerers = []
       await oldRoom.save()
-      console.log(oldRoom.currentRound)
       return oldRoom
     }
   }
@@ -140,7 +143,7 @@ export default class Game {
     const themes = new Themes()
     const theme = await themes.getThemeByMode(this.gameOptions)
     if (!theme) {
-      this.chooseTheme
+      return await this.chooseTheme()
     } else {
       return theme
     }

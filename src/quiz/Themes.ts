@@ -9,21 +9,29 @@ export default class Themes {
     const provider = this.getProvider()
     switch (gameOptions.mode) {
       case 'easy': {
-        const randomPage = randomIntBetween(0, 3)
-        const byPopularityRank = await RitsuHTTP.get(
-          `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`
-        )
+        try {
+          const randomPage = randomIntBetween(0, 3)
+          const byPopularityRank = await RitsuHTTP.get(
+            `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`
+          )
 
-        const animes = byPopularityRank.data.top
-        const anime = randomValueInArray(animes)
+          const animes = byPopularityRank.data.top
+          const anime = randomValueInArray(animes)
+          console.log(
+            `HTTP REQUEST - /themes/search | ANIME TITLE: ${anime.title}`
+          )
+          const search = await RitsuHTTP.get(
+            `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
+          )
 
-        const search = await RitsuHTTP.get(
-          `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
-        )
+          const songData: MioSong = search.data
 
-        const songData: MioSong = search.data
-
-        return songData
+          return songData
+        } catch (e) {
+          if (e.isAxiosError) {
+            if (e.response.status === 400) return false
+          }
+        }
       }
     }
   }

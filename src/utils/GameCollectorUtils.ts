@@ -32,11 +32,12 @@ export default {
     let score = 0
 
     const answers: Array<string> = []
-    if (animeData.synonyms) {
+    if (animeData.synonyms != null) {
       animeData.synonyms.forEach((s) => {
         answers.push(s)
       })
     }
+    console.log(answers)
     const titles = Object.values(animeData.title)
     titles.forEach((t) => {
       answers.push(t)
