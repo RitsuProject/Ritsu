@@ -9,5 +9,6 @@
 - Use Anilist instaed of MAL.
 - Use axios instaed of phin.
 - Voting rewards (top.gg)
+- Do not put themes that have been touched in other rounds in the match.
 - Option of only openings or endings.
 - More developer control with bot features (disable a game mode, etc.)
