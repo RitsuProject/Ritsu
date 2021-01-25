@@ -16,7 +16,6 @@ class Start extends RitsuCommand {
   }
 
   async run(message: Message) {
-    message.channel.createMessage('owo starting the game!')
     const game = new Game(message, this.client, {
       mode: 'easy',
       rounds: 3,

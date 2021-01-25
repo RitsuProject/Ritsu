@@ -17,9 +17,7 @@ export default class Themes {
 
           const animes = byPopularityRank.data.top
           const anime = randomValueInArray(animes)
-          console.log(
-            `HTTP REQUEST - /themes/search | ANIME TITLE: ${anime.title}`
-          )
+
           const search = await RitsuHTTP.get(
             `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
           )

@@ -14,15 +14,19 @@ import MioSong from '../interfaces/MioSong'
 import { MessageCollector } from 'eris-collector'
 import RoomInterface from '../interfaces/RoomInterface'
 import generateEmbed from '../utils/GenerateEmbed'
+import NodeCache from 'node-cache'
+import Constants from '../utils/Constants'
 
 export default class Game {
   public message: Message
   public client: RitsuClient
   public gameOptions: GameOptions
+  public themesCache: NodeCache
   constructor(message: Message, client: RitsuClient, options: GameOptions) {
     this.message = message
     this.client = client
     this.gameOptions = options
+    this.themesCache = new NodeCache()
   }
 
   async init() {
@@ -30,7 +34,9 @@ export default class Game {
     if (!guild) return
     await this.startNewRound(guild).catch((e) => {
       console.log(e)
-      throw new Error(e.message)
+      this.message.channel.createMessage(
+        Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e)
+      )
     })
   }
 
@@ -93,23 +99,36 @@ export default class Game {
       await this.message.channel.createMessage({ embed })
 
       if (room.currentRound >= this.gameOptions.rounds) {
+        await this.clearData(room, guild)
         this.message.channel.createMessage('Match ended.')
       } else {
-        await this.startNewRound(guild)
+        await this.startNewRound(guild).catch((e) => {
+          console.log(e)
+          throw new Error(e.message)
+        })
       }
     })
 
     this.playTheme(voiceChannel, stream)
   }
 
+  async handleFinish(room: RoomInterface, force: boolean) {}
+
+  async clearData(room: RoomInterface, guild: GuildsInterface) {
+    guild.rolling = false
+    this.themesCache.del(this.themesCache.keys())
+    await guild.save()
+    await room.deleteOne()
+  }
+
   async handleRoom(answer: string) {
     const oldRoom: RoomInterface = await Rooms.findById(this.message.guildID)
     if (!oldRoom) {
-      console.log('creating new room')
+      console.log(`[${this.message.guildID}] Creating a new Room...`)
       const newRoom = await this.createRoom(answer)
       return newRoom
     } else {
-      console.log('room already exist')
+      console.log(`[${this.message.guildID}] Room Already Exists.`)
       oldRoom.currentRound++
       oldRoom.answerers = []
       await oldRoom.save()
@@ -135,14 +154,17 @@ export default class Game {
     )
 
     const choosedTheme = await this.chooseTheme()
+    this.themesCache.set(choosedTheme.link, this.message.guildID)
+
     loadingMessage.delete()
     return choosedTheme
   }
 
-  async chooseTheme() {
+  async chooseTheme(): Promise<MioSong> {
     const themes = new Themes()
     const theme = await themes.getThemeByMode(this.gameOptions)
-    if (!theme) {
+
+    if (!theme || this.themesCache.get(theme.link) !== undefined) {
       return await this.chooseTheme()
     } else {
       return theme

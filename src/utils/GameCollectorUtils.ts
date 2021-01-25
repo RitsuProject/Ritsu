@@ -37,10 +37,12 @@ export default {
         answers.push(s)
       })
     }
-    console.log(answers)
+
     const titles = Object.values(animeData.title)
     titles.forEach((t) => {
-      answers.push(t)
+      if (t !== null) {
+        answers.push(t)
+      }
     })
 
     answers.forEach((a) => {
