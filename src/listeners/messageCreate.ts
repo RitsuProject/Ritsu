@@ -4,6 +4,7 @@ import Emojis from '../utils/Emojis'
 import RitsuEvent from '../structures/RitsuEvent'
 import Users from '../models/User'
 import Guilds from '../models/Guild'
+import Constants from '../utils/Constants'
 
 class messageCreate extends RitsuEvent {
   public client: RitsuClient
@@ -42,7 +43,7 @@ class messageCreate extends RitsuEvent {
     }).catch((e: Error) => {
       console.log(e)
       message.channel.createMessage(
-        `${Emojis.BONGOCAT} | Oh, no! A fatal error!\n${e.message}`
+        Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e.message)
       )
     })
   }

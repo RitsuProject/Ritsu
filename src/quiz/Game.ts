@@ -16,6 +16,7 @@ import RoomInterface from '../interfaces/RoomInterface'
 import generateEmbed from '../utils/GenerateEmbed'
 import NodeCache from 'node-cache'
 import Constants from '../utils/Constants'
+import StreamError from '../structures/errors/StreamError'
 
 export default class Game {
   public message: Message
@@ -57,8 +58,8 @@ export default class Game {
       `\`Fetching stream...\``
     )
     const stream: string = await getStreamFromURL(theme.link).catch((e) => {
-      console.log(e)
       loadingMessage.delete()
+      throw new StreamError()
     })
     loadingMessage.delete()
 
@@ -91,15 +92,16 @@ export default class Game {
           ? room.answerers.map((id) => `<@${id}>`).join(', ')
           : 'Nobody'
 
-      await this.message.channel.createMessage(`The answer is: ${theme.name}`)
       await this.message.channel.createMessage(`Correct Users: ${answerers}`)
 
       const embed = generateEmbed(theme, animeData)
 
+      await this.message.channel.createMessage('The answer is...')
       await this.message.channel.createMessage({ embed })
 
       if (room.currentRound >= this.gameOptions.rounds) {
         await this.clearData(room, guild)
+        this.client.leaveVoiceChannel(voiceChannel)
         this.message.channel.createMessage('Match ended.')
       } else {
         await this.startNewRound(guild).catch((e) => {
