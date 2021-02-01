@@ -1,0 +1,11 @@
+{
+  "whatMode": "What game mode do you want for the match? {{modes}}",
+  "whatNumberOfRounds": "How many rounds in the match do you want? (Limit: 10)",
+  "whatDuration": "How long is each round? (Minimum: 20 seconds) **PS**: Remember, valid durations look like this: *20 seconds or 20s*",
+  "errors": {
+    "invalidMode": "Oh no, the game mode you entered is invalid! Please insert one from the list above.",
+    "isNaN": "Well...it doesn't seem like a number, I think.",
+    "roundsLimit": "For extremely boring reasons, you cannot start more than 10 rounds as a normal user, if you want more, you can help me with my Patreon! {{patreonURL}}",
+    "invalidDuration": "Unfortunately, a simple bot like me was not able to know what it means what you entered, is it in seconds, minutes? I do not know! Please enter a valid time."
+  }
+}
