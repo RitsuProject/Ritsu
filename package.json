@@ -17,6 +17,7 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "eris": "^0.14.0",
+    "eris-additions": "^1.4.1",
     "eris-collector": "^1.0.1",
     "ffmpeg-static": "^4.2.7",
     "mongoose": "^5.11.12",

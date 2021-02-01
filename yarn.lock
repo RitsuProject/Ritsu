@@ -551,12 +551,29 @@ env-paths@^2.2.0:
   resolved "https://registry.yarnpkg.com/env-paths/-/env-paths-2.2.0.tgz#cdca557dc009152917d6166e2febe1f039685e43"
   integrity sha512-6u0VYSCo/OW6IoD5WCLLy9JUGARbamfSavcNXry/eu8aHVFei6CD3Sw+VGX5alea1i9pgPHW0mbu6Xj0uBh7gA==
 
+eris-additions@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/eris-additions/-/eris-additions-1.4.1.tgz#afa7d5846386a5bc65fc623350edb09a77537e17"
+  integrity sha512-ZaAvQKZjXWOJB653RCKsdYMgJH+vXqdjjv/wTVtmFTUvaRdehON3x/yU/YseQwpoTwQVhOBLofTu6fdz0KzZmQ==
+  dependencies:
+    eris "^0.12.0"
+
 eris-collector@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/eris-collector/-/eris-collector-1.0.1.tgz#f23d518723bacd55b6e5a1dafb0902e11e3aafd1"
   integrity sha512-qAuIP8//rMaTFs/3J7Ggk2tzWuNbFqJsAP8DuT9MLpNYc6f0u+Cifpa06//oxGQOWl4sWY1+0ncJDfRvlz2PMg==
   dependencies:
     events "^3.1.0"
+
+eris@^0.12.0:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/eris/-/eris-0.12.1.tgz#2d99ba07dabcfce3a2645e9561e6ea3f39bec61c"
+  integrity sha512-6TNeDct84dk8JGMaYRf4Q+27Suf+g/3bWPyqyKTdaR6nlDKYuo/IcfVHAyaGAgCmA2QcpuSNxynRRfhdhKsHUA==
+  dependencies:
+    ws "^7.2.1"
+  optionalDependencies:
+    opusscript "^0.0.7"
+    tweetnacl "^1.0.1"
 
 eris@^0.14.0:
   version "0.14.0"

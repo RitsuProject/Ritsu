@@ -1,7 +1,8 @@
-import { Client, ClientOptions } from 'eris'
+import Eris, { Client, ClientOptions } from 'eris'
 import { CommandManager } from './managers/CommandManager'
 import { ListenerManager } from './managers/ListenerManager'
 import mongoConnect from '../db/MongoConnect'
+require("eris-additions")(Eris)
 
 /**
  * Ritsu Client

@@ -1,12 +1,12 @@
 export default interface GameOptions {
-  mode: 'easy' | 'normal' | 'hard' | 'season' | 'list'
+  mode: string
   rounds: number
   time: number
   readableTime: string
 
-  listWebsite?: 'anilist' | 'myanimelist'
+  listWebsite?: string
   listUsername?: string
 
   year?: string
-  season?: 'winter' | 'spring' | 'summer' | 'fall'
+  season?: string
 }
