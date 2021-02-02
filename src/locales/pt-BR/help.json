@@ -1,0 +1,8 @@
+{
+  "commandDescription": "Esse comando! ^w^",
+  "embed": {
+    "title": "{{emoji}} Ajuda da Ritsu",
+    "description": "Você está interessado em meus **comandos**? Ah, isso é legal, sinta-se livre para ver eles abaixo.\n\nSe você tem alguma pergunta, dúvida ou quer suporte, não hesite em entrar no **meu servidor de suporte**.",
+    "field": "Comandos"
+  }
+}
