@@ -1,5 +1,9 @@
 import { Guild, Message } from 'eris'
 
+/**
+ * Match Configuration
+ * @description The waifu of the match settings (number of rounds, game mode, etc.)
+ */
 export default class MatchConfig {
   private message: Message
   private guild: Guild

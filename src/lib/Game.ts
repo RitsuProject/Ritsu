@@ -18,6 +18,10 @@ import NodeCache from 'node-cache'
 import Constants from '../utils/Constants'
 import StreamError from '../structures/errors/StreamError'
 
+/**
+ * Game
+ * @description The loli responsible for handling the game, exchanging rounds, ending rounds and etc.
+ */
 export default class Game {
   public message: Message
   public client: RitsuClient
