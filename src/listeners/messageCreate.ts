@@ -16,6 +16,7 @@ class messageCreate extends RitsuEvent {
   }
   async run(message: Message) {
     if (message.author.bot) return
+    if (message.channel.type === 1) return // Avoid DM messages.
     const guild = await Guilds.findById(message.guildID)
     const user = await Users.findById(message.author.id)
     if (!user) {
