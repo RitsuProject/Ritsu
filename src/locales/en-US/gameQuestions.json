@@ -1,6 +1,6 @@
 {
   "whatMode": "What game mode do you want for the match? {{modes}}",
-  "whatNumberOfRounds": "How many rounds in the match do you want? (Limit: 10)",
+  "whatNumberOfRounds": "How many rounds in the match do you want?",
   "whatDuration": "How long is each round? (Minimum: 20 seconds) **PS**: Remember, valid durations look like this: *20 seconds or 20s*",
   "errors": {
     "matchStopped": "The match has been canceled, if you want to start another one, use ``{{command}}``.",

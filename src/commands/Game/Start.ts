@@ -20,10 +20,12 @@ class Start extends RitsuCommand {
     const matchConfig = new MatchConfig(message, this.client)
     const gamemode = await matchConfig.getGamemode()
     if (!gamemode) return
+    const rounds = await matchConfig.getRounds()
+    if (!rounds) return
 
     const game = new Game(message, this.client, {
       mode: gamemode,
-      rounds: 3,
+      rounds: rounds,
       time: 30000,
       readableTime: '30s',
     })

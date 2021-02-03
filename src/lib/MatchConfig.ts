@@ -52,4 +52,28 @@ export default class MatchConfig {
     })
     return mode
   }
+
+  async getRounds() {
+    const primary = await this.message.channel.createMessage(
+      'How many rounds in the match do you want?'
+    )
+
+    const rounds = await this.startCollector().then(async (m) => {
+      if (!m) return
+
+      const rounds = parseInt(m.content.toLowerCase())
+
+      if (isNaN(rounds))
+        throw new Error("Well...it doesn't seem like a number, I think.")
+      if (rounds > 10)
+        throw new Error(
+          'For extremely boring reasons, you cannot start more than 10 rounds as a normal user, if you want more, you can help me with my Patreon!'
+        )
+
+      await m.delete()
+      await primary.delete()
+      return rounds
+    })
+    return rounds
+  }
 }
