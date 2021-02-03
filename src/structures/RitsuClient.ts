@@ -2,7 +2,7 @@ import Eris, { Client, ClientOptions } from 'eris'
 import { CommandManager } from './managers/CommandManager'
 import { ListenerManager } from './managers/ListenerManager'
 import mongoConnect from '../db/MongoConnect'
-require("eris-additions")(Eris)
+require('eris-additions')(Eris)
 
 /**
  * Ritsu Client
@@ -11,6 +11,7 @@ require("eris-additions")(Eris)
 export default class RitsuClient extends Client {
   public commandManager: CommandManager = new CommandManager(this)
   public listenerManager: ListenerManager = new ListenerManager(this)
+  public enabledGamemodes: Array<string> = ['easy', 'normal', 'hard']
 
   constructor(token: string, options?: ClientOptions) {
     super(token, options)
