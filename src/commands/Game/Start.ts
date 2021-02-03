@@ -19,6 +19,8 @@ class Start extends RitsuCommand {
   async run(message: Message) {
     const matchConfig = new MatchConfig(message)
     const gamemode = await matchConfig.getGamemode()
+    if (!gamemode) return
+
     const game = new Game(message, this.client, {
       mode: gamemode,
       rounds: 3,

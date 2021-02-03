@@ -20,7 +20,7 @@ export default class MatchConfig {
 
         const m = messages[0]
         if (m.content === `mugi!stop`) {
-          this.message.channel.createMessage('lol')
+          this.message.channel.createMessage('Match cancelled.')
           return
         }
 
