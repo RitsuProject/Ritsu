@@ -1,6 +1,6 @@
 import { config } from 'dotenv'
 import { readFileSync } from 'fs'
-import RitsuClient from './src/structures/RitsuClient'
+import RitsuClient from './structures/RitsuClient'
 
 config()
 const client = new RitsuClient(process.env.DISCORD_TOKEN)
