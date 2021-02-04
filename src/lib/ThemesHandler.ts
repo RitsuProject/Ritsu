@@ -5,10 +5,10 @@ import randomIntBetween from '../utils/RandomIntBetween'
 import MioSong from '../interfaces/MioSong'
 
 /**
- * Themes
+ * ThemesHandler
  * @description Pick up the themes of the openings and endings according to the game mode.
  */
-export default class Themes {
+export default class ThemesHandler {
   async getThemeByMode(gameOptions: GameOptions) {
     const provider = this.getProvider()
     switch (gameOptions.mode) {

@@ -2,10 +2,10 @@ import { Guild, Message } from 'eris'
 import RitsuClient from '../structures/RitsuClient'
 
 /**
- * Match Configuration
+ * Match Settings Handler
  * @description The waifu of the match settings (number of rounds, game mode, etc.)
  */
-export default class MatchConfig {
+export default class MatchSettingsHandler {
   private client: RitsuClient
   private message: Message
   private guild: Guild

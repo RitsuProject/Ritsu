@@ -1,6 +1,6 @@
 import { Message } from 'eris'
-import Game from '../../lib/Game'
-import MatchConfig from '../../lib/MatchConfig'
+import Game from '../../lib/GameHandler'
+import MatchConfig from '../../lib/MatchSettingsHandler'
 import RitsuClient from '../../structures/RitsuClient'
 import RitsuCommand from '../../structures/RitsuCommand'
 

@@ -4,7 +4,7 @@ import Guilds from '../models/Guild'
 import Rooms from '../models/Room'
 import GameOptions from '../interfaces/GameOptions'
 import RitsuClient from '../structures/RitsuClient'
-import Themes from './Themes'
+import Themes from './ThemesHandler'
 import getStreamFromURL from '../utils/GetStream'
 import GameCollectorUtils from '../utils/GameCollectorUtils'
 import getAnimeData from '../utils/GetAnimeData'
@@ -17,12 +17,13 @@ import generateEmbed from '../utils/GenerateEmbed'
 import NodeCache from 'node-cache'
 import Constants from '../utils/Constants'
 import StreamError from '../structures/errors/StreamError'
+import RoomHandler from './RoomHandler'
 
 /**
- * Game
+ * GameHandler
  * @description The loli responsible for handling the game, exchanging rounds, ending rounds and etc.
  */
-export default class Game {
+export default class GameHandler {
   public message: Message
   public client: RitsuClient
   public gameOptions: GameOptions
@@ -70,7 +71,8 @@ export default class Game {
     guild.rolling = true
     await guild.save()
 
-    const room = await this.handleRoom(theme.name)
+    const roomHandler = new RoomHandler(this.message, theme.name)
+    const room = await roomHandler.handleRoom()
     const animeData: AnilistAnime = await getAnimeData(theme.name)
 
     const answerFilter = (msg: Message) =>
@@ -125,33 +127,6 @@ export default class Game {
     this.themesCache.del(this.themesCache.keys())
     await guild.save()
     await room.deleteOne()
-  }
-
-  async handleRoom(answer: string) {
-    const oldRoom: RoomInterface = await Rooms.findById(this.message.guildID)
-    if (!oldRoom) {
-      console.log(`[${this.message.guildID}] Creating a new Room...`)
-      const newRoom = await this.createRoom(answer)
-      return newRoom
-    } else {
-      console.log(`[${this.message.guildID}] Room Already Exists.`)
-      oldRoom.currentRound++
-      oldRoom.answerers = []
-      await oldRoom.save()
-      return oldRoom
-    }
-  }
-
-  async createRoom(answer: string) {
-    return new Rooms({
-      _id: this.message.guildID,
-      answerers: [],
-      answer: answer,
-      channel: this.message.channel.id,
-      startedBy: this.message.author.id,
-      leaderboard: [],
-      currentRound: 1,
-    }).save()
   }
 
   async getTheme() {
