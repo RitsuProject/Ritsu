@@ -1,8 +1,7 @@
 import RitsuHTTP from '../structures/RitsuHTTP'
-import randomValueInArray from '../utils/RandomValueInArray'
 import GameOptions from '../interfaces/GameOptions'
-import randomIntBetween from '../utils/RandomIntBetween'
 import MioSong from '../interfaces/MioSong'
+import RitsuUtils from '../utils/RitsuUtils'
 
 /**
  * ThemesHandler
@@ -14,13 +13,13 @@ export default class ThemesHandler {
     switch (gameOptions.mode) {
       case 'easy': {
         try {
-          const randomPage = randomIntBetween(0, 9)
+          const randomPage = RitsuUtils.randomIntBetween(0, 9)
           const byPopularityRank = await RitsuHTTP.get(
             `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`
           )
 
           const animes = byPopularityRank.data.top
-          const anime = randomValueInArray(animes)
+          const anime = RitsuUtils.randomValueInArray(animes)
 
           const search = await RitsuHTTP.get(
             `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
@@ -40,7 +39,7 @@ export default class ThemesHandler {
       case 'normal': {
         try {
           const types = ['random', 'popularity']
-          const type: string = randomValueInArray(types)
+          const type: string = RitsuUtils.randomValueInArray(types)
 
           switch (type) {
             case 'random': {
@@ -53,14 +52,14 @@ export default class ThemesHandler {
               return songData
             }
             case 'popularity': {
-              const randomPage = randomIntBetween(0, 5)
+              const randomPage = RitsuUtils.randomIntBetween(0, 5)
 
               const byPopularityRank = await RitsuHTTP.get(
                 `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`
               )
 
               const animes = byPopularityRank.data.top
-              const anime = randomValueInArray(animes)
+              const anime = RitsuUtils.randomValueInArray(animes)
 
               const search = await RitsuHTTP.get(
                 `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
@@ -88,7 +87,7 @@ export default class ThemesHandler {
   getProvider() {
     const providers = ['animethemes', 'openingsmoe']
 
-    const provider: string = randomValueInArray(providers)
+    const provider: string = RitsuUtils.randomValueInArray(providers)
 
     return provider
   }

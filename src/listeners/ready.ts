@@ -2,7 +2,7 @@ import Guilds from '../models/Guild'
 import Rooms from '../models/Room'
 import RitsuClient from '../structures/RitsuClient'
 import RitsuEvent from '../structures/RitsuEvent'
-import randomValueInArray from '../utils/RandomValueInArray'
+import RitsuUtils from '../utils/RitsuUtils'
 
 class Ready extends RitsuEvent {
   public client: RitsuClient
@@ -22,12 +22,12 @@ class Ready extends RitsuEvent {
       { name: 'patreon.com/ritsubot', type: 0 },
     ]
 
-    const customStat = randomValueInArray(customStats)
+    const customStat = RitsuUtils.randomValueInArray(customStats)
 
     this.client.editStatus('online', customStat)
 
     setInterval(() => {
-      const customStat = randomValueInArray(customStats)
+      const customStat = RitsuUtils.randomValueInArray(customStats)
 
       this.client.editStatus('online', customStat)
     }, 15000)
