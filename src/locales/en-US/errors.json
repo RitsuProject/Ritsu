@@ -1,3 +1,4 @@
 {
-  "genericError": "{{emoji}} | Oopsie! **A critical failure** happened and therefore **I was unable to continue/start the match!** If you think this should not be happening, contact us on the **Ritsu support server**! {{e}}"
+  "genericError": "{{emoji}} | Oopsie! **A critical failure** happened and therefore **I was unable to continue/start the match!** If you think this should not be happening, contact us on the **Ritsu support server**! {{e}}",
+  "streamError": "For some extremely evil reason, I was unable to load the current stream of the theme and so I was unable to continue! Restart the game and try again."
 }
