@@ -2,6 +2,7 @@ import Guilds from '../models/Guild'
 import Rooms from '../models/Room'
 import RitsuClient from '../structures/RitsuClient'
 import RitsuEvent from '../structures/RitsuEvent'
+import randomValueInArray from '../utils/RandomValueInArray'
 
 class Ready extends RitsuEvent {
   public client: RitsuClient
@@ -15,7 +16,21 @@ class Ready extends RitsuEvent {
   async run() {
     await Guilds.updateMany({}, { rolling: false, currentChannel: null })
     await Rooms.deleteMany({})
-    this.client.editStatus('online', { name: 'ritsu!help | @Ritsu', type: 2 })
+
+    const customStats = [
+      { name: 'ritsu!help | @Ritsu', type: 2 },
+      { name: 'patreon.com/ritsubot', type: 0 },
+    ]
+
+    const customStat = randomValueInArray(customStats)
+
+    this.client.editStatus('online', customStat)
+
+    setInterval(() => {
+      const customStat = randomValueInArray(customStats)
+
+      this.client.editStatus('online', customStat)
+    }, 15000)
   }
 }
 
