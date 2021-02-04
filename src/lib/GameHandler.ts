@@ -16,7 +16,6 @@ import RoomInterface from '../interfaces/RoomInterface'
 import generateEmbed from '../utils/GenerateEmbed'
 import NodeCache from 'node-cache'
 import Constants from '../utils/Constants'
-import StreamError from '../structures/errors/StreamError'
 import RoomHandler from './RoomHandler'
 
 /**
@@ -64,7 +63,9 @@ export default class GameHandler {
     )
     const stream: string = await getStreamFromURL(theme.link).catch((e) => {
       loadingMessage.delete()
-      throw new StreamError()
+      throw new Error(
+        'For some extremely evil reason, I was unable to load the current stream of the theme and so I was unable to continue! Restart the game and try again.'
+      )
     })
     loadingMessage.delete()
 
@@ -92,7 +93,6 @@ export default class GameHandler {
     })
 
     answerCollector.on('end', async (_, reason: string) => {
-      console.log(room.answerers)
       const answerers =
         room.answerers.length > 0
           ? room.answerers.map((id) => `<@${id}>`).join(', ')

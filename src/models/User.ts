@@ -8,6 +8,7 @@ interface UsersInterface extends Document {
   played: Number
   bio?: String
   admin: Boolean
+  patreonSupporter: Boolean
   badges: Array<String>
   xp: Number
   levelxp: Number
@@ -23,6 +24,7 @@ const UserSchema: Schema = new Schema({
   played: { type: Number, required: true }, // Played Matches
   bio: { type: String, required: false }, // User biography.
   admin: { type: Boolean, required: true }, // Is admin?
+  patreonSupporter: { type: Boolean, default: false, required: true }, // Is a patreon supporter?
   badges: { type: Array, required: true, default: [] }, // User Badges
   xp: { type: Number, required: true, default: 0 }, // User XP
   levelxp: { type: Number, required: true, default: 0 }, // Level XP (Like: 1000 for Level 2)
