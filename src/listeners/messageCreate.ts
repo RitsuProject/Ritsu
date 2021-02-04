@@ -5,6 +5,7 @@ import RitsuEvent from '../structures/RitsuEvent'
 import Users from '../models/User'
 import Guilds from '../models/Guild'
 import Constants from '../utils/Constants'
+import GuildsInterface from '../interfaces/GuildsInterface'
 
 class messageCreate extends RitsuEvent {
   public client: RitsuClient
@@ -17,7 +18,7 @@ class messageCreate extends RitsuEvent {
   async run(message: Message) {
     if (message.author.bot) return
     if (message.channel.type === 1) return // Avoid DM messages.
-    const guild = await Guilds.findById(message.guildID)
+    const guild: GuildsInterface = await Guilds.findById(message.guildID)
     const user = await Users.findById(message.author.id)
     if (!user) {
       new Users({
@@ -31,10 +32,26 @@ class messageCreate extends RitsuEvent {
       }).save()
     }
 
-    if (!message.content.startsWith(guild.prefix)) return
+    const isRitsuMention = this.isRitsuMention(message)
+    const isGuildPrefix = this.isGuildPrefix(message, guild)
 
-    const args = message.content.slice(guild.prefix.length).trim().split(/ +/g)
+    // Check if the prefix is the Ritsu Mention or the Guild Prefix
+    const prefix = isRitsuMention
+      ? `<@!${this.client.user.id}>`
+      : isGuildPrefix
+      ? guild.prefix
+      : false
+
+    if (!prefix) return
+    const args = message.content
+      .slice(prefix.length)
+      .trim()
+      .split(/[ \t]+/)
     const commandName = args.shift().toLowerCase()
+
+    if (commandName === '') {
+      if (isRitsuMention) message.channel.createMessage('oh hi')
+    }
 
     const command = this.client.commandManager.commands.get(commandName)
     if (!command) return
@@ -47,6 +64,14 @@ class messageCreate extends RitsuEvent {
         Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e.message)
       )
     })
+  }
+
+  isGuildPrefix(message: Message, guild: GuildsInterface) {
+    return message.content.startsWith(guild.prefix)
+  }
+
+  isRitsuMention(message: Message) {
+    return message.content.startsWith(`<@!${this.client.user.id}>`)
   }
 }
 
