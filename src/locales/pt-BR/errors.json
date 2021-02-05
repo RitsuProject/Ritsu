@@ -1,3 +1,4 @@
 {
-  "genericError": " {{emoji}} | Ops! **Uma falha critica** aconteceu e portanto **Eu estava incapacitada de continuar/começar a partida!** Se você acha que isso não deveria estar acontecendo, nos contate no **Servidor de suporte da Ritsu**! {{e}}"
+  "genericError": " {{emoji}} | Ops! **Uma falha critica** aconteceu e portanto **Eu estava incapacitada de continuar/começar a partida!** Se você acha que isso não deveria estar acontecendo, nos contate no **Servidor de suporte da Ritsu**! {{e}}",
+  "streamError": "Por uma razão extremamente malvada, eu estive incapaz de carrega a steam atual da musica tema e então estive incapaz de continuar! Reinicie o jogo e tente novamente."
 }

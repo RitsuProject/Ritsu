@@ -1,0 +1,8 @@
+{
+  "roundStarted": "Começando a #{{round}} rodada! Qual é o anime de **Abertura/Encerramento**? Envie a resposta no chat! Você tem **{{time}}**. Envie **{{prefix}}stop** no chat se quiser parar a partida.",
+  "nobodyWon": "Ninguém ganhou essa partida.",
+  "forceFinished": "A partida foi encerrada a força com sucesso",
+  "roundEnded": "As rodadas acabaram! Obrigada por jogar!",
+  "nobody": "Ninguém",
+  "songDetails": "{{songName}} | Artista: {{songArtist}}"
+}
