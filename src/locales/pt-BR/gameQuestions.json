@@ -1,0 +1,12 @@
+{
+  "whatMode": "Que modo de jogo você quer jogar? {{modes}}",
+  "whatNumberOfRounds": "Quantas rodadas você quer nessa partida?",
+  "whatDuration": "Quanto tempo vai durar cada rodada? (Mínimo: 20 segundos) **PS**: Lembre, durações validas são como: *20 seconds ou 20s*",
+  "errors": {
+    "matchStopped": "A partida foi cancelada, se você quiser começar mais uma, use ``{{command}}``.",
+    "invalidMode": "Essa não, o modo de jogo que você entrou é invalido ou foi temporariamente desabilitado! Por favor insira um da lista acima.",
+    "isNaN": "Bem... isso não parece um numero, eu acho.",
+    "roundsLimit": "Por razões extremamente tediosas, você não consegue começar mais que 10 rodadas como um usuário comum, se você quer mais, você poder ajudar com meu Patreon! {{patreonURL}}",
+    "invalidDuration": "Infelizmente, um simples bot como eu não é capaz de saber o que significa isso que você enviou, são segundos, minutos? Eu não sei! Por favor envie um tempo valido."
+  }
+}
