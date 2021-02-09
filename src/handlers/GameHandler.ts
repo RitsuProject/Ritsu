@@ -56,18 +56,20 @@ export default class GameHandler {
       return this.message.channel.createMessage('No Users in Voice Channel.')
     }
 
-    const theme: MioSong = await this.getTheme()
+    const themes = new Themes(this.message, this.gameOptions, this.themesCache)
+    const theme: MioSong = await themes.getTheme()
 
-    const loadingMessage = await this.message.channel.createMessage(
+    const fetchingStreamMessage = await this.message.channel.createMessage(
       `\`Fetching stream...\``
     )
     const stream: string = await getStreamFromURL(theme.link).catch((e) => {
-      loadingMessage.delete()
+      fetchingStreamMessage.delete()
       throw new Error(
         'For some extremely evil reason, I was unable to load the current stream of the theme and so I was unable to continue! Restart the game and try again.'
       )
     })
-    loadingMessage.delete()
+
+    fetchingStreamMessage.delete()
 
     guild.rolling = true
     await guild.save()
@@ -111,8 +113,9 @@ export default class GameHandler {
         this.message.channel.createMessage('Match ended.')
       } else {
         await this.startNewRound(guild).catch((e) => {
-          console.log(e)
-          throw new Error(e.message)
+          this.message.channel.createMessage(
+            Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e)
+          )
         })
       }
     })
@@ -127,29 +130,6 @@ export default class GameHandler {
     this.themesCache.del(this.themesCache.keys())
     await guild.save()
     await room.deleteOne()
-  }
-
-  async getTheme() {
-    const loadingMessage = await this.message.channel.createMessage(
-      `\`Fetching the Anime Theme...\``
-    )
-
-    const choosedTheme = await this.chooseTheme()
-    this.themesCache.set(choosedTheme.link, this.message.guildID)
-
-    loadingMessage.delete()
-    return choosedTheme
-  }
-
-  async chooseTheme(): Promise<MioSong> {
-    const themes = new Themes()
-    const theme = await themes.getThemeByMode(this.gameOptions)
-
-    if (!theme || this.themesCache.get(theme.link) !== undefined) {
-      return await this.chooseTheme()
-    } else {
-      return theme
-    }
   }
 
   async playTheme(voiceChannel: string, stream) {

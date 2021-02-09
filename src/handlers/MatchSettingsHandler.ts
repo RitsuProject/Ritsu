@@ -1,4 +1,5 @@
 import { Guild, Message } from 'eris'
+import ms from 'ms'
 import RitsuClient from '../structures/RitsuClient'
 
 /**
@@ -75,5 +76,25 @@ export default class MatchSettingsHandler {
       return rounds
     })
     return rounds
+  }
+
+  async getDuration() {
+    const primary = await this.message.channel.createMessage(
+      'each rounds duration'
+    )
+    const duration = await this.startCollector().then(async (m) => {
+      if (!m) return
+      if (m.content.endsWith('s')) {
+        const miliseconds = ms(m.content)
+        const long = ms(miliseconds, { long: true })
+        if (miliseconds < 20000) throw new Error('minimium time limit')
+        await primary.delete()
+        await m.delete()
+        return { parsed: miliseconds, value: long }
+      } else {
+        throw new Error('invalid')
+      }
+    })
+    return duration
   }
 }

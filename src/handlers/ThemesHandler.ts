@@ -2,18 +2,28 @@ import RitsuHTTP from '../structures/RitsuHTTP'
 import GameOptions from '../interfaces/GameOptions'
 import MioSong from '../interfaces/MioSong'
 import RitsuUtils from '../utils/RitsuUtils'
+import NodeCache from 'node-cache'
+import { Message } from 'eris'
 
 /**
  * ThemesHandler
  * @description Pick up the themes of the openings and endings according to the game mode.
  */
 export default class ThemesHandler {
-  async getThemeByMode(gameOptions: GameOptions) {
+  constructor(
+    private message: Message,
+    private gameOptions: GameOptions,
+    private themesCache: NodeCache
+  ) {
+    this.gameOptions = gameOptions
+    this.themesCache = themesCache
+  }
+  async getThemeByMode() {
     const provider = this.getProvider()
-    switch (gameOptions.mode) {
+    switch (this.gameOptions.mode) {
       case 'easy': {
         try {
-          const randomPage = RitsuUtils.randomIntBetween(0, 9)
+          const randomPage = RitsuUtils.randomIntBetween(0, 3)
           const byPopularityRank = await RitsuHTTP.get(
             `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`
           )
@@ -81,6 +91,28 @@ export default class ThemesHandler {
       default: {
         throw new Error('Gamemode not found.')
       }
+    }
+  }
+
+  async getTheme() {
+    const loadingMessage = await this.message.channel.createMessage(
+      `\`Fetching the Anime Theme...\``
+    )
+
+    const choosedTheme = await this.chooseTheme()
+    this.themesCache.set(choosedTheme.link, this.message.guildID)
+
+    loadingMessage.delete()
+    return choosedTheme
+  }
+
+  async chooseTheme(): Promise<MioSong> {
+    const theme = await this.getThemeByMode()
+
+    if (!theme || this.themesCache.get(theme.link) !== undefined) {
+      return await this.chooseTheme()
+    } else {
+      return theme
     }
   }
 
