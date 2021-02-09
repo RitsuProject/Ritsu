@@ -1,6 +1,6 @@
 import { Message } from 'eris'
 import Emojis from '../../utils/Emojis'
-import Guilds from '../../entities/Guild'
+import Guilds from '../../database/entities/Guild'
 import RitsuClient from '../../structures/RitsuClient'
 import RitsuCommand from '../../structures/RitsuCommand'
 

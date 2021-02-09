@@ -1,5 +1,5 @@
 import { Guild } from 'eris'
-import Guilds from '../entities/Guild'
+import Guilds from '../database/entities/Guild'
 import RitsuClient from '../structures/RitsuClient'
 import RitsuEvent from '../structures/RitsuEvent'
 

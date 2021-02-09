@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import GuildsInterface from '../interfaces/GuildsInterface'
+import GuildsInterface from '../../interfaces/GuildsInterface'
 
 const GuildsSchema: Schema = new Schema({
   _id: { type: String, required: true },

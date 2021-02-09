@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose'
-import RoomInterface from '../interfaces/RoomInterface'
+import RoomInterface from '../../interfaces/RoomInterface'
 
 const LeaderBoardSchema: Schema = new Schema({
   id: { type: String, required: true },

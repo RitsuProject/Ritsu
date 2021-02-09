@@ -1,7 +1,7 @@
 import Eris, { Client, ClientOptions } from 'eris'
 import { CommandManager } from './managers/CommandManager'
 import { ListenerManager } from './managers/ListenerManager'
-import mongoConnect from '../db/MongoConnect'
+import mongoConnect from '../database/MongoConnect'
 require('eris-additions')(Eris)
 
 /**
