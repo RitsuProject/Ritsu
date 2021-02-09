@@ -1,6 +1,6 @@
 import { Message } from 'eris'
 import RoomInterface from '../interfaces/RoomInterface'
-import Rooms from '../models/Room'
+import Rooms from '../entities/Room'
 
 export default class RoomHandler {
   private message: Message

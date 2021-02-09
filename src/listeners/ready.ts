@@ -1,5 +1,5 @@
-import Guilds from '../models/Guild'
-import Rooms from '../models/Room'
+import Guilds from '../entities/Guild'
+import Rooms from '../entities/Room'
 import RitsuClient from '../structures/RitsuClient'
 import RitsuEvent from '../structures/RitsuEvent'
 import RitsuUtils from '../utils/RitsuUtils'
