@@ -4,6 +4,9 @@ import MioSong from '../interfaces/MioSong'
 import RitsuUtils from '../utils/RitsuUtils'
 import NodeCache from 'node-cache'
 import { Message } from 'eris'
+import ThemesMoe from '../utils/ThemesMoe'
+import ThemesMoeAnime from '../interfaces/ThemesMoe'
+import ThemesMoeTheme from '../interfaces/ThemesMoe'
 
 /**
  * ThemesHandler
@@ -87,6 +90,28 @@ export default class ThemesHandler {
             throw new Error(e.message)
           }
         }
+      }
+
+      case 'list': {
+        const animeList = await ThemesMoe.getAnimesByAnimeList(
+          this.gameOptions.animeListWebsite,
+          this.gameOptions.animeListUsername
+        )
+
+        const anime: ThemesMoeAnime = RitsuUtils.randomValueInArray(animeList)
+        const theme: ThemesMoeTheme = RitsuUtils.randomValueInArray(
+          anime.themes
+        )
+
+        const mioSongFakeObject: MioSong = {
+          name: anime.name,
+          link: theme.mirror.mirrorURL,
+          type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
+          songName: theme.themeName,
+          songArtists: ['Not available in this game mode.'],
+        }
+
+        return mioSongFakeObject
       }
       default: {
         throw new Error('Gamemode not found.')

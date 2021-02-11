@@ -1,6 +1,7 @@
 import { Guild, Message } from 'eris'
 import ms from 'ms'
 import RitsuClient from '../structures/RitsuClient'
+import ThemesMoe from '../utils/ThemesMoe'
 
 /**
  * Match Settings Handler
@@ -96,5 +97,60 @@ export default class MatchSettingsHandler {
       }
     })
     return duration
+  }
+
+  async getListWebsite() {
+    const primary = await this.message.channel.createMessage(
+      'What website is your animelist on? (Supported: MyAnimeList, Anilist)'
+    )
+    const website = await this.startCollector().then(async (m) => {
+      if (!m) return
+      if (
+        m.content.toLowerCase() === 'myanimelist' ||
+        m.content.toLowerCase() === 'anilist'
+      ) {
+        await primary.delete()
+        await m.delete()
+
+        if (m.content.toLowerCase() === 'myanimelist') return 'mal'
+
+        return m.content.toLowerCase()
+      } else {
+        throw new Error(
+          'This does not appear to be a supported website. Canceling...'
+        )
+      }
+    })
+    return website
+  }
+
+  async getListUsername(website: string) {
+    const primary = await this.message.channel.createMessage(
+      'What is your username on your chosen website?'
+    )
+    const username = await this.startCollector().then(async (m) => {
+      if (!m) return
+
+      try {
+        const user = await ThemesMoe.getAnimesByAnimeList(website, m.content)
+
+        if (user.length <= 10) {
+          throw new Error(
+            'You need at least 10 animes in list to use this gamemode.'
+          )
+        }
+
+        if (user) {
+          await primary.delete()
+          await m.delete()
+          return m.content
+        } else {
+          throw new Error('Invalid Username')
+        }
+      } catch (e) {
+        throw new Error(e.message)
+      }
+    })
+    return username
   }
 }

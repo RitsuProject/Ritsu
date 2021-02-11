@@ -4,8 +4,8 @@ export default interface GameOptions {
   time: number
   readableTime: string
 
-  listWebsite?: string
-  listUsername?: string
+  animeListWebsite?: string
+  animeListUsername?: string
 
   year?: string
   season?: string
