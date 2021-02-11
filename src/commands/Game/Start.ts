@@ -27,24 +27,33 @@ class Start extends RitsuCommand {
 
     let animeListWebsite: string = null
     let animeListUsername: string = null
+    let season: string = null
+    let seasonYear: string = null
 
     if (gamemode === 'list') {
       animeListWebsite = await matchConfig.getListWebsite()
       if (!animeListWebsite) return
       animeListUsername = await matchConfig.getListUsername(animeListWebsite)
       if (!animeListUsername) return
-    }
+    } else if (gamemode === 'season') {
+      const seasonObject = await matchConfig.getSeason()
+      if (!seasonObject) return
 
-    console.log(animeListUsername)
-    console.log(animeListWebsite)
+      season = seasonObject.season
+      seasonYear = seasonObject.year
+    }
 
     const game = new Game(message, this.client, {
       mode: gamemode,
       rounds: rounds,
       time: duration.parsed,
       readableTime: duration.value,
+
+      // Optional
       animeListUsername: animeListUsername,
       animeListWebsite: animeListWebsite,
+      season: season,
+      year: seasonYear,
     })
     await game.init()
   }

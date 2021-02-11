@@ -153,4 +153,29 @@ export default class MatchSettingsHandler {
     })
     return username
   }
+
+  async getSeason() {
+    const primary = await this.message.channel.createMessage(
+      'What is the year and season? (Example: 2021, Winter)'
+    )
+
+    const season = await this.startCollector().then(async (m) => {
+      if (!m) return
+      const seasonFormat = m.content.split(',')
+      const year = seasonFormat[0]
+      const season = seasonFormat[1]
+
+      if (year && season) {
+        await primary.delete()
+        await m.delete()
+        return {
+          year: year,
+          season: season.trim().toLowerCase(),
+        }
+      } else {
+        throw new Error('This does not seem to be in the right format.')
+      }
+    })
+    return season
+  }
 }

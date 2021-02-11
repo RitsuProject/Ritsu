@@ -113,6 +113,34 @@ export default class ThemesHandler {
 
         return mioSongFakeObject
       }
+
+      case 'season': {
+        try {
+          const animes = await ThemesMoe.getAnimesBySeason(
+            this.gameOptions.year,
+            this.gameOptions.season
+          )
+
+          const anime: ThemesMoeAnime = RitsuUtils.randomValueInArray(animes)
+          const theme: ThemesMoeTheme = RitsuUtils.randomValueInArray(
+            anime.themes
+          )
+
+          const mioSongFakeObject: MioSong = {
+            name: anime.name,
+            link: theme.mirror.mirrorURL,
+            type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
+            songName: theme.themeName,
+            songArtists: ['Not available in this game mode.'],
+          }
+
+          return mioSongFakeObject
+        } catch (e) {
+          console.log(e)
+          throw new Error(e.message)
+        }
+      }
+
       default: {
         throw new Error('Gamemode not found.')
       }

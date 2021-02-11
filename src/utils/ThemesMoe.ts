@@ -51,4 +51,25 @@ export default {
       }
     }
   },
+
+  async getAnimesBySeason(year: string, season: string) {
+    try {
+      const themesMoeResponse = await RitsuHTTP.get(
+        `https://themes.moe/api/seasons/${year}`
+      )
+
+      const data: Array<ThemesMoeAnime> = themesMoeResponse.data
+      const filter = data.filter((anime) => anime.season === season)
+
+      if (filter.length > 0) return filter
+
+      throw new Error('Season not found.')
+    } catch (e) {
+      if (e.isAxiosError) {
+        if (e.response.status === 404) throw new Error('Year not found.')
+      } else {
+        throw new Error(e.message)
+      }
+    }
+  },
 }
