@@ -10,5 +10,12 @@
       "description": "Are you interested in my **commands**? Ooh, that's cool, feel free to see them down there.\n\nIf you have any questions, doubts or want support, do not hesitate to join **my support server**.",
       "field": "Commands"
     }
+  },
+  "prefix": {
+    "commandDescription": "Change the bot prefix.",
+    "changedPrefix": "The server prefix has been changed: {{newPrefix}}",
+    "errors": {
+      "noPrefix": "You need to specify the prefix."
+    }
   }
 }

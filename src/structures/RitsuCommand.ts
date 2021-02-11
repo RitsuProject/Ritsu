@@ -1,5 +1,6 @@
 import { Command, Message } from 'eris'
 import RitsuClient from 'src/structures/RitsuClient'
+import GuildsInterface from '../interfaces/GuildsInterface'
 
 interface Options {
   name: string
@@ -28,5 +29,5 @@ export default class RitsuCommand {
     this.dev = options.dev || false
   }
 
-  run(message: Message, args: Array<string>) {}
+  run(message: Message, args: Array<string>, guild: GuildsInterface) {}
 }
