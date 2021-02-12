@@ -7,5 +7,6 @@
   "extends": ["standard", "prettier"],
   "parserOptions": {
     "ecmaVersion": 12
-  }
+  },
+  "ignorePatterns": ["src/locales/*", "src/locales"]
 }
