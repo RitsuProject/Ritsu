@@ -5,6 +5,7 @@ import GuildsInterface from '../interfaces/GuildsInterface'
 interface Options {
   name: string
   description: string
+  category: string
   aliases: Array<string>
   fields?: Array<string>
   requiredPermissions?: Array<string>
@@ -15,6 +16,7 @@ export default class RitsuCommand {
   public client: RitsuClient
   public name: string
   public description: string
+  public category: string
   public aliases: Array<string>
   public fields?: Array<string>
   public requiredPermissions?: Object
@@ -23,6 +25,7 @@ export default class RitsuCommand {
     this.client = client
     this.name = options.name || null
     this.description = options.description || 'A command.'
+    this.category = options.category || 'Game'
     this.aliases = options.aliases || []
     this.fields = options.fields || null
     this.requiredPermissions = options.requiredPermissions || null

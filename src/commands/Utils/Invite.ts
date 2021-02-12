@@ -7,6 +7,7 @@ class Invite extends RitsuCommand {
     super(client, {
       name: 'invite',
       description: 'Add me to your server!',
+      category: 'Utils',
       dev: false,
       aliases: [],
       requiredPermissions: null,

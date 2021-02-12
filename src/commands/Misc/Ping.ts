@@ -7,6 +7,7 @@ class Ping extends RitsuCommand {
     super(client, {
       name: 'ping',
       description: 'Pong!',
+      category: 'Miscellaneous',
       dev: false,
       aliases: [],
       requiredPermissions: null,

@@ -8,6 +8,7 @@ class Prefix extends RitsuCommand {
     super(client, {
       name: 'prefix',
       description: 'Change the guild prefix.',
+      category: 'Utils',
       dev: false,
       aliases: [],
       requiredPermissions: null,
