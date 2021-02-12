@@ -9,7 +9,8 @@
   "scripts": {
     "start": "ts-node src/Ritsu.ts",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/Ritsu.ts",
-    "lint": "eslint src/* --fix"
+    "lint": "eslint src/* --fix",
+    "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
     "@discordjs/collection": "^0.1.6",
