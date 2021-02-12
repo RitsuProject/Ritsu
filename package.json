@@ -9,7 +9,7 @@
   "scripts": {
     "start": "ts-node src/Ritsu.ts",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/Ritsu.ts",
-    "lint": "eslint src/* --ext .ts --ignore-pattern '/src/locales/' --fix",
+    "lint": "eslint src/* --ext .ts --ignore-pattern 'src/locales' --fix",
     "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
