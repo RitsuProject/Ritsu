@@ -15,7 +15,7 @@ class Invite extends RitsuCommand {
     this.client = client
   }
 
-  async run(message: Message): Promise<void> {
+  async run(message: Message) {
     const dmChannel = await message.author.getDMChannel()
     let openDmChannel = true
     dmChannel

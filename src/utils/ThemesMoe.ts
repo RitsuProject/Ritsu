@@ -1,4 +1,4 @@
-import ThemesMoeAnime from '../interfaces/ThemesMoe'
+import { ThemesMoeAnime } from '../interfaces/ThemesMoe'
 import RitsuHTTP from '../structures/RitsuHTTP'
 
 export default {

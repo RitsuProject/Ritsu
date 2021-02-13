@@ -16,11 +16,7 @@ class Help extends RitsuCommand {
     this.client = client
   }
 
-  async run(
-    message: Message,
-    _: Array<string>,
-    guild: GuildsInterface
-  ): Promise<void> {
+  async run(message: Message, _: Array<string>, guild: GuildsInterface) {
     const embed: EmbedOptions = {
       title: `:books:  Ritsu's Help`,
       color: 7506394,
