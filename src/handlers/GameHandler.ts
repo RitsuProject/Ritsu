@@ -62,7 +62,7 @@ export default class GameHandler {
     const fetchingStreamMessage = await this.message.channel.createMessage(
       `\`Fetching stream...\``
     )
-    const stream: string = await getStreamFromURL(theme.link).catch((e) => {
+    const stream: string = await getStreamFromURL(theme.link).catch(() => {
       fetchingStreamMessage.delete()
       throw new Error(
         'For some extremely evil reason, I was unable to load the current stream of the theme and so I was unable to continue! Restart the game and try again.'
@@ -94,7 +94,7 @@ export default class GameHandler {
       GameCollectorUtils.handleCollect(room, msg)
     })
 
-    answerCollector.on('end', async (_, reason: string) => {
+    answerCollector.on('end', async () => {
       const answerers =
         room.answerers.length > 0
           ? room.answerers.map((id) => `<@${id}>`).join(', ')
@@ -123,7 +123,7 @@ export default class GameHandler {
     this.playTheme(voiceChannel, stream)
   }
 
-  async handleFinish(room: RoomInterface, force: boolean) {}
+  // async handleFinish(room: RoomInterface, force: boolean) {}
 
   async clearData(room: RoomInterface, guild: GuildsInterface) {
     guild.rolling = false

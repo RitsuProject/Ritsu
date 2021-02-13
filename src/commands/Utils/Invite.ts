@@ -1,4 +1,4 @@
-import { EmbedOptions, Message } from 'eris'
+import { Message } from 'eris'
 import RitsuClient from 'src/structures/RitsuClient'
 import RitsuCommand from '../../structures/RitsuCommand'
 
@@ -15,7 +15,7 @@ class Invite extends RitsuCommand {
     this.client = client
   }
 
-  async run(message: Message) {
+  async run(message: Message): Promise<void> {
     const dmChannel = await message.author.getDMChannel()
     let openDmChannel = true
     dmChannel

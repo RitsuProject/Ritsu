@@ -1,4 +1,5 @@
-import { Command, Message } from 'eris'
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { Message } from 'eris'
 import RitsuClient from 'src/structures/RitsuClient'
 import GuildsInterface from '../interfaces/GuildsInterface'
 
@@ -32,6 +33,6 @@ export default class RitsuCommand {
     this.dev = options.dev || false
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  run(message: Message, args: Array<string>, guild: GuildsInterface) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  run(_message: Message, _args: Array<string>, _guild: GuildsInterface): void {}
 }

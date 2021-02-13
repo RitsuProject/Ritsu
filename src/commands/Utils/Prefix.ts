@@ -16,7 +16,11 @@ class Prefix extends RitsuCommand {
     this.client = client
   }
 
-  async run(message: Message, args: Array<string>, guild: GuildsInterface) {
+  async run(
+    message: Message,
+    args: Array<string>,
+    guild: GuildsInterface
+  ): Promise<void | Message> {
     if (!args[0])
       return message.channel.createMessage('You need to specify the prefix.')
     guild.prefix = args[0]

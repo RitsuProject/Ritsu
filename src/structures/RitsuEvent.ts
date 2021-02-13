@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import RitsuClient from 'src/structures/RitsuClient'
 
 interface Options {
@@ -6,9 +7,10 @@ interface Options {
 
 export default class RitsuEvent {
   public name: string
-  constructor(client: RitsuClient, options: Options) {
+  constructor(_client: RitsuClient, options: Options) {
     this.name = options.name
   }
 
-  run(...args) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  run(..._args) {}
 }

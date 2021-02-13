@@ -2,7 +2,10 @@ import ThemesMoeAnime from '../interfaces/ThemesMoe'
 import RitsuHTTP from '../structures/RitsuHTTP'
 
 export default {
-  async getAnimesByAnimeList(website: string, username: string) {
+  async getAnimesByAnimeList(
+    website: string,
+    username: string
+  ): Promise<ThemesMoeAnime[]> {
     switch (website) {
       case 'mal': {
         try {
@@ -54,7 +57,10 @@ export default {
     }
   },
 
-  async getAnimesBySeason(year: string, season: string) {
+  async getAnimesBySeason(
+    year: string,
+    season: string
+  ): Promise<ThemesMoeAnime[]> {
     try {
       const themesMoeResponse = await RitsuHTTP.get(
         `https://themes.moe/api/seasons/${year}`

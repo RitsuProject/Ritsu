@@ -10,5 +10,8 @@
   "parserOptions": {
     "ecmaVersion": 12
   },
-  "ignorePatterns": ["*.json", "src/locales/**"]
+  "ignorePatterns": ["*.json", "src/locales/**", "src/@types/**"],
+  "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  }
 }

@@ -1,4 +1,4 @@
-import { Embed, EmbedOptions } from 'eris'
+import { EmbedOptions } from 'eris'
 import AnilistAnime from '../interfaces/AnilistAnime'
 import MioSong from '../interfaces/MioSong'
 

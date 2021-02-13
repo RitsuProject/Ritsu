@@ -1,6 +1,5 @@
 import { Message } from 'eris'
 import RitsuClient from 'src/structures/RitsuClient'
-import Emojis from '../utils/Emojis'
 import RitsuEvent from '../structures/RitsuEvent'
 import Users from '../database/entities/User'
 import Guilds from '../database/entities/Guild'
@@ -16,7 +15,7 @@ class messageCreate extends RitsuEvent {
     this.client = client
   }
 
-  async run(message: Message) {
+  async run(message: Message): Promise<void> {
     if (message.author.bot) return
     if (message.channel.type === 1) return // Avoid DM messages.
     const guild: GuildsInterface = await Guilds.findById(message.guildID)
@@ -67,11 +66,11 @@ class messageCreate extends RitsuEvent {
     })
   }
 
-  isGuildPrefix(message: Message, guild: GuildsInterface) {
+  isGuildPrefix(message: Message, guild: GuildsInterface): boolean {
     return message.content.startsWith(guild.prefix)
   }
 
-  isRitsuMention(message: Message) {
+  isRitsuMention(message: Message): boolean {
     return message.content.startsWith(`<@!${this.client.user.id}>`)
   }
 }

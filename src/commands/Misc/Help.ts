@@ -1,6 +1,4 @@
 import { EmbedOptions, Message } from 'eris'
-import Emojis from '../../utils/Emojis'
-import Guilds from '../../database/entities/Guild'
 import RitsuClient from '../../structures/RitsuClient'
 import RitsuCommand from '../../structures/RitsuCommand'
 import GuildsInterface from '../../interfaces/GuildsInterface'
@@ -18,7 +16,11 @@ class Help extends RitsuCommand {
     this.client = client
   }
 
-  async run(message: Message, _, guild: GuildsInterface) {
+  async run(
+    message: Message,
+    _: Array<string>,
+    guild: GuildsInterface
+  ): Promise<void> {
     const embed: EmbedOptions = {
       title: `:books:  Ritsu's Help`,
       color: 7506394,
@@ -69,7 +71,7 @@ class Help extends RitsuCommand {
       })
   }
 
-  getCommandsByCategory(prefix: string, category: string) {
+  getCommandsByCategory(prefix: string, category: string): string {
     return this.client.commandManager.commands
       .filter((c) => !c.dev)
       .filter((c) => c.category === category)

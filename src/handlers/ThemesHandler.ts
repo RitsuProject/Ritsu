@@ -5,8 +5,7 @@ import RitsuUtils from '../utils/RitsuUtils'
 import NodeCache from 'node-cache'
 import { Message } from 'eris'
 import ThemesMoe from '../utils/ThemesMoe'
-import ThemesMoeAnime from '../interfaces/ThemesMoe'
-import ThemesMoeTheme from '../interfaces/ThemesMoe'
+import { ThemesMoeAnime, ThemesMoeTheme } from '../interfaces/ThemesMoe'
 
 /**
  * ThemesHandler
@@ -22,7 +21,7 @@ export default class ThemesHandler {
     this.themesCache = themesCache
   }
 
-  async getThemeByMode() {
+  async getThemeByMode(): Promise<false | MioSong> {
     const provider = this.getProvider()
     switch (this.gameOptions.mode) {
       case 'easy': {
@@ -150,7 +149,7 @@ export default class ThemesHandler {
     }
   }
 
-  async getTheme() {
+  async getTheme(): Promise<MioSong> {
     const loadingMessage = await this.message.channel.createMessage(
       `\`Fetching the Anime Theme...\``
     )
@@ -172,7 +171,7 @@ export default class ThemesHandler {
     }
   }
 
-  getProvider() {
+  getProvider(): string {
     const providers = ['animethemes', 'openingsmoe']
 
     const provider: string = RitsuUtils.randomValueInArray(providers)

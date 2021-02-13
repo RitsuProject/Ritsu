@@ -15,7 +15,9 @@ class Leaderboard extends RitsuCommand {
     this.client = client
   }
 
-  async run(message: Message) {}
+  async run(message: Message) {
+    return message.channel.createMessage('bunda')
+  }
 }
 
 export = Leaderboard

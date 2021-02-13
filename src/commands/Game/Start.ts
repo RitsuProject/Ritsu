@@ -9,6 +9,7 @@ class Start extends RitsuCommand {
     super(client, {
       name: 'start',
       description: 'Start a Game!',
+      category: "Game",
       dev: false,
       aliases: [],
       requiredPermissions: null,
@@ -16,7 +17,7 @@ class Start extends RitsuCommand {
     this.client = client
   }
 
-  async run(message: Message) {
+  async run(message: Message): Promise<void> {
     const matchConfig = new MatchConfig(message, this.client)
     const gamemode = await matchConfig.getGamemode()
     if (!gamemode) return

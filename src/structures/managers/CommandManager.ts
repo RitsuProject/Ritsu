@@ -17,7 +17,7 @@ export class CommandManager {
     this.client = client
   }
 
-  build() {
+  build(): void {
     readdir(join(__dirname, '..', '..', '/commands'), (err, files) => {
       if (err) console.error(err)
       files.forEach((category) => {
@@ -26,6 +26,7 @@ export class CommandManager {
           (err, cmd) => {
             if (err) return console.log(err)
             cmd.forEach((cmd) => {
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
               const Command = require(join(
                 __dirname,
                 '..',

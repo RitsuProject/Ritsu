@@ -2,7 +2,6 @@ import { Message } from 'eris'
 import stringSimilarity from 'string-similarity'
 import AnilistAnime from '../interfaces/AnilistAnime'
 import Leaderboard from '../interfaces/Leaderboard'
-import MioSong from '../interfaces/MioSong'
 import RoomInterface from '../interfaces/RoomInterface'
 
 export default {

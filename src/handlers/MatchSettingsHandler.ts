@@ -37,7 +37,7 @@ export default class MatchSettingsHandler {
       })
   }
 
-  async getGamemode() {
+  async getGamemode(): Promise<string> {
     const primary = await this.message.channel.createMessage(
       'What game mode do you want for the match?'
     )
@@ -56,7 +56,7 @@ export default class MatchSettingsHandler {
     return mode
   }
 
-  async getRounds() {
+  async getRounds(): Promise<number> {
     const primary = await this.message.channel.createMessage(
       'How many rounds in the match do you want?'
     )
@@ -80,7 +80,7 @@ export default class MatchSettingsHandler {
     return rounds
   }
 
-  async getDuration() {
+  async getDuration(): Promise<{ parsed: number; value: string }> {
     const primary = await this.message.channel.createMessage(
       'each rounds duration'
     )
@@ -100,7 +100,7 @@ export default class MatchSettingsHandler {
     return duration
   }
 
-  async getListWebsite() {
+  async getListWebsite(): Promise<string> {
     const primary = await this.message.channel.createMessage(
       'What website is your animelist on? (Supported: MyAnimeList, Anilist)'
     )
@@ -125,7 +125,7 @@ export default class MatchSettingsHandler {
     return website
   }
 
-  async getListUsername(website: string) {
+  async getListUsername(website: string): Promise<string> {
     const primary = await this.message.channel.createMessage(
       'What is your username on your chosen website?'
     )
@@ -155,7 +155,7 @@ export default class MatchSettingsHandler {
     return username
   }
 
-  async getSeason() {
+  async getSeason(): Promise<{ year: string; season: string }> {
     const primary = await this.message.channel.createMessage(
       'What is the year and season? (Example: 2021, Winter)'
     )

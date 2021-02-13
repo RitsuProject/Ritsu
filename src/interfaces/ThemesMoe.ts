@@ -1,4 +1,4 @@
-export default interface ThemesMoeTheme {
+interface ThemesMoeTheme {
   themeType: string
   themeName: string
   mirror: {
@@ -8,7 +8,7 @@ export default interface ThemesMoeTheme {
   }
 }
 
-export default interface ThemesMoeAnime {
+interface ThemesMoeAnime {
   malID: number
   name: string
   year: number
@@ -16,3 +16,5 @@ export default interface ThemesMoeAnime {
   themes: Array<ThemesMoeTheme>
   watchStatus: number
 }
+
+export { ThemesMoeAnime, ThemesMoeTheme }
