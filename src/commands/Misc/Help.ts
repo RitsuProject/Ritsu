@@ -47,7 +47,7 @@ class Help extends RitsuCommand {
       },
     }
     const dmChannel = await message.author.getDMChannel()
-    let openDmChannel: boolean = true
+    let openDmChannel = true
     dmChannel
       .createMessage({
         content:

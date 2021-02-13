@@ -24,6 +24,7 @@ export default {
             throw new Error(e.message)
           }
         }
+        break
       }
       case 'anilist': {
         try {
@@ -45,6 +46,7 @@ export default {
             throw new Error(e.message)
           }
         }
+        break
       }
       default: {
         throw new Error('Unsupported Website')

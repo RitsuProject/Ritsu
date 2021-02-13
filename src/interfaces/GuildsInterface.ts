@@ -1,10 +1,10 @@
 import { Document } from 'mongoose'
 
 export default interface GuildsInterface extends Document {
-  _id: String
-  name: String
+  _id: string
+  name: string
   prefix: string
-  rolling: Boolean
-  lang: String
-  premium: Boolean
+  rolling: boolean
+  lang: string
+  premium: boolean
 }

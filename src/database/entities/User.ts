@@ -1,19 +1,19 @@
 import mongoose, { Schema, Document } from 'mongoose'
 
 interface UsersInterface extends Document {
-  _id: String
-  name: String
-  wonMatches: Number
+  _id: string
+  name: string
+  wonMatches: number
   rank: 'Beginner' | 'Pro'
-  played: Number
-  bio?: String
-  admin: Boolean
-  patreonSupporter: Boolean
-  badges: Array<String>
-  xp: Number
-  levelxp: Number
-  level: Number
-  requiredToUP: Number
+  played: number
+  bio?: string
+  admin: boolean
+  patreonSupporter: boolean
+  badges: Array<string>
+  xp: number
+  levelxp: number
+  level: number
+  requiredToUP: number
 }
 
 const UserSchema: Schema = new Schema({

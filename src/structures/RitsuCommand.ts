@@ -19,8 +19,8 @@ export default class RitsuCommand {
   public category: string
   public aliases: Array<string>
   public fields?: Array<string>
-  public requiredPermissions?: Object
-  public dev: Boolean
+  public requiredPermissions?: Array<string>
+  public dev: boolean
   constructor(client: RitsuClient, options: Options) {
     this.client = client
     this.name = options.name || null
@@ -32,5 +32,6 @@ export default class RitsuCommand {
     this.dev = options.dev || false
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   run(message: Message, args: Array<string>, guild: GuildsInterface) {}
 }

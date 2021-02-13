@@ -10,7 +10,7 @@ import RitsuCommand from '../RitsuCommand'
  */
 
 export class CommandManager {
-  public commands: Collection<String, RitsuCommand> = new Collection()
+  public commands: Collection<string, RitsuCommand> = new Collection()
   public client: RitsuClient
   constructor(client: RitsuClient) {
     this.commands = new Collection()

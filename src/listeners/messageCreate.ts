@@ -15,6 +15,7 @@ class messageCreate extends RitsuEvent {
     })
     this.client = client
   }
+
   async run(message: Message) {
     if (message.author.bot) return
     if (message.channel.type === 1) return // Avoid DM messages.

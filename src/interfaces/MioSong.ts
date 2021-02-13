@@ -3,5 +3,5 @@ export default interface MioSong {
   link: string
   type: string
   songName: string
-  songArtists: Array<String | Object>
+  songArtists: Array<string>
 }

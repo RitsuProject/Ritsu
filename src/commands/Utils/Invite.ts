@@ -17,7 +17,7 @@ class Invite extends RitsuCommand {
 
   async run(message: Message) {
     const dmChannel = await message.author.getDMChannel()
-    let openDmChannel: boolean = true
+    let openDmChannel = true
     dmChannel
       .createMessage(
         'Thanks for wanting to add me! Here is the invite link! <invite here owo>'

@@ -36,6 +36,7 @@ export default class MatchSettingsHandler {
         return m
       })
   }
+
   async getGamemode() {
     const primary = await this.message.channel.createMessage(
       'What game mode do you want for the match?'

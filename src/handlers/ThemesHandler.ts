@@ -21,6 +21,7 @@ export default class ThemesHandler {
     this.gameOptions = gameOptions
     this.themesCache = themesCache
   }
+
   async getThemeByMode() {
     const provider = this.getProvider()
     switch (this.gameOptions.mode) {
@@ -48,6 +49,7 @@ export default class ThemesHandler {
             throw new Error(e.message)
           }
         }
+        break
       }
       case 'normal': {
         try {
@@ -90,6 +92,7 @@ export default class ThemesHandler {
             throw new Error(e.message)
           }
         }
+        break
       }
 
       case 'list': {
