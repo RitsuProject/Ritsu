@@ -8,5 +8,5 @@
   "parserOptions": {
     "ecmaVersion": 12
   },
-  "ignorePatterns": ["*.json", "src/locales/*"]
+  "ignorePatterns": ["*.json", "src/locales/**"]
 }
