@@ -5,6 +5,7 @@ import Users from '../database/entities/User'
 import Guilds from '../database/entities/Guild'
 import Constants from '../utils/Constants'
 import GuildsInterface from '../interfaces/GuildsInterface'
+import i18next from 'i18next'
 
 class messageCreate extends RitsuEvent {
   public client: RitsuClient
@@ -32,6 +33,8 @@ class messageCreate extends RitsuEvent {
       }).save()
     }
 
+    const t = i18next.getFixedT(guild.lang)
+
     const isRitsuMention = this.isRitsuMention(message)
     const isGuildPrefix = this.isGuildPrefix(message, guild)
 
@@ -50,7 +53,10 @@ class messageCreate extends RitsuEvent {
     const commandName = args.shift().toLowerCase()
 
     if (commandName === '') {
-      if (isRitsuMention) message.channel.createMessage('oh hi')
+      if (isRitsuMention)
+        message.channel.createMessage(
+          t('utils:mentionRitsu', { prefix: guild.prefix })
+        )
     }
 
     const command = this.client.commandManager.commands.get(commandName)
