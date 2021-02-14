@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Message } from 'eris'
+import { TFunction } from 'i18next'
 import RitsuClient from 'src/structures/RitsuClient'
 import GuildsInterface from '../interfaces/GuildsInterface'
 
@@ -13,7 +14,12 @@ interface Options {
   dev: boolean
 }
 
-export default class RitsuCommand {
+interface RunArguments {
+  message: Message
+  args: Array<string>
+}
+
+class RitsuCommand {
   public client: RitsuClient
   public name: string
   public description: string
@@ -34,5 +40,7 @@ export default class RitsuCommand {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  run(_message: Message, _args: Array<string>, _guild: GuildsInterface): void {}
+  run(context: RunArguments, guild: GuildsInterface, t: TFunction): void {}
 }
+
+export { RitsuCommand, RunArguments }

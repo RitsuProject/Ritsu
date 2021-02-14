@@ -63,7 +63,7 @@ class messageCreate extends RitsuEvent {
     if (!command) return
 
     new Promise((resolve) => {
-      resolve(command.run(message, args, guild))
+      resolve(command.run({ message, args }, guild, t))
     }).catch((e: Error) => {
       console.log(e)
       message.channel.createMessage(

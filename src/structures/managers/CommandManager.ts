@@ -2,7 +2,7 @@ import Collection from '@discordjs/collection'
 import { readdir } from 'fs'
 import { join } from 'path'
 import RitsuClient from '../RitsuClient'
-import RitsuCommand from '../RitsuCommand'
+import { RitsuCommand } from '../RitsuCommand'
 
 /**
  * Command Manager

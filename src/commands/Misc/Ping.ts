@@ -1,6 +1,5 @@
-import { Message } from 'eris'
 import RitsuClient from 'src/structures/RitsuClient'
-import RitsuCommand from '../../structures/RitsuCommand'
+import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
 
 class Ping extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -15,9 +14,9 @@ class Ping extends RitsuCommand {
     this.client = client
   }
 
-  async run(message: Message) {
+  async run(context: RunArguments) {
     const createdAt = Date.now()
-    const msg = await message.channel.createMessage(
+    const msg = await context.message.channel.createMessage(
       'Dont steal my strawberry, Mugi!'
     )
     msg.edit(

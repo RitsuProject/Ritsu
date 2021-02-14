@@ -1,6 +1,6 @@
-import { EmbedOptions, Message } from 'eris'
+import { EmbedOptions } from 'eris'
 import RitsuClient from '../../structures/RitsuClient'
-import RitsuCommand from '../../structures/RitsuCommand'
+import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
 import GuildsInterface from '../../interfaces/GuildsInterface'
 
 class Help extends RitsuCommand {
@@ -16,7 +16,7 @@ class Help extends RitsuCommand {
     this.client = client
   }
 
-  async run(message: Message, _: Array<string>, guild: GuildsInterface) {
+  async run(context: RunArguments, guild: GuildsInterface) {
     const embed: EmbedOptions = {
       title: `:books:  Ritsu's Help`,
       color: 7506394,
@@ -44,7 +44,7 @@ class Help extends RitsuCommand {
           'You can get more information about the commands at https://ritsu.fun/commands',
       },
     }
-    const dmChannel = await message.author.getDMChannel()
+    const dmChannel = await context.message.author.getDMChannel()
     let openDmChannel = true
     dmChannel
       .createMessage({
@@ -54,13 +54,13 @@ class Help extends RitsuCommand {
       })
       .catch(() => {
         openDmChannel = false
-        message.channel.createMessage(
+        context.message.channel.createMessage(
           'It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message.'
         )
       })
       .then(() => {
         if (openDmChannel) {
-          message.channel.createMessage(
+          context.message.channel.createMessage(
             'Could you have a look at your DM (Direct Messages) please?'
           )
         }

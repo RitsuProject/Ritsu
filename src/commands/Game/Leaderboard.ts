@@ -1,6 +1,5 @@
-import { Message } from 'eris'
 import RitsuClient from 'src/structures/RitsuClient'
-import RitsuCommand from '../../structures/RitsuCommand'
+import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
 
 class Leaderboard extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -15,8 +14,8 @@ class Leaderboard extends RitsuCommand {
     this.client = client
   }
 
-  async run(message: Message) {
-    return message.channel.createMessage('bunda')
+  async run(context: RunArguments) {
+    return context.message.channel.createMessage('bunda')
   }
 }
 
