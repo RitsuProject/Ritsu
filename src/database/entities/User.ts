@@ -1,36 +1,45 @@
-import mongoose, { Schema, Document } from 'mongoose'
+import { prop, getModelForClass, DocumentType } from '@typegoose/typegoose';
 
-interface UsersInterface extends Document {
-  _id: string
-  name: string
-  wonMatches: number
-  rank: 'Beginner' | 'Pro'
-  played: number
-  bio?: string
-  admin: boolean
-  patreonSupporter: boolean
-  badges: Array<string>
-  xp: number
-  levelxp: number
-  level: number
-  requiredToUP: number
+class User {
+  @prop()
+  public _id!: string;
+
+  @prop({ required: true })
+  public name!: string;
+
+  @prop({ required: true })
+  public wonMatches!: boolean;
+
+  @prop({ type: String, required: true, default: 'Beginner' })
+  public rank!: 'Beginner' | 'Pro'
+
+  @prop({ required: true })
+  public played!: number;
+
+  @prop()
+  public bio?: string;
+
+  @prop({ required: true })
+  public admin?: boolean
+
+  @prop({ required: true, default: false })
+  public patreonSupporter!: boolean;
+
+  @prop({ type: String, required: true, default: [] })
+  public badges!: string[];
+
+  @prop({ required: true, default: 0 })
+  public xp!: number;
+
+  @prop({ required: true, default: 0 })
+  public levelxp!: number;
+
+  @prop({ required: true, default: 1 })
+  public level!: number;
+
+  @prop({ required: true, default: 500 })
+  public requiredToUP!: number
 }
 
-const UserSchema: Schema = new Schema({
-  _id: { type: String, required: true }, // User ID
-  name: { type: String, required: true }, // Username
-  wonMatches: { type: Number, required: true }, // Won Matches
-  rank: { type: String, required: true, default: 'Beginner' }, // User Rank
-  played: { type: Number, required: true }, // Played Matches
-  bio: { type: String, required: false }, // User biography.
-  admin: { type: Boolean, required: true }, // Is admin?
-  patreonSupporter: { type: Boolean, default: false, required: true }, // Is a patreon supporter?
-  badges: { type: Array, required: true, default: [] }, // User Badges
-  xp: { type: Number, required: true, default: 0 }, // User XP
-  levelxp: { type: Number, required: true, default: 0 }, // Level XP (Like: 1000 for Level 2)
-  level: { type: Number, required: true, default: 1 }, // User Level
-  requiredToUP: { type: Number, required: true, default: 500 }, // XP required to up to the next level.
-})
-
-const Users = mongoose.model<UsersInterface>('Users', UserSchema)
-export default Users
+export type UserDocument = DocumentType<User>
+export default getModelForClass(User)

@@ -2,9 +2,8 @@ import { Message } from 'eris'
 import RitsuClient from 'src/structures/RitsuClient'
 import RitsuEvent from '../structures/RitsuEvent'
 import Users from '../database/entities/User'
-import Guilds from '../database/entities/Guild'
+import Guilds, { GuildDocument } from '../database/entities/Guild'
 import Constants from '../utils/Constants'
-import GuildsInterface from '../interfaces/GuildsInterface'
 import i18next from 'i18next'
 
 class messageCreate extends RitsuEvent {
@@ -19,7 +18,7 @@ class messageCreate extends RitsuEvent {
   async run(message: Message): Promise<void> {
     if (message.author.bot) return
     if (message.channel.type === 1) return // Avoid DM messages.
-    const guild: GuildsInterface = await Guilds.findById(message.guildID)
+    const guild = await Guilds.findById(message.guildID)
     const user = await Users.findById(message.author.id)
     if (!user) {
       new Users({
@@ -72,7 +71,7 @@ class messageCreate extends RitsuEvent {
     })
   }
 
-  isGuildPrefix(message: Message, guild: GuildsInterface): boolean {
+  isGuildPrefix(message: Message, guild: GuildDocument): boolean {
     return message.content.startsWith(guild.prefix)
   }
 

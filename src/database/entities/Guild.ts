@@ -1,14 +1,24 @@
-import mongoose, { Schema } from 'mongoose'
-import GuildsInterface from '../../interfaces/GuildsInterface'
+import { prop, getModelForClass, DocumentType } from '@typegoose/typegoose'
 
-const GuildsSchema: Schema = new Schema({
-  _id: { type: String, required: true },
-  name: { type: String, required: true },
-  prefix: { type: String, required: false, default: process.env.RITSU_PREFIX },
-  rolling: { type: Boolean, required: false, default: false },
-  lang: { type: String, required: false, default: 'en-US' },
-  premium: { type: Boolean, required: true },
-})
+class Guild {
+  @prop()
+  public _id!: string;
 
-const Guilds = mongoose.model<GuildsInterface>('guilds', GuildsSchema)
-export default Guilds
+  @prop({ required: true })
+  public name!: string;
+
+  @prop({ default: process.env.RITSU_PREFIX })
+  public prefix?: string
+
+  @prop({ default: false })
+  public rolling?: boolean;
+
+  @prop({ default: 'en-US'})
+  public lang?: string;
+
+  @prop({ required: true })
+  public premium!: boolean;
+}
+
+export type GuildDocument = DocumentType<Guild>
+export default getModelForClass(Guild)

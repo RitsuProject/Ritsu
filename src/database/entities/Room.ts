@@ -1,20 +1,35 @@
-import mongoose, { Schema } from 'mongoose'
-import RoomInterface from '../../interfaces/RoomInterface'
+import { prop, getModelForClass, DocumentType } from '@typegoose/typegoose'
 
-const LeaderBoardSchema: Schema = new Schema({
-  id: { type: String, required: true },
-  score: { type: Number, required: false, default: 1 },
-})
+class Leaderboard {
+  @prop({ required: true })
+  id: string;
 
-const RoomSchema: Schema = new Schema({
-  _id: { type: String, required: true },
-  answerers: { type: Array, required: true },
-  leaderboard: [LeaderBoardSchema],
-  startedBy: { type: String, required: true },
-  channel: { type: String, required: true },
-  answer: { type: String, required: true },
-  currentRound: { type: Number, required: true },
-})
+  @prop({ default: 1 })
+  score?: number;
+}
 
-const Rooms = mongoose.model<RoomInterface>('rooms', RoomSchema)
-export default Rooms
+class Room {
+  @prop()
+  public _id!: string;
+
+  @prop({ type: String, required: true })
+  public answerers!: string[]
+
+  @prop({ type: Leaderboard, required: true })
+  public leaderboard!: Leaderboard[]
+
+  @prop({ default: true })
+  public startedBy!: string;
+
+  @prop({ default: true })
+  public channel!: string;
+
+  @prop({ default: true })
+  public answer!: string;
+
+  @prop({ default: true })
+  public currentRound!: number
+}
+
+export type RoomDocument = DocumentType<Room>
+export default getModelForClass(Room);
