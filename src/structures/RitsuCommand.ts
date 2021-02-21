@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Message } from 'eris'
 import { TFunction } from 'i18next'
+import { GuildDocument } from 'src/database/entities/Guild'
 import RitsuClient from 'src/structures/RitsuClient'
-import GuildsInterface from '../interfaces/GuildsInterface'
 
 interface Options {
   name: string
@@ -40,7 +40,7 @@ class RitsuCommand {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  run(context: RunArguments, guild: GuildsInterface, t: TFunction): void {}
+  run(context: RunArguments, guild: GuildDocument, t: TFunction): void {}
 }
 
 export { RitsuCommand, RunArguments }

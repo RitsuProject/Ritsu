@@ -1,16 +1,15 @@
 import { Message } from 'eris'
+import { RoomDocument } from 'src/database/entities/Room'
 import stringSimilarity from 'string-similarity'
 import AnilistAnime from '../interfaces/AnilistAnime'
-import Leaderboard from '../interfaces/Leaderboard'
-import RoomInterface from '../interfaces/RoomInterface'
 
 export default {
-  async handleCollect(room: RoomInterface, msg: Message) {
+  async handleCollect(room: RoomDocument, msg: Message) {
     const authorID = msg.author.id
     if (!room.answerers.includes(authorID)) {
       room.answerers.push(authorID)
 
-      const findInLeaderBoard: Leaderboard = room.leaderboard.find((user) => {
+      const findInLeaderBoard = room.leaderboard.find((user) => {
         return user.id === authorID
       })
       if (findInLeaderBoard === undefined) {

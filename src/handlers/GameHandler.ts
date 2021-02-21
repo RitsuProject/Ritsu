@@ -1,7 +1,6 @@
 import { Message } from 'eris'
-import GuildsInterface from '../interfaces/GuildsInterface'
-import Guilds from '../database/entities/Guild'
-import Rooms from '../database/entities/Room'
+import Guilds, { GuildDocument } from '../database/entities/Guild'
+import Rooms, { RoomDocument } from '../database/entities/Room'
 import GameOptions from '../interfaces/GameOptions'
 import RitsuClient from '../structures/RitsuClient'
 import Themes from './ThemesHandler'
@@ -10,9 +9,7 @@ import GameCollectorUtils from '../utils/GameCollectorUtils'
 import getAnimeData from '../utils/GetAnimeData'
 import AnilistAnime from '../interfaces/AnilistAnime'
 import MioSong from '../interfaces/MioSong'
-
 import { MessageCollector } from 'eris-collector'
-import RoomInterface from '../interfaces/RoomInterface'
 import generateEmbed from '../utils/GenerateEmbed'
 import NodeCache from 'node-cache'
 import Constants from '../utils/Constants'
@@ -45,7 +42,7 @@ export default class GameHandler {
     })
   }
 
-  async startNewRound(guild: GuildsInterface) {
+  async startNewRound(guild: GuildDocument) {
     const voiceChannel: string = this.message.member.voiceState.channelID
 
     if (!voiceChannel) {
@@ -125,7 +122,7 @@ export default class GameHandler {
 
   // async handleFinish(room: RoomInterface, force: boolean) {}
 
-  async clearData(room: RoomInterface, guild: GuildsInterface) {
+  async clearData(room: RoomDocument, guild: GuildDocument) {
     guild.rolling = false
     this.themesCache.del(this.themesCache.keys())
     await guild.save()

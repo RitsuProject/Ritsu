@@ -1,5 +1,5 @@
+import { GuildDocument } from 'src/database/entities/Guild'
 import RitsuClient from 'src/structures/RitsuClient'
-import GuildsInterface from '../../interfaces/GuildsInterface'
 import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
 
 class Prefix extends RitsuCommand {
@@ -15,7 +15,7 @@ class Prefix extends RitsuCommand {
     this.client = client
   }
 
-  async run(context: RunArguments, guild: GuildsInterface) {
+  async run(context: RunArguments, guild: GuildDocument) {
     if (!context.args[0])
       return context.message.channel.createMessage(
         'You need to specify the prefix.'

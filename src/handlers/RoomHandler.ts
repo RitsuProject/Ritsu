@@ -1,5 +1,4 @@
 import { Message } from 'eris'
-import RoomInterface from '../interfaces/RoomInterface'
 import Rooms from '../database/entities/Room'
 
 export default class RoomHandler {
@@ -11,7 +10,7 @@ export default class RoomHandler {
   }
 
   async handleRoom() {
-    const oldRoom: RoomInterface = await Rooms.findById(this.message.guildID)
+    const oldRoom = await Rooms.findById(this.message.guildID)
     if (!oldRoom) {
       console.log(`[${this.message.guildID}] Creating a new Room...`)
       const newRoom = await this.createRoom()
@@ -26,7 +25,7 @@ export default class RoomHandler {
   }
 
   async createRoom() {
-    return new Rooms({
+    const room = new Rooms({
       _id: this.message.guildID,
       answerers: [],
       answer: this.answer,
@@ -34,6 +33,10 @@ export default class RoomHandler {
       startedBy: this.message.author.id,
       leaderboard: [],
       currentRound: 1,
-    }).save()
+    })
+
+    // for some reason room.save() returns Promise<Document> instead of Promise<DocumentType<Room>>
+    await room.save(); 
+    return room;
   }
 }
