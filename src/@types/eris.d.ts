@@ -1,7 +1,7 @@
 import { Channel, Embed, Message, TextChannel, Collection, Member, Constants, Role, Guild } from 'eris'
 
 declare module 'eris' {
-  export class Textable {
+  export interface Textable {
     public awaitMessages(
       filter: (message: Message) => boolean,
       options: {
