@@ -19,11 +19,16 @@
     }
   },
   "leaderboard": {
-    "commandDescription": "Show the global leaderboard/rank.",
+    "commandDescription": "See the actual Ritsu ranking by level.",
     "embed": {
       "title": "Top 10 users with the higher level.",
       "levelField": "Level: {{number}}",
       "wonField": "Won Matches: {{number}}"
     }
+  },
+  "bio": {
+    "commandDescription": "Change your profile bio.",
+    "changedBio": "Your profile bio has been updated.",
+    "noBio": "It looks like you didn't specify your new bio/about, fix it and use the command again!"
   }
 }

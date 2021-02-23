@@ -26,16 +26,21 @@ class Help extends RitsuCommand {
         {
           name: ':video_game: AnimeMusicQuiz',
           value: this.getCommandsByCategory(guild.prefix, 'Game'),
-          inline: true,
-        },
-        {
-          name: ':ledger: Miscellaneous',
-          value: this.getCommandsByCategory(guild.prefix, 'Miscellaneous'),
-          inline: true,
+          inline: false,
         },
         {
           name: ':gear: Utilites',
           value: this.getCommandsByCategory(guild.prefix, 'Utils'),
+          inline: false,
+        },
+        {
+          name: ':ledger: Miscellaneous',
+          value: this.getCommandsByCategory(guild.prefix, 'Miscellaneous'),
+          inline: false,
+        },
+        {
+          name: '🙇 Social',
+          value: this.getCommandsByCategory(guild.prefix, 'Social'),
           inline: false,
         },
       ],
