@@ -17,5 +17,13 @@
     "errors": {
       "noPrefix": "You need to specify the prefix."
     }
+  },
+  "leaderboard": {
+    "commandDescription": "Show the global leaderboard/rank.",
+    "embed": {
+      "title": "Top 10 users with the higher level.",
+      "levelField": "Level: {{number}}",
+      "wonField": "Won Matches: {{number}}"
+    }
   }
 }
