@@ -5,7 +5,6 @@ import RitsuUtils from '../utils/RitsuUtils'
 import NodeCache from 'node-cache'
 import { Message } from 'eris'
 import ThemesMoe from '../utils/ThemesMoe'
-import { ThemesMoeAnime, ThemesMoeTheme } from '../interfaces/ThemesMoe'
 
 /**
  * ThemesHandler
@@ -32,13 +31,13 @@ export default class ThemesHandler {
           )
 
           const animes = byPopularityRank.data.top
-          const anime = RitsuUtils.randomValueInArray(animes)
+          const anime: { title: string } = RitsuUtils.randomValueInArray(animes)
 
           const search = await RitsuHTTP.get(
             `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
           )
 
-          const songData: MioSong = search.data
+          const songData = search.data
 
           return songData
         } catch (e) {
@@ -53,7 +52,7 @@ export default class ThemesHandler {
       case 'normal': {
         try {
           const types = ['random', 'popularity']
-          const type: string = RitsuUtils.randomValueInArray(types)
+          const type = RitsuUtils.randomValueInArray(types)
 
           switch (type) {
             case 'random': {
@@ -61,7 +60,7 @@ export default class ThemesHandler {
                 `${process.env.API_URL}/themes/random?provider=${provider}`
               )
 
-              const songData: MioSong = random.data
+              const songData = random.data
 
               return songData
             }
@@ -73,13 +72,13 @@ export default class ThemesHandler {
               )
 
               const animes = byPopularityRank.data.top
-              const anime = RitsuUtils.randomValueInArray(animes)
+              const anime: { title: string } = RitsuUtils.randomValueInArray(animes)
 
               const search = await RitsuHTTP.get(
                 `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
               )
 
-              const songData: MioSong = search.data
+              const songData = search.data
 
               return songData
             }
@@ -100,12 +99,12 @@ export default class ThemesHandler {
           this.gameOptions.animeListUsername
         )
 
-        const anime: ThemesMoeAnime = RitsuUtils.randomValueInArray(animeList)
-        const theme: ThemesMoeTheme = RitsuUtils.randomValueInArray(
+        const anime = RitsuUtils.randomValueInArray(animeList)
+        const theme = RitsuUtils.randomValueInArray(
           anime.themes
         )
 
-        const mioSongFakeObject: MioSong = {
+        const mioSongFakeObject = {
           name: anime.name,
           link: theme.mirror.mirrorURL,
           type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
@@ -123,12 +122,12 @@ export default class ThemesHandler {
             this.gameOptions.season
           )
 
-          const anime: ThemesMoeAnime = RitsuUtils.randomValueInArray(animes)
-          const theme: ThemesMoeTheme = RitsuUtils.randomValueInArray(
+          const anime = RitsuUtils.randomValueInArray(animes)
+          const theme = RitsuUtils.randomValueInArray(
             anime.themes
           )
 
-          const mioSongFakeObject: MioSong = {
+          const mioSongFakeObject = {
             name: anime.name,
             link: theme.mirror.mirrorURL,
             type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
@@ -171,10 +170,10 @@ export default class ThemesHandler {
     }
   }
 
-  getProvider(): string {
+  getProvider() {
     const providers = ['animethemes', 'openingsmoe']
 
-    const provider: string = RitsuUtils.randomValueInArray(providers)
+    const provider = RitsuUtils.randomValueInArray(providers)
 
     return provider
   }

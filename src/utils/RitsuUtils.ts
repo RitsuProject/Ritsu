@@ -5,8 +5,7 @@ export default {
     return Math.floor(Math.random() * (max - min) + min)
   },
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  randomValueInArray(array: Array<any>) {
+  randomValueInArray<T extends unknown>(array: T[]): T {
     return array[Math.floor(Math.random() * array.length)]
   },
 }
