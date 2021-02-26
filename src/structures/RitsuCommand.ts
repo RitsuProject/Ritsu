@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { Message } from 'eris'
 import { TFunction } from 'i18next'
 import { GuildDocument } from 'src/database/entities/Guild'
@@ -19,7 +18,7 @@ interface RunArguments {
   args: Array<string>
 }
 
-class RitsuCommand {
+abstract class RitsuCommand {
   public client: RitsuClient
   public name: string
   public description: string
@@ -40,7 +39,7 @@ class RitsuCommand {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  run(context: RunArguments, guild: GuildDocument, t: TFunction): void {}
+  abstract run(context: RunArguments, guild: GuildDocument, t: TFunction): void
 }
 
 export { RitsuCommand, RunArguments }
