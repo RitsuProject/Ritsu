@@ -7,8 +7,6 @@ import Themes from './ThemesHandler'
 import getStreamFromURL from '../utils/GetStream'
 import GameCollectorUtils from '../utils/GameCollectorUtils'
 import getAnimeData from '../utils/GetAnimeData'
-import AnilistAnime from '../interfaces/AnilistAnime'
-import MioSong from '../interfaces/MioSong'
 import { MessageCollector } from 'eris-collector'
 import generateEmbed from '../utils/GenerateEmbed'
 import NodeCache from 'node-cache'
@@ -43,7 +41,7 @@ export default class GameHandler {
   }
 
   async startNewRound(guild: GuildDocument) {
-    const voiceChannel: string = this.message.member.voiceState.channelID
+    const voiceChannel = this.message.member.voiceState.channelID
 
     if (!voiceChannel) {
       const oldRoom = await Rooms.findById(this.message.guildID)
@@ -54,12 +52,12 @@ export default class GameHandler {
     }
 
     const themes = new Themes(this.message, this.gameOptions, this.themesCache)
-    const theme: MioSong = await themes.getTheme()
+    const theme = await themes.getTheme()
 
     const fetchingStreamMessage = await this.message.channel.createMessage(
       `\`Fetching stream...\``
     )
-    const stream: string = await getStreamFromURL(theme.link).catch(() => {
+    const stream = await getStreamFromURL(theme.link).catch(() => {
       fetchingStreamMessage.delete()
       throw new Error(
         'For some extremely evil reason, I was unable to load the current stream of the theme and so I was unable to continue! Restart the game and try again.'
@@ -73,7 +71,7 @@ export default class GameHandler {
 
     const roomHandler = new RoomHandler(this.message, theme.name)
     const room = await roomHandler.handleRoom()
-    const animeData: AnilistAnime = await getAnimeData(theme.name)
+    const animeData = await getAnimeData(theme.name)
 
     const answerFilter = (msg: Message) =>
       GameCollectorUtils.isAnswer(animeData, msg)

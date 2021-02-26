@@ -25,10 +25,10 @@ class Start extends RitsuCommand {
     const duration = await matchConfig.getDuration()
     if (!duration) return
 
-    let animeListWebsite: string = null
-    let animeListUsername: string = null
-    let season: string = null
-    let seasonYear: string = null
+    let animeListWebsite: string;
+    let animeListUsername: string;
+    let season: string;
+    let seasonYear: string;
 
     if (gamemode === 'list') {
       animeListWebsite = await matchConfig.getListWebsite()
