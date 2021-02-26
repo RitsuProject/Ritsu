@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { Request } from 'express'
 import RitsuClient from '../structures/RitsuClient'
 import initRouter from './router'
 

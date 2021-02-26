@@ -21,7 +21,7 @@ export default async function Patreon(
     .digest('hex')
 
   console.log(`ENCRYPTED: ${encrypted} | SPECIFIED HASH: ${hash}`)
-  console.log(encrypted === hash)
+
   if (encrypted !== hash)
     return res.status(401).json({
       code: 401,
@@ -29,25 +29,33 @@ export default async function Patreon(
       specified_hash: hash,
     })
 
-  const userDiscordId = req.body.data.attributes.discord_id
+  const userDiscordId: string = req.body.included[1].attributes.discord_id
+  const chargeStatus: string = req.body.data.attributes.last_charge_status
 
-  if (userDiscordId === null)
+  // Check if user has a Discord Account linked and the charge status as Paid
+  if (userDiscordId && chargeStatus === 'Paid') {
+    const user = await User.findById(userDiscordId)
+    if (user) {
+      user.patreonSupporter = true
+      await user.save()
+    }
+
+    const discordUser = client.users.get(userDiscordId)
+
+    if (discordUser) {
+      const dmChannel = await discordUser.getDMChannel()
+
+      dmChannel.createMessage('Thanks for donating to me! (WIP MESSAGE)')
+    }
+
+    return res.json({
+      code: 200,
+      message: 'OK',
+    })
+  } else {
     return res.status(400).json({
       code: 400,
-      message: 'No Discord Account.',
+      message: 'Invalid Charge Status/Discord Account.',
     })
-
-  const user = await User.findById(userDiscordId)
-  if (user) {
-    user.patreonSupporter = true
-    await user.save()
-  }
-
-  const discordUser = client.users.get(userDiscordId)
-
-  if (discordUser) {
-    const dmChannel = await discordUser.getDMChannel()
-
-    dmChannel.createMessage('Thanks for donating to me! (WIP MESSAGE)')
   }
 }
