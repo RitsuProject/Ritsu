@@ -12,7 +12,6 @@ class messageCreate extends RitsuEvent {
     super(client, {
       name: 'messageCreate',
     })
-    this.client = client
   }
 
   async run(message: Message): Promise<void> {

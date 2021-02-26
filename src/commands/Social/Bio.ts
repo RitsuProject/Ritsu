@@ -13,7 +13,6 @@ class Bio extends RitsuCommand {
       aliases: [],
       requiredPermissions: null,
     })
-    this.client = client
   }
 
   async run(context: RunArguments, _, t: TFunction) {

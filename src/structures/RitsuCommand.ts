@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { Message } from 'eris'
 import { TFunction } from 'i18next'
 import { GuildDocument } from 'src/database/entities/Guild'
@@ -19,8 +18,7 @@ interface RunArguments {
   args: Array<string>
 }
 
-class RitsuCommand {
-  public client: RitsuClient
+abstract class RitsuCommand {
   public name: string
   public description: string
   public category: string
@@ -28,8 +26,7 @@ class RitsuCommand {
   public fields?: Array<string>
   public requiredPermissions?: Array<string>
   public dev: boolean
-  constructor(client: RitsuClient, options: Options) {
-    this.client = client
+  constructor(public client: RitsuClient, options: Options) {
     this.name = options.name || null
     this.description = options.description || 'A command.'
     this.category = options.category || 'Game'
@@ -39,8 +36,7 @@ class RitsuCommand {
     this.dev = options.dev || false
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  run(context: RunArguments, guild: GuildDocument, t: TFunction): void {}
+  abstract run(context: RunArguments, guild: GuildDocument, t: TFunction): void
 }
 
 export { RitsuCommand, RunArguments }
