@@ -12,5 +12,5 @@ client.start().then(() => {
   console.log(
     `[Client] Loaded ${client.commandManager.commands.size} commands.`
   )
-  startWebhooks()
+  startWebhooks(client)
 })
