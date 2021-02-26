@@ -1,7 +1,7 @@
-import AnilistAnime from '../interfaces/AnilistAnime'
+import { AnimeEntry } from 'anilist-node';
 import MioSong from '../interfaces/MioSong'
 
-export default function generateEmbed(theme: MioSong, animeData: AnilistAnime) {
+export default function generateEmbed(theme: MioSong, animeData: AnimeEntry) {
   const embed = {
     title: `${animeData.title.romaji} (${theme.type})`,
     image: { url: animeData.coverImage.medium },
