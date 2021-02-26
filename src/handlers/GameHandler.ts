@@ -127,7 +127,7 @@ export default class GameHandler {
     await room.deleteOne()
   }
 
-  async playTheme(voiceChannel: string, stream) {
+  async playTheme(voiceChannel: string, stream: string) {
     this.client
       .joinVoiceChannel(voiceChannel)
       .then((connection) => {
