@@ -7,7 +7,7 @@
   "author": "FelipeSazz <felipe@sazz.fail>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/Ritsu.ts",
+    "start": "ts-node --files src/Ritsu.ts",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/Ritsu.ts",
     "lint": "eslint . --ext .ts --fix",
     "ci": "yarn install --frozen-lockfile"
