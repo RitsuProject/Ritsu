@@ -10,7 +10,6 @@ class Ready extends RitsuEvent {
     super(client, {
       name: 'ready',
     })
-    this.client = client
   }
 
   async run() {

@@ -6,7 +6,7 @@ interface Options {
 
 export default abstract class RitsuEvent {
   public name: string
-  constructor(_client: RitsuClient, options: Options) {
+  constructor(public client: RitsuClient, options: Options) {
     this.name = options.name
   }
 

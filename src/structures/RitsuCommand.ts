@@ -19,7 +19,6 @@ interface RunArguments {
 }
 
 abstract class RitsuCommand {
-  public client: RitsuClient
   public name: string
   public description: string
   public category: string
@@ -27,8 +26,7 @@ abstract class RitsuCommand {
   public fields?: Array<string>
   public requiredPermissions?: Array<string>
   public dev: boolean
-  constructor(client: RitsuClient, options: Options) {
-    this.client = client
+  constructor(public client: RitsuClient, options: Options) {
     this.name = options.name || null
     this.description = options.description || 'A command.'
     this.category = options.category || 'Game'
@@ -38,7 +36,6 @@ abstract class RitsuCommand {
     this.dev = options.dev || false
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   abstract run(context: RunArguments, guild: GuildDocument, t: TFunction): void
 }
 

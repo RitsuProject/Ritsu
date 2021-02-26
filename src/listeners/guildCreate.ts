@@ -9,7 +9,6 @@ class guildCreate extends RitsuEvent {
     super(client, {
       name: 'guildCreate',
     })
-    this.client = client
   }
 
   async run(guild: Guild) {

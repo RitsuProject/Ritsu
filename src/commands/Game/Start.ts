@@ -13,7 +13,6 @@ class Start extends RitsuCommand {
       aliases: [],
       requiredPermissions: null,
     })
-    this.client = client
   }
 
   async run(context: RunArguments) {
