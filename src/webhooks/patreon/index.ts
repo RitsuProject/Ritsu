@@ -2,6 +2,8 @@ import { Request, Response } from 'express'
 import crypto from 'crypto'
 import User from '../../database/entities/User'
 import RitsuClient from '../../structures/RitsuClient'
+import { EmbedOptions } from 'eris'
+import Constants from '../../utils/Constants'
 
 export default async function Patreon(
   req: Request,
@@ -31,6 +33,8 @@ export default async function Patreon(
 
   const userDiscordId: string = req.body.included[1].attributes.discord_id
   const chargeStatus: string = req.body.data.attributes.last_charge_status
+  const patreonUsername: string = req.body.data.attributes.full_name
+  const lastChargeDate: string = req.body.data.attributes.last_charge_date
 
   // Check if user has a Discord Account linked and the charge status as Paid
   if (userDiscordId && chargeStatus === 'Paid') {
@@ -45,7 +49,24 @@ export default async function Patreon(
     if (discordUser) {
       const dmChannel = await discordUser.getDMChannel()
 
-      dmChannel.createMessage('Thanks for donating to me! (WIP MESSAGE)')
+      const patreonDetails = `\`\`\`md\n# Patreon Username: ${patreonUsername}\n# Last Charge Date: ${lastChargeDate}
+      \`\`\``
+
+      const embed = {
+        title: 'Patreon Notice',
+        description: `Hi! Thank you so much for becoming my new Patron! This helps me a lot to stay strong and mainly to pay my bills!
+          
+          **Some details about your incredible subscription to my Patreon**: ${patreonDetails}
+          
+          Some advantages may depend on you contacting my support server to receive them, if something is wrong there will be the most correct place for you to inform us!
+          Thank you very much for helping the project! I hope you have a lot of fun~~
+          
+          **sazz,**
+          *Core Developer*`,
+        color: Constants.EMBED_COLOR_BASE,
+      }
+
+      dmChannel.createMessage({ embed })
     }
 
     return res.json({

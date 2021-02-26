@@ -4,8 +4,4 @@ declare module 'express' {
   export interface Request {
     rawBody: Buffer
   }
-
-  export interface IncomingMessage {
-    rawBody: Buffer
-  }
 }
