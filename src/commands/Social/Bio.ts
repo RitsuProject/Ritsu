@@ -1,7 +1,6 @@
-import { TFunction } from 'i18next'
 import RitsuClient from 'src/structures/RitsuClient'
 import User from '../../database/entities/User'
-import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
+import { RitsuCommand, Context } from '../../structures/RitsuCommand'
 
 class Bio extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -15,17 +14,17 @@ class Bio extends RitsuCommand {
     })
   }
 
-  async run(context: RunArguments, _, t: TFunction) {
-    const user = await User.findById(context.message.author.id)
+  async run({ message, args, t }: Context) {
+    const user = await User.findById(message.author.id)
     if (!user) return
 
-    const bio = context.args.slice(0).join(' ')
+    const bio = args.slice(0).join(' ')
     if (!bio)
-      return context.message.channel.createMessage(t('commands:bio.noBio'))
+      return message.channel.createMessage(t('commands:bio.noBio'))
 
     user.bio = bio
     await user.save()
-    context.message.channel.createMessage(t('commands:bio.changedBio'))
+    message.channel.createMessage(t('commands:bio.changedBio'))
   }
 }
 

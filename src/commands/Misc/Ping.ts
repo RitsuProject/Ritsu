@@ -1,5 +1,5 @@
 import RitsuClient from 'src/structures/RitsuClient'
-import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
+import { RitsuCommand, Context } from '../../structures/RitsuCommand'
 
 class Ping extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -13,9 +13,9 @@ class Ping extends RitsuCommand {
     })
   }
 
-  async run(context: RunArguments) {
+  async run({ message }: Context) {
     const createdAt = Date.now()
-    const msg = await context.message.channel.createMessage(
+    const msg = await message.channel.createMessage(
       'Dont steal my strawberry, Mugi!'
     )
     msg.edit(

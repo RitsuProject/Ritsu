@@ -1,6 +1,5 @@
-import { GuildDocument } from 'src/database/entities/Guild'
 import RitsuClient from 'src/structures/RitsuClient'
-import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
+import { RitsuCommand, Context } from '../../structures/RitsuCommand'
 
 class Prefix extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -14,15 +13,15 @@ class Prefix extends RitsuCommand {
     })
   }
 
-  async run(context: RunArguments, guild: GuildDocument) {
-    if (!context.args[0])
-      return context.message.channel.createMessage(
+  async run({ message, args, guild }: Context) {
+    if (!args[0])
+      return message.channel.createMessage(
         'You need to specify the prefix.'
       )
-    guild.prefix = context.args[0]
+    guild.prefix = args[0]
     guild.save()
-    context.message.channel.createMessage(
-      `The server prefix has been changed: ${context.args[0]}`
+    message.channel.createMessage(
+      `The server prefix has been changed: ${args[0]}`
     )
   }
 }

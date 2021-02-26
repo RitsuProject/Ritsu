@@ -1,8 +1,8 @@
 import RitsuClient from 'src/structures/RitsuClient'
-import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
-import { TFunction } from 'i18next'
+import { RitsuCommand, Context } from '../../structures/RitsuCommand'
 import User from '../../database/entities/User'
 import Constants from '../../utils/Constants'
+import { EmbedOptions } from 'eris'
 
 class Leaderboard extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -16,11 +16,11 @@ class Leaderboard extends RitsuCommand {
     })
   }
 
-  async run(context: RunArguments, _, t: TFunction) {
-    const embed = {
+  async run({ message, t }: Context) {
+    const embed: EmbedOptions = {
       author: {
         name: t('commands:leaderboard.embed.title'),
-        icon_url: context.message.author.avatarURL,
+        icon_url: message.author.avatarURL,
       },
       color: Constants.EMBED_COLOR_BASE,
       fields: [],
@@ -51,7 +51,7 @@ class Leaderboard extends RitsuCommand {
         }
       })
 
-    context.message.channel.createMessage({ embed })
+    message.channel.createMessage({ embed })
   }
 }
 
