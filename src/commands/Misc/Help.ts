@@ -1,6 +1,5 @@
 import RitsuClient from '../../structures/RitsuClient'
-import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
-import { GuildDocument } from '../../database/entities/Guild'
+import { Context, RitsuCommand } from '../../structures/RitsuCommand'
 
 class Help extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -14,7 +13,7 @@ class Help extends RitsuCommand {
     })
   }
 
-  async run(context: RunArguments, guild: GuildDocument) {
+  async run({ message, guild }: Context) {
     const embed = {
       title: `:books:  Ritsu's Help`,
       color: 7506394,
@@ -47,7 +46,7 @@ class Help extends RitsuCommand {
           'You can get more information about the commands at https://ritsu.fun/commands',
       },
     }
-    const dmChannel = await context.message.author.getDMChannel()
+    const dmChannel = await message.author.getDMChannel()
     let openDmChannel = true
     dmChannel
       .createMessage({
@@ -57,13 +56,13 @@ class Help extends RitsuCommand {
       })
       .catch(() => {
         openDmChannel = false
-        context.message.channel.createMessage(
+        message.channel.createMessage(
           'It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message.'
         )
       })
       .then(() => {
         if (openDmChannel) {
-          context.message.channel.createMessage(
+          message.channel.createMessage(
             'Could you have a look at your DM (Direct Messages) please?'
           )
         }
