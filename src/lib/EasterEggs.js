@@ -38,7 +38,7 @@ module.exports.EasterEggs = class EasterEggs {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve) => {
       const connection = await this.voicech.join()
-      // Easter Egg URL's
+      // Easter Egg URLs
       const clannadED = 'https://animethemes.moe/video/Clannad-ED1.webm'
       const evangelionOP =
         'https://animethemes.moe/video/NeonGenesisEvangelion-OP1.webm'

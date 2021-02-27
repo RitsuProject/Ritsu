@@ -17,7 +17,7 @@
       "isNaN": "Non sembra un numero! Annullamento...",
       "roundsLimit": "Puoi iniziare solo fino a 10 round! Annullamento...",
       "whatDuration": "Qual è la durata dei round? (Minimo: 20 secondi)",
-      "minimiumTime": "Il tempo minimo è di 20 secondi! Inserisci un valore più alto. Annullamento...",
+      "minimumTime": "Il tempo minimo è di 20 secondi! Inserisci un valore più alto. Annullamento...",
       "invalidDuration": "Questa non sembra essere una durata valida. Annullamento...",
       "whatAnimeListWebsite": "Su quale sito web è la tua lista animata? (Supportato: {{websites}})",
       "invalidWebsite": "Il suo non sembra essere un sito web supportato. Annullamento...",
