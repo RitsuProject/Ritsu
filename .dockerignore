@@ -4,5 +4,5 @@ README.md
 .github
 .gitignore
 .env
-.env.exemple
+.env.example
 docker-compose.yml

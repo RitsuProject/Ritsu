@@ -4,7 +4,7 @@ module.exports.getAnswerCard = async function getAnswerCard(
   answer,
   type
 ) {
-  const url = `${process.env.API_URL}/image/answser`
+  const url = `${process.env.API_URL}/image/answer`
   const response = await phin({
     method: 'POST',
     url: url,

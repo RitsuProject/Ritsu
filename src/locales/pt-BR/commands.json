@@ -12,7 +12,7 @@
       "isNaN": "Isso não parece um número valido! Cancelando...",
       "roundsLimit": "O número máximo de rodadas é 10! Cancelando...",
       "whatDuration": "Qual é a duração de para a partida? (Mínimo: 20 segundos)",
-      "minimiumTime": "O tempo mínimo é 20 segundos! Por favor tente um valor igual ou maior. Cancelando...",
+      "minimumTime": "O tempo mínimo é 20 segundos! Por favor tente um valor igual ou maior. Cancelando...",
       "invalidDuration": "Isso não parece uma duração valida. Cancelando...",
       "whatAnimeListWebsite": "Que website está sua animelist? (Suportados: {{websites}})",
       "invalidWebsite": "Isso não parece ser um website que suportamos. Cancelando...",

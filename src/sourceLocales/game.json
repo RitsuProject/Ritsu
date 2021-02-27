@@ -3,7 +3,7 @@
   "eventModeAnswer": "**[EVENT MODE]** The answer is: {{answer}}",
   "easteregg": "You just discovered an easter egg! Your match will start in {{seconds}} seconds.",
   "correctAnswer": "Congratulations {{user}}! You got the correct answer!",
-  "answserIs": "The answser is...",
+  "answerIs": "The answer is...",
   "searchingTheme": "Searching for the theme... (it may take a few moments)",
   "waitingStream": "Waiting for the stream... (It may take a few seconds.)",
   "correctUsers": "{{users}} won this round!",

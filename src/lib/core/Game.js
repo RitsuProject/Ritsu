@@ -27,7 +27,7 @@ const { captureException } = require('@sentry/node')
  * Game Service
  * @class
  * @desc The main service of Ritsu, responsible for handling games, getting the themes and playing them.
- * @exemple
+ * @example
  * const gameService = new GameService(message)
  */
 
@@ -227,7 +227,7 @@ module.exports.Game = class Game {
         animeData
       ) // Time to generate the final embed of the round.
 
-      await this.message.channel.send(this.t('game:answserIs'), { embed })
+      await this.message.channel.send(this.t('game:answerIs'), { embed })
 
       this.message.channel.send(
         `${this.t('game:correctUsers', {

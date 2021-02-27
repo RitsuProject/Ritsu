@@ -12,7 +12,7 @@
       "isNaN": "That doesn't look like a number! Canceling...",
       "roundsLimit": "You can only start up to 10 rounds! Canceling...",
       "whatDuration": "What's each round time duration? (Minimum: 20 seconds)",
-      "minimiumTime": "The minimum time is 20 seconds! Please enter a higher or equal value. Canceling...",
+      "minimumTime": "The minimum time is 20 seconds! Please enter a higher or equal value. Canceling...",
       "invalidDuration": "This does not seem to be a valid duration. Canceling...",
       "whatAnimeListWebsite": "What website is your animelist on? (Supported: {{websites}})",
       "invalidWebsite": "This does not appear to be a supported website. Canceling...",
