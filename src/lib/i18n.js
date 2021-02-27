@@ -22,7 +22,7 @@ module.exports.I18n = class I18n {
       interpolation: {
         escapeValue: false,
       },
-      returnEmpyString: false,
+      returnEmptyString: false,
     })
   }
 }
