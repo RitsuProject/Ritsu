@@ -10,5 +10,5 @@ export default abstract class RitsuEvent {
     this.name = options.name
   }
 
-  abstract run(...args): void
+  abstract run(...args: unknown[]): void
 }

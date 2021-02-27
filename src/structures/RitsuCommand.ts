@@ -13,9 +13,11 @@ interface Options {
   dev: boolean
 }
 
-interface RunArguments {
+interface Context {
   message: Message
   args: Array<string>
+  guild: GuildDocument
+  t: TFunction
 }
 
 abstract class RitsuCommand {
@@ -36,7 +38,7 @@ abstract class RitsuCommand {
     this.dev = options.dev || false
   }
 
-  abstract run(context: RunArguments, guild: GuildDocument, t: TFunction): void
+  abstract run(context: Context): void
 }
 
-export { RitsuCommand, RunArguments }
+export { RitsuCommand, Context }

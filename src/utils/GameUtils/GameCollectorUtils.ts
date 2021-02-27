@@ -1,7 +1,7 @@
 import { Message } from 'eris'
+import { AnimeEntry } from 'anilist-node'
 import { RoomDocument } from 'src/database/entities/Room'
 import stringSimilarity from 'string-similarity'
-import AnilistAnime from '../../interfaces/AnilistAnime'
 
 export default {
   async handleCollect(room: RoomDocument, msg: Message) {
@@ -22,7 +22,7 @@ export default {
     }
   },
 
-  isAnswer(animeData: AnilistAnime, msg: Message) {
+  isAnswer(animeData: AnimeEntry, msg: Message) {
     const parsedMessage = msg.content
       .trim()
       .replace(/[^\w\s]/gi, '')
@@ -36,7 +36,7 @@ export default {
       })
     }
 
-    const titles = Object.values(animeData.title)
+    const titles: Array<string> | null = Object.values(animeData.title)
     titles.forEach((t) => {
       if (t !== null) {
         answers.push(t)

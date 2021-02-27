@@ -1,5 +1,5 @@
 import RitsuClient from 'src/structures/RitsuClient'
-import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
+import { RitsuCommand, Context } from '../../structures/RitsuCommand'
 
 class Invite extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -13,8 +13,8 @@ class Invite extends RitsuCommand {
     })
   }
 
-  async run(context: RunArguments) {
-    const dmChannel = await context.message.author.getDMChannel()
+  async run({ message }: Context) {
+    const dmChannel = await message.author.getDMChannel()
     let openDmChannel = true
     dmChannel
       .createMessage(
@@ -22,13 +22,13 @@ class Invite extends RitsuCommand {
       )
       .catch(() => {
         openDmChannel = false
-        context.message.channel.createMessage(
+        message.channel.createMessage(
           'It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message.'
         )
       })
       .then(() => {
         if (openDmChannel) {
-          context.message.channel.createMessage(
+          message.channel.createMessage(
             'Could you have a look at your DM (Direct Messages) please?'
           )
         }
