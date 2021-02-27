@@ -1,5 +1,5 @@
 import Anilist from 'anilist-node'
-import AnilistAnime from '../interfaces/AnilistAnime'
+import AnilistAnime from '../../interfaces/AnilistAnime'
 const anilist = new Anilist()
 
 export default async function getAnimeData(name: string) {

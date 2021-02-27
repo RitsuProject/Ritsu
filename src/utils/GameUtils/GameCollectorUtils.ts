@@ -1,7 +1,7 @@
 import { Message } from 'eris'
 import { RoomDocument } from 'src/database/entities/Room'
 import stringSimilarity from 'string-similarity'
-import AnilistAnime from '../interfaces/AnilistAnime'
+import AnilistAnime from '../../interfaces/AnilistAnime'
 
 export default {
   async handleCollect(room: RoomDocument, msg: Message) {

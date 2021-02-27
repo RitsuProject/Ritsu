@@ -1,6 +1,6 @@
 import { EmbedOptions } from 'eris'
-import AnilistAnime from '../interfaces/AnilistAnime'
-import MioSong from '../interfaces/MioSong'
+import AnilistAnime from '../../interfaces/AnilistAnime'
+import MioSong from '../../interfaces/MioSong'
 
 export default function generateEmbed(theme: MioSong, animeData: AnilistAnime) {
   const embed: EmbedOptions = {

@@ -1,12 +1,15 @@
-import { Request, Response, Router } from 'express'
+import { Router } from 'express'
 import RitsuClient from '../structures/RitsuClient'
-import Patreon from './patreon'
+import handlePatreon from './patreon'
+import checkPatreonSignature from './middlewares/checkPatreonSignature'
+
 import 'express-async-errors'
+
 function initRouter(client: RitsuClient) {
   const router = Router()
 
-  router.post('/webhooks/patreon', (req: Request, res: Response) =>
-    Patreon(req, res, client)
+  router.post('/webhooks/patreon', checkPatreonSignature, (req, res) =>
+    handlePatreon(req, res, client)
   )
 
   return router
