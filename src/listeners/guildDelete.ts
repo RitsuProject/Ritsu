@@ -9,7 +9,6 @@ class guildDelete extends RitsuEvent {
     super(client, {
       name: 'guildDelete',
     })
-    this.client = client
   }
 
   async run(guild: Guild) {

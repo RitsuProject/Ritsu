@@ -1,4 +1,3 @@
-import { EmbedOptions } from 'eris'
 import RitsuClient from '../../structures/RitsuClient'
 import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
 import { GuildDocument } from '../../database/entities/Guild'
@@ -13,11 +12,10 @@ class Help extends RitsuCommand {
       aliases: [],
       requiredPermissions: null,
     })
-    this.client = client
   }
 
   async run(context: RunArguments, guild: GuildDocument) {
-    const embed: EmbedOptions = {
+    const embed = {
       title: `:books:  Ritsu's Help`,
       color: 7506394,
       description: `Are you interested in my **commands**? Ooh, that's cool, feel free to see them down there.\n\nIf you have any questions, doubts or want support, do not hesitate to join **my support server**.`,

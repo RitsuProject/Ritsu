@@ -10,7 +10,6 @@ class Ready extends RitsuEvent {
     super(client, {
       name: 'ready',
     })
-    this.client = client
   }
 
   async run() {
@@ -18,8 +17,8 @@ class Ready extends RitsuEvent {
     await Rooms.deleteMany({})
 
     const customStats = [
-      { name: 'ritsu!help | @Ritsu', type: 2 },
-      { name: 'patreon.com/ritsubot', type: 0 },
+      { name: 'ritsu!help | @Ritsu', type: 2 as const },
+      { name: 'patreon.com/ritsubot', type: 0 as const },
     ]
 
     const customStat = RitsuUtils.randomValueInArray(customStats)

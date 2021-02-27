@@ -1,6 +1,5 @@
 import RitsuClient from 'src/structures/RitsuClient'
 import { RitsuCommand, RunArguments } from '../../structures/RitsuCommand'
-import { EmbedOptions } from 'eris'
 import { TFunction } from 'i18next'
 import User from '../../database/entities/User'
 import Constants from '../../utils/Constants'
@@ -15,11 +14,10 @@ class Leaderboard extends RitsuCommand {
       aliases: [],
       requiredPermissions: null,
     })
-    this.client = client
   }
 
   async run(context: RunArguments, _, t: TFunction) {
-    const embed: EmbedOptions = {
+    const embed = {
       author: {
         name: t('commands:leaderboard.embed.title'),
         icon_url: context.message.author.avatarURL,
