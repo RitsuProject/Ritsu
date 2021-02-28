@@ -1,4 +1,4 @@
-import RitsuHTTP from '../structures/RitsuHTTP'
+import RitsuHTTP from '../../structures/RitsuHTTP'
 
 export default async function getStreamFromURL(url: string): Promise<string> {
   const stream = await RitsuHTTP.get(url, {

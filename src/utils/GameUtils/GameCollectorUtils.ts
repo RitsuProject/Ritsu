@@ -1,5 +1,5 @@
 import { Message } from 'eris'
-import { AnimeEntry } from 'anilist-node';
+import { AnimeEntry } from 'anilist-node'
 import { RoomDocument } from 'src/database/entities/Room'
 import stringSimilarity from 'string-similarity'
 

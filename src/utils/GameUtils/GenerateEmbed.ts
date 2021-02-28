@@ -1,5 +1,5 @@
-import { AnimeEntry } from 'anilist-node';
-import MioSong from '../interfaces/MioSong'
+import { AnimeEntry } from 'anilist-node'
+import MioSong from '../../interfaces/MioSong'
 
 export default function generateEmbed(theme: MioSong, animeData: AnimeEntry) {
   const embed = {

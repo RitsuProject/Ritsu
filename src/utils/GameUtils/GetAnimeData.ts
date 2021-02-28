@@ -6,8 +6,6 @@ export default async function getAnimeData(name: string) {
   console.log(searchResult)
   if (searchResult.pageInfo.total <= 0)
     throw new Error('Anime in Anilist Not Found!')
-  const animeResult = await anilist.media.anime(
-    searchResult.media[0].id
-  )
+  const animeResult = await anilist.media.anime(searchResult.media[0].id)
   return animeResult
 }
