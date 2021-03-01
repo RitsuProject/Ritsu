@@ -16,7 +16,7 @@ class Ping extends RitsuCommand {
   async run({ message }: Context) {
     const createdAt = Date.now()
     const msg = await message.channel.createMessage(
-      'Dont steal my strawberry, Mugi!'
+      "Don't steal my strawberry, Mugi!"
     )
     msg.edit(
       `Pong! **WS**: \`${this.client.shards.map((i) =>

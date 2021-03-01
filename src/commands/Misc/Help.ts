@@ -26,7 +26,7 @@ class Help extends RitsuCommand {
           inline: false,
         },
         {
-          name: ':gear: Utilites',
+          name: ':gear: Utilities',
           value: this.getCommandsByCategory(guild.prefix, 'Utils'),
           inline: false,
         },
