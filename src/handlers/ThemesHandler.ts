@@ -72,7 +72,9 @@ export default class ThemesHandler {
               )
 
               const animes = byPopularityRank.data.top
-              const anime: { title: string } = RitsuUtils.randomValueInArray(animes)
+              const anime: { title: string } = RitsuUtils.randomValueInArray(
+                animes
+              )
 
               const search = await RitsuHTTP.get(
                 `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
@@ -100,9 +102,7 @@ export default class ThemesHandler {
         )
 
         const anime = RitsuUtils.randomValueInArray(animeList)
-        const theme = RitsuUtils.randomValueInArray(
-          anime.themes
-        )
+        const theme = RitsuUtils.randomValueInArray(anime.themes)
 
         const mioSongFakeObject = {
           name: anime.name,
@@ -123,9 +123,7 @@ export default class ThemesHandler {
           )
 
           const anime = RitsuUtils.randomValueInArray(animes)
-          const theme = RitsuUtils.randomValueInArray(
-            anime.themes
-          )
+          const theme = RitsuUtils.randomValueInArray(anime.themes)
 
           const mioSongFakeObject = {
             name: anime.name,

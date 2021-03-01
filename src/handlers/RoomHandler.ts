@@ -36,7 +36,7 @@ export default class RoomHandler {
     })
 
     // for some reason room.save() returns Promise<Document> instead of Promise<DocumentType<Room>>
-    await room.save(); 
-    return room;
+    await room.save()
+    return room
   }
 }

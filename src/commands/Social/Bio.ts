@@ -19,8 +19,7 @@ class Bio extends RitsuCommand {
     if (!user) return
 
     const bio = args.slice(0).join(' ')
-    if (!bio)
-      return message.channel.createMessage(t('commands:bio.noBio'))
+    if (!bio) return message.channel.createMessage(t('commands:bio.noBio'))
 
     user.bio = bio
     await user.save()
