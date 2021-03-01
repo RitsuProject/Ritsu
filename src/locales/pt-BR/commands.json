@@ -17,5 +17,18 @@
     "errors": {
       "noPrefix": "Você precisa especificar o prefixo."
     }
+  },
+  "leaderboard": {
+    "commandDescription": "Veja o atual ranking da Ritsu por nivel.",
+    "embed": {
+      "title": "Top 10 usuários com maiores níveis.",
+      "levelField": "Nível: {{number}}",
+      "wonField": "Partidas ganhas: {{number}}"
+    }
+  },
+  "bio": {
+    "commandDescription": "Alterar sua biografia.",
+    "changedBio": "Sua biografia foi atualizada.",
+    "noBio": "Parece que você não especificou sua nova biografia, concerte isso usando o comando novamente!"
   }
 }
