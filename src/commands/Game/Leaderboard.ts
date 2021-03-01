@@ -26,28 +26,22 @@ class Leaderboard extends RitsuCommand {
       fields: [],
     }
 
-    await User.find()
-      .sort({ level: -1 })
-      .limit(10)
-      .then((results) =>
-        Promise.all(
-          results.map((result, rank) => {
-            const user = this.client.users.get(result._id)
+    const results = await User.find().sort({ level: -1 }).limit(10)
 
-            return user
-              ? embed.fields.push({
-                  name: `${rank + 1}.${user.username}#${user.discriminator}`,
-                  value: `Level: **${result.level}**\nWon Matches: **${result.wonMatches}**`,
-                  inline: true,
-                })
-              : embed.fields.push({
-                  name: `${rank + 1}.Ghost (User is no longer in the cache)`,
-                  value: `Level: **${result.level}**\nWon Matches: **${result.wonMatches}**`,
-                  inline: true,
-                })
+    results.forEach((result, rank) => {
+      const user = this.client.users.get(result._id)
+      user
+        ? embed.fields.push({
+            name: `${rank + 1}.${user.username}#${user.discriminator}`,
+            value: `Level: **${result.level}**\nWon Matches: **${result.wonMatches}**`,
+            inline: true,
           })
-        )
-      )
+        : embed.fields.push({
+            name: `${rank + 1}.Ghost (User is no longer in the cache)`,
+            value: `Level: **${result.level}**\nWon Matches: **${result.wonMatches}**`,
+            inline: true,
+          })
+    })
 
     void message.channel.createMessage({ embed })
   }
