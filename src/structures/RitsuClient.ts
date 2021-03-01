@@ -3,8 +3,9 @@ import { CommandManager } from './managers/CommandManager'
 import { ListenerManager } from './managers/ListenerManager'
 import mongoConnect from '../database/MongoConnect'
 import I18nManager from './managers/I18nManager'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require('eris-additions')(Eris)
+import additions from 'eris-additions'
+
+additions(Eris)
 
 /**
  * Ritsu Client

@@ -11,8 +11,8 @@ class guildCreate extends RitsuEvent {
     })
   }
 
-  async run(guild: Guild) {
-    new Guilds({
+  run(guild: Guild) {
+    void new Guilds({
       _id: guild.id,
       name: guild.name,
       rolling: false,

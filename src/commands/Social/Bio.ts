@@ -23,7 +23,7 @@ class Bio extends RitsuCommand {
 
     user.bio = bio
     await user.save()
-    message.channel.createMessage(t('commands:bio.changedBio'))
+    void message.channel.createMessage(t('commands:bio.changedBio'))
   }
 }
 

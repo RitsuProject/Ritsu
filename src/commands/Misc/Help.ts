@@ -48,7 +48,7 @@ class Help extends RitsuCommand {
     }
     const dmChannel = await message.author.getDMChannel()
     let openDmChannel = true
-    dmChannel
+    void dmChannel
       .createMessage({
         content:
           'Join my server for more news, events, giveaways and more! We will love to hear your feedback. https://discord.gg/XuDysZg ',
@@ -56,13 +56,13 @@ class Help extends RitsuCommand {
       })
       .catch(() => {
         openDmChannel = false
-        message.channel.createMessage(
+        void message.channel.createMessage(
           'It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message.'
         )
       })
       .then(() => {
         if (openDmChannel) {
-          message.channel.createMessage(
+          void message.channel.createMessage(
             'Could you have a look at your DM (Direct Messages) please?'
           )
         }

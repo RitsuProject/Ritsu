@@ -1,6 +1,7 @@
 import RitsuHTTP from '../structures/RitsuHTTP'
 import GameOptions from '../interfaces/GameOptions'
 import MioSong from '../interfaces/MioSong'
+import JikanAnime from '../interfaces/JikanAnime'
 import RitsuUtils from '../utils/RitsuUtils'
 import NodeCache from 'node-cache'
 import { Message } from 'eris'
@@ -26,14 +27,14 @@ export default class ThemesHandler {
       case 'easy': {
         try {
           const randomPage = RitsuUtils.randomIntBetween(0, 3)
-          const byPopularityRank = await RitsuHTTP.get(
+          const byPopularityRank = await RitsuHTTP.get<JikanAnime>(
             `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`
           )
 
           const animes = byPopularityRank.data.top
-          const anime: { title: string } = RitsuUtils.randomValueInArray(animes)
+          const anime = RitsuUtils.randomValueInArray(animes)
 
-          const search = await RitsuHTTP.get(
+          const search = await RitsuHTTP.get<MioSong>(
             `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
           )
 
@@ -41,10 +42,10 @@ export default class ThemesHandler {
 
           return songData
         } catch (e) {
-          if (e.isAxiosError) {
+          if (RitsuUtils.isAxiosError(e)) {
             if (e.response.status === 400) return false
           } else {
-            throw new Error(e.message)
+            throw new Error(`${e}`)
           }
         }
         break
@@ -56,7 +57,7 @@ export default class ThemesHandler {
 
           switch (type) {
             case 'random': {
-              const random = await RitsuHTTP.get(
+              const random = await RitsuHTTP.get<MioSong>(
                 `${process.env.API_URL}/themes/random?provider=${provider}`
               )
 
@@ -67,16 +68,14 @@ export default class ThemesHandler {
             case 'popularity': {
               const randomPage = RitsuUtils.randomIntBetween(0, 5)
 
-              const byPopularityRank = await RitsuHTTP.get(
+              const byPopularityRank = await RitsuHTTP.get<JikanAnime>(
                 `https://api.jikan.moe/v3/top/anime/${randomPage}/bypopularity`
               )
 
               const animes = byPopularityRank.data.top
-              const anime: { title: string } = RitsuUtils.randomValueInArray(
-                animes
-              )
+              const anime = RitsuUtils.randomValueInArray(animes)
 
-              const search = await RitsuHTTP.get(
+              const search = await RitsuHTTP.get<MioSong>(
                 `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
               )
 
@@ -86,10 +85,10 @@ export default class ThemesHandler {
             }
           }
         } catch (e) {
-          if (e.isAxiosError) {
+          if (RitsuUtils.isAxiosError(e)) {
             if (e.response.status === 400) return false
           } else {
-            throw new Error(e.message)
+            throw new Error(`${e}`)
           }
         }
         break
@@ -136,7 +135,7 @@ export default class ThemesHandler {
           return mioSongFakeObject
         } catch (e) {
           console.log(e)
-          throw new Error(e.message)
+          throw new Error(`${e}`)
         }
       }
 
@@ -154,7 +153,7 @@ export default class ThemesHandler {
     const choosedTheme = await this.chooseTheme()
     this.themesCache.set(choosedTheme.link, this.message.guildID)
 
-    loadingMessage.delete()
+    void loadingMessage.delete()
     return choosedTheme
   }
 

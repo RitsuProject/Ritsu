@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import crypto from 'crypto'
 
-export default async function checkPatreonSignature(
+export default function checkPatreonSignature(
   req: Request,
   res: Response,
   next: NextFunction

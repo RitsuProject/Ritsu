@@ -34,7 +34,7 @@ export default class GameHandler {
     if (!guild) return
     await this.startNewRound(guild).catch((e) => {
       console.log(e)
-      this.message.channel.createMessage(
+      void this.message.channel.createMessage(
         Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e)
       )
     })
@@ -58,13 +58,13 @@ export default class GameHandler {
       `\`Fetching stream...\``
     )
     const stream = await getStreamFromURL(theme.link).catch(() => {
-      fetchingStreamMessage.delete()
+      void fetchingStreamMessage.delete()
       throw new Error(
         'For some extremely evil reason, I was unable to load the current stream of the theme and so I was unable to continue! Restart the game and try again.'
       )
     })
 
-    fetchingStreamMessage.delete()
+    void fetchingStreamMessage.delete()
 
     guild.rolling = true
     await guild.save()
@@ -85,37 +85,44 @@ export default class GameHandler {
       }
     )
 
-    answerCollector.on('collect', async (msg: Message) => {
-      GameCollectorUtils.handleCollect(room, msg)
-    })
+    answerCollector.on(
+      'collect',
+      (msg: Message) => void GameCollectorUtils.handleCollect(room, msg)
+    )
 
-    answerCollector.on('end', async () => {
-      const answerers =
-        room.answerers.length > 0
-          ? room.answerers.map((id) => `<@${id}>`).join(', ')
-          : 'Nobody'
+    answerCollector.on(
+      'end',
+      () =>
+        void (async () => {
+          const answerers =
+            room.answerers.length > 0
+              ? room.answerers.map((id) => `<@${id}>`).join(', ')
+              : 'Nobody'
 
-      await this.message.channel.createMessage(`Correct Users: ${answerers}`)
-
-      const embed = generateEmbed(theme, animeData)
-
-      await this.message.channel.createMessage('The answer is...')
-      await this.message.channel.createMessage({ embed })
-
-      if (room.currentRound >= this.gameOptions.rounds) {
-        await this.clearData(room, guild)
-        this.client.leaveVoiceChannel(voiceChannel)
-        this.message.channel.createMessage('Match ended.')
-      } else {
-        await this.startNewRound(guild).catch((e) => {
-          this.message.channel.createMessage(
-            Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e)
+          await this.message.channel.createMessage(
+            `Correct Users: ${answerers}`
           )
-        })
-      }
-    })
 
-    this.playTheme(voiceChannel, stream)
+          const embed = generateEmbed(theme, animeData)
+
+          await this.message.channel.createMessage('The answer is...')
+          await this.message.channel.createMessage({ embed })
+
+          if (room.currentRound >= this.gameOptions.rounds) {
+            await this.clearData(room, guild)
+            this.client.leaveVoiceChannel(voiceChannel)
+            void this.message.channel.createMessage('Match ended.')
+          } else {
+            await this.startNewRound(guild).catch((e) => {
+              void this.message.channel.createMessage(
+                Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e)
+              )
+            })
+          }
+        })()
+    )
+
+    void this.playTheme(voiceChannel, stream)
   }
 
   // async handleFinish(room: RoomInterface, force: boolean) {}
@@ -127,7 +134,7 @@ export default class GameHandler {
     await room.deleteOne()
   }
 
-  async playTheme(voiceChannel: string, stream: string) {
+  playTheme(voiceChannel: string, stream: string) {
     this.client
       .joinVoiceChannel(voiceChannel)
       .then((connection) => {
@@ -137,7 +144,7 @@ export default class GameHandler {
           connection.stopPlaying()
         }, this.gameOptions.time - 2000)
       })
-      .catch((e) => {
+      .catch((e: Error) => {
         throw new Error(`Failed to connect to the Voice Channel | ${e.message}`)
       })
   }

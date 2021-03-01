@@ -1,15 +1,16 @@
 import { Request, Response } from 'express'
+import PatreonBody from '../../interfaces/PatreonBody'
 import User from '../../database/entities/User'
 import RitsuClient from '../../structures/RitsuClient'
 import Constants from '../../utils/Constants'
 
 export default async function handlePatreon(
-  req: Request,
+  req: Request<null, null, PatreonBody>,
   res: Response,
   client: RitsuClient
 ) {
-  const userDiscordId: string = req.body.included[1].attributes.discord_id
-  const chargeStatus: string = req.body.data.attributes.last_charge_status
+  const userDiscordId = req.body.included[1].attributes.discord_id
+  const chargeStatus = req.body.data.attributes.last_charge_status
 
   // Check if user has a Discord Account linked and the charge status as Paid
   if (userDiscordId && chargeStatus === 'Paid') {
@@ -36,7 +37,7 @@ export default async function handlePatreon(
         color: Constants.EMBED_COLOR_BASE,
       }
 
-      dmChannel.createMessage({ embed })
+      void dmChannel.createMessage({ embed })
     }
 
     return res.json({

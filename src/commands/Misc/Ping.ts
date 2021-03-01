@@ -15,13 +15,15 @@ class Ping extends RitsuCommand {
 
   async run({ message }: Context) {
     const createdAt = Date.now()
+    const pings = this.client.shards.map((i) => Math.round(i.latency))
+
     const msg = await message.channel.createMessage(
       'Dont steal my strawberry, Mugi!'
     )
-    msg.edit(
-      `Pong! **WS**: \`${this.client.shards.map((i) =>
-        Math.round(i.latency)
-      )}\`ms | **API**: \`${Date.now() - createdAt}\`ms`
+    void msg.edit(
+      `Pong! **WS**: \`${
+        pings.reduce((a, b) => a + b, 0) / pings.length
+      }\`ms | **API**: \`${Date.now() - createdAt}\`ms`
     )
   }
 }

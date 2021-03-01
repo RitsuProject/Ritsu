@@ -13,12 +13,12 @@ class Prefix extends RitsuCommand {
     })
   }
 
-  async run({ message, args, guild }: Context) {
+  run({ message, args, guild }: Context) {
     if (!args[0])
       return message.channel.createMessage('You need to specify the prefix.')
     guild.prefix = args[0]
-    guild.save()
-    message.channel.createMessage(
+    void guild.save()
+    void message.channel.createMessage(
       `The server prefix has been changed: ${args[0]}`
     )
   }

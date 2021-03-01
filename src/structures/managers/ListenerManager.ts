@@ -17,12 +17,16 @@ export class ListenerManager {
   build() {
     readdir(join(__dirname, '..', '..', '/listeners'), (err, files) => {
       if (err) console.error(err)
-      files.forEach(async (em) => {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const Event = require(join(__dirname, '..', '..', '/listeners/', em))
-        const event: RitsuEvent = new Event(this.client)
-        this.client.on(event.name, (...args) => event.run(...args))
-      })
+      files.forEach(
+        (em) =>
+          void (async () => {
+            const Event = (await import(
+              join(__dirname, '..', '..', '/listeners/', em)
+            )) as new (client: RitsuClient) => RitsuEvent
+            const event = new Event(this.client)
+            this.client.on(event.name, (...args) => event.run(...args))
+          })()
+      )
     })
   }
 }
