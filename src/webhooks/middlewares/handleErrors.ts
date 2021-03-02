@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 
 export default function handleErrors(
-  err,
+  err: Error,
   req: Request,
   res: Response,
   next: NextFunction

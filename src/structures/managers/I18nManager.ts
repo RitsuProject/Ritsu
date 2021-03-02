@@ -1,6 +1,6 @@
 import { readdirSync } from 'fs'
 import i18next from 'i18next'
-import backend from 'i18next-node-fs-backend'
+import Backend from 'i18next-node-fs-backend'
 
 export default class I18nManager {
   private types: Array<string> = [
@@ -13,8 +13,8 @@ export default class I18nManager {
 
   private langs: Array<string> = ['pt-BR', 'en-US']
 
-  async loadLocales() {
-    i18next.use(backend).init({
+  loadLocales() {
+    void i18next.use(Backend).init({
       ns: this.types,
       supportedLngs: this.langs,
       preload: readdirSync('./src/locales'),

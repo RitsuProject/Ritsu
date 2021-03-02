@@ -16,19 +16,19 @@ class Invite extends RitsuCommand {
   async run({ message }: Context) {
     const dmChannel = await message.author.getDMChannel()
     let openDmChannel = true
-    dmChannel
+    void dmChannel
       .createMessage(
         'Thanks for wanting to add me! Here is the invite link! <invite here owo>'
       )
       .catch(() => {
         openDmChannel = false
-        message.channel.createMessage(
+        void message.channel.createMessage(
           'It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message.'
         )
       })
       .then(() => {
         if (openDmChannel) {
-          message.channel.createMessage(
+          void message.channel.createMessage(
             'Could you have a look at your DM (Direct Messages) please?'
           )
         }

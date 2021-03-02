@@ -26,34 +26,28 @@ class Leaderboard extends RitsuCommand {
       fields: [],
     }
 
-    await User.find()
+    const results = await User.find()
       .sort({ level: -1 })
       .limit(10)
       .select('wonMatches level')
       .lean()
-      .then(async (results) => {
-        for (const result in results) {
-          const user = await this.client.users.get(results[result]._id)
-          const fakeResult = parseInt(result)
-          const rankNumber = fakeResult + 1
 
-          if (user) {
-            embed.fields.push({
-              name: `${rankNumber}.${user.username}#${user.discriminator}`,
-              value: `Level: **${results[result].level}**\nWon Matches: **${results[result].wonMatches}**`,
-              inline: true,
-            })
-          } else {
-            embed.fields.push({
-              name: `${rankNumber}.Ghost (User is no longer in the cache)`,
-              value: `Level: **${results[result].level}**\nWon Matches: **${results[result].wonMatches}**`,
-              inline: true,
-            })
-          }
-        }
-      })
+    results.forEach((result, rank) => {
+      const user = this.client.users.get(result._id)
+      user
+        ? embed.fields.push({
+            name: `${rank + 1}.${user.username}#${user.discriminator}`,
+            value: `Level: **${result.level}**\nWon Matches: **${result.wonMatches}**`,
+            inline: true,
+          })
+        : embed.fields.push({
+            name: `${rank + 1}.Ghost (User is no longer in the cache)`,
+            value: `Level: **${result.level}**\nWon Matches: **${result.wonMatches}**`,
+            inline: true,
+          })
+    })
 
-    message.channel.createMessage({ embed })
+    void message.channel.createMessage({ embed })
   }
 }
 

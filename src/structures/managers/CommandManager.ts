@@ -25,19 +25,16 @@ export class CommandManager {
           join(__dirname, '..', '..', '/commands/', category),
           (err, cmd) => {
             if (err) return console.log(err)
-            cmd.forEach((cmd) => {
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              const Command = require(join(
-                __dirname,
-                '..',
-                '..',
-                '/commands/',
-                category,
-                cmd
-              ))
-              const command: RitsuCommand = new Command(this.client)
-              this.commands.set(command.name, command)
-            })
+            cmd.forEach(
+              (cmd) =>
+                void (async () => {
+                  const Command = (await import(
+                    join(__dirname, '..', '..', '/commands/', category, cmd)
+                  )) as new (client: RitsuClient) => RitsuCommand
+                  const command = new Command(this.client)
+                  this.commands.set(command.name, command)
+                })()
+            )
           }
         )
       })

@@ -20,7 +20,7 @@ class messageCreate extends RitsuEvent {
     const guild = await Guilds.findById(message.guildID)
     const userExists = await Users.exists({ _id: message.author.id })
     if (!userExists) {
-      new Users({
+      void new Users({
         _id: message.author.id,
         name: message.author.discriminator,
         wonMatches: 0,
@@ -52,7 +52,7 @@ class messageCreate extends RitsuEvent {
 
     if (commandName === '') {
       if (isRitsuMention)
-        message.channel.createMessage(
+        void message.channel.createMessage(
           t('utils:mentionRitsu', { prefix: guild.prefix })
         )
     }
@@ -64,7 +64,7 @@ class messageCreate extends RitsuEvent {
       resolve(command.run({ message, args, guild, t }))
     }).catch((e: Error) => {
       console.log(e)
-      message.channel.createMessage(
+      void message.channel.createMessage(
         Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e.message)
       )
     })

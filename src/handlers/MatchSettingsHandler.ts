@@ -28,12 +28,9 @@ export default class MatchSettingsHandler {
         }
 
         const m = messages[0]
-        if (m.content === `mugi!stop`) {
-          this.message.channel.createMessage('Match cancelled.')
-          return
-        }
-
-        return m
+        return m.content === `mugi!stop`
+          ? m
+          : void this.message.channel.createMessage('Match cancelled.')
       })
   }
 
@@ -149,7 +146,7 @@ export default class MatchSettingsHandler {
           throw new Error('Invalid Username')
         }
       } catch (e) {
-        throw new Error(e.message)
+        throw new Error(`${e}`)
       }
     })
     return username

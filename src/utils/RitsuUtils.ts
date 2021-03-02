@@ -1,3 +1,5 @@
+import { AxiosError } from 'axios'
+
 export default {
   randomIntBetween(min: number, max: number) {
     min = Math.ceil(min)
@@ -7,5 +9,9 @@ export default {
 
   randomValueInArray<T extends unknown>(array: T[]): T {
     return array[Math.floor(Math.random() * array.length)]
+  },
+
+  isAxiosError(err: unknown): err is AxiosError {
+    return (err as AxiosError).isAxiosError
   },
 }

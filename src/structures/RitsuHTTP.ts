@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 const ritsuHTTP = axios.create({
   headers: {
@@ -11,8 +11,12 @@ ritsuHTTP.interceptors.request.use(
     console.log(`[HTTP REQUEST] ${config.method.toUpperCase()} - ${config.url}`)
     return config
   },
-  (e) => {
-    console.log(`[HTTP REQUEST] Request to ${e.response.url} failed! \n${e}`)
+  (e: AxiosError) => {
+    console.log(
+      `[HTTP REQUEST] Request to ${
+        e && e.response ? e.response.config.url : '[URL Unknown]'
+      } failed! \n${e}`
+    )
   }
 )
 

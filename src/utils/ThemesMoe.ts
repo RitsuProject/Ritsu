@@ -1,5 +1,6 @@
 import { ThemesMoeAnime } from '../interfaces/ThemesMoe'
 import RitsuHTTP from '../structures/RitsuHTTP'
+import RitsuUtils from './RitsuUtils'
 
 export default {
   async getAnimesByAnimeList(
@@ -9,11 +10,11 @@ export default {
     switch (website) {
       case 'mal': {
         try {
-          const themesMoeResponse = await RitsuHTTP.get(
+          const themesMoeResponse = await RitsuHTTP.get<Array<ThemesMoeAnime>>(
             `https://themes.moe/api/mal/${username}`
           )
 
-          const data: Array<ThemesMoeAnime> = themesMoeResponse.data
+          const data = themesMoeResponse.data
 
           if (data.length > 0) {
             return data
@@ -21,21 +22,21 @@ export default {
             throw new Error("I didn't find any anime on that list.")
           }
         } catch (e) {
-          if (e.isAxiosError) {
+          if (RitsuUtils.isAxiosError(e)) {
             if (e.response.status === 400) throw new Error('User not found.')
           } else {
-            throw new Error(e.message)
+            throw new Error(`${e}`)
           }
         }
         break
       }
       case 'anilist': {
         try {
-          const themesMoeResponse = await RitsuHTTP.get(
+          const themesMoeResponse = await RitsuHTTP.get<Array<ThemesMoeAnime>>(
             `https://themes.moe/api/anilist/${username}`
           )
 
-          const data: Array<ThemesMoeAnime> = themesMoeResponse.data
+          const data = themesMoeResponse.data
 
           if (data.length > 0) {
             return data
@@ -43,10 +44,10 @@ export default {
             throw new Error("I didn't find any anime on that list.")
           }
         } catch (e) {
-          if (e.isAxiosError) {
+          if (RitsuUtils.isAxiosError(e)) {
             if (e.response.status === 400) throw new Error('User not found.')
           } else {
-            throw new Error(e.message)
+            throw new Error(`${e}`)
           }
         }
         break
@@ -62,21 +63,21 @@ export default {
     season: string
   ): Promise<ThemesMoeAnime[]> {
     try {
-      const themesMoeResponse = await RitsuHTTP.get(
+      const themesMoeResponse = await RitsuHTTP.get<Array<ThemesMoeAnime>>(
         `https://themes.moe/api/seasons/${year}`
       )
 
-      const data: Array<ThemesMoeAnime> = themesMoeResponse.data
+      const data = themesMoeResponse.data
       const filter = data.filter((anime) => anime.season === season)
 
       if (filter.length > 0) return filter
 
       throw new Error('Season not found.')
     } catch (e) {
-      if (e.isAxiosError) {
+      if (RitsuUtils.isAxiosError(e)) {
         if (e.response.status === 404) throw new Error('Year not found.')
       } else {
-        throw new Error(e.message)
+        throw new Error(`${e}`)
       }
     }
   },

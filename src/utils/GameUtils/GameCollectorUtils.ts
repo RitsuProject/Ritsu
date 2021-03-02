@@ -16,7 +16,7 @@ export default {
         room.leaderboard.push({ id: authorID })
       }
 
-      msg.channel.createMessage(`<@${authorID}> get the correct answer!`)
+      void msg.channel.createMessage(`<@${authorID}> get the correct answer!`)
       await msg.delete()
       await room.save()
     }
@@ -36,7 +36,7 @@ export default {
       })
     }
 
-    const titles: Array<string> | null = Object.values(animeData.title)
+    const titles = Object.values(animeData.title) as Array<string>
     titles.forEach((t) => {
       if (t !== null) {
         answers.push(t)
