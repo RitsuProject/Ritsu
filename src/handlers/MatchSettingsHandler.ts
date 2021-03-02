@@ -84,12 +84,12 @@ export default class MatchSettingsHandler {
     const duration = await this.startCollector().then(async (m) => {
       if (!m) return
       if (m.content.endsWith('s')) {
-        const miliseconds = ms(m.content)
-        const long = ms(miliseconds, { long: true })
-        if (miliseconds < 20000) throw new Error('minimium time limit')
+        const milliseconds = ms(m.content)
+        const long = ms(milliseconds, { long: true })
+        if (milliseconds < 20000) throw new Error('minimum time limit')
         await primary.delete()
         await m.delete()
-        return { parsed: miliseconds, value: long }
+        return { parsed: milliseconds, value: long }
       } else {
         throw new Error('invalid')
       }

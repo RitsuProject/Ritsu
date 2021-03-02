@@ -44,8 +44,8 @@ export default class GameHandler {
     const voiceChannel = this.message.member.voiceState.channelID
 
     if (!voiceChannel) {
-      const oldRoom = await Rooms.findById(this.message.guildID)
-      if (oldRoom) {
+      const oldRoomExists = await Rooms.exists({ _id: this.message.guildID })
+      if (oldRoomExists) {
         this.client.leaveVoiceChannel(voiceChannel)
       }
       return this.message.channel.createMessage('No Users in Voice Channel.')

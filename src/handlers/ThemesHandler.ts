@@ -150,11 +150,11 @@ export default class ThemesHandler {
       `\`Fetching the Anime Theme...\``
     )
 
-    const choosedTheme = await this.chooseTheme()
-    this.themesCache.set(choosedTheme.link, this.message.guildID)
-
+    const chosenTheme = await this.chooseTheme()
+    this.themesCache.set(chosenTheme.link, this.message.guildID)
+   
     void loadingMessage.delete()
-    return choosedTheme
+    return chosenTheme
   }
 
   async chooseTheme(): Promise<MioSong> {

@@ -1,7 +1,7 @@
 {
   "ping": {
     "commandDescription": "Pong!",
-    "stealMessage": "Dont steal my strawberry, Mugi!"
+    "stealMessage": "Don't steal my strawberry, Mugi!"
   },
   "help": {
     "commandDescription": "This command! ^w^",

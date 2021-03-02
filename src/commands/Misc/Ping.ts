@@ -18,7 +18,7 @@ class Ping extends RitsuCommand {
     const pings = this.client.shards.map((i) => Math.round(i.latency))
 
     const msg = await message.channel.createMessage(
-      'Dont steal my strawberry, Mugi!'
+      "Don't steal my strawberry, Mugi!"
     )
     void msg.edit(
       `Pong! **WS**: \`${
