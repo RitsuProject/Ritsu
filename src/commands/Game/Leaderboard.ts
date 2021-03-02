@@ -29,6 +29,8 @@ class Leaderboard extends RitsuCommand {
     await User.find()
       .sort({ level: -1 })
       .limit(10)
+      .select('wonMatches level')
+      .lean()
       .then(async (results) => {
         for (const result in results) {
           const user = await this.client.users.get(results[result]._id)
