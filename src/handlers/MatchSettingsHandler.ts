@@ -28,9 +28,11 @@ export default class MatchSettingsHandler {
         }
 
         const m = messages[0]
-        return m.content === `mugi!stop`
-          ? m
-          : void this.message.channel.createMessage('Match cancelled.')
+        if (m.content === `mugi!stop`) {
+          void this.message.channel.createMessage('Match cancelled.')
+          return
+        }
+        return m
       })
   }
 

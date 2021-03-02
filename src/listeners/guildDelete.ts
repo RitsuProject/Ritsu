@@ -1,9 +1,9 @@
 import { Guild } from 'eris'
 import Guilds from '../database/entities/Guild'
 import RitsuClient from '../structures/RitsuClient'
-import RitsuEvent from '../structures/RitsuEvent'
+import { RitsuEvent } from '../structures/RitsuEvent'
 
-class guildDelete extends RitsuEvent {
+export class guildDelete extends RitsuEvent {
   public client: RitsuClient
   constructor(client: RitsuClient) {
     super(client, {
@@ -15,5 +15,3 @@ class guildDelete extends RitsuEvent {
     await Guilds.findByIdAndDelete(guild.id)
   }
 }
-
-export = guildDelete

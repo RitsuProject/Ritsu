@@ -4,7 +4,7 @@ interface Options {
   name: string
 }
 
-export default abstract class RitsuEvent {
+export abstract class RitsuEvent {
   public name: string
   constructor(public client: RitsuClient, options: Options) {
     this.name = options.name

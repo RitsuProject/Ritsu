@@ -28,11 +28,16 @@ export class CommandManager {
             cmd.forEach(
               (cmd) =>
                 void (async () => {
-                  const Command = (await import(
+                  const CommandObject: unknown = await import(
                     join(__dirname, '..', '..', '/commands/', category, cmd)
-                  )) as new (client: RitsuClient) => RitsuCommand
-                  const command = new Command(this.client)
-                  this.commands.set(command.name, command)
+                  )
+
+                  Object.values(CommandObject).forEach(
+                    (Command: new (client: RitsuClient) => RitsuCommand) => {
+                      const command = new Command(this.client)
+                      this.commands.set(command.name, command)
+                    }
+                  )
                 })()
             )
           }

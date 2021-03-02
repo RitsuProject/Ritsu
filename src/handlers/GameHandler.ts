@@ -12,6 +12,8 @@ import generateEmbed from '../utils/GameUtils/GenerateEmbed'
 import NodeCache from 'node-cache'
 import Constants from '../utils/Constants'
 import RoomHandler from './RoomHandler'
+import LevelHandler from './LevelHandler'
+import User from '../database/entities/User'
 
 /**
  * GameHandler
@@ -85,10 +87,9 @@ export default class GameHandler {
       }
     )
 
-    answerCollector.on(
-      'collect',
-      (msg: Message) => void GameCollectorUtils.handleCollect(room, msg)
-    )
+    answerCollector.on('collect', (msg: Message) => {
+      void GameCollectorUtils.handleCollect(room, msg)
+    })
 
     answerCollector.on(
       'end',
@@ -107,6 +108,10 @@ export default class GameHandler {
 
           await this.message.channel.createMessage('The answer is...')
           await this.message.channel.createMessage({ embed })
+
+          room.answerers.forEach((id) => {
+            void this.handleLevel(id)
+          })
 
           if (room.currentRound >= this.gameOptions.rounds) {
             await this.clearData(room, guild)
@@ -132,6 +137,23 @@ export default class GameHandler {
     this.themesCache.del(this.themesCache.keys())
     await guild.save()
     await room.deleteOne()
+  }
+
+  async handleLevel(userId: string) {
+    const user = await User.findById(userId)
+    const levelHandler = new LevelHandler()
+    const stats = await levelHandler.handleLevelByMode(
+      userId,
+      this.gameOptions.mode
+    )
+    user.xp = user.xp + stats.xp
+    if (stats.level !== user.level) {
+      void this.message.channel.createMessage(
+        `Congratulations <@${userId}>! You just level up to **${stats.level}**!`
+      )
+    }
+    await user.save()
+    console.log(user)
   }
 
   playTheme(voiceChannel: string, stream: string) {

@@ -1,7 +1,7 @@
 import { readdir } from 'fs'
 import { join } from 'path'
 import RitsuClient from '../RitsuClient'
-import RitsuEvent from '../RitsuEvent'
+import { RitsuEvent } from '../RitsuEvent'
 
 /**
  * Listener Manager
@@ -20,11 +20,16 @@ export class ListenerManager {
       files.forEach(
         (em) =>
           void (async () => {
-            const Event = (await import(
+            const EventObject: unknown = await import(
               join(__dirname, '..', '..', '/listeners/', em)
-            )) as new (client: RitsuClient) => RitsuEvent
-            const event = new Event(this.client)
-            this.client.on(event.name, (...args) => event.run(...args))
+            )
+
+            Object.values(EventObject).forEach(
+              (Event: new (client: RitsuClient) => RitsuEvent) => {
+                const event = new Event(this.client)
+                this.client.on(event.name, (...args) => event.run(...args))
+              }
+            )
           })()
       )
     })

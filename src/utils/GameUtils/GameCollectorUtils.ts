@@ -5,18 +5,19 @@ import stringSimilarity from 'string-similarity'
 
 export default {
   async handleCollect(room: RoomDocument, msg: Message) {
-    const authorID = msg.author.id
-    if (!room.answerers.includes(authorID)) {
-      room.answerers.push(authorID)
+    if (!room.answerers.includes(msg.author.id)) {
+      room.answerers.push(msg.author.id)
 
       const findInLeaderBoard = room.leaderboard.find((user) => {
-        return user.id === authorID
+        return user.id === msg.author.id
       })
       if (findInLeaderBoard === undefined) {
-        room.leaderboard.push({ id: authorID })
+        room.leaderboard.push({ id: msg.author.id })
       }
 
-      void msg.channel.createMessage(`<@${authorID}> get the correct answer!`)
+      void msg.channel.createMessage(
+        `<@${msg.author.id}> get the correct answer!`
+      )
       await msg.delete()
       await room.save()
     }
