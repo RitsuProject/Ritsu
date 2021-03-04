@@ -28,8 +28,7 @@ module.exports = class Start extends Command {
     const tip = await message.channel.send(
       t('commands:start.tip', { prefix: guild.prefix })
     )
-    guild.rolling = true
-    await guild.save()
+
     // Default Configuration
     let mode = 'normal'
     let rounds = 3

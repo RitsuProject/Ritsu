@@ -34,15 +34,11 @@ module.exports.MatchConfig = class MatchConfig {
           this.message.channel.send(
             this.t('commands:start.roundConfig.cancelledMatch')
           )
-          this.guild.rolling = false
-          await this.guild.save()
           return false
         }
         return m
       })
       .catch(async () => {
-        this.guild.rolling = false
-        await this.guild.save()
         throw new Error(this.t('commands:start.roundConfig.expiredMatch'))
       })
   }
