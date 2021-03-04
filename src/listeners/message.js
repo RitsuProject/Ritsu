@@ -52,6 +52,9 @@ module.exports = class message {
       return message.channel.send(
         '<a:bongo_cat:772152200851226684> Hey Hey! Sorry for the inconvenience! I am currently undergoing **maintenance**, you can have more news on my support server.'
       )
+
+    if (guild.blacklisted) return
+
     const args = message.content.slice(guild.prefix.length).trim().split(/ +/g)
     const command = args.shift().toLowerCase()
     const fancyCommand =

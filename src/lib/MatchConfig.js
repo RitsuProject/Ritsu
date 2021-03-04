@@ -28,17 +28,21 @@ module.exports.MatchConfig = class MatchConfig {
         time: 60000,
         errors: ['time'],
       })
-      .then((c) => {
+      .then(async (c) => {
         const m = c.first()
         if (m.content === `${this.guild.prefix}stop`) {
           this.message.channel.send(
             this.t('commands:start.roundConfig.cancelledMatch')
           )
+          this.guild.rolling = false
+          await this.guild.save()
           return false
         }
         return m
       })
-      .catch(() => {
+      .catch(async () => {
+        this.guild.rolling = false
+        await this.guild.save()
         throw new Error(this.t('commands:start.roundConfig.expiredMatch'))
       })
   }

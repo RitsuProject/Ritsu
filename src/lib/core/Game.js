@@ -142,8 +142,6 @@ module.exports.Game = class Game {
     })
     loading.delete()
 
-    guild.rolling = true
-    await guild.save()
     const room = await this.roomHandler(answer, voicech.id) // Create a new Room ^w^
 
     this.message.channel.send(
