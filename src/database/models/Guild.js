@@ -7,6 +7,7 @@ const GuildSchema = new mongoose.Schema({
   rolling: { type: Boolean, required: false, default: false },
   lang: { type: String, required: false, default: 'en-US' },
   premium: { type: Boolean, required: true },
+  blacklisted: { type: Boolean, required: true, default: false },
 })
 
 const Guilds = mongoose.model('Guilds', GuildSchema)
