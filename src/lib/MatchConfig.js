@@ -109,15 +109,15 @@ module.exports.MatchConfig = class MatchConfig {
     const duration = await this.startCollector().then(async (m) => {
       if (!m) return
       if (m.content.endsWith('s')) {
-        const miliseconds = ms(m.content)
-        const long = ms(miliseconds, { long: true })
-        if (miliseconds < 20000)
+        const milliseconds = ms(m.content)
+        const long = ms(milliseconds, { long: true })
+        if (milliseconds < 20000)
           return this.message.channel.send(
-            this.t('commands:start.roundConfig.minimiumTime')
+            this.t('commands:start.roundConfig.minimumTime')
           )
         await primary.delete()
         await m.delete()
-        return { parsed: miliseconds, value: long }
+        return { parsed: milliseconds, value: long }
       } else {
         throw new Error(this.t('commands:start.roundConfig.invalidDuration'))
       }

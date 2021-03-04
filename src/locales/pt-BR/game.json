@@ -3,7 +3,7 @@
   "eventModeAnswer": "**[Modo de Evento]** A resposta é: {{answer}}",
   "easteregg": "Você descobriu um Easter Egg! Sua partida começará em {{seconds}} segundos.",
   "correctAnswer": "Parabéns {{user}}! Você respondeu corretamente!",
-  "answserIs": "A resposta é...",
+  "answerIs": "A resposta é...",
   "searchingTheme": "Procurando música... (Isso pode levar algum tempo)",
   "waitingStream": "Aguardando a stream... (Isso poderá levar algum tempo.)",
   "correctUsers": "{{users}} ganhou(ram) esse round!",

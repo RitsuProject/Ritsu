@@ -52,7 +52,7 @@ module.exports = class Profile extends Command {
       .addField(`:medal: ${t('utils:rank')}`, user.rank, true)
       .addField(
         `:star: Stats`,
-        `Level: ${user.level} | XP: ${user.xp}/${user.requiredToUP}\n**(The stats were reset this week, please join in to my support server to find out why)**`,
+        `Level: ${user.level} | XP: ${user.xp}/${user.requiredToUP}`,
         true
       )
       .addField(

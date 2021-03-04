@@ -4,9 +4,9 @@ const phin = require('phin')
  * Checks whether the provider is offline or online.
  * @async
  * @param {String} provider - The Provider.
- * @exemple
+ * @example
  * getProviderStatus("animethemes")
- * @exemple
+ * @example
  * getProviderStatus("openingsmoe")
  */
 

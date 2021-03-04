@@ -26,6 +26,7 @@ module.exports.Ritsu = class Ritsu extends Client {
     ]
     this.commands = new Collection()
     this.aliases = new Collection()
+    this.m = false
     this.prometheus = prometheusMetrics
     this.promServer = createServer((req, res) => {
       if (req.url != null) {
@@ -101,9 +102,9 @@ module.exports.Ritsu = class Ritsu extends Client {
       if (err) console.error(err)
       files.forEach(async (em) => {
         const Event = require(join(__dirname, '..', '/listeners/', em))
-        const eventa = new Event(this)
+        const event = new Event(this)
         const name = em.split('.')[0]
-        super.on(name, (...args) => eventa.run(...args))
+        super.on(name, (...args) => event.run(...args))
       })
     })
   }

@@ -17,7 +17,7 @@
       "isNaN": "¡Eso no parece un número! Cancelado...",
       "roundsLimit": "¡Solo puedes iniciar hasta 10 rondas! Cancelado...",
       "whatDuration": "¿Cuál es la duración de las rondas? (Mínimo: 20 segundos)",
-      "minimiumTime": "¡El tiempo mínimo es de 20 segundos! Ingrese un valor más alto. Cancelado...",
+      "minimumTime": "¡El tiempo mínimo es de 20 segundos! Ingrese un valor más alto. Cancelado...",
       "invalidDuration": "Esta no parece ser una duración válida. Cancelado...",
       "whatAnimeListWebsite": "¿De qué sitio web es tu lista de anime? (Compatible: {{websites}})",
       "invalidWebsite": "Este no parece ser un sitio web compatible. Cancelado...",

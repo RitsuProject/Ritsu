@@ -32,11 +32,11 @@ module.exports = class Eval extends Command {
     const code = args.slice(0).join(' ')
     try {
       // eslint-disable-next-line no-eval
-      let evaled = await eval(code)
-      evaled = inspect(evaled, { depth: 1 })
-      if (evaled.length > 1800) evaled = `${evaled.slice(0, 1800)}...`
+      let evaluated = await eval(code)
+      evaluated = inspect(evaluated, { depth: 1 })
+      if (evaluated.length > 1800) evaluated = `${evaluated.slice(0, 1800)}...`
 
-      message.channel.send(evaled, { code: 'js' })
+      message.channel.send(evaluated, { code: 'js' })
     } catch (e) {
       message.channel.send(e)
     }

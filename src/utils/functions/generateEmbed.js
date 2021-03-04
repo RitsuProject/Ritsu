@@ -3,7 +3,7 @@ const { Constants } = require('../constants')
 const { logger } = require('../logger')
 
 /**
- * The Answser Embed generator.
+ * The Answer Embed generator.
  * @param {String} answer - The answer.
  * @param {String} type - The type.
  * @param {Object} animeData - Details of the anime (cover, title in English, etc.)
