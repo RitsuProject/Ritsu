@@ -2,7 +2,7 @@
   "name": "ritsu",
   "version": "3.0.0",
   "description": "The open-source bot on Discord based on the game of guessing the anime by its Ending or Opening theme!",
-  "main": "index.js",
+  "main": "dist/Ritsu.js",
   "repository": "https://github.com/RitsuProject/ritsu-v3",
   "author": "FelipeSazz <felipe@sazz.fail>",
   "license": "MIT",
