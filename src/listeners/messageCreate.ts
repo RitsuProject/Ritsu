@@ -1,12 +1,12 @@
 import { Message } from 'eris'
 import RitsuClient from 'src/structures/RitsuClient'
-import RitsuEvent from '../structures/RitsuEvent'
+import { RitsuEvent } from '../structures/RitsuEvent'
 import Users from '../database/entities/User'
 import Guilds, { GuildDocument } from '../database/entities/Guild'
 import Constants from '../utils/Constants'
 import i18next from 'i18next'
 
-class messageCreate extends RitsuEvent {
+export default class messageCreate extends RitsuEvent {
   public client: RitsuClient
   constructor(client: RitsuClient) {
     super(client, {
@@ -78,5 +78,3 @@ class messageCreate extends RitsuEvent {
     return message.content.startsWith(`<@!${this.client.user.id}>`)
   }
 }
-
-export = messageCreate

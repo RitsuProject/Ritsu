@@ -1,10 +1,10 @@
 import Guilds from '../database/entities/Guild'
 import Rooms from '../database/entities/Room'
 import RitsuClient from '../structures/RitsuClient'
-import RitsuEvent from '../structures/RitsuEvent'
+import { RitsuEvent } from '../structures/RitsuEvent'
 import RitsuUtils from '../utils/RitsuUtils'
 
-class Ready extends RitsuEvent {
+export default class Ready extends RitsuEvent {
   public client: RitsuClient
   constructor(client: RitsuClient) {
     super(client, {
@@ -32,5 +32,3 @@ class Ready extends RitsuEvent {
     }, 15000)
   }
 }
-
-export = Ready
