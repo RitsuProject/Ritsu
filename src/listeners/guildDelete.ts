@@ -3,7 +3,7 @@ import Guilds from '../database/entities/Guild'
 import RitsuClient from '../structures/RitsuClient'
 import { RitsuEvent } from '../structures/RitsuEvent'
 
-export class guildDelete extends RitsuEvent {
+export default class guildDelete extends RitsuEvent {
   public client: RitsuClient
   constructor(client: RitsuClient) {
     super(client, {

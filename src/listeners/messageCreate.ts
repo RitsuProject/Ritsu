@@ -6,7 +6,7 @@ import Guilds, { GuildDocument } from '../database/entities/Guild'
 import Constants from '../utils/Constants'
 import i18next from 'i18next'
 
-export class messageCreate extends RitsuEvent {
+export default class messageCreate extends RitsuEvent {
   public client: RitsuClient
   constructor(client: RitsuClient) {
     super(client, {

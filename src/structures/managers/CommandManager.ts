@@ -28,16 +28,24 @@ export class CommandManager {
             cmd.forEach(
               (cmd) =>
                 void (async () => {
-                  const CommandObject: unknown = await import(
-                    join(__dirname, '..', '..', '/commands/', category, cmd)
+                  /* Normally, the import of the command would return a object like this:
+                    { Ping: [class Ping extends RitsuCommand] }
+
+                    But you know, you can't give a new to an object, but in this case, 
+                    we can give it the value it has on the object because it is a class! 
+                    So we will only take the values!
+                  */
+
+                  const Command: (new (
+                    client: RitsuClient
+                  ) => RitsuCommand)[] = Object.values(
+                    await import(
+                      join(__dirname, '..', '..', '/commands/', category, cmd)
+                    )
                   )
 
-                  Object.values(CommandObject).forEach(
-                    (Command: new (client: RitsuClient) => RitsuCommand) => {
-                      const command = new Command(this.client)
-                      this.commands.set(command.name, command)
-                    }
-                  )
+                  const command = new Command[0](this.client)
+                  this.commands.set(command.name, command)
                 })()
             )
           }
