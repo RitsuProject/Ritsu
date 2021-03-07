@@ -152,7 +152,7 @@ export default class ThemesHandler {
 
     const chosenTheme = await this.chooseTheme()
     this.themesCache.set(chosenTheme.link, this.message.guildID)
-   
+
     void loadingMessage.delete()
     return chosenTheme
   }

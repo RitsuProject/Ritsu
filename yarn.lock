@@ -380,10 +380,10 @@ ajv@^7.0.2:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-anilist-node@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/anilist-node/-/anilist-node-1.6.1.tgz#23c53b63287434b16b590e382a4079f0d5349520"
-  integrity sha512-r7HjMhkYEPsymHJYMLTx4DrpH7bbhXB1i3mqbfrVzq7CIG5iO3Wvs52NSbHEA7zyH+fV2PqkcE/jEoNIqSZhfA==
+anilist-node@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/anilist-node/-/anilist-node-1.7.0.tgz#36676646cbd4649066c2bd78f7e2b7ab0c6084f8"
+  integrity sha512-TXLVkYt4ZKUujzSDShZO1bP17eARdkVAGxHkVm/NVVwXdmPd+lpH63Wm3MAD6g/FIUsU1ZoyWuB72bIsyJ1SgQ==
   dependencies:
     node-fetch "^2.6.1"
 

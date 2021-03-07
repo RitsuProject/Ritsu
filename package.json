@@ -15,7 +15,7 @@
   "dependencies": {
     "@discordjs/collection": "^0.1.6",
     "@typegoose/typegoose": "^7.4.7",
-    "anilist-node": "^1.6.1",
+    "anilist-node": "^1.7.0",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "eris": "^0.14.0",
