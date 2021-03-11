@@ -20,7 +20,7 @@ export default async function generateEmbed(
       ? animeData.description
           .replace(removeTagsRegex, '')
           .substring(0, 250 - 3) + '...'
-      : animeData.description.replace('<br>', '')
+      : animeData.description.replace(removeTagsRegex, '')
 
   const synonyms =
     animeData.synonyms && animeData.synonyms.length > 1
