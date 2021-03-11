@@ -104,7 +104,7 @@ export default class GameHandler {
             `Correct Users: ${answerers}`
           )
 
-          const embed = generateEmbed(theme, animeData)
+          const embed = await generateEmbed(theme, animeData)
 
           await this.message.channel.createMessage('The answer is...')
           await this.message.channel.createMessage({ embed })
