@@ -14,26 +14,29 @@ export default async function generateEmbed(
   const imageColorAndroid = parseInt(imageColorHex, 16)
 
   // Remove all the <i></i> and <br> tags.
-  const removeTagsRegex = '/(<br>|<i>|</i>)/g'
+  const regex = /(<br>|<i>|<\/i>)/g
   const synopsis =
     animeData.description.length > 100
-      ? animeData.description
-          .replace(removeTagsRegex, '')
-          .substring(0, 250 - 3) + '...'
-      : animeData.description.replace(removeTagsRegex, '')
+      ? animeData.description.replace(regex, '').substring(0, 250 - 3) + '...'
+      : animeData.description.replace(regex, '')
 
+  const alternateTitles = `${animeData.title.romaji}\n${animeData.title.native}`
   const synonyms =
     animeData.synonyms && animeData.synonyms.length > 1
       ? animeData.synonyms.map((s) => s).join('\n ')
-      : 'None'
+      : ''
 
   const embed = {
-    title: `${animeData.title.romaji} (${theme.type})`,
+    title: `${animeData.title.english} (${theme.type})`,
     description: `${synopsis}`,
     fields: [
       { name: 'Anime Season', value: `${animeData.season}`, inline: true },
       { name: 'Year', value: `${animeData.seasonYear}`, inline: true },
-      { name: 'Synonyms', value: synonyms, inline: true },
+      {
+        name: 'Titles & Synonyms',
+        value: `${alternateTitles}\n${synonyms}`,
+        inline: true,
+      },
     ],
     image: { url: animeData.coverImage.medium },
     color: imageColorAndroid,
