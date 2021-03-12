@@ -26,8 +26,13 @@ export default async function generateEmbed(
       ? animeData.synonyms.map((s) => s).join('\n ')
       : ''
 
+  // Sometimes, the anime title in english is null.
+  const embedTitle = animeData.title.english
+    ? animeData.title.english
+    : animeData.title.romaji
+
   const embed = {
-    title: `${animeData.title.english} (${theme.type})`,
+    title: `${embedTitle} (${theme.type})`,
     description: `${synopsis}`,
     fields: [
       { name: 'Anime Season', value: `${animeData.season}`, inline: true },
