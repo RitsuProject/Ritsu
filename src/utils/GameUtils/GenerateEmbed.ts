@@ -1,6 +1,7 @@
 import { AnimeEntry } from 'anilist-node'
 import MioSong from '../../interfaces/MioSong'
 import Vibrant from 'node-vibrant/lib/index'
+import Constants from '../Constants'
 
 export default async function generateEmbed(
   theme: MioSong,
@@ -14,11 +15,12 @@ export default async function generateEmbed(
   const imageColorAndroid = parseInt(imageColorHex, 16)
 
   // Remove all the <i></i> and <br> tags.
-  const regex = /(<br>|<i>|<\/i>)/g
   const synopsis =
     animeData.description.length > 100
-      ? animeData.description.replace(regex, '').substring(0, 250 - 3) + '...'
-      : animeData.description.replace(regex, '')
+      ? animeData.description
+          .replace(Constants.REMOVE_HTML_TAGS, '')
+          .substring(0, 250 - 3) + '...'
+      : animeData.description.replace(Constants.REMOVE_HTML_TAGS, '')
 
   const alternateTitles = `${animeData.title.romaji}\n${animeData.title.native}`
   const synonyms =

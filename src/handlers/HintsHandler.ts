@@ -1,4 +1,5 @@
 import { AnimeEntry } from 'anilist-node'
+import Constants from '../utils/Constants'
 import RitsuUtils from '../utils/RitsuUtils'
 
 export default class HintsHandler {
@@ -19,10 +20,9 @@ export default class HintsHandler {
 
     switch (hintType) {
       case 'synopsis': {
-        const htmlTagsRegex = /(<br>|<i>|<\/i>)/g
         const synopsis =
           this.animeData.description
-            .replace(htmlTagsRegex, '')
+            .replace(Constants.REMOVE_HTML_TAGS, '')
             .substring(0, 150 - 3) + '...'
         return synopsis
       }
