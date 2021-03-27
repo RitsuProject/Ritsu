@@ -41,6 +41,9 @@ module.exports = class Start extends Command {
     if (args[0] !== 'default') {
       // If user specified default in the command, skip configuration.
       // Get the user configuration.
+
+      // omg this code is pure shit
+
       const roundConfig = new MatchConfig(message, guild, t)
       mode = await roundConfig.getGamemode()
       if (typeof mode !== 'string') return
