@@ -56,5 +56,8 @@
     "helpDescription": "Cambia el prefijo del bot.",
     "noPrefix": "Necesita especificar el prefijo.",
     "changedPrefix": "Se ha cambiado el prefijo del servidor: {{newPrefix}}"
+  },
+  "profile": {
+    "helpDescription": "Show your profile."
   }
 }

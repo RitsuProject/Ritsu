@@ -33,7 +33,7 @@ module.exports.Themes = class Themes {
 
         const search = await p({
           method: 'GET',
-          url: `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`,
+          url: `${process.env.API_URL}/themes/${provider}/search?title=${anime.title}&malId=${anime.mal_id}`,
           parse: 'json',
           timeout: 20000,
         }).catch(() => {
@@ -54,7 +54,7 @@ module.exports.Themes = class Themes {
       case 'normal': {
         const random = await p({
           method: 'GET',
-          url: `${process.env.API_URL}/themes/random?provider=${provider}`,
+          url: `${process.env.API_URL}/themes/${provider}/random`,
           parse: 'json',
         })
 
@@ -85,7 +85,7 @@ module.exports.Themes = class Themes {
 
         const search = await p({
           method: 'GET',
-          url: `${process.env.API_URL}/themes/random/year?year=${year}`,
+          url: `${process.env.API_URL}/themes/animethemes/perYear?year=${year}`,
           parse: 'json',
         })
         if (search.statusCode === 200) {

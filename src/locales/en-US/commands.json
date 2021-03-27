@@ -96,5 +96,8 @@
       "genres": "Genres",
       "themes": "Themes"
     }
+  },
+  "profile": {
+    "helpDescription": "Show your profile."
   }
 }

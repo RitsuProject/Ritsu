@@ -96,5 +96,8 @@
       "genres": "Gêneros",
       "themes": "Musicas"
     }
+  },
+  "profile": {
+    "helpDescription": "Show your profile."
   }
 }
