@@ -4,7 +4,9 @@ import RitsuClient from './structures/RitsuClient'
 import startWebhooks from './webhooks'
 
 config()
-const client = new RitsuClient(process.env.DISCORD_TOKEN)
+const client = new RitsuClient(process.env.DISCORD_TOKEN, {
+  intents: ['guilds', 'guildMessages'],
+})
 
 void client.start().then(() => {
   console.log(readFileSync('title.txt', 'utf8').toString())
