@@ -14,6 +14,7 @@ import Constants from '../utils/Constants'
 import RoomHandler from './RoomHandler'
 import LevelHandler from './LevelHandler'
 import User from '../database/entities/User'
+import HintsHandler from './HintsHandler'
 
 /**
  * GameHandler
@@ -72,11 +73,15 @@ export default class GameHandler {
     await guild.save()
 
     const roomHandler = new RoomHandler(this.message, theme.name)
+    const user = await User.findById(this.message.author.id)
     const room = await roomHandler.handleRoom()
-    const animeData = await getAnimeData(theme.name)
+    const animeData = await getAnimeData(theme.name, theme.malId)
+    const hintsHandler = new HintsHandler(animeData)
 
     const answerFilter = (msg: Message) =>
       GameCollectorUtils.isAnswer(animeData, msg)
+    const fakeCommandFilter = (msg: Message) =>
+      GameCollectorUtils.isFakeCommand(guild.prefix, msg)
 
     const answerCollector = new MessageCollector(
       this.client,
@@ -86,9 +91,26 @@ export default class GameHandler {
         time: this.gameOptions.time,
       }
     )
+    const fakeCommandCollector = new MessageCollector(
+      this.client,
+      this.message.channel,
+      fakeCommandFilter,
+      {
+        time: this.gameOptions.time,
+      }
+    )
 
     answerCollector.on('collect', (msg: Message) => {
       void GameCollectorUtils.handleCollect(room, msg)
+    })
+
+    fakeCommandCollector.on('collect', (msg: Message) => {
+      void GameCollectorUtils.handleFakeCommand(
+        guild.prefix,
+        user,
+        hintsHandler,
+        msg
+      )
     })
 
     answerCollector.on(
@@ -104,7 +126,7 @@ export default class GameHandler {
             `Correct Users: ${answerers}`
           )
 
-          const embed = generateEmbed(theme, animeData)
+          const embed = await generateEmbed(theme, animeData)
 
           await this.message.channel.createMessage('The answer is...')
           await this.message.channel.createMessage({ embed })

@@ -39,6 +39,9 @@ class User {
 
   @prop({ required: true, default: 500 })
   public requiredToUP!: number
+
+  @prop({ type: Number, required: true, default: 0 })
+  public cakes: number
 }
 
 export type UserDocument = DocumentType<User>
