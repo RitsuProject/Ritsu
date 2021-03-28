@@ -35,11 +35,10 @@ export default class ThemesHandler {
           const anime = RitsuUtils.randomValueInArray(animes)
 
           const search = await RitsuHTTP.get<MioSong>(
-            `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
+            `${process.env.API_URL}/themes/${provider}/search?title=${anime.title}&malId=${anime.mal_id}`
           )
 
           const songData = search.data
-
           return songData
         } catch (e) {
           if (RitsuUtils.isAxiosError(e)) {
@@ -58,7 +57,7 @@ export default class ThemesHandler {
           switch (type) {
             case 'random': {
               const random = await RitsuHTTP.get<MioSong>(
-                `${process.env.API_URL}/themes/random?provider=${provider}`
+                `${process.env.API_URL}/themes/${provider}/random`
               )
 
               const songData = random.data
@@ -76,7 +75,7 @@ export default class ThemesHandler {
               const anime = RitsuUtils.randomValueInArray(animes)
 
               const search = await RitsuHTTP.get<MioSong>(
-                `${process.env.API_URL}/themes/search?provider=${provider}&value=${anime.title}`
+                `${process.env.API_URL}/themes/${provider}/search?title=${anime.title}&malId=${anime.mal_id}`
               )
 
               const songData = search.data
@@ -104,6 +103,7 @@ export default class ThemesHandler {
         const theme = RitsuUtils.randomValueInArray(anime.themes)
 
         const mioSongFakeObject = {
+          malId: anime.malID,
           name: anime.name,
           link: theme.mirror.mirrorURL,
           type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
@@ -125,6 +125,7 @@ export default class ThemesHandler {
           const theme = RitsuUtils.randomValueInArray(anime.themes)
 
           const mioSongFakeObject = {
+            malId: anime.malID,
             name: anime.name,
             link: theme.mirror.mirrorURL,
             type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,

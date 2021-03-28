@@ -1,3 +1,7 @@
 export default interface JikanAnime {
-  top: { title: string }[]
+  top: {
+    // eslint-disable-next-line camelcase
+    mal_id: number
+    title: string
+  }[]
 }

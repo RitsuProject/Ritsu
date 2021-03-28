@@ -75,7 +75,7 @@ export default class GameHandler {
     const roomHandler = new RoomHandler(this.message, theme.name)
     const user = await User.findById(this.message.author.id)
     const room = await roomHandler.handleRoom()
-    const animeData = await getAnimeData(theme.name)
+    const animeData = await getAnimeData(theme.name, theme.malId)
     const hintsHandler = new HintsHandler(animeData)
 
     const answerFilter = (msg: Message) =>
