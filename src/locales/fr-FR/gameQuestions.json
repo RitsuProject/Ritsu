@@ -1,15 +1,15 @@
 {
   "whatMode": "Quel mode de jeu voulez-vous pour ce match? {{modes}}",
   "whatNumberOfRounds": "Combien de manches, voulez-vous, dans ce match?",
-  "whatDuration": "Combien de temps durent chaque manches? (Minimum: 20 secondes) **PS**: Rappel, les temps valident ressemble à ceci: *20 secondes or 20s*",
+  "whatDuration": "Combien de temps durent chaque manches? (Minimum: 20 secondes) **PS**: Rappel, les temps valident ressemble à ceci: *20 seconds or 20s*",
   "whatAnimeListWebsite": "Sur quel site internet est votre liste d'animés? (Site supportés: {{websites}})",
   "whatUsername": "Quel est votre pseudo sur le site web que vous avez choisi précédemment ?",
-  "whatYearAndSeason": "Quelle est l'année et la saison? (Exemple: 2021, Hiver)",
+  "whatYearAndSeason": "Quelle est l'année et la saison? (Exemple: 2021, Winter)",
   "errors": {
     "matchStopped": "Le match a été annulé, si vous voulez en démarrer un autre, utilisez ``{{command}}``.",
-    "invalidMode": "Oh mince, le mode de jeu que vous avez entré n'est pas valide ou a été temporairement désactiver! S'il vous plait mettez-en un à partir de la liste précédente.",
+    "invalidMode": "Oh mince, le mode de jeu que vous avez entré n'est pas valide ou a été temporairement désactivé! S'il vous plait mettez-en un à partir de la liste précédente.",
     "isNaN": "Eh bien... ça ne ressemble pas à un nombre, je pense.",
-    "roundsLimit": "Pour des raisons somme toutes importunes, vous ne pouvez pas jouer à plus de 10 manches en tant que simple utilisateur, si vous en voulez plus, vous pouvez m'aider avec mon Patreon! {{patreonURL}}",
+    "roundsLimit": "Pour des raisons sommes toutes importunes, vous ne pouvez pas jouer à plus de 10 manches en tant que simple utilisateur, si vous en voulez plus, vous pouvez m'aider avec mon Patreon! {{patreonURL}}",
     "invalidDuration": "Malheureusement, un simple robot comme moi n'est pas apte à savoir ce que signifie ce que vous avez entré, c'est en secondes, minutes? Je ne sais pas! S'il vous plait entrez un temps valide.",
     "invalidWebsite": "Ce n'est apparemment pas un site supporté. Annulation...",
     "invalidFormat": "Ce n'est apparemment pas dans le bon format."
