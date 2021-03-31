@@ -37,12 +37,18 @@ class Leaderboard extends RitsuCommand {
       user
         ? embed.fields.push({
             name: `${rank + 1}.${user.username}#${user.discriminator}`,
-            value: `Level: **${result.level}**\nWon Matches: **${result.wonMatches}**`,
+            value: t('commands:leaderboard.embed.levelAndWonMatches', {
+              wonMatches: result.wonMatches,
+              level: result.level,
+            }),
             inline: true,
           })
         : embed.fields.push({
             name: `${rank + 1}.Ghost (User is no longer in the cache)`,
-            value: `Level: **${result.level}**\nWon Matches: **${result.wonMatches}**`,
+            value: t('commands:leaderboard.embed.levelAndWonMatches', {
+              wonMatches: result.wonMatches,
+              level: result.level,
+            }),
             inline: true,
           })
     })
