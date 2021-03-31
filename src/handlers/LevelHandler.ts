@@ -1,5 +1,5 @@
-import User, { UserDocument } from '../database/entities/User'
-import RitsuUtils from '../utils/RitsuUtils'
+import User, { UserDocument } from '@entities/User'
+import RitsuUtils from '@utils/RitsuUtils'
 
 export default class LevelHandler {
   async handleLevelByMode(userId: string, mode: string) {

@@ -1,6 +1,6 @@
 import { AnimeEntry } from 'anilist-node'
-import Constants from '../utils/Constants'
-import RitsuUtils from '../utils/RitsuUtils'
+import Constants from '@utils/Constants'
+import RitsuUtils from '@utils/RitsuUtils'
 
 export default class HintsHandler {
   constructor(private animeData: AnimeEntry) {

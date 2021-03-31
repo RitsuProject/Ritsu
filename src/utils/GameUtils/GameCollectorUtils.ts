@@ -1,10 +1,10 @@
 import { Message } from 'eris'
 import { AnimeEntry } from 'anilist-node'
-import { RoomDocument } from 'src/database/entities/Room'
+import { RoomDocument } from '@entities/Room'
 import stringSimilarity from 'string-similarity'
-import HintsHandler from '../../handlers/HintsHandler'
-import Constants from '../Constants'
-import { UserDocument } from '../../database/entities/User'
+import HintsHandler from '@handlers/HintsHandler'
+import Constants from '@utils/Constants'
+import { UserDocument } from '@entities/User'
 
 export default {
   async handleCollect(room: RoomDocument, msg: Message) {

@@ -1,7 +1,7 @@
-import RitsuClient from 'src/structures/RitsuClient'
-import { RitsuCommand, Context } from '../../structures/RitsuCommand'
-import User from '../../database/entities/User'
-import Constants from '../../utils/Constants'
+import RitsuClient from '@structures/RitsuClient'
+import { RitsuCommand, Context } from '@structures/RitsuCommand'
+import User from '@entities/User'
+import Constants from '@utils/Constants'
 import { EmbedOptions } from 'eris'
 
 class Leaderboard extends RitsuCommand {

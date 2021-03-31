@@ -1,7 +1,7 @@
 import { Guild } from 'eris'
-import Guilds from '../database/entities/Guild'
-import RitsuClient from '../structures/RitsuClient'
-import { RitsuEvent } from '../structures/RitsuEvent'
+import Guilds from '@entities/Guild'
+import RitsuClient from '@structures/RitsuClient'
+import { RitsuEvent } from '@structures/RitsuEvent'
 
 export default class guildDelete extends RitsuEvent {
   public client: RitsuClient

@@ -1,7 +1,7 @@
 import { Guild, Message } from 'eris'
 import ms from 'ms'
-import RitsuClient from '../structures/RitsuClient'
-import ThemesMoe from '../utils/ThemesMoe'
+import RitsuClient from '@structures/RitsuClient'
+import ThemesMoe from '@utils/ThemesMoe'
 
 /**
  * Match Settings Handler

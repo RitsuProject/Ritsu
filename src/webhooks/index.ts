@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express'
-import RitsuClient from '../structures/RitsuClient'
+import RitsuClient from '@structures/RitsuClient'
 import handleErrors from './middlewares/handleErrors'
 import initRouter from './router'
 

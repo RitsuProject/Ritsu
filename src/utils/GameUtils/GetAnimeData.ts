@@ -1,6 +1,6 @@
 import Anilist from 'anilist-node'
-import JikanSearch from '../../interfaces/JikanSearch'
-import RitsuHTTP from '../../structures/RitsuHTTP'
+import JikanSearch from '@interfaces/JikanSearch'
+import RitsuHTTP from '@structures/RitsuHTTP'
 const anilist = new Anilist()
 
 export default async function getAnimeData(name: string, malID: number) {

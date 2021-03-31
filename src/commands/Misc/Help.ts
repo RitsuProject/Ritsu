@@ -1,5 +1,5 @@
 import RitsuClient from '../../structures/RitsuClient'
-import { Context, RitsuCommand } from '../../structures/RitsuCommand'
+import { Context, RitsuCommand } from '@structures/RitsuCommand'
 
 class Help extends RitsuCommand {
   constructor(client: RitsuClient) {

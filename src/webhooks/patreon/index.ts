@@ -1,8 +1,8 @@
 import { Request, Response } from 'express'
-import PatreonBody from '../../interfaces/PatreonBody'
-import User from '../../database/entities/User'
-import RitsuClient from '../../structures/RitsuClient'
-import Constants from '../../utils/Constants'
+import PatreonBody from '@interfaces/PatreonBody'
+import User from '@entities/User'
+import RitsuClient from '@structures/RitsuClient'
+import Constants from '@utils/Constants'
 
 export default async function handlePatreon(
   req: Request<null, null, PatreonBody>,

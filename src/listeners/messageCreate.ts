@@ -1,9 +1,9 @@
 import { Message } from 'eris'
-import RitsuClient from 'src/structures/RitsuClient'
-import { RitsuEvent } from '../structures/RitsuEvent'
-import Users from '../database/entities/User'
-import Guilds, { GuildDocument } from '../database/entities/Guild'
-import Constants from '../utils/Constants'
+import RitsuClient from '@structures/RitsuClient'
+import { RitsuEvent } from '@structures/RitsuEvent'
+import Users from '@entities/User'
+import Guilds, { GuildDocument } from '@entities/Guild'
+import Constants from '@utils/Constants'
 import i18next from 'i18next'
 
 export default class messageCreate extends RitsuEvent {

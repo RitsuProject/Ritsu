@@ -1,5 +1,5 @@
 import { Message } from 'eris'
-import Rooms from '../database/entities/Room'
+import Rooms from '@entities/Room'
 
 export default class RoomHandler {
   private message: Message

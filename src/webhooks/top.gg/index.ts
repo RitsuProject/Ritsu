@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import User from '../../database/entities/User'
-import DBLBody from '../../interfaces/DBLBody'
-import RitsuClient from '../../structures/RitsuClient'
+import User from '@entities/User'
+import DBLBody from '@interfaces/DBLBody'
+import RitsuClient from '@structures/RitsuClient'
 
 export default async function handleDBL(
   req: Request<null, null, DBLBody>,

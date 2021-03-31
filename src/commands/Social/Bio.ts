@@ -1,6 +1,6 @@
-import RitsuClient from 'src/structures/RitsuClient'
-import User from '../../database/entities/User'
-import { RitsuCommand, Context } from '../../structures/RitsuCommand'
+import RitsuClient from '@structures/RitsuClient'
+import User from '@entities/User'
+import { RitsuCommand, Context } from '@structures/RitsuCommand'
 
 class Bio extends RitsuCommand {
   constructor(client: RitsuClient) {

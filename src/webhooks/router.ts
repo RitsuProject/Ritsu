@@ -1,11 +1,11 @@
 import { Request, Router } from 'express'
-import RitsuClient from '../structures/RitsuClient'
-import PatreonBody from '../interfaces/PatreonBody'
+import RitsuClient from '@structures/RitsuClient'
+import PatreonBody from '@interfaces/PatreonBody'
 import handlePatreon from './patreon'
 import checkPatreonSignature from './middlewares/checkPatreonSignature'
 
 import 'express-async-errors'
-import DBLBody from '../interfaces/DBLBody'
+import DBLBody from '@interfaces/DBLBody'
 import handleDBL from './top.gg'
 import checkDBLAuthorization from './middlewares/checkDBLAuthorization'
 

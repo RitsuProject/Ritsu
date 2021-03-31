@@ -1,6 +1,6 @@
-import { ThemesMoeAnime } from '../interfaces/ThemesMoe'
-import RitsuHTTP from '../structures/RitsuHTTP'
-import RitsuUtils from './RitsuUtils'
+import { ThemesMoeAnime } from '@interfaces/ThemesMoe'
+import RitsuHTTP from '@structures/RitsuHTTP'
+import RitsuUtils from '@utils/RitsuUtils'
 
 export default {
   async getAnimesByAnimeList(

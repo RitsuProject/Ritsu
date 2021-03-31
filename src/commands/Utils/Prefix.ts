@@ -1,5 +1,5 @@
-import RitsuClient from 'src/structures/RitsuClient'
-import { RitsuCommand, Context } from '../../structures/RitsuCommand'
+import RitsuClient from '@structures/RitsuClient'
+import { RitsuCommand, Context } from '@structures/RitsuCommand'
 
 class Prefix extends RitsuCommand {
   constructor(client: RitsuClient) {

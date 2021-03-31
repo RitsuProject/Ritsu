@@ -1,11 +1,11 @@
-import RitsuHTTP from '../structures/RitsuHTTP'
-import GameOptions from '../interfaces/GameOptions'
-import MioSong from '../interfaces/MioSong'
-import JikanAnime from '../interfaces/JikanAnime'
-import RitsuUtils from '../utils/RitsuUtils'
+import RitsuHTTP from '@structures/RitsuHTTP'
+import GameOptions from '@interfaces/GameOptions'
+import MioSong from '@interfaces/MioSong'
+import JikanAnime from '@interfaces/JikanAnime'
+import RitsuUtils from '@utils/RitsuUtils'
 import NodeCache from 'node-cache'
 import { Message } from 'eris'
-import ThemesMoe from '../utils/ThemesMoe'
+import ThemesMoe from '@utils/ThemesMoe'
 
 /**
  * ThemesHandler

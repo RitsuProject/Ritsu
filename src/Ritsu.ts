@@ -1,6 +1,6 @@
 import { config } from 'dotenv'
 import { readFileSync } from 'fs'
-import RitsuClient from './structures/RitsuClient'
+import RitsuClient from '@structures/RitsuClient'
 import startWebhooks from './webhooks'
 
 config()

@@ -1,7 +1,7 @@
-import Game from '../../handlers/GameHandler'
-import MatchConfig from '../../handlers/MatchSettingsHandler'
-import RitsuClient from '../../structures/RitsuClient'
-import { RitsuCommand, Context } from '../../structures/RitsuCommand'
+import Game from '@handlers/GameHandler'
+import MatchConfig from '@handlers/MatchSettingsHandler'
+import RitsuClient from '@structures/RitsuClient'
+import { RitsuCommand, Context } from '@structures/RitsuCommand'
 
 class Start extends RitsuCommand {
   constructor(client: RitsuClient) {

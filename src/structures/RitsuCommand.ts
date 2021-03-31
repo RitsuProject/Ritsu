@@ -1,7 +1,7 @@
 import { Message } from 'eris'
 import { TFunction } from 'i18next'
-import { GuildDocument } from 'src/database/entities/Guild'
-import RitsuClient from 'src/structures/RitsuClient'
+import { GuildDocument } from '@entities/Guild'
+import RitsuClient from '@structures/RitsuClient'
 
 interface Options {
   name: string

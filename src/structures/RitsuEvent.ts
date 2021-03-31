@@ -1,4 +1,4 @@
-import RitsuClient from 'src/structures/RitsuClient'
+import RitsuClient from '@structures/RitsuClient'
 
 interface Options {
   name: string

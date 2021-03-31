@@ -1,20 +1,24 @@
 import { Message } from 'eris'
-import Guilds, { GuildDocument } from '../database/entities/Guild'
-import Rooms, { RoomDocument } from '../database/entities/Room'
-import GameOptions from '../interfaces/GameOptions'
-import RitsuClient from '../structures/RitsuClient'
-import Themes from './ThemesHandler'
-import getStreamFromURL from '../utils/GameUtils/GetStream'
-import GameCollectorUtils from '../utils/GameUtils/GameCollectorUtils'
-import getAnimeData from '../utils/GameUtils/GetAnimeData'
 import { MessageCollector } from 'eris-collector'
-import generateEmbed from '../utils/GameUtils/GenerateEmbed'
 import NodeCache from 'node-cache'
-import Constants from '../utils/Constants'
-import RoomHandler from './RoomHandler'
-import LevelHandler from './LevelHandler'
-import User from '../database/entities/User'
-import HintsHandler from './HintsHandler'
+
+import RoomHandler from '@handlers/RoomHandler'
+import LevelHandler from '@handlers/LevelHandler'
+import HintsHandler from '@handlers/HintsHandler'
+import Themes from '@handlers/ThemesHandler'
+
+import User from '@entities/User'
+import Guilds, { GuildDocument } from '@entities/Guild'
+import Rooms, { RoomDocument } from '@entities/Room'
+
+import GameOptions from '@interfaces/GameOptions'
+import RitsuClient from '@structures/RitsuClient'
+
+import Constants from '@utils/Constants'
+import getStreamFromURL from '@utils/GameUtils/GetStream'
+import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
+import getAnimeData from '@utils/GameUtils/GetAnimeData'
+import generateEmbed from '@utils/GameUtils/GenerateEmbed'
 
 /**
  * GameHandler
@@ -175,7 +179,6 @@ export default class GameHandler {
       )
     }
     await user.save()
-    console.log(user)
   }
 
   playTheme(voiceChannel: string, stream: string) {

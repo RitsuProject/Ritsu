@@ -1,7 +1,7 @@
 import { AnimeEntry } from 'anilist-node'
-import MioSong from '../../interfaces/MioSong'
+import MioSong from '@interfaces/MioSong'
 import Vibrant from 'node-vibrant/lib/index'
-import Constants from '../Constants'
+import Constants from '@utils/Constants'
 
 export default async function generateEmbed(
   theme: MioSong,
