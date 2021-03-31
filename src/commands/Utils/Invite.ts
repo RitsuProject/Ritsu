@@ -13,24 +13,22 @@ class Invite extends RitsuCommand {
     })
   }
 
-  async run({ message }: Context) {
+  async run({ message, t }: Context) {
     const dmChannel = await message.author.getDMChannel()
     let openDmChannel = true
     void dmChannel
       .createMessage(
-        'Thanks for wanting to add me! Here is the invite link! <invite here owo>'
+        t('commands:invite.thanks', {
+          invite: 'https://ritsu.fun/invite',
+        })
       )
       .catch(() => {
         openDmChannel = false
-        void message.channel.createMessage(
-          'It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message.'
-        )
+        void message.channel.createMessage(t('commands:invite.unavailableDM'))
       })
       .then(() => {
         if (openDmChannel) {
-          void message.channel.createMessage(
-            'Could you have a look at your DM (Direct Messages) please?'
-          )
+          void message.channel.createMessage(t('commands:invite.lookDM'))
         }
       })
   }

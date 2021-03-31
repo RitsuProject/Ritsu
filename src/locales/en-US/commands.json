@@ -22,9 +22,9 @@
   },
   "prefix": {
     "commandDescription": "Change the bot prefix.",
-    "changedPrefix": "The server prefix has been changed: {{newPrefix}}",
+    "changedPrefix": "The server prefix has been changed to {{newPrefix}}",
     "errors": {
-      "noPrefix": "You need to specify the prefix."
+      "noPrefix": "You need to specify the new prefix."
     }
   },
   "leaderboard": {
@@ -38,5 +38,14 @@
     "commandDescription": "Change your profile bio.",
     "changedBio": "Your profile bio has been updated.",
     "noBio": "It looks like you didn't specify your new bio/about, fix it and use the command again!"
+  },
+  "start": {
+    "commandDescription": "Start a Game!"
+  },
+  "invite": {
+    "commandDescription": "Add me to your server!",
+    "thanks": "Thanks for wanting to add me! Here is the invite link! {{invite}}\nI hope you have fun!",
+    "lookDM": "Could you have a look at your DM (Direct Messages) please?",
+    "unavailableDM": "It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message."
   }
 }
