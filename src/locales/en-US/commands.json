@@ -5,30 +5,47 @@
   },
   "help": {
     "commandDescription": "This command! ^w^",
+    "joinSupportServer": "Join my server for more news, events, giveaways and more! We will love to hear your feedback. {{invite}}",
+    "uanvailableDM": "It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message.",
+    "lookDM": "Could you have a look at your DM (Direct Messages) please?",
     "embed": {
       "title": "{{emoji}} Ritsu's Help",
       "description": "Are you interested in my **commands**? Ooh, that's cool, feel free to see them down there.\n\nIf you have any questions, doubts or want support, do not hesitate to join **my support server**.",
-      "field": "Commands"
+      "fields": {
+        "animemusicquiz": "{{emoji}} AnimeMusicQuiz",
+        "utilities": "{{emoji}} Utilities",
+        "misc": "{{emoji}} Miscellaneous",
+        "social": "{{emoji}} Social"
+      },
+      "footer": "You can get more information about the commands at {{url}}"
     }
   },
   "prefix": {
     "commandDescription": "Change the bot prefix.",
-    "changedPrefix": "The server prefix has been changed: {{newPrefix}}",
+    "changedPrefix": "The server prefix has been changed to {{newPrefix}}",
     "errors": {
-      "noPrefix": "You need to specify the prefix."
+      "noPrefix": "You need to specify the new prefix."
     }
   },
   "leaderboard": {
     "commandDescription": "See the actual Ritsu ranking by level.",
     "embed": {
       "title": "Top 10 users with the higher level.",
-      "levelField": "Level: {{number}}",
-      "wonField": "Won Matches: {{number}}"
+      "levelAndWonMatches": "Level: **{{level}}**\nWon Matches: **{{wonMatches}}**"
     }
   },
   "bio": {
     "commandDescription": "Change your profile bio.",
     "changedBio": "Your profile bio has been updated.",
     "noBio": "It looks like you didn't specify your new bio/about, fix it and use the command again!"
+  },
+  "start": {
+    "commandDescription": "Start a Game!"
+  },
+  "invite": {
+    "commandDescription": "Add me to your server!",
+    "thanks": "Thanks for wanting to add me! Here is the invite link! {{invite}}\nI hope you have fun!",
+    "lookDM": "Could you have a look at your DM (Direct Messages) please?",
+    "unavailableDM": "It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message."
   }
 }
