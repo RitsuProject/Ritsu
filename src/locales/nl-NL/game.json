@@ -1,0 +1,8 @@
+{
+  "roundStarted": "We beginnen aan de #{{round}} ronde! Wat is de anime die bij dit **Outro/Intro** hoort? Verstuur je antwoord in de chat! Je hebt **{{time}}**.\nVerstuur **{{prefix}}stop** in de chat als je de quiz wilt stoppen.",
+  "nobodyWon": "Niemand heeft deze quiz gewonnen.",
+  "forceFinished": "De quiz is geforceerd gestopt met succes",
+  "roundEnded": "Alle Rondes zijn voorbij! Bedankt voor het spelen!",
+  "nobody": "Niemand",
+  "songDetails": "{{songName}} | Artiest: {{songArtist}}"
+}
