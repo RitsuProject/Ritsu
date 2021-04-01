@@ -1,0 +1,51 @@
+{
+  "ping": {
+    "commandDescription": "Pong!",
+    "stealMessage": "Klaue nicht meine Erdbeere, Mugi!"
+  },
+  "help": {
+    "commandDescription": "Diese command! ^w^",
+    "joinSupportServer": "Komm in meinen Server für mehr News, Events, Giveaways und mehr! Wir würden uns darüber freuen euer Feedback zu hören. {{invite}}",
+    "uanvailableDM": "Es scheint so als wären deine DM's (Direct Messages) ausgeschaltet sind und deshalb konnte ich dir keine Nachricht senden.",
+    "lookDM": "Könntest du bitte deine DM's (Direct Messages) abchecken?",
+    "embed": {
+      "title": "{{emoji}} Ritsu's Hilfe",
+      "description": "Bist du interresiert in meinen **commands**? Oh, das ist cool, guck sie dir gerne in ruhig an.\n\nWenn du irgendwelche Fragen hast, Zweifel oder Dienstleistungen, kannst du einfach in den **my support server** reinkommen.",
+      "fields": {
+        "animemusicquiz": "{{emoji}} AnimeMusicQuiz",
+        "utilities": "{{emoji}} Nützlichkeit",
+        "misc": "{{emoji}} Sonstiges",
+        "social": "{{emoji}} Soziales"
+      },
+      "footer": "Du kannst dich bei {{url}} über die Commands informieren"
+    }
+  },
+  "prefix": {
+    "commandDescription": "Ändere den Botprefix.",
+    "changedPrefix": "Das Server-Präfix wurde geändert zu {{newPrefix}}",
+    "errors": {
+      "noPrefix": "Du musst den neuen Präfix angeben."
+    }
+  },
+  "leaderboard": {
+    "commandDescription": "Sehe das Ritsu Ranking nach Level.",
+    "embed": {
+      "title": "Top 10 Spieler mit dem höchsten Level.",
+      "levelAndWonMatches": "Level: **{{level}}**\nGewonnene Runden: **{{wonMatches}}**"
+    }
+  },
+  "bio": {
+    "commandDescription": "Ändere deine Profilbio.",
+    "changedBio": "Deine Profilbio wurde geupdated.",
+    "noBio": "Es scheint so als hättest du deine Bio nicht angegeben, gib ihn an und versuche es nochmal!"
+  },
+  "start": {
+    "commandDescription": "Starte eine Runde!"
+  },
+  "invite": {
+    "commandDescription": "Füge mich deinem Server hinzu!",
+    "thanks": "Danke das du mich hinzugefügt hast! Das ist der Einladungslink! {{invite}}\nIch hoffe du hast Spaß!",
+    "lookDM": "Könntest du bitte deine DM's (Direct Messages) abchecken?",
+    "unavailableDM": "Es scheint so als wären deine DM's (Direct Messages) ausgeschaltet sind und deshalb konnte ich dir keine Nachricht senden."
+  }
+}
