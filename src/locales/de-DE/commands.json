@@ -1,16 +1,16 @@
 {
   "ping": {
     "commandDescription": "Pong!",
-    "stealMessage": "Klaue nicht meine Erdbeere, Mugi!"
+    "stealMessage": "Klau nicht meine Erdbeere, Mugi!"
   },
   "help": {
     "commandDescription": "Diese command! ^w^",
-    "joinSupportServer": "Komm in meinen Server für mehr News, Events, Giveaways und mehr! Wir würden uns darüber freuen euer Feedback zu hören. {{invite}}",
-    "uanvailableDM": "Es scheint so als wären deine DM's (Direct Messages) ausgeschaltet sind und deshalb konnte ich dir keine Nachricht senden.",
+    "joinSupportServer": "Komm in meinen Server für mehr News, Events, Giveaways und mehr! Wir würden uns sehr darüber freuen euer Feedback zu hören. {{invite}}",
+    "uanvailableDM": "Es scheint so als wären deine DM's (Direct Messages) ausgeschaltet und deshalb konnte ich dir keine Nachricht senden.",
     "lookDM": "Könntest du bitte deine DM's (Direct Messages) abchecken?",
     "embed": {
       "title": "{{emoji}} Ritsu's Hilfe",
-      "description": "Bist du interessiert an meinen **Commands**? Oh, das ist cool, guck sie dir gerne in ruhig an.\n\nWenn du irgendwelche Fragen hast, Zweifel oder Dienstleistungen, kannst du einfach in den **mein Support Server** reinkommen.",
+      "description": "Bist du interessiert an meinen **Commands**? Oh, das ist cool, du kannst sie dir gerne in ruhe anschauen.\n\nWenn du irgendwelche Fragen hast, Zweifel oder Dienstleistungen, kannst du einfach in den **mein Support Server**.",
       "fields": {
         "animemusicquiz": "{{emoji}} AnimeMusicQuiz",
         "utilities": "{{emoji}} Nützlichkeit",
@@ -21,7 +21,7 @@
     }
   },
   "prefix": {
-    "commandDescription": "Ändere den Bot Präfix.",
+    "commandDescription": "Ändere den Bot-Präfix.",
     "changedPrefix": "Das Server-Präfix wurde geändert zu {{newPrefix}}",
     "errors": {
       "noPrefix": "Du musst den neuen Präfix angeben."
