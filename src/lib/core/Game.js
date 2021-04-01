@@ -202,7 +202,7 @@ module.exports.Game = class Game {
 
     commanderCollector.on('collect', async (msg) => {
       if (msg.author.id !== room.startedBy)
-        return msg.channel.send(this.t('game:onlyHostCanFinish'))
+        return msg.channel.send(this.t('game:errors.onlyHostCanFinish'))
       this.client.prometheus.matchStarted.dec()
       answerCollector.stop('forceFinished')
     })
