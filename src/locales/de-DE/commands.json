@@ -10,7 +10,7 @@
     "lookDM": "Könntest du bitte deine DM's (Direct Messages) abchecken?",
     "embed": {
       "title": "{{emoji}} Ritsu's Hilfe",
-      "description": "Bist du interresiert in meinen **commands**? Oh, das ist cool, guck sie dir gerne in ruhig an.\n\nWenn du irgendwelche Fragen hast, Zweifel oder Dienstleistungen, kannst du einfach in den **my support server** reinkommen.",
+      "description": "Bist du interessiert an meinen **Commands**? Oh, das ist cool, guck sie dir gerne in ruhig an.\n\nWenn du irgendwelche Fragen hast, Zweifel oder Dienstleistungen, kannst du einfach in den **mein Support Server** reinkommen.",
       "fields": {
         "animemusicquiz": "{{emoji}} AnimeMusicQuiz",
         "utilities": "{{emoji}} Nützlichkeit",
@@ -21,7 +21,7 @@
     }
   },
   "prefix": {
-    "commandDescription": "Ändere den Botprefix.",
+    "commandDescription": "Ändere den Bot Präfix.",
     "changedPrefix": "Das Server-Präfix wurde geändert zu {{newPrefix}}",
     "errors": {
       "noPrefix": "Du musst den neuen Präfix angeben."
@@ -35,12 +35,12 @@
     }
   },
   "bio": {
-    "commandDescription": "Ändere deine Profilbio.",
-    "changedBio": "Deine Profilbio wurde geupdated.",
-    "noBio": "Es scheint so als hättest du deine Bio nicht angegeben, gib ihn an und versuche es nochmal!"
+    "commandDescription": "Ändere deine Profil Bio.",
+    "changedBio": "Deine Profil Bio wurde aktualisiert.",
+    "noBio": "Es scheint so als hättest du deine Bio nicht angegeben, gib sie an und versuche es nochmal!"
   },
   "start": {
-    "commandDescription": "Starte eine Runde!"
+    "commandDescription": "Starte ein Match!"
   },
   "invite": {
     "commandDescription": "Füge mich deinem Server hinzu!",
