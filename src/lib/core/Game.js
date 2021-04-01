@@ -11,8 +11,6 @@ const mal = require('mal-scraper')
 // eslint-disable-next-line no-unused-vars
 const { Message, VoiceChannel } = require('discord.js-light')
 // eslint-disable-next-line no-unused-vars
-const { EasterEggs } = require('../EasterEggs')
-// eslint-disable-next-line no-unused-vars
 const { Ritsu } = require('../../client/RitsuClient')
 
 const generateEmbed = require('../../utils/functions/generateEmbed')
@@ -21,6 +19,7 @@ const { getStream } = require('../../utils/functions/getStream')
 const { DiscordLogger } = require('../../utils/discordLogger')
 const { Leveling } = require('../Leveling')
 const { Users } = require('../../database/models/User')
+const { Leaderboards } = require('../../database/models/Leaderboard')
 const { captureException } = require('@sentry/node')
 
 /**
@@ -135,6 +134,7 @@ module.exports.Game = class Game {
     const loading = await this.message.channel.send(
       `\`${this.t('game:waitingStream')}\``
     )
+
     // Let's get the stream!
     const stream = await getStream(link).catch(() => {
       loading.delete()
@@ -183,12 +183,14 @@ module.exports.Game = class Game {
     answerCollector.on('collect', async (msg) => {
       if (!room.answerers.includes(msg.author.id)) {
         room.answerers.push(msg.author.id)
-        const leader = room.leaderboard.find((u) => {
-          return (u.id = msg.author.id)
-        })
-        if (leader === undefined) {
+        const leaderboard = await Leaderboards.findById(msg.author.id)
+        if (!leaderboard) {
           // If the user is not on the leaderboard, we will add him!
-          room.leaderboard.push({ id: msg.author.id })
+          const newLeaderBoard = new Leaderboards({
+            _id: msg.author.id,
+            guildId: this.message.guild.id,
+          })
+          await newLeaderBoard.save()
         }
         this.message.channel.send(
           this.t('game:correctAnswer', { user: `<@${msg.author.id}>` })
@@ -200,7 +202,7 @@ module.exports.Game = class Game {
 
     commanderCollector.on('collect', async (msg) => {
       if (msg.author.id !== room.startedBy)
-        return msg.channel.send(this.t('game:onlyHostCanFinish'))
+        return msg.channel.send(this.t('game:errors.onlyHostCanFinish'))
       this.client.prometheus.matchStarted.dec()
       answerCollector.stop('forceFinished')
     })
@@ -253,8 +255,8 @@ module.exports.Game = class Game {
 
       if (room.currentRound >= this.rounds) {
         // If there are no rounds left, end the game.
+        await this.finish(voicech, room)
         await this.clear()
-        this.finish(voicech, room)
       } else {
         await this.startNewRound(guild, voicech).catch(async (e) => {
           logger
@@ -275,8 +277,8 @@ module.exports.Game = class Game {
           )
           this.client.prometheus.errorCounter.inc()
           captureException(e)
-          await this.clear()
           await this.finish(voicech, room, true)
+          await this.clear()
         })
       }
     })
@@ -301,14 +303,14 @@ module.exports.Game = class Game {
           // Let's update the number of games played by everyone who was on the voice channel!
           userService.updatePlayed(u.id)
         })
-        userService.updateEarnings(winner.id, cakes) // Update the number of won matches by the winner of the game.
+        userService.updateEarnings(winner._id, cakes) // Update the number of won matches by the winner of the game.
       }
       if (winner) {
         const leveling = new Leveling()
-        const stats = await leveling.bump(winner.id, this.mode)
+        const stats = await leveling.bump(winner._id, this.mode)
         this.message.channel.send(
           this.t('game:winner', {
-            user: `<@${winner.id}>`,
+            user: `<@${winner._id}>`,
             prizes: `:star: **${stats.xp}** XP`,
           })
         )
@@ -327,8 +329,14 @@ module.exports.Game = class Game {
   async clear() {
     const guild = await Guilds.findById(this.message.guild.id)
     const room = await Rooms.findById(this.message.guild.id)
+    const leaderboards = await Leaderboards.find({
+      guildId: this.message.guild.id,
+    })
     guild.rolling = false
     guild.save()
+    leaderboards.map(async (leader) => {
+      await leader.deleteOne()
+    })
     room.deleteOne()
   }
 
@@ -406,19 +414,23 @@ module.exports.Game = class Game {
    * @returns {Promise<Document>}  Winner
    */
 
-  getWinner(room) {
+  async getWinner(room) {
+    const leaderboards = await Leaderboards.find({
+      guildId: this.message.guild.id,
+    })
     const highestValue = Math.max.apply(
       // (Small hack) Let's get the highest score!
       Math,
-      room.leaderboard.map((score) => {
-        return score.score
+      leaderboards.map((leader) => {
+        return leader.score
       })
     )
-    if (room.leaderboard.length === 0) return false
-    const highestUser = room.leaderboard.find((u) => {
-      // Find a user with the highest score.
-      return (u.score = highestValue)
+    if (leaderboards.length === 0) return false
+    const highestUser = await Leaderboards.findOne({
+      guildId: this.message.guild.id,
+      score: highestValue,
     })
+
     return highestUser
   }
 
@@ -430,21 +442,10 @@ module.exports.Game = class Game {
 
   async bumpScore(id) {
     // maybe a rewrite in the future?
-    const roomWithLeaderboard = await Rooms.findOne({
-      leaderboard: { $elemMatch: { id: id } },
-    })
-    if (roomWithLeaderboard != null) {
-      const score = roomWithLeaderboard.leaderboard.find((u) => {
-        return (u.id = id)
-      })
-      await Rooms.updateOne(
-        { 'leaderboard.id': id },
-        {
-          $set: {
-            'leaderboard.$.score': score.score + 1,
-          },
-        }
-      )
+    const leaderboard = await Leaderboards.findById(id)
+    if (leaderboard) {
+      leaderboard.score = leaderboard.score + 1
+      await leaderboard.save()
     }
   }
 
