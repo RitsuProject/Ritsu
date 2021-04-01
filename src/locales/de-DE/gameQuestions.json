@@ -1,6 +1,6 @@
 {
   "whatMode": "Welchen Modus möchtest du für dieses Match auswählen? {{modes}}",
-  "whatNumberOfRounds": "Wie viele Runde möchtest du in diesem Match?",
+  "whatNumberOfRounds": "Wie viele Runden möchtest du in diesem Match?",
   "whatDuration": "Wie lang soll eine Runde sein? (Minimum: 20 Sekunden) **PS**: Vergiss nicht, gültige Eingaben sehen so aus: *20 Sekunden oder 20s*",
   "whatAnimeListWebsite": "Auf welcher Website ist deine Animeliste? (Unterstützt: {{websites}})",
   "whatUsername": "Was ist dein Username auf der ausgewählten Website?",
@@ -8,7 +8,7 @@
   "errors": {
     "matchStopped": "Das Match wurde abgebrochen, wenn du noch eins starten möchtest, benutze ``{{command}}``.",
     "invalidMode": "Oh nein, der Modus den du spielen wolltest ist ungültig oder wurde temporär ausgeschaltet! Bitte nimm einen aus der Liste.",
-    "isNaN": "Also... das sieht nicht nach einer Zahl aus, glaube ich.",
+    "isNaN": "Also... das sieht nicht nach einer Zahl aus, denke ich.",
     "roundsLimit": "Aus sehr komischen Gründen, kannst du als ein normaler Spieler nicht mehr als 10 Runden starten, wenn du mehr möchtest, kannst mir mit meinem Patron helfen! {{patreonURL}}",
     "invalidDuration": "Leider, hat ein simpler Bot wie ich nicht die Bedeutung von dem verstanden, was du eingegeben hast, ist es in Sekunden, Minuten? Ich weiß es nicht! Bitte gib eine gültige Zeit ein.",
     "invalidWebsite": "Scheint so das diese Website nicht unterstützt wird. Wird abgebrochen...",
