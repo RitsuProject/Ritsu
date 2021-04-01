@@ -1,0 +1,8 @@
+{
+  "roundStarted": "Starte die #{{round}} Runde! Von welchem Anime ist diese **Ending/Opening**? Schreibe die Antwort in den Chat! Du hast **{{time}}**.\nSchreibe **{{prefix}}stop** in den Chat wenn die Runde stoppen willst.",
+  "nobodyWon": "Niemand hat diese Runde gewonnen.",
+  "forceFinished": "Diese Runde wurde erfolgreich gewaltsam abgeschlossen",
+  "roundEnded": "Alle Runde sind vorbei! Danke für's Spielen!",
+  "nobody": "Niemand",
+  "songDetails": "{{songName}} | Künstler: {{songArtist}}"
+}
