@@ -1,0 +1,8 @@
+{
+  "roundStarted": "Début de la manche #{{round}}! Quel est l'anime pour ce **thème d'Ending/Opening**? Envoie la réponse dans le chat! Tu as **{{time}}**.\nEnvoie **{{prefix}}stop** dans le chat si tu veux arrêter le match.",
+  "nobodyWon": "Personne n'a gagné ce match.",
+  "forceFinished": "Ce match s'est terminé brusquement mais avec brio",
+  "roundEnded": "Toutes les manches sont terminés! Merci d'avoir joué!",
+  "nobody": "Personne",
+  "songDetails": "{{songName}} | Artiste: {{songArtist}}"
+}

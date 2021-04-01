@@ -1,0 +1,8 @@
+{
+  "mentionRitsu": "Hoi! Ik ben Ritsu! Een bot gebaseerd op het spel AnimeMusicQuiz! Mijn prefix op deze server is **{{prefix}}** en je kan al mijn commands zien door te typen: **{{prefix}}help**",
+  "thanksPatreonEmbed": {
+    "title": "Patreon mededeling",
+    "description": "Hallo! Hartelijk bedankt dat je mijn nieuwe Patron bent geworden! Dit helpt me heel erg om sterk te blijven, sterk en vooral om mijn rekeningen te betalen!\n\n**Enkele details over je geweldige abonnement op mijn Patreon**:{{details}}\n\nSommige voordelen kunnen afhangen van het feit of je contact opneemt met mijn support server om ze te ontvangen, als er iets mis is zal de support server de meest correcte plaats zijn voor jou om ons te informeren!\n\nHartelijk bedankt voor het helpen van het project! Ik hoop dat je veel plezier hebt~~\n**sazz,**\n*Hoofd Ontwikkelaar*",
+    "footer": "Uw patreon abonnement werd gedetecteerd op: {{timestamp}}"
+  }
+}

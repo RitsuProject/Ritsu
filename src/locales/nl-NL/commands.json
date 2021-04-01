@@ -1,0 +1,51 @@
+{
+  "ping": {
+    "commandDescription": "Pong!",
+    "stealMessage": "Niet mijn aardbei stelen, Mugi!"
+  },
+  "help": {
+    "commandDescription": "Dit command! ^w^",
+    "joinSupportServer": "Kom in mijn server voor meer nieuws, evenementen, giveaways en meer! Wij horen graag jouw feedback {{invite}}",
+    "uanvailableDM": "Het ziet er naar uit dat jouw DM (Direct messages) gesloten is en ik daarom het bericht niet naar jouw kon sturen.",
+    "lookDM": "Zou je alsjeblieft in je DM (Direct Messages) willen kijken?",
+    "embed": {
+      "title": "{{emoji}} Ritsu's hulp",
+      "description": "Ben je geïnteresseerd in mijn **commands**? Ooh, is goed, voel je vrij om hier beneden te kijken.\n\nAls je vragen/twijfels hebt of hulp zoekt, aarzel dan niet om **my support server** te joinen.",
+      "fields": {
+        "animemusicquiz": "{{emoji}} AnimeMusicQuiz",
+        "utilities": "{{emoji}} Voorzieningen",
+        "misc": "{{emoji}} Diversen",
+        "social": "{{emoji}} Social"
+      },
+      "footer": "Je kunt meer informatie over de commands krijgen op {{url}}"
+    }
+  },
+  "prefix": {
+    "commandDescription": "Verander de bot prefix.",
+    "changedPrefix": "De server prefix is veranderd naar {{newPrefix}}",
+    "errors": {
+      "noPrefix": "Je moet de nieuwe prefix specificeren."
+    }
+  },
+  "leaderboard": {
+    "commandDescription": "Zie de huidige Ritsu rangschikking per niveau.",
+    "embed": {
+      "title": "Top 10 gebruikers met het hogere niveau.",
+      "levelAndWonMatches": "Niveau: **{{level}}**\nGewonnen quizzen **{{wonMatches}}**"
+    }
+  },
+  "bio": {
+    "commandDescription": "Wijzig de bio van je profiel.",
+    "changedBio": "De bio van je profiel is aangepast.",
+    "noBio": "Het lijkt erop dat je niet je nieuwe bio/about hebt opgegeven, corrigeer het en gebruik het command opnieuw!"
+  },
+  "start": {
+    "commandDescription": "Begin een spel!"
+  },
+  "invite": {
+    "commandDescription": "Voeg me toe an jouw server!",
+    "thanks": "Bedankt dat je me toe wilt voegen! hier is de invite link! {{invite}}\nI hoop de je plezier hebt!",
+    "lookDM": "Zou je in je DM (Direct Messages) willen kijken alsjeblieft?",
+    "unavailableDM": "Het Lijkt erop dat jouw DM (Direct messages) gesloten is en ik daarom het bericht niet naar jouw kon sturen."
+  }
+}
