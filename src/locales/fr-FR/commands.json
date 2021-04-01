@@ -10,7 +10,7 @@
     "lookDM": "Peux-tu regarder tes MP (messages privés) ?",
     "embed": {
       "title": "{{emoji}} Aide de Ritsu",
-      "description": "Es-tu intéressé par mes **commandes**? Oh, c'est cool, tu peux à les voir juste en bas. \n\nSi tu as des questions, des doutes ou veux de l'aider, n'hésite pas à rejoindre **mon serveur de support**.",
+      "description": "Es-tu intéressé par mes **commandes**? Oh, c'est cool, n'hésite pas à les voir juste ici. \n\nSi tu as des questions, des doutes ou si tu veux de l'aide, n'hésite pas à rejoindre **mon serveur de support**.",
       "fields": {
         "animemusicquiz": "{{emoji}} AnimeMusicQuiz",
         "utilities": "{{emoji}} Utillitaires",
@@ -43,8 +43,8 @@
     "commandDescription": "Commence une partie!"
   },
   "invite": {
-    "commandDescription": "Ajoute moi sur ton serveur!",
-    "thanks": "Merci de vouloir m'ajouter! Voici le lien d'invitation! {{invite}}\nAmuse toi bien!",
+    "commandDescription": "Ajoute-moi sur ton serveur!",
+    "thanks": "Merci de vouloir m'ajouter! Voici le lien d'invitation! {{invite}}\nAmuse-toi bien!",
     "lookDM": "Peux-tu regarder tes MP (messages privés) ?",
     "unavailableDM": "Il semblerait que tes MP (messages privés) soient limités. Je suis donc incapable de t'envoyer ce message."
   }
