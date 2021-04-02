@@ -15,7 +15,7 @@ class Start extends RitsuCommand {
     })
   }
 
-  async run({ message }: Context) {
+  async run({ message, t }: Context) {
     const matchConfig = new MatchConfig(message, this.client)
     const gamemode = await matchConfig.getGamemode()
     if (!gamemode) return
@@ -42,18 +42,23 @@ class Start extends RitsuCommand {
       seasonYear = seasonObject.year
     }
 
-    const game = new Game(message, this.client, {
-      mode: gamemode,
-      rounds: rounds,
-      time: duration.parsed,
-      readableTime: duration.value,
+    const game = new Game(
+      message,
+      this.client,
+      {
+        mode: gamemode,
+        rounds: rounds,
+        time: duration.parsed,
+        readableTime: duration.value,
 
-      // Optional
-      animeListUsername: animeListUsername,
-      animeListWebsite: animeListWebsite,
-      season: season,
-      year: seasonYear,
-    })
+        // Optional
+        animeListUsername: animeListUsername,
+        animeListWebsite: animeListWebsite,
+        season: season,
+        year: seasonYear,
+      },
+      t
+    )
     await game.init()
   }
 }

@@ -6,6 +6,8 @@ import RitsuUtils from '@utils/RitsuUtils'
 import NodeCache from 'node-cache'
 import { Message } from 'eris'
 import ThemesMoe from '@utils/ThemesMoe'
+import RepositoryStatus from '@interfaces/RepositoryStatus'
+import UnreachableRepository from '@structures/errors/UnreachableRepository'
 
 /**
  * ThemesHandler
@@ -22,7 +24,10 @@ export default class ThemesHandler {
   }
 
   async getThemeByMode(): Promise<false | MioSong> {
-    const provider = this.getProvider()
+    const repository = this.getRepository()
+    const isRepositoryOnline = await this.isRepositoryOnline(repository)
+    if (!isRepositoryOnline) throw new UnreachableRepository(repository)
+
     switch (this.gameOptions.mode) {
       case 'easy': {
         try {
@@ -35,7 +40,7 @@ export default class ThemesHandler {
           const anime = RitsuUtils.randomValueInArray(animes)
 
           const search = await RitsuHTTP.get<MioSong>(
-            `${process.env.API_URL}/themes/${provider}/search?title=${anime.title}&malId=${anime.mal_id}`
+            `${process.env.API_URL}/themes/${repository}/search?title=${anime.title}&malId=${anime.mal_id}`
           )
 
           const songData = search.data
@@ -57,7 +62,7 @@ export default class ThemesHandler {
           switch (type) {
             case 'random': {
               const random = await RitsuHTTP.get<MioSong>(
-                `${process.env.API_URL}/themes/${provider}/random`
+                `${process.env.API_URL}/themes/${repository}/random`
               )
 
               const songData = random.data
@@ -75,7 +80,7 @@ export default class ThemesHandler {
               const anime = RitsuUtils.randomValueInArray(animes)
 
               const search = await RitsuHTTP.get<MioSong>(
-                `${process.env.API_URL}/themes/${provider}/search?title=${anime.title}&malId=${anime.mal_id}`
+                `${process.env.API_URL}/themes/${repository}/search?title=${anime.title}&malId=${anime.mal_id}`
               )
 
               const songData = search.data
@@ -168,11 +173,33 @@ export default class ThemesHandler {
     }
   }
 
-  getProvider() {
-    const providers = ['animethemes', 'openingsmoe']
+  getRepository(): string {
+    const repositories = ['animethemes', 'openingsmoe']
 
-    const provider = RitsuUtils.randomValueInArray(providers)
+    const repository = RitsuUtils.randomValueInArray(repositories)
 
-    return provider
+    return repository
+  }
+
+  async isRepositoryOnline(repository: string): Promise<boolean> {
+    const fetchedStatus = await RitsuHTTP.get<RepositoryStatus>(
+      `${process.env.API_URL}/themes/status`
+    )
+    const statuses = fetchedStatus.data
+
+    switch (repository) {
+      case 'animethemes': {
+        if (statuses.animethemes === 'offline') {
+          return false
+        }
+        return true
+      }
+      case 'openingsmoe': {
+        if (statuses.openingsmoe === 'offline') {
+          return false
+        }
+        return true
+      }
+    }
   }
 }

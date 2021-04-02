@@ -14,37 +14,41 @@ import Rooms, { RoomDocument } from '@entities/Room'
 import GameOptions from '@interfaces/GameOptions'
 import RitsuClient from '@structures/RitsuClient'
 
-import Constants from '@utils/Constants'
 import getStreamFromURL from '@utils/GameUtils/GetStream'
 import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
 import getAnimeData from '@utils/GameUtils/GetAnimeData'
 import generateEmbed from '@utils/GameUtils/GenerateEmbed'
+import UnreachableRepository from '@structures/errors/UnreachableRepository'
+import { TFunction } from 'i18next'
+import handleError from '@utils/GameUtils/HandleError'
 
 /**
  * GameHandler
  * @description The loli responsible for handling the game, exchanging rounds, ending rounds and etc.
  */
 export default class GameHandler {
-  public message: Message
-  public client: RitsuClient
-  public gameOptions: GameOptions
   public themesCache: NodeCache
-  constructor(message: Message, client: RitsuClient, options: GameOptions) {
+  constructor(
+    public message: Message,
+    public client: RitsuClient,
+    public gameOptions: GameOptions,
+    public t: TFunction
+  ) {
     this.message = message
     this.client = client
-    this.gameOptions = options
+    this.t = t
+    this.gameOptions = gameOptions
     this.themesCache = new NodeCache()
   }
 
   async init() {
     const guild = await Guilds.findById(this.message.guildID)
     if (!guild) return
-    await this.startNewRound(guild).catch((e) => {
-      console.log(e)
-      void this.message.channel.createMessage(
-        Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e)
-      )
-    })
+    await this.startNewRound(guild).catch(
+      (err: Error | UnreachableRepository) => {
+        handleError(this.message, this.t, err)
+      }
+    )
   }
 
   async startNewRound(guild: GuildDocument) {
@@ -144,11 +148,11 @@ export default class GameHandler {
             this.client.leaveVoiceChannel(voiceChannel)
             void this.message.channel.createMessage('Match ended.')
           } else {
-            await this.startNewRound(guild).catch((e) => {
-              void this.message.channel.createMessage(
-                Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e)
-              )
-            })
+            await this.startNewRound(guild).catch(
+              (err: Error | UnreachableRepository) => {
+                handleError(this.message, this.t, err)
+              }
+            )
           }
         })()
     )
