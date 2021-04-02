@@ -1,0 +1,51 @@
+{
+  "ping": {
+    "commandDescription": "Pong!",
+    "stealMessage": "Ne mange pas ma fraise, Mugi!"
+  },
+  "help": {
+    "commandDescription": "Cette commande! ^w^",
+    "joinSupportServer": "Rejoins mon serveur pour plus de nouveautés, d'événements et bien d'autres! Nous aimerions avoir ton avis. {{invite}}",
+    "uanvailableDM": "Il semblerait que tes MP (messages privés) sont limités. C'est pourquoi je suis incapable de t'envoyer le message.",
+    "lookDM": "Peux-tu regarder tes MP (messages privés) ?",
+    "embed": {
+      "title": "{{emoji}} Aide de Ritsu",
+      "description": "Es-tu intéressé par mes **commandes**? Oh, c'est cool, n'hésite pas à les voir juste ici. \n\nSi tu as des questions, des doutes ou si tu veux de l'aide, n'hésite pas à rejoindre **mon serveur de support**.",
+      "fields": {
+        "animemusicquiz": "{{emoji}} AnimeMusicQuiz",
+        "utilities": "{{emoji}} Utillitaires",
+        "misc": "{{emoji}} Divers",
+        "social": "{{emoji}} Social"
+      },
+      "footer": "Tu peux avoir plus d'informations à propos des commandes sur {{url}}"
+    }
+  },
+  "prefix": {
+    "commandDescription": "Change le préfixe du bot.",
+    "changedPrefix": "Le préfixe du serveur a été changé pour {{newPrefix}}",
+    "errors": {
+      "noPrefix": "Tu as besoin de spécifier un nouveau préfixe."
+    }
+  },
+  "leaderboard": {
+    "commandDescription": "Voir le classement Ritsu selon les niveaux.",
+    "embed": {
+      "title": "Le top 10 des joueurs selon leurs niveaux.",
+      "levelAndWonMatches": "Niveau: **{{level}}**\nParties gagnées: **{{wonMatches}}**"
+    }
+  },
+  "bio": {
+    "commandDescription": "Change ta description de profile.",
+    "changedBio": "Ta description de profile a été mise à jour.",
+    "noBio": "Il semblerait que tu n'as pas entré de nouvelle description, fixe ça et réutilise la commande!"
+  },
+  "start": {
+    "commandDescription": "Commence une partie!"
+  },
+  "invite": {
+    "commandDescription": "Ajoute-moi sur ton serveur!",
+    "thanks": "Merci de vouloir m'ajouter! Voici le lien d'invitation! {{invite}}\nAmuse-toi bien!",
+    "lookDM": "Peux-tu regarder tes MP (messages privés) ?",
+    "unavailableDM": "Il semblerait que tes MP (messages privés) soient limités. Je suis donc incapable de t'envoyer ce message."
+  }
+}

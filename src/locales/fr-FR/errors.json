@@ -1,0 +1,4 @@
+{
+  "genericError": "{{emoji}} | Oupsi! **Une erreur critique** est arrivée et par conséquent **Il m'est impossible de continuer!**. Si tu penses que cela ne devait pas se produire contact-nous sur le **Serveur de support Ritsu**! {{e}}",
+  "streamError": "Pour d'obscures raisons, je suis incapable the charger le flux du thème actuel et donc je suis incapable de continuer! Redémarre le jeu et réessaye."
+}
