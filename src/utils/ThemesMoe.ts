@@ -14,7 +14,9 @@ export default {
             `https://themes.moe/api/mal/${username}`
           )
 
-          const data = themesMoeResponse.data
+          const data = themesMoeResponse.data.filter(
+            (anime) => anime.watchStatus === 2
+          )
 
           if (data.length > 0) {
             return data
@@ -36,7 +38,9 @@ export default {
             `https://themes.moe/api/anilist/${username}`
           )
 
-          const data = themesMoeResponse.data
+          const data = themesMoeResponse.data.filter(
+            (anime) => anime.watchStatus === 2
+          )
 
           if (data.length > 0) {
             return data
