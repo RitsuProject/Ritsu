@@ -3,7 +3,8 @@ import RitsuClient from '@structures/RitsuClient'
 import ThemesMoe from '@utils/ThemesMoe'
 import { TFunction } from 'i18next'
 import { Message } from 'eris'
-import { GuildDocument } from '../database/entities/Guild'
+import { GuildDocument } from '@entities/Guild'
+import User from '../database/entities/User'
 
 /**
  * Match Settings Handler
@@ -67,7 +68,7 @@ export default class MatchSettingsHandler {
         await m.delete()
         return specifiedMode
       } else {
-        throw new Error('Invalid Game Mode.')
+        throw new Error(this.t('gameQuestions:errors.invalidMode'))
       }
     })
     return mode
@@ -75,20 +76,18 @@ export default class MatchSettingsHandler {
 
   async getRounds(): Promise<number> {
     const primary = await this.message.channel.createMessage(
-      'How many rounds in the match do you want?'
+      this.t('gameQuestions:whatNumberOfRounds')
     )
+    const user = await User.findById(this.message.author.id)
 
     const rounds = await this.startCollector().then(async (m) => {
       if (!m) return
 
       const rounds = parseInt(m.content.toLowerCase())
 
-      if (isNaN(rounds))
-        throw new Error("Well...it doesn't seem like a number, I think.")
-      if (rounds > 10)
-        throw new Error(
-          'For extremely boring reasons, you cannot start more than 10 rounds as a normal user, if you want more, you can help me with my Patreon!'
-        )
+      if (isNaN(rounds)) throw new Error(this.t('gameQuestions:errors.isNaN'))
+      if (rounds > 10 && !user.patreonSupporter)
+        throw new Error(this.t('gameQuestions:errors.roundsLimit'))
 
       await m.delete()
       await primary.delete()
@@ -99,19 +98,20 @@ export default class MatchSettingsHandler {
 
   async getDuration(): Promise<{ parsed: number; value: string }> {
     const primary = await this.message.channel.createMessage(
-      'each rounds duration'
+      this.t('gameQuestions:whatDuration')
     )
     const duration = await this.startCollector().then(async (m) => {
       if (!m) return
       if (m.content.endsWith('s')) {
         const milliseconds = ms(m.content)
         const long = ms(milliseconds, { long: true })
-        if (milliseconds < 20000) throw new Error('minimum time limit')
+        if (milliseconds < 20000)
+          throw new Error(this.t('gameQuestions:errors.minimiumDuration'))
         await primary.delete()
         await m.delete()
         return { parsed: milliseconds, value: long }
       } else {
-        throw new Error('invalid')
+        throw new Error(this.t('gameQuestions:errors.invalidDuration'))
       }
     })
     return duration
@@ -119,7 +119,7 @@ export default class MatchSettingsHandler {
 
   async getListWebsite(): Promise<string> {
     const primary = await this.message.channel.createMessage(
-      'What website is your animelist on? (Supported: MyAnimeList, Anilist)'
+      this.t('gameQuestions:whatAnimeListWebsite')
     )
     const website = await this.startCollector().then(async (m) => {
       if (!m) return
@@ -134,9 +134,7 @@ export default class MatchSettingsHandler {
 
         return m.content.toLowerCase()
       } else {
-        throw new Error(
-          'This does not appear to be a supported website. Canceling...'
-        )
+        throw new Error(this.t('gameQuestions:errors.invalidWebsite'))
       }
     })
     return website
@@ -144,7 +142,7 @@ export default class MatchSettingsHandler {
 
   async getListUsername(website: string): Promise<string> {
     const primary = await this.message.channel.createMessage(
-      'What is your username on your chosen website?'
+      this.t('gameQuestions:whatUsername')
     )
     const username = await this.startCollector().then(async (m) => {
       if (!m) return
@@ -153,9 +151,7 @@ export default class MatchSettingsHandler {
         const user = await ThemesMoe.getAnimesByAnimeList(website, m.content)
 
         if (user.length <= 10) {
-          throw new Error(
-            'You need at least 10 animes in list to use this gamemode.'
-          )
+          throw new Error(this.t('gameQuestions:errors.unsufficientAnimes'))
         }
 
         if (user) {
@@ -163,7 +159,7 @@ export default class MatchSettingsHandler {
           await m.delete()
           return m.content
         } else {
-          throw new Error('Invalid Username')
+          throw new Error(this.t('gameQuestions:errors.invalidUsername'))
         }
       } catch (e) {
         throw new Error(`${e}`)
@@ -174,7 +170,7 @@ export default class MatchSettingsHandler {
 
   async getSeason(): Promise<{ year: string; season: string }> {
     const primary = await this.message.channel.createMessage(
-      'What is the year and season? (Example: 2021, Winter)'
+      this.t('gameQuestions:whatYearAndSeason')
     )
 
     const season = await this.startCollector().then(async (m) => {
@@ -191,7 +187,7 @@ export default class MatchSettingsHandler {
           season: season.trim().toLowerCase(),
         }
       } else {
-        throw new Error('This does not seem to be in the right format.')
+        throw new Error(this.t('gameQuestions:errors.invalidFormat'))
       }
     })
     return season

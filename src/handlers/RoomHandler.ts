@@ -12,11 +12,11 @@ export default class RoomHandler {
   async handleRoom() {
     const oldRoom = await Rooms.findById(this.message.guildID)
     if (!oldRoom) {
-      console.log(`[${this.message.guildID}] Creating a new Room...`)
+      console.log(`[ROOM] Creating a new Room in ${this.message.guildID}`)
       const newRoom = await this.createRoom()
       return newRoom
     } else {
-      console.log(`[${this.message.guildID}] Room Already Exists.`)
+      console.log(`[ROOM] Room Already Exists in ${this.message.guildID}`)
       oldRoom.currentRound++
       oldRoom.answerers = []
       await oldRoom.save()

@@ -13,6 +13,9 @@
     "roundsLimit": "For extremely boring reasons, you cannot start more than 10 rounds as a normal user, if you want more, you can help me with my Patreon! {{patreonURL}}",
     "invalidDuration": "Unfortunately, a simple bot like me was not able to know what it means what you entered, is it in seconds, minutes? I do not know! Please enter a valid time.",
     "invalidWebsite": "This does not appear to be a supported website. Canceling...",
-    "invalidFormat": "This does not seem to be in the right format."
+    "invalidFormat": "This does not seem to be in the right format.",
+    "invalidUsername": "I couldn't find that username on the selected website!",
+    "minimiumDuration": "The minimum duration is 20 seconds!",
+    "unsufficientAnimes": "You need at least 10 animes in list to use this gamemode."
   }
 }
