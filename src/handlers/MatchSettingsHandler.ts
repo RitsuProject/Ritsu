@@ -1,19 +1,25 @@
-import { Guild, Message } from 'eris'
 import ms from 'ms'
 import RitsuClient from '@structures/RitsuClient'
 import ThemesMoe from '@utils/ThemesMoe'
+import { TFunction } from 'i18next'
+import { Message } from 'eris'
+import { GuildDocument } from '../database/entities/Guild'
 
 /**
  * Match Settings Handler
  * @description The waifu of the match settings (number of rounds, game mode, etc.)
  */
 export default class MatchSettingsHandler {
-  private client: RitsuClient
-  private message: Message
-  private guild: Guild
-  constructor(message: Message, client: RitsuClient) {
+  constructor(
+    private message: Message,
+    private client: RitsuClient,
+    private guild: GuildDocument,
+    private t: TFunction
+  ) {
     this.message = message
     this.client = client
+    this.guild = guild
+    this.t = t
   }
 
   async startCollector(): Promise<Message> {
@@ -24,12 +30,20 @@ export default class MatchSettingsHandler {
       })
       .then((messages) => {
         if (!messages.length) {
-          throw new Error('Expired Match')
+          throw new Error(
+            this.t('gameQuestions:errors.expiredMatch', {
+              command: `${this.guild.prefix}start`,
+            })
+          )
         }
 
         const m = messages[0]
-        if (m.content === `mugi!stop`) {
-          void this.message.channel.createMessage('Match cancelled.')
+        if (m.content === `${this.guild.prefix}!stop`) {
+          void this.message.channel.createMessage(
+            this.t('gameQuestions:errors.matchStopped', {
+              command: `${this.guild.prefix}start`,
+            })
+          )
           return
         }
         return m
@@ -38,7 +52,11 @@ export default class MatchSettingsHandler {
 
   async getGamemode(): Promise<string> {
     const primary = await this.message.channel.createMessage(
-      'What game mode do you want for the match?'
+      this.t('gameQuestions:whatMode', {
+        modes: `(${this.client.enabledGamemodes
+          .map((gamemode) => gamemode)
+          .join(', ')})`,
+      })
     )
     const mode = await this.startCollector().then(async (m) => {
       if (!m) return

@@ -15,8 +15,8 @@ class Start extends RitsuCommand {
     })
   }
 
-  async run({ message, t }: Context) {
-    const matchConfig = new MatchConfig(message, this.client)
+  async run({ message, guild, t }: Context) {
+    const matchConfig = new MatchConfig(message, this.client, guild, t)
     const gamemode = await matchConfig.getGamemode()
     if (!gamemode) return
     const rounds = await matchConfig.getRounds()

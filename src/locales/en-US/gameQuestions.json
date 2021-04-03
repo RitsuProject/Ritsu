@@ -1,5 +1,5 @@
 {
-  "whatMode": "What game mode do you want for the match? {{modes}}",
+  "whatMode": "What game mode do you want for the match? **{{modes}}**",
   "whatNumberOfRounds": "How many rounds in the match do you want?",
   "whatDuration": "How long is each round? (Minimum: 20 seconds) **PS**: Remember, valid durations look like this: *20 seconds or 20s*",
   "whatAnimeListWebsite": "What website is your animelist on? (Supported: {{websites}})",
@@ -7,6 +7,7 @@
   "whatYearAndSeason": "What is the year and season? (Example: 2021, Winter)",
   "errors": {
     "matchStopped": "The match has been canceled, if you want to start another one, use ``{{command}}``.",
+    "expiredMatch": "Your match has expired, if you want to start another one, use ``{{command}}``",
     "invalidMode": "Oh no, the game mode you entered is invalid or has been temporarily disabled! Please insert one from the list above.",
     "isNaN": "Well...it doesn't seem like a number, I think.",
     "roundsLimit": "For extremely boring reasons, you cannot start more than 10 rounds as a normal user, if you want more, you can help me with my Patreon! {{patreonURL}}",

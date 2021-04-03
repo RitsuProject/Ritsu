@@ -25,7 +25,10 @@ export default class ThemesHandler {
 
   async getThemeByMode(): Promise<false | MioSong> {
     const repository = this.getRepository()
-    const isRepositoryOnline = await this.isRepositoryOnline(repository)
+    const isRepositoryOnline =
+      this.gameOptions.mode === 'season' || this.gameOptions.mode === 'list'
+        ? await this.isRepositoryOnline('animethemes')
+        : await this.isRepositoryOnline(repository)
     if (!isRepositoryOnline) throw new UnreachableRepository(repository)
 
     switch (this.gameOptions.mode) {

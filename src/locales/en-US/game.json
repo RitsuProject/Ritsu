@@ -4,5 +4,5 @@
   "forceFinished": "The match was forcibly completed successfully",
   "roundEnded": "All rounds are over! Thanks for playing!",
   "nobody": "Nobody",
-  "songDetails": "{{songName}} | Artist: {{songArtist}}"
+  "songDetails": "\"{{songName}}\" | Artist(s): {{songArtist}}"
 }

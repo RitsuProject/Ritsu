@@ -1,6 +1,7 @@
 import { Message } from 'eris'
 import { MessageCollector } from 'eris-collector'
 import NodeCache from 'node-cache'
+import { TFunction } from 'i18next'
 
 import RoomHandler from '@handlers/RoomHandler'
 import LevelHandler from '@handlers/LevelHandler'
@@ -13,13 +14,12 @@ import Rooms, { RoomDocument } from '@entities/Room'
 
 import GameOptions from '@interfaces/GameOptions'
 import RitsuClient from '@structures/RitsuClient'
+import UnreachableRepository from '@structures/errors/UnreachableRepository'
 
 import getStreamFromURL from '@utils/GameUtils/GetStream'
 import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
 import getAnimeData from '@utils/GameUtils/GetAnimeData'
 import generateEmbed from '@utils/GameUtils/GenerateEmbed'
-import UnreachableRepository from '@structures/errors/UnreachableRepository'
-import { TFunction } from 'i18next'
 import handleError from '@utils/GameUtils/HandleError'
 
 /**
