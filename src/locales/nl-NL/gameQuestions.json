@@ -1,5 +1,5 @@
 {
-  "whatMode": "Welke Spelmodus wil je voor de quiz? {{modes}}",
+  "whatMode": "Welke spelmodus wil je voor het spel? **{{modes}}**",
   "whatNumberOfRounds": "Hoeveel rondes wil je in de quiz hebben?",
   "whatDuration": "Hoe lang duurt elke ronde? (Minimaal: 20 seconds) **PS**: Onthoud dat geldige tijdsduren er als volgt uitzien: *20 seconds of 20s*",
   "whatAnimeListWebsite": "Op welke website staat jouw anime lijst? (Ondersteunde websites: {{websites}})",
@@ -7,11 +7,15 @@
   "whatYearAndSeason": "Wat is het jaar en het seizoen? (bijvoorbeeld: 2021, Winter)",
   "errors": {
     "matchStopped": "De quiz is geannuleerd, als je een nieuwe wilt starten, gebruik ``{{command}}``.",
+    "expiredMatch": "Het spel is verlopen, als je er nog een wilt starten, gebruik dan ``{{command}}``",
     "invalidMode": "Oh nee, de spelmodus die je hebt opgegeven is ongeldig of is tijdelijk uitgeschakeld! Voer er een in uit de lijst hierboven.",
     "isNaN": "Nou...het lijkt niet op een getal, denk ik.",
     "roundsLimit": "Door extreem saaie redenen kun je als normale gebruiker niet meer dan 10 rondes starten, als je meer wilt, kun je me steunen met mijn Patreon! {{patreonURL}}",
     "invalidDuration": "Helaas kon een simpele bot zoals ik niet weten wat het betekent wat je hebt ingevoerd, is het in seconden, minuten? Ik weet het niet! Voer een geldige tijd in.",
     "invalidWebsite": "Dit ziet er niet uit als een ondersteunde website. Afbreken...",
-    "invalidFormat": "Dit schijnt niet in het juiste formaat te zijn."
+    "invalidFormat": "Dit schijnt niet in het juiste formaat te zijn.",
+    "invalidUsername": "Ik kon deze gebruikersnaam niet vinden op de geselecteerde website!",
+    "minimiumDuration": "De minimale tijdsduur is 20 seconden!",
+    "unsufficientAnimes": "Je moet minstens 10 animes in je lijst hebben om deze spelmodus te kunnen gebruiken."
   }
 }
