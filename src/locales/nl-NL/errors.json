@@ -1,7 +1,7 @@
 {
   "genericError": "{{emoji}} | Oepsie! **Er is een kritieke fout** opgetreden en daarom **kon ik niet doorgaan!**. Als u denkt dat dit niet zou horen te gebeuren, contacteer ons op de **Ritsu support server**! {{e}}",
   "unreachableRepository": {
-    "title": "{{emoji}} Onbereikbaar archief, nieuwe rondes en quizzen zijn niet beschikbaar.",
+    "title": "{{emoji}} Onbereikbaar archief, nieuwe rondes en spelen zijn niet beschikbaar.",
     "description": "Ritsu is zwaar afhankelijk van diensten van derden, en het lijkt erop dat een van de archieven die Ritsu gebruikt om OP/ED's te verkrijgen, momenteel onbereikbaar is.\n\nEr is geen ETA en ik raad je zeker aan om naar mijn support server te gaan om meer updates te krijgen.\n{{invite}}"
   }
 }
