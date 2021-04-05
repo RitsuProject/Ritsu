@@ -4,5 +4,5 @@
   "forceFinished": "De quiz is geforceerd gestopt met succes",
   "roundEnded": "Alle Rondes zijn voorbij! Bedankt voor het spelen!",
   "nobody": "Niemand",
-  "songDetails": "{{songName}} | Artiest: {{songArtist}}"
+  "songDetails": "\"{{songName}}\" | Artiest(en): {{songArtist}}"
 }
