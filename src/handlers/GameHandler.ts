@@ -1,4 +1,4 @@
-import { Message } from 'eris'
+import { AnyGuildChannel, Message } from 'eris'
 import { MessageCollector } from 'eris-collector'
 import NodeCache from 'node-cache'
 import { TFunction } from 'i18next'
@@ -19,8 +19,13 @@ import UnreachableRepository from '@structures/errors/UnreachableRepository'
 import getStreamFromURL from '@utils/GameUtils/GetStream'
 import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
 import getAnimeData from '@utils/GameUtils/GetAnimeData'
-import generateEmbed from '@utils/GameUtils/GenerateEmbed'
+import generateAnswerEmbed from '@utils/GameUtils/GenerateAnswerEmbed'
 import handleError from '@utils/GameUtils/HandleError'
+import {
+  generateMinimalStartEmbed,
+  generateRoundStartedEmbed,
+  generateStartEmbed,
+} from '@utils/GameUtils/GenerateStartEmbed'
 
 /**
  * GameHandler
@@ -41,9 +46,10 @@ export default class GameHandler {
     this.themesCache = new NodeCache()
   }
 
-  async init() {
+  async initGame() {
     const guild = await Guilds.findById(this.message.guildID)
     if (!guild) return
+
     await this.startNewRound(guild).catch(
       (err: Error | UnreachableRepository) => {
         handleError(this.message, this.t, err)
@@ -52,39 +58,61 @@ export default class GameHandler {
   }
 
   async startNewRound(guild: GuildDocument) {
-    const voiceChannel = this.message.member.voiceState.channelID
+    const voiceChannelID = this.message.member.voiceState.channelID
 
-    if (!voiceChannel) {
+    if (!voiceChannelID) {
       const oldRoomExists = await Rooms.exists({ _id: this.message.guildID })
       if (oldRoomExists) {
-        this.client.leaveVoiceChannel(voiceChannel)
+        this.client.leaveVoiceChannel(voiceChannelID)
+        return this.message.channel.createMessage(
+          this.t('game:errors.noUsersInTheVoiceChannel')
+        )
       }
-      return this.message.channel.createMessage('No Users in Voice Channel.')
+      return this.message.channel.createMessage('game:errors.noVoiceChannel')
+    }
+
+    const discordGuild = this.client.guilds.get(this.message.guildID)
+    const voiceChannel = discordGuild.channels.get(voiceChannelID)
+    const isSingleplayer = this.isSinglePlayer(voiceChannel)
+
+    const roomHandler = new RoomHandler(this.message, isSingleplayer)
+    const room = await roomHandler.handleRoom()
+
+    // If it is the first round, will send the starting the match embed.
+    if (room.currentRound === 1) {
+      const preparingMatchEmbed = generateStartEmbed(
+        this.gameOptions,
+        isSingleplayer,
+        this.t
+      )
+
+      void this.message.channel.createMessage({ embed: preparingMatchEmbed })
+    } else {
+      const preparingRoundEmbed = generateMinimalStartEmbed(this.t)
+
+      void this.message.channel.createMessage({ embed: preparingRoundEmbed })
     }
 
     const themes = new Themes(this.message, this.gameOptions, this.themesCache)
     const theme = await themes.getTheme()
 
-    const fetchingStreamMessage = await this.message.channel.createMessage(
-      `\`Fetching stream...\``
-    )
     const stream = await getStreamFromURL(theme.link).catch(() => {
-      void fetchingStreamMessage.delete()
-      throw new Error(
-        'For some extremely evil reason, I was unable to load the current stream of the theme and so I was unable to continue! Restart the game and try again.'
-      )
+      throw new Error(this.t('game:errors.unableToLoadStream'))
     })
 
-    void fetchingStreamMessage.delete()
+    const user = await User.findById(this.message.author.id)
+    const animeData = await getAnimeData(theme.name, theme.malId)
+    const hintsHandler = new HintsHandler(animeData)
 
     guild.rolling = true
     await guild.save()
 
-    const roomHandler = new RoomHandler(this.message, theme.name)
-    const user = await User.findById(this.message.author.id)
-    const room = await roomHandler.handleRoom()
-    const animeData = await getAnimeData(theme.name, theme.malId)
-    const hintsHandler = new HintsHandler(animeData)
+    const roundStartedEmbed = generateRoundStartedEmbed(
+      room.currentRound,
+      this.gameOptions,
+      this.t
+    )
+    void this.message.channel.createMessage({ embed: roundStartedEmbed })
 
     const answerFilter = (msg: Message) =>
       GameCollectorUtils.isAnswer(animeData, msg)
@@ -134,10 +162,10 @@ export default class GameHandler {
             `Correct Users: ${answerers}`
           )
 
-          const embed = await generateEmbed(theme, animeData)
+          const answerEmbed = await generateAnswerEmbed(theme, animeData)
 
           await this.message.channel.createMessage('The answer is...')
-          await this.message.channel.createMessage({ embed })
+          await this.message.channel.createMessage({ embed: answerEmbed })
 
           room.answerers.forEach((id) => {
             void this.handleLevel(id)
@@ -145,7 +173,7 @@ export default class GameHandler {
 
           if (room.currentRound >= this.gameOptions.rounds) {
             await this.clearData(room, guild)
-            this.client.leaveVoiceChannel(voiceChannel)
+            this.client.leaveVoiceChannel(voiceChannelID)
             void this.message.channel.createMessage('Match ended.')
           } else {
             await this.startNewRound(guild).catch(
@@ -157,7 +185,7 @@ export default class GameHandler {
         })()
     )
 
-    void this.playTheme(voiceChannel, stream)
+    void this.playTheme(voiceChannelID, stream)
   }
 
   // async handleFinish(room: RoomInterface, force: boolean) {}
@@ -167,6 +195,15 @@ export default class GameHandler {
     this.themesCache.del(this.themesCache.keys())
     await guild.save()
     await room.deleteOne()
+  }
+
+  isSinglePlayer(voiceChannel: AnyGuildChannel) {
+    if (voiceChannel.type !== 2) throw new Error('Invalid Channel Type')
+    const voiceChannelMembers = voiceChannel.voiceMembers.filter((member) => {
+      return member.id !== this.client.user.id // Ignore the bot
+    })
+    if (voiceChannelMembers.length === 1) return true
+    return false
   }
 
   async handleLevel(userId: string) {

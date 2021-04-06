@@ -3,10 +3,10 @@ import Rooms from '@entities/Room'
 
 export default class RoomHandler {
   private message: Message
-  private answer: string
-  constructor(message: Message, answer: string) {
+  private isSinglePlayer: boolean
+  constructor(message: Message, isSinglePlayer: boolean) {
     this.message = message
-    this.answer = answer
+    this.isSinglePlayer = isSinglePlayer
   }
 
   async handleRoom() {
@@ -28,9 +28,9 @@ export default class RoomHandler {
     const room = new Rooms({
       _id: this.message.guildID,
       answerers: [],
-      answer: this.answer,
       channel: this.message.channel.id,
       startedBy: this.message.author.id,
+      isSinglePlayer: this.isSinglePlayer,
       leaderboard: [],
       currentRound: 1,
     })

@@ -3,7 +3,7 @@ import MioSong from '@interfaces/MioSong'
 import Vibrant from 'node-vibrant/lib/index'
 import Constants from '@utils/Constants'
 
-export default async function generateEmbed(
+export default async function generateAnswerEmbed(
   theme: MioSong,
   animeData: AnimeEntry
 ) {
@@ -45,7 +45,7 @@ export default async function generateEmbed(
         inline: true,
       },
     ],
-    image: { url: animeData.coverImage.medium },
+    image: { url: animeData.coverImage.large },
     color: imageColorAndroid,
     footer: {
       text: `${theme.songName} | Artist(s): None`,

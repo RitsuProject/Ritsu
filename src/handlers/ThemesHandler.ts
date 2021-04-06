@@ -43,7 +43,11 @@ export default class ThemesHandler {
           const anime = RitsuUtils.randomValueInArray(animes)
 
           const search = await RitsuHTTP.get<MioSong>(
-            `${process.env.API_URL}/themes/${repository}/search?title=${anime.title}&malId=${anime.mal_id}`
+            `${
+              process.env.API_URL
+            }/themes/${repository}/search?title=${encodeURI(
+              anime.title
+            )}&malId=${anime.mal_id}`
           )
 
           const songData = search.data
@@ -83,7 +87,11 @@ export default class ThemesHandler {
               const anime = RitsuUtils.randomValueInArray(animes)
 
               const search = await RitsuHTTP.get<MioSong>(
-                `${process.env.API_URL}/themes/${repository}/search?title=${anime.title}&malId=${anime.mal_id}`
+                `${
+                  process.env.API_URL
+                }/themes/${repository}/search?title=${encodeURI(
+                  anime.title
+                )}&malId=${anime.mal_id}`
               )
 
               const songData = search.data
@@ -155,14 +163,9 @@ export default class ThemesHandler {
   }
 
   async getTheme(): Promise<MioSong> {
-    const loadingMessage = await this.message.channel.createMessage(
-      `\`Fetching the Anime Theme...\``
-    )
-
     const chosenTheme = await this.chooseTheme()
     this.themesCache.set(chosenTheme.link, this.message.guildID)
 
-    void loadingMessage.delete()
     return chosenTheme
   }
 

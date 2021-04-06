@@ -59,7 +59,7 @@ class Start extends RitsuCommand {
       },
       t
     )
-    await game.init()
+    await game.initGame()
   }
 }
 
