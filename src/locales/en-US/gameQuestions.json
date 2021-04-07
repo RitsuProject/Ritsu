@@ -7,7 +7,7 @@
   "whatYearAndSeason": "What is the year and season? (Example: 2021, Winter)",
   "errors": {
     "matchStopped": "The match has been canceled, if you want to start another one, use ``{{command}}``.",
-    "expiredMatch": "Your match has expired, if you want to start another one, use ``{{command}}``",
+    "expiredMatch": "Your match has expired. Want to start another one? Use ``{{command}}``",
     "invalidMode": "Oh no, the game mode you entered is invalid or has been temporarily disabled! Please insert one from the list above.",
     "isNaN": "Well...it doesn't seem like a number, I think.",
     "roundsLimit": "For extremely boring reasons, you cannot start more than 10 rounds as a normal user, if you want more, you can help me with my Patreon! {{patreonURL}}",
@@ -15,7 +15,7 @@
     "invalidWebsite": "This does not appear to be a supported website. Canceling...",
     "invalidFormat": "This does not seem to be in the right format.",
     "invalidUsername": "I couldn't find that username on the selected website!",
-    "minimiumDuration": "The minimum duration is 20 seconds!",
-    "unsufficientAnimes": "You need at least 10 animes in list to use this gamemode."
+    "minimiumDuration": "Duration is too short. The minimum duration is 20 seconds!",
+    "unsufficientAnimes": "You need at least 10 animes on the list to use this game mode."
   }
 }

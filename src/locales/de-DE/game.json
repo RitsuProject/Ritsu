@@ -4,5 +4,30 @@
   "forceFinished": "Diese Runde wurde erfolgreich gewaltsam abgeschlossen",
   "roundEnded": "Alle Runden sind vorbei! Danke für's Spielen!",
   "nobody": "Niemand",
-  "songDetails": "{{songName}} | Künstler: {{songArtist}}"
+  "songDetails": "{{songName}} | Künstler: {{songArtist}}",
+  "errors": {
+    "noVoiceChannel": "Du musst in einem Sprachkanal sein damit ich das Match starten kann!",
+    "noUsersInTheVoiceChannel": "Es scheint so das der Host nicht mehr im Sprachkanal ist, bitte starte das Match neu.",
+    "unableToLoadStream": "Aus sehr bösen Gründen, war ich nicht in der Lage den aktuellen Stream des Themes zu laden und deshalb war ich nicht in der Lage weiter zu machen! Starte das Match neu und versuche es erneut."
+  },
+  "embeds": {
+    "roundStarted": {
+      "title": "Die {{currentRound}} Runde hat angefangen!",
+      "description": "Von welchem Anime ist das {{themeType}}? Du hast {{time}} zeit um zu raten!"
+    },
+    "preparingMatch": {
+      "title": "Bereitet das Match vor...",
+      "description": "Ich sammle all nötigen Daten um das Match zu starten, das könnte ein bisschen dauern!",
+      "fields": {
+        "gamemode": "Du spielst den Modus **{{gamemode}}**",
+        "roundsNumber": "Dein Match wird **{{rounds}} Runden haben**",
+        "roundsDuration": "Jede Runde wird **{{time}}** dauern",
+        "matchMode": "Ich erkenne das du den Modus **{{mode}}** spielst"
+      }
+    },
+    "startingNextRound": {
+      "title": "Starte die nächste Runde...",
+      "description": "Ich sammle all nötigen Daten um das Match zu starten, das könnte ein bisschen dauern!"
+    }
+  }
 }
