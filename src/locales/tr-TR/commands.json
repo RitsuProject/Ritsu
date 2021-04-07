@@ -1,0 +1,51 @@
+{
+  "ping": {
+    "commandDescription": "Pong!",
+    "stealMessage": "Çileğimi çalma Mugi!"
+  },
+  "help": {
+    "commandDescription": "Bu komut! ^w^",
+    "joinSupportServer": "Bot hakkında haberler, etkinlikler, hediyeler ve daha fazlası için sunucuma katıl! Geri bildirimini duymaktan mutluluk duyacağız. {{invite}}",
+    "uanvailableDM": "DM'lerin (Özel Mesajların) kapalı gibi gözüküyor. Bu yüzden sana mesaj gönderemiyorum.",
+    "lookDM": "DM'lerini (Özel Mesajlarını) kontrol edebilir misin lütfen?",
+    "embed": {
+      "title": "{{emoji}} Ritsu'dan Yardım",
+      "description": "**Komutlarım** ile mi ilgileniyor ilgileniyorsun? Ooh, bu harika, komutlarımı aşağıda görebilirsin.\n\nEğer herhangi bir sorun, şüphen ya da desteğe ihtiyacın varsa, **destek sunucuma** katılmaktan çekinme.",
+      "fields": {
+        "animemusicquiz": "{{emoji}} AnimeMusicQuiz",
+        "utilities": "{{emoji}} Yardımcı Komutlar",
+        "misc": "{{emoji}} Diğer Komutlar",
+        "social": "{{emoji}} Sosyal"
+      },
+      "footer": "Komutlar hakkında daha fazla bilgi almak için bu bağlantıyı ziyaret edebilirsin {{url}}"
+    }
+  },
+  "prefix": {
+    "commandDescription": "Bot prefixini değiştir.",
+    "changedPrefix": "Sunucu prefixi {{newPrefix}} olarak değiştirildi",
+    "errors": {
+      "noPrefix": "Yeni prefixi belirtmen gerekiyor."
+    }
+  },
+  "leaderboard": {
+    "commandDescription": "Seviyeye göre güncel Ritsu sıralamasına bak.",
+    "embed": {
+      "title": "En yüksek seviyeye sahip 10 oyuncu.",
+      "levelAndWonMatches": "Seviye: **{{level}}**\nKazanılan Oyun: **{{wonMatches}}**"
+    }
+  },
+  "bio": {
+    "commandDescription": "Profil açıklamanı değiştir.",
+    "changedBio": "Profil açıklaman başarıyla güncellendi.",
+    "noBio": "Yeni profil açıklamanı/hakkındayı belirtmedin. Bunları ekleyerek komutu tekrar kullan!"
+  },
+  "start": {
+    "commandDescription": "Oyunu Başlat!"
+  },
+  "invite": {
+    "commandDescription": "Beni sunucuna ekle!",
+    "thanks": "Beni sunucuna eklemeye karar verdiğin için teşekkürler! İşte davet bağlantım! {{invite}}\nUmarım eğlenirsin!",
+    "lookDM": "DM'lerini (Özel Mesajlarını) kontrol edebilir misin lütfen?",
+    "unavailableDM": "DM'lerin (Özel Mesajların) kapalı gibi gözüküyor. Bu yüzden sana mesaj gönderemiyorum."
+  }
+}

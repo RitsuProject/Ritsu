@@ -1,4 +1,7 @@
 {
   "genericError": "{{emoji}} | Oupsi! **Une erreur critique** est arrivée et par conséquent **Il m'est impossible de continuer!**. Si tu penses que cela ne devait pas se produire contact-nous sur le **Serveur de support Ritsu**! {{e}}",
-  "streamError": "Pour d'obscures raisons, je suis incapable the charger le flux du thème actuel et donc je suis incapable de continuer! Redémarre le jeu et réessaye."
+  "unreachableRepository": {
+    "title": "{{emoji}} Dépôt inatteignable, les nouveaux tours et matchs sont invalides.",
+    "description": "Ritsu s'appuie fortement sur des services tiers, et il semble que l'un des dépôts qu'il utilise pour obtenir des Opening/Ending est actuellement inaccessible.\n\nIl n'y a pas d'ETA et je te recommande fortement d'aller sur mon serveur de support pour avoir plus d'informations.\n{{invite}}"
+  }
 }

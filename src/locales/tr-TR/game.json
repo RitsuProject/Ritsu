@@ -1,0 +1,33 @@
+{
+  "roundStarted": "#{{round}}. tur başlıyor! Bu **Kapanış/Açılış teması** hangi animeye ait? Cevabı sohbete yazarak gönder! Cevabı yazmak için **{{time}}** süren var.\nOyunu durdurmak istiyorsan sohbete **{{prefix}}stop** yaz.",
+  "nobodyWon": "Bu oyunu kimse kazanamadı.",
+  "forceFinished": "Bu oyun başarılı bir şekilde, zorla sona erdirildi",
+  "roundEnded": "Tüm turlar bitti! Oynadığınız için teşekkürler!",
+  "nobody": "Hiçkimse",
+  "songDetails": "\"{{songName}}\" | Sanatçı(lar): {{songArtist}}",
+  "errors": {
+    "noVoiceChannel": "Odaya girip, oyunu başlatabilmem için bir ses kanalında olman gerekiyor!",
+    "noUsersInTheVoiceChannel": "Oyunu başlatan kişi artık ses kanalında değil gibi görünüyor, lütfen oyunu yeniden başlatın.",
+    "unableToLoadStream": "Bazı son derece kötü nedenlerden dolayı, temanın mevcut müziğini yükleyemedim ve bu yüzden oyuna devam edemedim! Oyunu yeniden başlatıp ve tekrar deneyin."
+  },
+  "embeds": {
+    "roundStarted": {
+      "title": "{{currentRound}}. tur başladı!",
+      "description": "Bu {{themeType}} hangi animeye ait? Tahmin etmek için {{time}} süren var!"
+    },
+    "preparingMatch": {
+      "title": "Oyun hazırlanıyor...",
+      "description": "Oyunu başlatmak için gerekli tüm verileri topluyorum, bu biraz zaman alabilir!",
+      "fields": {
+        "gamemode": "**{{gamemode}}** oyun modunda oynuyorsun",
+        "roundsNumber": "Oyunun **{{rounds}} turdan oluşacak**",
+        "roundsDuration": "Her tur **{{time}}** sürecek",
+        "matchMode": "**{{mode}}** oyun modunda oynadığını tespit ettim"
+      }
+    },
+    "startingNextRound": {
+      "title": "Sıradaki tur başlıyor...",
+      "description": "Turu başlatmak için gerekli tüm verileri topluyorum, bu biraz zaman alabilir!"
+    }
+  }
+}
