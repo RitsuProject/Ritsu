@@ -5,7 +5,7 @@
   },
   "help": {
     "commandDescription": "Bu komut! ^w^",
-    "joinSupportServer": "Bot hakkında haberler, etkinlikler, hediyeler ve daha fazlası için sunucuma katıl! Geri bildirimini duymaktan mutluluk duyacağız. {{invite}}",
+    "joinSupportServer": "Haberler, etkinlikler, hediyeler ve daha fazlası için sunucuma katıl! Geri bildirimi duymaktan mutluluk duyacağız. {{invite}}",
     "uanvailableDM": "DM'lerin (Özel Mesajların) kapalı gibi gözüküyor. Bu yüzden sana mesaj gönderemiyorum.",
     "lookDM": "DM'lerini (Özel Mesajlarını) kontrol edebilir misin lütfen?",
     "embed": {
