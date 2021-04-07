@@ -1,0 +1,8 @@
+{
+  "mentionRitsu": "Selam! Ben Ritsu! AnimeMusicQuiz'e dayalı bir botum! Bu sunucudaki prefixim **{{prefix}}** olarak ayarlı. Ayrıca, **{{prefix}}help** komutunu kullanarak tüm komutlarımı da görebilirsin",
+  "thanksPatreonEmbed": {
+    "title": "Patreon Bildirimi",
+    "description": "Selam! Yeni Patronum olduğun için çok teşekkür ederim! Bu, güçlü kalmama ve faturalarımı ödememe çok yardımcı oluyor!\n\n**Patreon'umdaki inanılmaz aboneliğin hakkında bazı detaylar**:{{details}}\n\nBazı avantajları elde etmek için bizimle destek sunucumuzdan iletişime geçmen gerekebilir, eğer bir sorunun varsa, bizi bilgilendirmek için en doğru yer orası olacaktır!\n\nProjeye yardım ettiğin için çok teşekkür ederim! Umarım çok eğlenirsin~~\n**sazz,**\n*Ana Geliştirici*",
+    "footer": "Patreon aboneliğinin zaman damgası: {{timestamp}}"
+  }
+}
