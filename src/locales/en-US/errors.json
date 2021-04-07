@@ -2,6 +2,6 @@
   "genericError": "{{emoji}} | Oopsie! **A critical failure** happened and therefore **I was unable to continue!**. If you think this should not be happening, contact us on the **Ritsu support server**! {{e}}",
   "unreachableRepository": {
     "title": "{{emoji}}  Unreachable Repository, new rounds and matches are unavailable.",
-    "description": "Ritsu relies heavily on third-party services, and it appears that one of the repositories it uses to obtain OP/EDs is currently unreachable.\n\nThere is no ETA and I strongly recommend you to enter my support server to get more updates.\n{{invite}}"
+    "description": "Ritsu relies heavily on third-party services, and it appears that one of the repositories it uses to obtain OP/EDs is currently unreachable.\n\nThere is no estimated time for the repository to be online again, I strongly recommend that you join my support server for further updates.\n{{invite}}"
   }
 }
