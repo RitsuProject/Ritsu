@@ -4,5 +4,30 @@
   "forceFinished": "A partida foi encerrada a força com sucesso",
   "roundEnded": "As rodadas acabaram! Obrigada por jogar!",
   "nobody": "Ninguém",
-  "songDetails": "{{songName}} | Artista: {{songArtist}}"
+  "songDetails": "{{songName}} | Artista: {{songArtist}}",
+  "errors": {
+    "noVoiceChannel": "Você precisa estar em um canal de voz para que eu possa entrar e começar a partida!",
+    "noUsersInTheVoiceChannel": "Parece que a pessoa que iniciou a partida não está mais no canal de voz, por favor reinicie a partida.",
+    "unableToLoadStream": "Por algum motivo extremamente maligno, não consegui carregar o tema atual e, portanto, não consegui continuar! Reinicie o jogo e tente novamente."
+  },
+  "embeds": {
+    "roundStarted": {
+      "title": "A {{currentRound}} rodada começou!",
+      "description": "Qual é o nome do anime deste {{themeType}}}? Você tem {{time}} para adivinhar!"
+    },
+    "preparingMatch": {
+      "title": "Preparando a partida...",
+      "description": "Estou coletando todos os dados necessários para começar a partida, pode demorar um pouquinho!",
+      "fields": {
+        "gamemode": "Você está jogando no modo **{{gamemode}}**",
+        "roundsNumber": "Sua partida terá **{{rounds}} rodadas**",
+        "roundsDuration": "Cada rodada terá a duração de **{{time}}**",
+        "matchMode": "Detectei que você está jogando no modo **{{mode}}**"
+      }
+    },
+    "startingNextRound": {
+      "title": "Iniciando a próxima rodada...",
+      "description": "Estou coletando todos os dados necessários para começar a partida, pode demorar um pouquinho!"
+    }
+  }
 }
