@@ -1,0 +1,7 @@
+{
+  "genericError": "{{emoji}} | Hay aksi! **Kritik bir hata** oluştu ve bu yüzden **devam edemedim!**. Bunun olmaması gerektiğini düşünüyorsan, lütfen **Ritsu destek sunucusundan** bize ulaş!{{e}}",
+  "unreachableRepository": {
+    "title": "{{emoji}} Veri Deposuna Erişilemiyor, yeni turlar ve maçlara erişilemedi.",
+    "description": "Ritsu, büyük ölçüde üçüncü taraf hizmetlerini kullanıyor ve Açılış/Kapanış müziklerini elde etmek için kullandığı depolardan birine şu anda erişilemiyor gibi görünüyor.\n\nNe zaman kullanılabilir olacağı hakkında kesin bir tarih yok. Daha fazla güncelleme almak için destek sunucuma katılmanı şiddetle tavsiye ederim.\n{{invite}}"
+  }
+}
