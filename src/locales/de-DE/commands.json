@@ -5,7 +5,7 @@
   },
   "help": {
     "commandDescription": "Diese command! ^w^",
-    "joinSupportServer": "Komm in meinen Server für mehr News, Events, Giveaways und mehr! Wir würden uns darüber freuen euer Feedback zu hören. {{invite}}",
+    "joinSupportServer": "Komm in meinen Server für mehr News, Events, Giveaways und mehr! Wir würden uns sehr darüber freuen euer Feedback zu hören. {{invite}}",
     "uanvailableDM": "Es scheint so als wären deine DM's (Direct Messages) ausgeschaltet sind und deshalb konnte ich dir keine Nachricht senden.",
     "lookDM": "Könntest du bitte deine DM's (Direct Messages) abchecken?",
     "embed": {
