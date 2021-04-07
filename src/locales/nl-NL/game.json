@@ -4,5 +4,30 @@
   "forceFinished": "De quiz is geforceerd gestopt met succes",
   "roundEnded": "Alle Rondes zijn voorbij! Bedankt voor het spelen!",
   "nobody": "Niemand",
-  "songDetails": "\"{{songName}}\" | Artiest(en): {{songArtist}}"
+  "songDetails": "\"{{songName}}\" | Artiest(en): {{songArtist}}",
+  "errors": {
+    "noVoiceChannel": "Je moet op een voice channel zitten zodat ik in de channel kan komen en het spel kan beginnen!",
+    "noUsersInTheVoiceChannel": "Het lijkt erop dat de host niet meer op de voice channel is, herstart het spel alsjeblieft.",
+    "unableToLoadStream": "Om de een of andere kwaadaardige reden kon ik de huidige stream van het liedje niet laden en kon ik dus niet verder! Herstart het spel en probeer het opnieuw."
+  },
+  "embeds": {
+    "roundStarted": {
+      "title": "De {{currentRound}} ronde is begonnen!",
+      "description": "Wat is de anime die bij dit {{themeType}} Je hebt {{time}} om te raden!"
+    },
+    "preparingMatch": {
+      "title": "Het spel aan het voorbereiden...",
+      "description": "Ik verzamel alle nodige gegevens om het spel te starten, het kan even duren!",
+      "fields": {
+        "gamemode": "Je speelt op spelmodus **{{gamemode}}**",
+        "roundsNumber": "Je spel zal **{{rounds}} rondes** hebben",
+        "roundsDuration": "Elke ronde heeft een duur van **{{time}}**",
+        "matchMode": "Ik heb gezien dat je op **{{mode}}** speelt"
+      }
+    },
+    "startingNextRound": {
+      "title": "Begin volgende ronde...",
+      "description": "Ik ben alle nodige data aan het verzamelen om de ronde te starten, het kan even duren!"
+    }
+  }
 }
