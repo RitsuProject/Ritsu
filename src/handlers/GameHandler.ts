@@ -68,7 +68,9 @@ export default class GameHandler {
           this.t('game:errors.noUsersInTheVoiceChannel')
         )
       }
-      return this.message.channel.createMessage('game:errors.noVoiceChannel')
+      return this.message.channel.createMessage(
+        this.t('game:errors.noVoiceChannel')
+      )
     }
 
     const discordGuild = this.client.guilds.get(this.message.guildID)
