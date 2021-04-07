@@ -4,5 +4,30 @@
   "forceFinished": "Ce match s'est terminé brusquement mais avec brio",
   "roundEnded": "Toutes les manches sont terminés! Merci d'avoir joué!",
   "nobody": "Personne",
-  "songDetails": "{{songName}} | Artiste: {{songArtist}}"
+  "songDetails": "{{songName}} | Artiste: {{songArtist}}",
+  "errors": {
+    "noVoiceChannel": "Tu as besoin être dans un channel vocal pour que je puisse démarrer le match!",
+    "noUsersInTheVoiceChannel": "Il semblerait que l'hébergeur n'est plus dans le vocal, s'il te plait redémarre le match.",
+    "unableToLoadStream": "Pour des raisons obscures, je suis incapable the charger le flux du thème actuel et donc je suis incapable de continuer! Redémarre le jeu et réessaye."
+  },
+  "embeds": {
+    "roundStarted": {
+      "title": "Le tour numéro {{currentRound}} a commencé !",
+      "description": "Quel est l'anime pour ce {{themeType}}? Tu as {{time}} pour répondre!"
+    },
+    "preparingMatch": {
+      "title": "Match en préparation...",
+      "description": "Je suis en train de collecter toutes les données nécessaire afin de démarrer le match, cela peut prendre quelques temps!",
+      "fields": {
+        "gamemode": "Tu es en train de jouer au mode de jeu **{{gamemode}}**",
+        "roundsNumber": "Ton match aura **{{rounds}} tours**",
+        "roundsDuration": "Chaque tour aura une durée de **{{time}}**",
+        "matchMode": "J'ai détecté que tu es en train de joué à **{{mode}}**"
+      }
+    },
+    "startingNextRound": {
+      "title": "Démarrage du prochain tour...",
+      "description": "Je suis en train de collecter toutes les données nécessaire afin de démarrer le tour, cela peut prendre quelques temps!"
+    }
+  }
 }
