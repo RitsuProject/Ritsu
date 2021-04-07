@@ -15,7 +15,7 @@
     "invalidWebsite": "Scheint so das diese Website nicht unterstützt wird. Wird abgebrochen...",
     "invalidFormat": "Scheint so als wäre das nicht im richtigen Format.",
     "invalidUsername": "Ich konnte diesen Username nicht auf der ausgewählten Website finden!",
-    "minimiumDuration": "Die minimale Dauer ist 20 Sekunden!",
+    "minimiumDuration": "Die Dauer ist zu kurz. Die minimale Dauer ist 20 Sekunden!",
     "unsufficientAnimes": "Du musst mindestens 10 Anime auf deiner Liste haben um diesen Modus zu spielen."
   }
 }
