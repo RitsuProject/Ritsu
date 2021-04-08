@@ -1,6 +1,7 @@
 import { Message } from 'eris'
 import { TFunction } from 'i18next'
 import UnreachableRepository from '../../structures/errors/UnreachableRepository'
+import Emojis from '../Emojis'
 
 export default function handleError(
   message: Message,
@@ -23,6 +24,7 @@ export default function handleError(
   }
   void message.channel.createMessage(
     t('errors:genericError', {
+      emoji: Emojis.AQUA_CRYING,
       e: error.message,
     })
   )

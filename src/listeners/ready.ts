@@ -13,7 +13,10 @@ export default class Ready extends RitsuEvent {
   }
 
   async run() {
-    await Guilds.updateMany({}, { rolling: false, currentChannel: null })
+    await Guilds.updateMany(
+      { rolling: true },
+      { rolling: false, currentChannel: null }
+    )
     await Rooms.deleteMany({})
 
     const customStats = [
