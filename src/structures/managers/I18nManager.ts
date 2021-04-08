@@ -7,6 +7,7 @@ export default class I18nManager {
     'commands',
     'errors',
     'game',
+    'gameHints',
     'gameQuestions',
     'utils',
   ]

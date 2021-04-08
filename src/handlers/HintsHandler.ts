@@ -1,10 +1,12 @@
 import { AnimeEntry } from 'anilist-node'
 import Constants from '@utils/Constants'
 import RitsuUtils from '@utils/RitsuUtils'
+import { TFunction } from 'i18next'
 
 export default class HintsHandler {
-  constructor(private animeData: AnimeEntry) {
+  constructor(private animeData: AnimeEntry, private t: TFunction) {
     this.animeData = animeData
+    this.t = t
   }
 
   generateHint() {
@@ -29,18 +31,24 @@ export default class HintsHandler {
       case 'firstCharacter': {
         const firstCharacter = animeTitle.charAt(0)
 
-        return `The first character of the anime title is: ${firstCharacter}`
+        return this.t('gameHints:firstCharacter', {
+          character: firstCharacter,
+        })
       }
       case 'startsWith': {
         const firstWord = animeTitle.split(' ')[0]
 
-        return `The title of the anime begins with: ${firstWord}`
+        return this.t('gameHints:startsWith', {
+          firstWord: firstWord,
+        })
       }
       case 'endsWith': {
         const wordsArray = animeTitle.split(' ')
         const lastWord = wordsArray.slice(-1)[0]
 
-        return `The anime title ends with: ${lastWord}`
+        return this.t('gameHints:endsWith', {
+          lastWord: lastWord,
+        })
       }
     }
   }

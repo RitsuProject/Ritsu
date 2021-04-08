@@ -102,7 +102,7 @@ export default class GameHandler {
 
     const user = await User.findById(this.message.author.id)
     const animeData = await getAnimeData(theme.name, theme.malId)
-    const hintsHandler = new HintsHandler(animeData)
+    const hintsHandler = new HintsHandler(animeData, this.t)
 
     guild.rolling = true
     await guild.save()
