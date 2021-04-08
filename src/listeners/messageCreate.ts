@@ -3,8 +3,8 @@ import RitsuClient from '@structures/RitsuClient'
 import { RitsuEvent } from '@structures/RitsuEvent'
 import Users from '@entities/User'
 import Guilds, { GuildDocument } from '@entities/Guild'
-import Constants from '@utils/Constants'
 import i18next from 'i18next'
+import Emojis from '@utils/Emojis'
 
 export default class messageCreate extends RitsuEvent {
   public client: RitsuClient
@@ -65,7 +65,10 @@ export default class messageCreate extends RitsuEvent {
     }).catch((e: Error) => {
       console.log(e)
       void message.channel.createMessage(
-        Constants.DEFAULT_ERROR_MESSAGE.replace('$e', e.message)
+        t('errors:genericError', {
+          emoji: Emojis.AQUA_CRYING,
+          e: e.message,
+        })
       )
     })
   }
