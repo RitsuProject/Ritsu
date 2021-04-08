@@ -19,13 +19,8 @@ import UnreachableRepository from '@structures/errors/UnreachableRepository'
 import getStreamFromURL from '@utils/GameUtils/GetStream'
 import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
 import getAnimeData from '@utils/GameUtils/GetAnimeData'
-import generateAnswerEmbed from '@utils/GameUtils/GenerateAnswerEmbed'
 import handleError from '@utils/GameUtils/HandleError'
-import {
-  generateMinimalStartEmbed,
-  generateRoundStartedEmbed,
-  generateStartEmbed,
-} from '@utils/GameUtils/GenerateStartEmbed'
+import EmbedFactory from '../factories/EmbedFactory'
 
 /**
  * GameHandler
@@ -80,19 +75,22 @@ export default class GameHandler {
     const roomHandler = new RoomHandler(this.message, isSingleplayer)
     const room = await roomHandler.handleRoom()
 
+    // Create our EmbedFactory instance to make super cute embeds.
+    const embedFactory = new EmbedFactory(
+      this.gameOptions,
+      isSingleplayer,
+      this.t
+    )
+
     // If it is the first round, will send the starting the match embed.
     if (room.currentRound === 1) {
-      const preparingMatchEmbed = generateStartEmbed(
-        this.gameOptions,
-        isSingleplayer,
-        this.t
-      )
+      const preparingMatchEmbed = embedFactory.preparingMatch()
 
       void this.message.channel.createMessage({ embed: preparingMatchEmbed })
     } else {
-      const preparingRoundEmbed = generateMinimalStartEmbed(this.t)
+      const startingNextRoundEmbed = embedFactory.startingNextRound()
 
-      void this.message.channel.createMessage({ embed: preparingRoundEmbed })
+      void this.message.channel.createMessage({ embed: startingNextRoundEmbed })
     }
 
     const themes = new Themes(this.message, this.gameOptions, this.themesCache)
@@ -109,11 +107,7 @@ export default class GameHandler {
     guild.rolling = true
     await guild.save()
 
-    const roundStartedEmbed = generateRoundStartedEmbed(
-      room.currentRound,
-      this.gameOptions,
-      this.t
-    )
+    const roundStartedEmbed = embedFactory.roundStarted(room.currentRound)
     void this.message.channel.createMessage({ embed: roundStartedEmbed })
 
     const answerFilter = (msg: Message) =>
@@ -164,7 +158,7 @@ export default class GameHandler {
             `Correct Users: ${answerers}`
           )
 
-          const answerEmbed = await generateAnswerEmbed(theme, animeData)
+          const answerEmbed = await embedFactory.answerEmbed(theme, animeData)
 
           await this.message.channel.createMessage('The answer is...')
           await this.message.channel.createMessage({ embed: answerEmbed })
