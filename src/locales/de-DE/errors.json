@@ -1,4 +1,7 @@
 {
   "genericError": "{{emoji}} | Oopsie! **Ein kritischer Fehler ** ist aufgetreten und deshalb **war ich nicht in der Lage es fortzusetzen!**. Wenn du denkst dies nicht passieren sollte, kontaktiere uns auf dem **Ritsu Support Server**! {{e}}",
-  "streamError": "Aus einem sehr bösen Grund, war ich nicht in der Lage den aktuellen Stream des Themes zu laden und deshalb war ich nicht in der Lage weiter zu machen! Starte das Match neu und versuche es erneut."
+  "unreachableRepository": {
+    "title": "{{emoji}} | Oh jemine! Scheint so als müsste der Service ein Problem lösen. Neue Runden und Matches sind im Moment nicht verfügbar.",
+    "description": "Ach du...! Scheint so als als wäre der **OP/EDs service** im Moment nicht verfügbar...\n\nHilf uns das Problem zu lösen im **Ritsu support server**!\n{{invite}}"
+  }
 }

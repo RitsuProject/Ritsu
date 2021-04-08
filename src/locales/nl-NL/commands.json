@@ -5,7 +5,7 @@
   },
   "help": {
     "commandDescription": "Dit command! ^w^",
-    "joinSupportServer": "Kom in mijn server voor meer nieuws, evenementen, giveaways en meer! Wij horen graag jouw feedback {{invite}}",
+    "joinSupportServer": "Kom naar mijn server voor meer nieuws, events, giveaways en meer! We horen graag uw feedback. {{invite}}",
     "uanvailableDM": "Het ziet er naar uit dat jouw DM (Direct messages) gesloten is en ik daarom het bericht niet naar jouw kon sturen.",
     "lookDM": "Zou je alsjeblieft in je DM (Direct Messages) willen kijken?",
     "embed": {

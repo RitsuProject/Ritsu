@@ -7,11 +7,15 @@
   "whatYearAndSeason": "Qual é o ano e a temporada? (Exemplo: 2021, Inverno.)",
   "errors": {
     "matchStopped": "A partida foi cancelada, se você quiser começar mais uma, use ``{{command}}``.",
+    "expiredMatch": "Sua partida expirou. Gostaria de começar outra? Utilize o comando`{{command}}``",
     "invalidMode": "Essa não, o modo de jogo que você entrou é invalido ou foi temporariamente desabilitado! Por favor insira um da lista acima.",
     "isNaN": "Bem... isso não parece um numero, eu acho.",
     "roundsLimit": "Por razões extremamente tediosas, você não consegue começar mais que 10 rodadas como um usuário comum, se você quer mais, você poder ajudar com meu Patreon! {{patreonURL}}",
     "invalidDuration": "Infelizmente, um simples bot como eu não é capaz de saber o que significa isso que você enviou, são segundos, minutos? Eu não sei! Por favor envie um tempo valido.",
     "invalidWebsite": "Isso não aparenta ser um website que suportamos. Cancelando...",
-    "invalidFormat": "Isso não parece estar no formato correto."
+    "invalidFormat": "Isso não parece estar no formato correto.",
+    "invalidUsername": "Não consegui encontrar este nome de usuário!",
+    "minimiumDuration": "A duração é muito curta! O tempo mínimo é de 20 segundos!",
+    "unsufficientAnimes": "Você precisa de ter, no mínimo, 10 animes na lista para jogar este modo de jogo."
   }
 }

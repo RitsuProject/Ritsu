@@ -7,7 +7,7 @@
   "whatYearAndSeason": "Yıl ve mevsim nedir? (Örnek: 2021, Winter)",
   "errors": {
     "matchStopped": "Oyun iptal edildi, başka bir oyun başlatmak istiyorsan, ``{{command}}`` komutunu kullan.",
-    "expiredMatch": "Oyunun süresi doldu, başka bir oyun başlatmak istiyorsan, ``{{command}}`` komutunu kullan",
+    "expiredMatch": "Oyun zaman aşımına uğradı. Yeni bir oyun başlatmak ister misin? Cevabın evet ise, ``{{command}}`` komutunu kullan",
     "invalidMode": "Olamaz, belirttiğin oyun modu geçersiz veya geçici olarak devre dışı bırakıldı! Lütfen yukarıdaki listeden bir tane oyun modu belirt.",
     "isNaN": "Yani...Belirttiğin şey bir sayıya benzemiyor sanırım.",
     "roundsLimit": "Son derece can sıkıcı nedenlerden dolayı, normal bir kullanıcı olarak 10'dan fazla tur başlatamazsın. Daha fazlasını istiyorsan, Patreon'umdan bana destek olabilirsin! {{patreonURL}}",
@@ -15,7 +15,7 @@
     "invalidWebsite": "Bu site desteklenen bir web sitesi gibi görünmüyor. İptal Ediliyor...",
     "invalidFormat": "Görünüşe göre bu doğru bir format değil.",
     "invalidUsername": "Seçilen web sitesinde, bu kullanıcı adını bulamadım!",
-    "minimiumDuration": "Minimum süre 20 saniyedir!",
+    "minimiumDuration": "Süre çok kısa. Minimum süre 20 saniyedir!",
     "unsufficientAnimes": "Bu oyun modunu kullanmak için listede en az 10 animeye ihtiyacın var."
   }
 }
