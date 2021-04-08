@@ -7,7 +7,7 @@
   "whatYearAndSeason": "Wat is het jaar en het seizoen? (bijvoorbeeld: 2021, Winter)",
   "errors": {
     "matchStopped": "De quiz is geannuleerd, als je een nieuwe wilt starten, gebruik ``{{command}}``.",
-    "expiredMatch": "Het spel is verlopen, als je er nog een wilt starten, gebruik dan ``{{command}}``",
+    "expiredMatch": "Je spel is verlopen. Wil je een nieuwe beginnen? Gebruik dan``{{command}}``",
     "invalidMode": "Oh nee, de spelmodus die je hebt opgegeven is ongeldig of is tijdelijk uitgeschakeld! Voer er een in uit de lijst hierboven.",
     "isNaN": "Nou...het lijkt niet op een getal, denk ik.",
     "roundsLimit": "Door extreem saaie redenen kun je als normale gebruiker niet meer dan 10 rondes starten, als je meer wilt, kun je me steunen met mijn Patreon! {{patreonURL}}",
@@ -15,7 +15,7 @@
     "invalidWebsite": "Dit ziet er niet uit als een ondersteunde website. Afbreken...",
     "invalidFormat": "Dit schijnt niet in het juiste formaat te zijn.",
     "invalidUsername": "Ik kon deze gebruikersnaam niet vinden op de geselecteerde website!",
-    "minimiumDuration": "De minimale tijdsduur is 20 seconden!",
-    "unsufficientAnimes": "Je moet minstens 10 animes in je lijst hebben om deze spelmodus te kunnen gebruiken."
+    "minimiumDuration": "De tijdsduur is te kort. De minimale tijdsduur is 20 seconds!",
+    "unsufficientAnimes": "Je moet minstens 10 animes op de lijst hebben om deze spelmodus te kunnen gebruiken."
   }
 }
