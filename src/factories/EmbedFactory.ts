@@ -52,10 +52,18 @@ export default class EmbedFactory {
       title: `${embedTitle} (${theme.type})`,
       description: `${synopsis}`,
       fields: [
-        { name: 'Anime Season', value: `${animeData.season}`, inline: true },
-        { name: 'Year', value: `${animeData.seasonYear}`, inline: true },
         {
-          name: 'Titles & Synonyms',
+          name: this.t('game:embeds.answerEmbed.fields.season'),
+          value: `${animeData.season}`,
+          inline: true,
+        },
+        {
+          name: this.t('game:embeds.answerEmbed.fields.year'),
+          value: `${animeData.seasonYear}`,
+          inline: true,
+        },
+        {
+          name: this.t('game:embeds.answerEmbed.fields.titlesAndSynonyms'),
           value: `${alternateTitles}\n${synonyms}`,
           inline: true,
         },
@@ -63,7 +71,10 @@ export default class EmbedFactory {
       image: { url: animeData.coverImage.large },
       color: imageColorAndroid,
       footer: {
-        text: `${theme.songName} | Artist(s): None`,
+        text: this.t('game:embeds.answerEmbed.footer', {
+          songName: theme.songName,
+          songArtist: theme.songArtists.map((artist) => artist).join(', '),
+        }),
       },
     }
 

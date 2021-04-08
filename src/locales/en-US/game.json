@@ -11,6 +11,14 @@
     "unableToLoadStream": "For some extremely evil reason, I was unable to load the current stream of the theme and so I was unable to continue! Restart the game and try again."
   },
   "embeds": {
+    "answerEmbed": {
+      "fields": {
+        "season": "Anime Season",
+        "year": "Year",
+        "titlesAndSynonyms": "Titles & Synonyms"
+      },
+      "footer": "\"{{songName}}\" | Artist(s): {{songArtist}}"
+    },
     "roundStarted": {
       "title": "The {{currentRound}} round has started!",
       "description": "What is the anime for this {{themeType}}? You have {{time}} to guess!"
