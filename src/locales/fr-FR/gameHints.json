@@ -1,0 +1,5 @@
+{
+  "firstCharacter": "Le premier caractère du titre de l'anime est : {{character}}",
+  "startsWith": "Le titre de l'anime commence par : {{firstWord}}",
+  "endsWith": "Le titre de l'anime se termine par : {{lastWord}}"
+}
