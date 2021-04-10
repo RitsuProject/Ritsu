@@ -34,22 +34,31 @@ class Leaderboard extends RitsuCommand {
 
     results.forEach((result, rank) => {
       const user = this.client.users.get(result._id)
+      const positionNumber = rank + 1
+
+      const position =
+        positionNumber === 1
+          ? '🥇'
+          : positionNumber === 2
+          ? '🥈'
+          : positionNumber === 3
+          ? '🥉'
+          : `${positionNumber}.`
+
       user
         ? embed.fields.push({
-            name: `${rank + 1}.${user.username}#${user.discriminator}`,
+            name: `${position} ${user.username}#${user.discriminator}`,
             value: t('commands:leaderboard.embed.levelAndWonMatches', {
               wonMatches: result.wonMatches,
               level: result.level,
             }),
-            inline: true,
           })
         : embed.fields.push({
-            name: `${rank + 1}.Ghost (User is no longer in the cache)`,
+            name: `${position} Ghost (User is no longer in the cache)`,
             value: t('commands:leaderboard.embed.levelAndWonMatches', {
               wonMatches: result.wonMatches,
               level: result.level,
             }),
-            inline: true,
           })
     })
 
