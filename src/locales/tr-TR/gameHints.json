@@ -1,0 +1,5 @@
+{
+  "firstCharacter": "Anime isminin ilk harfi: {{character}}",
+  "startsWith": "Anime isminin başladığı kelime: {{firstWord}}",
+  "endsWith": "Anime isminin son kelimesi: {{lastWord}}"
+}

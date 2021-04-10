@@ -1,5 +1,5 @@
 {
-  "roundStarted": "#{{round}}. tur başlıyor! Bu **Kapanış/Açılış teması** hangi animeye ait? Cevabı sohbete yazarak gönder! Cevabı yazmak için **{{time}}** süren var.\nOyunu durdurmak istiyorsan sohbete **{{prefix}}stop** yaz.",
+  "roundStarted": "#{{round}}. tur başlıyor! Bu **Kapanış/Açılış teması** hangi Anime'ye ait? Cevabı sohbete yazarak gönder! Cevabı yazmak için **{{time}}** süren var.\nOyunu durdurmak istiyorsan sohbete **{{prefix}}stop** yaz.",
   "nobodyWon": "Bu oyunu kimse kazanamadı.",
   "forceFinished": "Bu oyun başarılı bir şekilde, zorla sona erdirildi",
   "roundEnded": "Tüm turlar bitti! Oynadığınız için teşekkürler!",
@@ -11,6 +11,14 @@
     "unableToLoadStream": "Bazı son derece kötü nedenlerden dolayı, temanın mevcut müziğini yükleyemedim ve bu yüzden oyuna devam edemedim! Oyunu yeniden başlatıp ve tekrar deneyin."
   },
   "embeds": {
+    "answerEmbed": {
+      "fields": {
+        "season": "Anime Sezonu",
+        "year": "Yıl",
+        "titlesAndSynonyms": "Başlıklar & Diğer Adlar"
+      },
+      "footer": "\"{{songName}}\" | Sanatçı(lar): {{songArtist}}"
+    },
     "roundStarted": {
       "title": "{{currentRound}}. tur başladı!",
       "description": "Bu {{themeType}} hangi animeye ait? Tahmin etmek için {{time}} süren var!"
