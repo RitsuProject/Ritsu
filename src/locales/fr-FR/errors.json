@@ -2,6 +2,6 @@
   "genericError": "{{emoji}} | Oupsi! **Une erreur critique** est arrivée et par conséquent **Il m'est impossible de continuer!**. Si tu penses que cela ne devait pas se produire contact-nous sur le **Serveur de support Ritsu**! {{e}}",
   "unreachableRepository": {
     "title": "{{emoji}} Dépôt inatteignable, les nouveaux tours et matchs sont invalides.",
-    "description": "Ritsu s'appuie fortement sur des services tiers, et il semble que l'un des dépôts qu'il utilise pour obtenir des Opening/Ending est actuellement inaccessible.\n\nIl n'y a pas d'ETA et je te recommande fortement d'aller sur mon serveur de support pour avoir plus d'informations.\n{{invite}}"
+    "description": "Ritsu s'appuie fortement sur des services tiers, et il semble que l'un des services qu'il utilise pour obtenir des Opening/Ending est actuellement inaccessible.\n\nNous ne savons pas dans combien de temps le service reviendra mais je te recommande fortement d'aller sur mon serveur de support pour avoir plus d'informations.\n{{invite}}"
   }
 }
