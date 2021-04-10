@@ -18,8 +18,8 @@ export default class messageCreate extends RitsuEvent {
     if (message.author.bot) return
     if (message.channel.type === 1) return // Avoid DM messages.
     const guild = await Guilds.findById(message.guildID)
-    const userExists = await Users.exists({ _id: message.author.id })
-    if (!userExists) {
+    const user = await Users.findById(message.author.id)
+    if (!user) {
       void new Users({
         _id: message.author.id,
         name: message.author.discriminator,
@@ -29,6 +29,9 @@ export default class messageCreate extends RitsuEvent {
         bio: '',
         admin: false,
       }).save()
+    } else {
+      user.name = message.author.discriminator
+      await user.save()
     }
 
     const t = i18next.getFixedT(guild.lang)

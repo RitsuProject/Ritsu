@@ -45,21 +45,17 @@ class Leaderboard extends RitsuCommand {
           ? '🥉'
           : `${positionNumber}.`
 
-      user
-        ? embed.fields.push({
-            name: `${position} ${user.username}#${user.discriminator}`,
-            value: t('commands:leaderboard.embed.levelAndWonMatches', {
-              wonMatches: result.wonMatches,
-              level: result.level,
-            }),
-          })
-        : embed.fields.push({
-            name: `${position} Ghost (User is no longer in the cache)`,
-            value: t('commands:leaderboard.embed.levelAndWonMatches', {
-              wonMatches: result.wonMatches,
-              level: result.level,
-            }),
-          })
+      const username = user
+        ? `${user.username}#${user.discriminator}`
+        : result.name
+
+      embed.fields.push({
+        name: `${position} ${username}`,
+        value: t('commands:leaderboard.embed.levelAndWonMatches', {
+          wonMatches: result.wonMatches,
+          level: result.level,
+        }),
+      })
     })
 
     void message.channel.createMessage({ embed })
