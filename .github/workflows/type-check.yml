@@ -1,10 +1,10 @@
-name: Lint
+name: Type Check
 
 on: [push, pull_request]
 
 jobs:
   code:
-    name: Lint code
+    name: Type checking
     runs-on: ubuntu-latest
 
     strategy:
@@ -23,5 +23,5 @@ jobs:
       - name: Install dependencies
         run: yarn ci
 
-      - name: Lint
-        run: yarn lint
+      - name: Type check
+        run: yarn tsc

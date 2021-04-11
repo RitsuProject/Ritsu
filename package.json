@@ -10,6 +10,7 @@
     "start": "ts-node -r tsconfig-paths/register --files src/Ritsu.ts",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/Ritsu.ts",
     "lint": "eslint . --ext .ts --fix",
+    "type-check": "tsc --skipLibCheck",
     "ci": "yarn install --frozen-lockfile"
   },
   "dependencies": {
