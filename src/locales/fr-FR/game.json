@@ -11,6 +11,14 @@
     "unableToLoadStream": "Pour des raisons obscures, je suis incapable the charger le flux du thème actuel et donc je suis incapable de continuer! Redémarre le jeu et réessaye."
   },
   "embeds": {
+    "answerEmbed": {
+      "fields": {
+        "season": "Saison d'animé",
+        "year": "Année",
+        "titlesAndSynonyms": "Titres et Synonymes"
+      },
+      "footer": "\"{{songName}}\" | Artiste(s): {{songArtist}}"
+    },
     "roundStarted": {
       "title": "Le tour numéro {{currentRound}} a commencé !",
       "description": "Quel est l'anime pour ce {{themeType}}? Tu as {{time}} pour répondre!"
