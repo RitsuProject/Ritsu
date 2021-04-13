@@ -24,7 +24,7 @@ jobs:
         run: yarn ci
 
       - name: Coverage
-        run: yarn test:coverage
+        run: yarn coverage
 #
 #      - name: Upload coverage to Codecov
 #        env:

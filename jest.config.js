@@ -12,7 +12,7 @@ module.exports = {
     '!**/dist/**'  //  Exclude all files in the dist folder
   ],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>' }),
-  testPathIgnorePatterns: ['/node_modules/', '/build/'],
+  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   transformIgnorePatterns: [
     '/node_modules/',
   ],
