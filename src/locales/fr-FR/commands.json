@@ -5,7 +5,7 @@
   },
   "help": {
     "commandDescription": "Cette commande! ^w^",
-    "joinSupportServer": "Rejoins mon serveur pour plus de nouveautés, d'événements et bien d'autres! Nous aimerions avoir ton avis. {{invite}}",
+    "joinSupportServer": "Rejoins mon serveur pour plus de nouveautés, d'événements, de cadeaux et bien d'autres! Nous aimerions avoir ton avis. {{invite}}",
     "uanvailableDM": "Il semblerait que tes MP (messages privés) sont limités. C'est pourquoi je suis incapable de t'envoyer le message.",
     "lookDM": "Peux-tu regarder tes MP (messages privés) ?",
     "embed": {
