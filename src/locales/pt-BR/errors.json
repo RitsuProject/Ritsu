@@ -1,7 +1,7 @@
 {
   "genericError": " {{emoji}} | Ops! **Uma falha critica** aconteceu e portanto **Eu estava incapacitada de continuar/começar a partida!** Se você acha que isso não deveria estar acontecendo, nos contate no **Servidor de suporte da Ritsu**! {{e}}",
   "unreachableRepository": {
-    "title": "{{emoji}} | Oh não! Parece que o serviço está apresentando um erro. Novas rodadas e partidas estão indisponíveis no momento.",
-    "description": "Oh não! Parece que o ** serviço de OP / EDs ** está indisponível no momento...\n\nAjude-nos a resolver o erro no ** servidor de suporte Ritsu **!\n{{invite}}"
+    "title": "{{emoji}} Serviço indisponível, novas rodadas e partidas estão indisponíveis.",
+    "description": "Ritsu depende muito de serviços terceiros, e isso aparece porque um dos repositórios que a Ritsu usa para obter as OP/EDs está indisponível.\n\nNão tem tempo estimado para que o repositório esteja online novamente, eu recomendo então que se junte ao meu servidor de suporte para futuras atualizações {{invite}}"
   }
 }

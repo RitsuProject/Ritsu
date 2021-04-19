@@ -11,6 +11,14 @@
     "unableToLoadStream": "Por algum motivo extremamente maligno, não consegui carregar o tema atual e, portanto, não consegui continuar! Reinicie o jogo e tente novamente."
   },
   "embeds": {
+    "answerEmbed": {
+      "fields": {
+        "season": "Temporada do anime",
+        "year": "Ano",
+        "titlesAndSynonyms": "Titulo e sinônimos"
+      },
+      "footer": "*{{songName}}* | Artista(s): {{songArtist}}"
+    },
     "roundStarted": {
       "title": "A {{currentRound}} rodada começou!",
       "description": "Qual é o nome do anime deste {{themeType}}}? Você tem {{time}} para adivinhar!"
