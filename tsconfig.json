@@ -43,9 +43,11 @@
     }
   },
   "include": [
-    "src"
+    "src/**/*"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist",
+    "src/_tests_/**/*"
   ]
 }
