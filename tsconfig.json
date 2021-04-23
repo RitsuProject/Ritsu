@@ -2,17 +2,12 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "commonjs",
-    "lib": [
-      "es6"
-    ],
+    "lib": ["es6"],
     "allowJs": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "removeComments": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/@types"
-    ],
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
@@ -22,32 +17,14 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@handlers/*": [
-        "./src/handlers/*"
-      ],
-      "@structures/*": [
-        "./src/structures/*"
-      ],
-      "@managers/*": [
-        "./src/structures/managers/*"
-      ],
-      "@interfaces/*": [
-        "./src/interfaces/*"
-      ],
-      "@entities/*": [
-        "./src/database/entities/*"
-      ],
-      "@utils/*": [
-        "./src/utils/*"
-      ]
+      "@handlers/*": ["./src/handlers/*"],
+      "@structures/*": ["./src/structures/*"],
+      "@managers/*": ["./src/structures/managers/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
+      "@entities/*": ["./src/database/entities/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "src/_tests_/**/*"
-  ]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "src/_tests_/**/*"]
 }

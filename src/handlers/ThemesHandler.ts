@@ -195,16 +195,10 @@ export default class ThemesHandler {
 
     switch (repository) {
       case 'animethemes': {
-        if (statuses.animethemes === 'offline') {
-          return false
-        }
-        return true
+        return statuses.animethemes === 'online'
       }
       case 'openingsmoe': {
-        if (statuses.openingsmoe === 'offline') {
-          return false
-        }
-        return true
+        return statuses.openingsmoe === 'online'
       }
     }
   }
