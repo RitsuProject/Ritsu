@@ -39,7 +39,7 @@ export default class MatchSettingsHandler {
         }
 
         const message = messages[0]
-        if (message.content === `${this.guild.prefix}!stop`) {
+        if (message.content === `${this.guild.prefix}stop`) {
           void this.message.channel.createMessage(
             this.t('gameQuestions:errors.matchStopped', {
               command: `${this.guild.prefix}start`,
