@@ -20,11 +20,11 @@ import getStreamFromURL from '@utils/GameUtils/GetStream'
 import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
 import getAnimeData from '@utils/GameUtils/GetAnimeData'
 import handleError from '@utils/GameUtils/HandleError'
-import EmbedFactory from '../factories/EmbedFactory'
+import GameEmbedFactory from '@factories/GameEmbedFactory'
 
 /**
  * GameHandler
- * @description The loli responsible for handling the game, exchanging rounds, ending rounds and etc.
+ * @description Main core of the game
  */
 export default class GameHandler {
   public themesCache: NodeCache
@@ -76,7 +76,7 @@ export default class GameHandler {
     const room = await roomHandler.handleRoom()
 
     // Create our EmbedFactory instance to make super cute embeds.
-    const embedFactory = new EmbedFactory(
+    const gameEmbedFactory = new GameEmbedFactory(
       this.gameOptions,
       isSingleplayer,
       this.t
@@ -84,11 +84,11 @@ export default class GameHandler {
 
     // If it is the first round, will send the starting the match embed.
     if (room.currentRound === 1) {
-      const preparingMatchEmbed = embedFactory.preparingMatch()
+      const preparingMatchEmbed = gameEmbedFactory.preparingMatch()
 
       void this.message.channel.createMessage({ embed: preparingMatchEmbed })
     } else {
-      const startingNextRoundEmbed = embedFactory.startingNextRound()
+      const startingNextRoundEmbed = gameEmbedFactory.startingNextRound()
 
       void this.message.channel.createMessage({ embed: startingNextRoundEmbed })
     }
@@ -107,7 +107,7 @@ export default class GameHandler {
     guild.rolling = true
     await guild.save()
 
-    const roundStartedEmbed = embedFactory.roundStarted(room.currentRound)
+    const roundStartedEmbed = gameEmbedFactory.roundStarted(room.currentRound)
     void this.message.channel.createMessage({ embed: roundStartedEmbed })
 
     const answerFilter = (msg: Message) =>
@@ -158,25 +158,28 @@ export default class GameHandler {
             `Correct Users: ${answerers}`
           )
 
-          const answerEmbed = await embedFactory.answerEmbed(theme, animeData)
+          const answerEmbed = await gameEmbedFactory.answerEmbed(
+            theme,
+            animeData
+          )
 
           await this.message.channel.createMessage('The answer is...')
           await this.message.channel.createMessage({ embed: answerEmbed })
 
+          // Handle level/xp for each of the answerers.
           room.answerers.forEach((id) => {
             void this.handleLevel(id)
           })
 
+          // If all rounds is over, finish the game, otherwise, start a new round.
           if (room.currentRound >= this.gameOptions.rounds) {
             await this.clearData(room, guild)
             this.client.leaveVoiceChannel(voiceChannelID)
             void this.message.channel.createMessage('Match ended.')
           } else {
-            await this.startNewRound(guild).catch(
-              (err: Error | UnreachableRepository) => {
-                handleError(this.message, this.t, err)
-              }
-            )
+            await this.startNewRound(guild).catch((err) => {
+              handleError(this.message, this.t, err)
+            })
           }
         })()
     )
@@ -194,6 +197,7 @@ export default class GameHandler {
   }
 
   isSinglePlayer(voiceChannel: AnyGuildChannel) {
+    // If the specified channel is not type 2 (VoiceChannel), throw a error.
     if (voiceChannel.type !== 2) throw new Error('Invalid Channel Type')
     const voiceChannelMembers = voiceChannel.voiceMembers.filter((member) => {
       return member.id !== this.client.user.id // Ignore the bot
@@ -210,6 +214,8 @@ export default class GameHandler {
       this.gameOptions.mode
     )
     user.xp = user.xp + stats.xp
+
+    // If the new level is not equal to the user level, this means that the user level up!
     if (stats.level !== user.level) {
       void this.message.channel.createMessage(
         `Congratulations <@${userId}>! You just level up to **${stats.level}**!`

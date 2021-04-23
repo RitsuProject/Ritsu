@@ -6,6 +6,8 @@ export default class LevelHandler {
     const user = await User.findById(userId)
     if (!user) throw new Error('User not found.')
 
+    // TODO: Make a real algorithm to calculate level/xp instead of this shit.
+
     switch (mode) {
       case 'normal': {
         const xp = RitsuUtils.randomIntBetween(10, 50)

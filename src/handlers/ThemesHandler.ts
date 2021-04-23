@@ -11,7 +11,7 @@ import UnreachableRepository from '@structures/errors/UnreachableRepository'
 
 /**
  * ThemesHandler
- * @description Pick up the themes of the openings and endings according to the game mode.
+ * @description Handle the process of fetching the themes according to the mode.
  */
 export default class ThemesHandler {
   constructor(

@@ -1,5 +1,5 @@
 import RitsuClient from '@structures/RitsuClient'
-import { RitsuCommand, Context } from '@structures/RitsuCommand'
+import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
 
 class Ping extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -13,7 +13,7 @@ class Ping extends RitsuCommand {
     })
   }
 
-  async run({ message, t }: Context) {
+  async run({ message, t }: CommandContext) {
     const createdAt = Date.now()
     const pings = this.client.shards.map((i) => Math.round(i.latency))
 

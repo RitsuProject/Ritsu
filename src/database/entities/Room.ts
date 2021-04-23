@@ -1,5 +1,9 @@
 import { prop, getModelForClass, DocumentType } from '@typegoose/typegoose'
 
+/**
+ * Leaderboard
+ * @description The room leaderboard model
+ */
 class Leaderboard {
   @prop({ required: true })
   id: string

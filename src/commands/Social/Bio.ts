@@ -1,6 +1,6 @@
 import RitsuClient from '@structures/RitsuClient'
 import User from '@entities/User'
-import { RitsuCommand, Context } from '@structures/RitsuCommand'
+import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
 
 class Bio extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -14,7 +14,7 @@ class Bio extends RitsuCommand {
     })
   }
 
-  async run({ message, args, t }: Context) {
+  async run({ message, args, t }: CommandContext) {
     const user = await User.findById(message.author.id)
     if (!user) return
 

@@ -1,5 +1,5 @@
 import RitsuClient from '../../structures/RitsuClient'
-import { Context, RitsuCommand } from '@structures/RitsuCommand'
+import { CommandContext, RitsuCommand } from '@structures/RitsuCommand'
 import { TFunction } from 'i18next'
 
 class Help extends RitsuCommand {
@@ -14,7 +14,7 @@ class Help extends RitsuCommand {
     })
   }
 
-  async run({ message, guild, t }: Context) {
+  async run({ message, guild, t }: CommandContext) {
     const embed = {
       title: t('commands:help.embed.title', {
         emoji: ':books:',

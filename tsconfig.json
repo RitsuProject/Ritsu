@@ -22,7 +22,8 @@
       "@managers/*": ["./src/structures/managers/*"],
       "@interfaces/*": ["./src/interfaces/*"],
       "@entities/*": ["./src/database/entities/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@factories/*": ["./src/factories/*"]
     }
   },
   "include": ["src/**/*"],

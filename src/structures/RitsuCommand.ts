@@ -3,7 +3,7 @@ import { TFunction } from 'i18next'
 import { GuildDocument } from '@entities/Guild'
 import RitsuClient from '@structures/RitsuClient'
 
-interface Options {
+interface CommandOptions {
   name: string
   description: string
   category: string
@@ -13,7 +13,7 @@ interface Options {
   dev: boolean
 }
 
-interface Context {
+interface CommandContext {
   message: Message
   args: Array<string>
   guild: GuildDocument
@@ -28,7 +28,7 @@ abstract class RitsuCommand {
   public fields?: Array<string>
   public requiredPermissions?: Array<string>
   public dev: boolean
-  constructor(public client: RitsuClient, options: Options) {
+  constructor(public client: RitsuClient, options: CommandOptions) {
     this.name = options.name || null
     this.description = options.description || 'A command.'
     this.category = options.category || 'Game'
@@ -38,7 +38,7 @@ abstract class RitsuCommand {
     this.dev = options.dev || false
   }
 
-  abstract run(context: Context): void
+  abstract run(context: CommandContext): void
 }
 
-export { RitsuCommand, Context }
+export { RitsuCommand, CommandContext }

@@ -1,5 +1,5 @@
 import RitsuClient from '@structures/RitsuClient'
-import { RitsuCommand, Context } from '@structures/RitsuCommand'
+import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
 import User from '@entities/User'
 import Constants from '@utils/Constants'
 import { EmbedOptions } from 'eris'
@@ -16,7 +16,7 @@ class Leaderboard extends RitsuCommand {
     })
   }
 
-  async run({ message, t }: Context) {
+  async run({ message, t }: CommandContext) {
     const embed: EmbedOptions = {
       author: {
         name: t('commands:leaderboard.embed.title'),

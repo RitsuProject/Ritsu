@@ -1,7 +1,7 @@
 import Game from '@handlers/GameHandler'
 import MatchConfig from '@handlers/MatchSettingsHandler'
 import RitsuClient from '@structures/RitsuClient'
-import { RitsuCommand, Context } from '@structures/RitsuCommand'
+import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
 
 class Start extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -15,7 +15,7 @@ class Start extends RitsuCommand {
     })
   }
 
-  async run({ message, guild, t }: Context) {
+  async run({ message, guild, t }: CommandContext) {
     const matchConfig = new MatchConfig(message, this.client, guild, t)
     const gamemode = await matchConfig.getGamemode()
     if (!gamemode) return

@@ -9,7 +9,7 @@ additions(Eris)
 
 /**
  * Ritsu Client
- * @desc Ritsu Core, who makes everything works.
+ * @description Discord Client
  */
 export default class RitsuClient extends Client {
   public commandManager: CommandManager = new CommandManager(this)

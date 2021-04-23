@@ -2,6 +2,7 @@ import mongoose from 'mongoose'
 
 /**
  * Connect to the MongoDB
+ * @description Little function to connect to the MongoDB database.
  * @param {String} uri - MongoDB Connection URL
  */
 export default function mongoConnect(uri: string) {

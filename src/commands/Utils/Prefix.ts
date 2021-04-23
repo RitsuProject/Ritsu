@@ -1,5 +1,5 @@
 import RitsuClient from '@structures/RitsuClient'
-import { RitsuCommand, Context } from '@structures/RitsuCommand'
+import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
 
 class Prefix extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -13,7 +13,7 @@ class Prefix extends RitsuCommand {
     })
   }
 
-  run({ message, args, guild, t }: Context) {
+  run({ message, args, guild, t }: CommandContext) {
     if (!args[0])
       return message.channel.createMessage(t('commands:prefix.errors.noPrefix'))
     guild.prefix = args[0]

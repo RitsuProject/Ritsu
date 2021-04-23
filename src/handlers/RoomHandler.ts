@@ -1,6 +1,10 @@
 import { Message } from 'eris'
 import Rooms from '@entities/Room'
 
+/**
+ * RoomHandler
+ * @description Handle all the room functions, like create a room, check if a room exists and etc.
+ */
 export default class RoomHandler {
   private message: Message
   private isSinglePlayer: boolean

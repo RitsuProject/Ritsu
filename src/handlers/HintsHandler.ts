@@ -3,6 +3,10 @@ import Constants from '@utils/Constants'
 import RitsuUtils from '@utils/RitsuUtils'
 import { TFunction } from 'i18next'
 
+/**
+ * HintsHandler
+ * @description Handle all the hint generation to be used in ritsu!hint.
+ */
 export default class HintsHandler {
   constructor(private animeData: AnimeEntry, private t: TFunction) {
     this.animeData = animeData

@@ -8,7 +8,7 @@ import User from '@entities/User'
 
 /**
  * Match Settings Handler
- * @description The waifu of the match settings (number of rounds, game mode, etc.)
+ * @description Handle all the match questions (when you use ritsu!start without any argument)
  */
 export default class MatchSettingsHandler {
   constructor(

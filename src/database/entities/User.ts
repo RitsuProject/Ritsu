@@ -1,5 +1,9 @@
 import { prop, getModelForClass, DocumentType } from '@typegoose/typegoose'
 
+/**
+ * User
+ * @description Discord User model.
+ */
 class User {
   @prop()
   public _id!: string

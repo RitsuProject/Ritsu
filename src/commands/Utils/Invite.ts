@@ -1,5 +1,5 @@
 import RitsuClient from '@structures/RitsuClient'
-import { RitsuCommand, Context } from '@structures/RitsuCommand'
+import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
 
 class Invite extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -13,7 +13,7 @@ class Invite extends RitsuCommand {
     })
   }
 
-  async run({ message, t }: Context) {
+  async run({ message, t }: CommandContext) {
     const dmChannel = await message.author.getDMChannel()
     let openDmChannel = true
     void dmChannel

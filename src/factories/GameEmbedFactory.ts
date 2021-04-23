@@ -8,9 +8,9 @@ import Constants from '@utils/Constants'
 
 /**
  * Embed Factory
- * @desc Factory responsible for making the embed structure, specifically made for use in GameHandler (core)
+ * @description Create the game embeds (like the answer embed) with all the pre-defined parameters.
  */
-export default class EmbedFactory {
+export default class GameEmbedFactory {
   constructor(
     private gameOptions: GameOptions,
     private singleplayer: boolean,
