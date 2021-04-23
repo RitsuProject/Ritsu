@@ -26,7 +26,7 @@ export default class MatchSettingsHandler {
   async startCollector(): Promise<Message> {
     return await this.message.channel
       .awaitMessages((m: Message) => m.author.id === this.message.author.id, {
-        time: 10000,
+        time: 60000,
         maxMatches: 1,
       })
       .then((messages) => {
@@ -38,8 +38,8 @@ export default class MatchSettingsHandler {
           )
         }
 
-        const m = messages[0]
-        if (m.content === `${this.guild.prefix}!stop`) {
+        const message = messages[0]
+        if (message.content === `${this.guild.prefix}!stop`) {
           void this.message.channel.createMessage(
             this.t('gameQuestions:errors.matchStopped', {
               command: `${this.guild.prefix}start`,
@@ -47,7 +47,7 @@ export default class MatchSettingsHandler {
           )
           return
         }
-        return m
+        return message
       })
   }
 
@@ -59,13 +59,13 @@ export default class MatchSettingsHandler {
           .join(', ')})`,
       })
     )
-    const mode = await this.startCollector().then(async (m) => {
-      if (!m) return
+    const mode = await this.startCollector().then(async (message) => {
+      if (!message) return
 
-      const specifiedMode = m.content.toLowerCase()
+      const specifiedMode = message.content.toLowerCase()
       if (this.client.enabledGamemodes.includes(specifiedMode)) {
         await primary.delete()
-        await m.delete()
+        await message.delete()
         return specifiedMode
       } else {
         throw new Error(this.t('gameQuestions:errors.invalidMode'))
@@ -80,16 +80,16 @@ export default class MatchSettingsHandler {
     )
     const user = await User.findById(this.message.author.id)
 
-    const rounds = await this.startCollector().then(async (m) => {
-      if (!m) return
+    const rounds = await this.startCollector().then(async (message) => {
+      if (!message) return
 
-      const rounds = parseInt(m.content.toLowerCase())
+      const rounds = parseInt(message.content.toLowerCase())
 
       if (isNaN(rounds)) throw new Error(this.t('gameQuestions:errors.isNaN'))
       if (rounds > 10 && !user.patreonSupporter)
         throw new Error(this.t('gameQuestions:errors.roundsLimit'))
 
-      await m.delete()
+      await message.delete()
       await primary.delete()
       return rounds
     })
@@ -100,15 +100,15 @@ export default class MatchSettingsHandler {
     const primary = await this.message.channel.createMessage(
       this.t('gameQuestions:whatDuration')
     )
-    const duration = await this.startCollector().then(async (m) => {
-      if (!m) return
-      if (m.content.endsWith('s')) {
-        const milliseconds = ms(m.content)
+    const duration = await this.startCollector().then(async (message) => {
+      if (!message) return
+      if (message.content.endsWith('s')) {
+        const milliseconds = ms(message.content)
         const long = ms(milliseconds, { long: true })
         if (milliseconds < 20000)
           throw new Error(this.t('gameQuestions:errors.minimiumDuration'))
         await primary.delete()
-        await m.delete()
+        await message.delete()
         return { parsed: milliseconds, value: long }
       } else {
         throw new Error(this.t('gameQuestions:errors.invalidDuration'))
@@ -121,18 +121,18 @@ export default class MatchSettingsHandler {
     const primary = await this.message.channel.createMessage(
       this.t('gameQuestions:whatAnimeListWebsite')
     )
-    const website = await this.startCollector().then(async (m) => {
-      if (!m) return
+    const website = await this.startCollector().then(async (message) => {
+      if (!message) return
       if (
-        m.content.toLowerCase() === 'myanimelist' ||
-        m.content.toLowerCase() === 'anilist'
+        message.content.toLowerCase() === 'myanimelist' ||
+        message.content.toLowerCase() === 'anilist'
       ) {
         await primary.delete()
-        await m.delete()
+        await message.delete()
 
-        if (m.content.toLowerCase() === 'myanimelist') return 'mal'
+        if (message.content.toLowerCase() === 'myanimelist') return 'mal'
 
-        return m.content.toLowerCase()
+        return message.content.toLowerCase()
       } else {
         throw new Error(this.t('gameQuestions:errors.invalidWebsite'))
       }
@@ -144,11 +144,14 @@ export default class MatchSettingsHandler {
     const primary = await this.message.channel.createMessage(
       this.t('gameQuestions:whatUsername')
     )
-    const username = await this.startCollector().then(async (m) => {
-      if (!m) return
+    const username = await this.startCollector().then(async (message) => {
+      if (!message) return
 
       try {
-        const user = await ThemesMoe.getAnimesByAnimeList(website, m.content)
+        const user = await ThemesMoe.getAnimesByAnimeList(
+          website,
+          message.content
+        )
 
         if (user.length <= 10) {
           throw new Error(this.t('gameQuestions:errors.unsufficientAnimes'))
@@ -156,8 +159,8 @@ export default class MatchSettingsHandler {
 
         if (user) {
           await primary.delete()
-          await m.delete()
-          return m.content
+          await message.delete()
+          return message.content
         } else {
           throw new Error(this.t('gameQuestions:errors.invalidUsername'))
         }
@@ -173,15 +176,15 @@ export default class MatchSettingsHandler {
       this.t('gameQuestions:whatYearAndSeason')
     )
 
-    const season = await this.startCollector().then(async (m) => {
-      if (!m) return
-      const seasonFormat = m.content.split(',')
+    const season = await this.startCollector().then(async (message) => {
+      if (!message) return
+      const seasonFormat = message.content.split(',')
       const year = seasonFormat[0]
       const season = seasonFormat[1]
 
       if (year && season) {
         await primary.delete()
-        await m.delete()
+        await message.delete()
         return {
           year: year,
           season: season.trim().toLowerCase(),
