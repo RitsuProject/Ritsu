@@ -49,7 +49,7 @@ module.exports.MatchConfig = class MatchConfig {
   async getGamemode() {
     const primary = await this.message.channel.send(
       this.t('commands:start.roundConfig.whatMode', {
-        modes: '(easy, normal, hard, list, season)',
+        modes: `(easy, normal) - NOTICE: list, season and hard gamemode is disabled, more information in \`https://discord.gg/XuDysZg\``,
       })
     )
     const mode = await this.startCollector().then(async (m) => {
@@ -57,10 +57,10 @@ module.exports.MatchConfig = class MatchConfig {
       const specifiedMode = m.content.toLowerCase()
       if (
         specifiedMode === 'easy' ||
-        specifiedMode === 'normal' ||
-        specifiedMode === 'hard' ||
-        specifiedMode === 'list' ||
-        specifiedMode === 'season'
+        specifiedMode === 'normal'
+        // specifiedMode === 'hard' ||
+        // specifiedMode === 'list' ||
+        // specifiedMode === 'season'
       ) {
         await primary.delete()
         await m.delete()

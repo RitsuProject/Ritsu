@@ -14,7 +14,7 @@ const { Message, VoiceChannel } = require('discord.js-light')
 const { Ritsu } = require('../../client/RitsuClient')
 
 const generateEmbed = require('../../utils/functions/generateEmbed')
-const { Host } = require('./Host')
+// const { Host } = require('./Host')
 const { getStream } = require('../../utils/functions/getStream')
 const { DiscordLogger } = require('../../utils/discordLogger')
 const { Leveling } = require('../Leveling')
@@ -154,19 +154,8 @@ module.exports.Game = class Game {
       })
     )
 
-    let animeData
-    let answers
-    if (type !== 'on fire') {
-      animeData = await this.getAnimeDetails(answer)
-      answers = await this.getAnswers(animeData)
-    } else {
-      animeData = {
-        picture: 'https://cdn.myanimelist.net/images/anime/9/23479.jpg',
-        englishTitle: 'Ritsu is Unavailable',
-      }
-      answers = ['Ritsu is Unavailable']
-      this.message.channel.send(this.t('game:errors.unavailable'))
-    }
+    const animeData = await this.getAnimeDetails(answer)
+    const answers = await this.getAnswers(animeData)
 
     const answerFilter = (msg) => this.isAnswer(answers, msg)
     const commanderFilter = (msg) => this.isCommand(guild.prefix, msg)
@@ -359,8 +348,8 @@ module.exports.Game = class Game {
 
   async choose() {
     const themes = new Themes()
-    const host = new Host()
-    const provider = host.getProvider()
+    // const provider = host.getProvider()
+    const provider = 'openingsmoe'
     const theme = await themes.getAnimeByMode(
       provider,
       this.mode,
@@ -369,15 +358,8 @@ module.exports.Game = class Game {
       this.year,
       this.season
     )
-    if (theme === 'unavailable')
-      return {
-        name: 'Ritsu is Unavailable',
-        link: 'https://files.catbox.moe/e9k222.mp3',
-        type: 'on fire',
-        songName: 'Watson Vibing',
-        songArtists: ['Amelia Watson'],
-      }
-    if (!theme) {
+
+    if (!theme || theme === 'unavailable') {
       return await this.choose()
     } else {
       return theme
