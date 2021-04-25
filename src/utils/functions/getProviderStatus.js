@@ -18,7 +18,7 @@ module.exports = async function getProviderStatus(provider) {
   })
   if (provider === 'animethemes') {
     if (statusRes.body.animethemes === 'offline') {
-      return true
+      return false
     } else {
       return true
     }
