@@ -14,7 +14,7 @@ const { Message, VoiceChannel } = require('discord.js-light')
 const { Ritsu } = require('../../client/RitsuClient')
 
 const generateEmbed = require('../../utils/functions/generateEmbed')
-// const { Host } = require('./Host')
+const { Host } = require('./Host')
 const { getStream } = require('../../utils/functions/getStream')
 const { DiscordLogger } = require('../../utils/discordLogger')
 const { Leveling } = require('../Leveling')
@@ -140,6 +140,7 @@ module.exports.Game = class Game {
       loading.delete()
       throw this.t('game:errors.streamTimeout')
     })
+
     loading.delete()
 
     guild.rolling = true
@@ -348,8 +349,9 @@ module.exports.Game = class Game {
 
   async choose() {
     const themes = new Themes()
-    // const provider = host.getProvider()
-    const provider = 'openingsmoe'
+    const host = new Host()
+    const provider = host.getProvider()
+    // const provider = 'openingsmoe'
     const theme = await themes.getAnimeByMode(
       provider,
       this.mode,

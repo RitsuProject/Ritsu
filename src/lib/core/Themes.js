@@ -1,6 +1,7 @@
 const p = require('phin')
 const { ThemesMoeAPI } = require('../../rest/ThemesMoeAPI')
 const getProviderStatus = require('../../utils/functions/getProviderStatus')
+const { getVideoUrl } = require('../../utils/functions/getVideoUrl')
 const { randomInt } = require('../../utils/functions/randomInt')
 
 /**
@@ -110,9 +111,11 @@ module.exports.Themes = class Themes {
         const theme =
           anime.themes[Math.floor(Math.random() * anime.themes.length)]
 
+        const videoUrl = getVideoUrl(theme.mirror.mirrorURL)
+
         return {
           name: anime.name,
-          link: theme.mirror.mirrorURL,
+          link: videoUrl,
           type: `${theme.themeType.includes('OP') ? 'OP' : 'ED'}`,
           songName: theme.themeName,
           songArtists: ['Not Found'],
