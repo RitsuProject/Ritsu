@@ -134,13 +134,7 @@ module.exports.Game = class Game {
     const loading = await this.message.channel.send(
       `\`${this.t('game:waitingStream')}\``
     )
-
-    // Let's get the stream!
-    const stream = await getStream(link).catch(() => {
-      loading.delete()
-      throw this.t('game:errors.streamTimeout')
-    })
-
+    const stream = await this.getThemeStream(link)
     loading.delete()
 
     guild.rolling = true
@@ -342,6 +336,7 @@ module.exports.Game = class Game {
     )
 
     const randomTheme = await this.choose()
+
     randomTheme.answer = randomTheme.name
     loading.delete()
     return randomTheme
@@ -361,11 +356,25 @@ module.exports.Game = class Game {
       this.season
     )
 
-    if (!theme || theme === 'unavailable') {
+    let themeStream = false
+    if (theme === 'unavailable') {
+      themeStream = await this.getThemeStream(theme.link)
+    }
+
+    if (!theme || theme === 'unavailable' || !themeStream) {
       return await this.choose()
     } else {
       return theme
     }
+  }
+
+  async getThemeStream(link) {
+    // Let's get the stream!
+    const stream = await getStream(link).catch(() => {
+      throw this.t('game:errors.streamTimeout')
+    })
+
+    return stream
   }
 
   /**
