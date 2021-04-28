@@ -20,6 +20,14 @@ Ritsu
 </a>
 </p>
 
+# Attention!
+
+Ritsu is currently being rewrited with Typescript and Eris, which is available on https://github.com/RitsuProject/ritsu-v3. The current state of this repository is just hotfixes, new features will be added on the V3 repository. I consider this actual code really bad and hard to mantain with a bunch of spaghetti code, so plz take a look on the ritsu-v3.
+
+The next version when it's ready, will be merged on this same repository trying to mantain the old commits.
+
+# About
+
 Ritsu is a bot on Discord based on the game AnimeMusicQuiz, guessing anime by its opening / ending music! Cool huh? And even better, it is completely open-source.
 
 Our goal here in this repository is learning and contributing! We want more people to learn how Ritsu works and maybe in the future even contribute with bug fixes and new features! So, feel free to play around with the code, did you find something that is not documented, wrong or poorly explained? We'd love to know! Open a pull request with the correction or addition and we will receive it.
