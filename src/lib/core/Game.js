@@ -357,7 +357,7 @@ module.exports.Game = class Game {
     )
 
     let themeStream = false
-    if (theme !== 'unavailable' || theme) {
+    if (theme.link && theme !== 'unavailable') {
       themeStream = await this.getThemeStream(theme.link)
     }
 
