@@ -358,7 +358,9 @@ module.exports.Game = class Game {
 
     let themeStream = false
     if (theme !== 'unavailable') {
-      themeStream = await this.getThemeStream(theme.link)
+      if (theme.link) {
+        themeStream = await this.getThemeStream(theme.link)
+      }
     }
 
     if (!theme || theme === 'unavailable' || !themeStream) {
@@ -370,7 +372,8 @@ module.exports.Game = class Game {
 
   async getThemeStream(link) {
     // Let's get the stream!
-    const stream = await getStream(link).catch(() => {
+    const stream = await getStream(link).catch((e) => {
+      console.log(e)
       throw this.t('game:errors.streamTimeout')
     })
 
