@@ -98,6 +98,9 @@ export default class GameEmbedFactory {
           mode: this.singleplayer ? 'Singleplayer' : 'Multiplayer',
         })}\n\n` +
         this.t('game:embeds.preparingMatch.description'),
+      thumbnail: {
+        url: 'https://i.imgur.com/VVR7Cmx.gif',
+      },
       color: 16107281,
     }
 
