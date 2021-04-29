@@ -1,7 +1,7 @@
 import RitsuHTTP from '@structures/RitsuHTTP'
 import GameOptions from '@interfaces/GameOptions'
 import MioSong from '@interfaces/MioSong'
-import JikanAnime from '@interfaces/JikanAnime'
+import JikanAnime from '@interfaces/jikan/JikanAnime'
 import RitsuUtils from '@utils/RitsuUtils'
 import NodeCache from 'node-cache'
 import { Message } from 'eris'
@@ -47,7 +47,7 @@ export default class ThemesHandler {
               process.env.API_URL
             }/themes/${repository}/search?title=${encodeURI(
               anime.title
-            )}&malId=${anime.mal_id}`
+            )}&malId=${anime.mal_id}&type=${this.gameOptions.themeType}`
           )
 
           const songData = search.data
@@ -69,7 +69,7 @@ export default class ThemesHandler {
           switch (type) {
             case 'random': {
               const random = await RitsuHTTP.get<MioSong>(
-                `${process.env.API_URL}/themes/${repository}/random`
+                `${process.env.API_URL}/themes/${repository}/random&type=${this.gameOptions.themeType}`
               )
 
               const songData = random.data
@@ -91,7 +91,7 @@ export default class ThemesHandler {
                   process.env.API_URL
                 }/themes/${repository}/search?title=${encodeURI(
                   anime.title
-                )}&malId=${anime.mal_id}`
+                )}&malId=${anime.mal_id}&type=${this.gameOptions.themeType}`
               )
 
               const songData = search.data
@@ -112,11 +112,25 @@ export default class ThemesHandler {
       case 'list': {
         const animeList = await ThemesMoe.getAnimesByAnimeList(
           this.gameOptions.animeListWebsite,
-          this.gameOptions.animeListUsername
+          this.gameOptions.animeListUsername,
+          this.gameOptions.themeType
         )
 
         const anime = RitsuUtils.randomValueInArray(animeList)
-        const theme = RitsuUtils.randomValueInArray(anime.themes)
+
+        const themeTypeFormated =
+          this.gameOptions.themeType === 'openings'
+            ? 'OP'
+            : this.gameOptions.themeType === 'endings'
+            ? 'ED'
+            : 'both'
+
+        const themes = anime.themes.filter((theme) =>
+          themeTypeFormated !== 'both'
+            ? theme.themeType.includes(themeTypeFormated)
+            : true
+        )
+        const theme = RitsuUtils.randomValueInArray(themes)
 
         const mioSongFakeObject = {
           malId: anime.malID,
@@ -134,7 +148,8 @@ export default class ThemesHandler {
         try {
           const animes = await ThemesMoe.getAnimesBySeason(
             this.gameOptions.year,
-            this.gameOptions.season
+            this.gameOptions.season,
+            this.gameOptions.themeType
           )
 
           const anime = RitsuUtils.randomValueInArray(animes)

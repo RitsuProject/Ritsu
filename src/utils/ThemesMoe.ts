@@ -5,21 +5,36 @@ import RitsuUtils from '@utils/RitsuUtils'
 export default {
   async getAnimesByAnimeList(
     website: string,
-    username: string
+    username: string,
+    themeType?: string // Why is this a optional parameter? Well, sometimes this function is called just to check if a username is really valid, so, no need to specify a theme type.
   ): Promise<ThemesMoeAnime[]> {
     switch (website) {
       case 'mal': {
         try {
-          const themesMoeResponse = await RitsuHTTP.get<Array<ThemesMoeAnime>>(
+          const themesMoeResponse = await RitsuHTTP.get<ThemesMoeAnime[]>(
             `https://themes.moe/api/mal/${username}`
           )
 
-          const data = themesMoeResponse.data.filter(
-            (anime) => anime.watchStatus === 2
+          const themeTypeFormated =
+            themeType === 'openings'
+              ? 'OP'
+              : themeType === 'endings'
+              ? 'ED'
+              : 'both'
+
+          // Get only watched animes (which has watchStatus 2) and with themes that has the theme type specified (if is both, just select any)
+          const animes = themesMoeResponse.data.filter(
+            (anime) =>
+              anime.watchStatus === 2 &&
+              anime.themes.some((theme) =>
+                themeTypeFormated !== 'both'
+                  ? theme.themeType.includes(themeTypeFormated)
+                  : true
+              )
           )
 
-          if (data.length > 0) {
-            return data
+          if (animes.length > 0) {
+            return animes
           } else {
             throw new Error("I didn't find any anime on that list.")
           }
@@ -34,16 +49,30 @@ export default {
       }
       case 'anilist': {
         try {
-          const themesMoeResponse = await RitsuHTTP.get<Array<ThemesMoeAnime>>(
+          const themesMoeResponse = await RitsuHTTP.get<ThemesMoeAnime[]>(
             `https://themes.moe/api/anilist/${username}`
           )
 
-          const data = themesMoeResponse.data.filter(
-            (anime) => anime.watchStatus === 2
+          const themeTypeFormated =
+            themeType === 'openings'
+              ? 'OP'
+              : themeType === 'endings'
+              ? 'ED'
+              : 'both'
+
+          // Get only watched animes (which has watchStatus 2) and with themes that has the theme type specified (if is both, just select any)
+          const animes = themesMoeResponse.data.filter(
+            (anime) =>
+              anime.watchStatus === 2 &&
+              anime.themes.some((theme) =>
+                themeTypeFormated !== 'both'
+                  ? theme.themeType.includes(themeTypeFormated)
+                  : true
+              )
           )
 
-          if (data.length > 0) {
-            return data
+          if (animes.length > 0) {
+            return animes
           } else {
             throw new Error("I didn't find any anime on that list.")
           }
@@ -64,17 +93,35 @@ export default {
 
   async getAnimesBySeason(
     year: string,
-    season: string
+    season: string,
+    themeType: string
   ): Promise<ThemesMoeAnime[]> {
     try {
-      const themesMoeResponse = await RitsuHTTP.get<Array<ThemesMoeAnime>>(
+      const themesMoeResponse = await RitsuHTTP.get<ThemesMoeAnime[]>(
         `https://themes.moe/api/seasons/${year}`
       )
 
-      const data = themesMoeResponse.data
-      const filter = data.filter((anime) => anime.season === season)
+      const themeTypeFormated =
+        themeType === 'openings'
+          ? 'OP'
+          : themeType === 'endings'
+          ? 'ED'
+          : 'both'
 
-      if (filter.length > 0) return filter
+      // Get only watched animes (which has watchStatus 2) and with themes that has the theme type specified (if is both, just select any)
+      // In this case, also filter by the specified anime season.
+      const animes = themesMoeResponse.data.filter(
+        (anime) =>
+          anime.watchStatus === 2 &&
+          anime.themes.some((theme) =>
+            themeTypeFormated !== 'both'
+              ? theme.themeType.includes(themeTypeFormated)
+              : true
+          ) &&
+          anime.season === season
+      )
+
+      if (animes.length > 0) return animes
 
       throw new Error('Season not found.')
     } catch (e) {

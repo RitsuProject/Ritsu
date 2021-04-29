@@ -15,7 +15,7 @@ export default class RitsuClient extends Client {
   public commandManager: CommandManager = new CommandManager(this)
   public listenerManager: ListenerManager = new ListenerManager(this)
   public i18nManager: I18nManager = new I18nManager()
-  public enabledGamemodes: Array<string> = [
+  public enabledGamemodes: string[] = [
     'easy',
     'normal',
     'hard',

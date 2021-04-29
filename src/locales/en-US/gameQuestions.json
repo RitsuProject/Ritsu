@@ -5,6 +5,7 @@
   "whatAnimeListWebsite": "What website is your animelist on? (Supported: {{websites}})",
   "whatUsername": "What is your username on your chosen website?",
   "whatYearAndSeason": "What is the year and season? (Example: 2021, Winter)",
+  "whatThemeType": "Do you want only openings, only endings or both? (Supported: openings, endings, both)",
   "errors": {
     "matchStopped": "The match has been canceled, if you want to start another one, use ``{{command}}``.",
     "expiredMatch": "Your match has expired. Want to start another one? Use ``{{command}}``",
@@ -16,6 +17,7 @@
     "invalidFormat": "This does not seem to be in the right format.",
     "invalidUsername": "I couldn't find that username on the selected website!",
     "minimiumDuration": "Duration is too short. The minimum duration is 20 seconds!",
-    "unsufficientAnimes": "You need at least 10 animes on the list to use this game mode."
+    "unsufficientAnimes": "You need at least 10 animes on the list to use this game mode.",
+    "invalidThemeType": "I can't recognize this theme type! Please be sure that you have sended one of these types: {{types}}"
   }
 }

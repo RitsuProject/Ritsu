@@ -117,6 +117,34 @@ export default class MatchSettingsHandler {
     return duration
   }
 
+  async getThemesType(): Promise<string> {
+    const primary = await this.message.channel.createMessage(
+      this.t('gameQuestions:whatThemeType')
+    )
+
+    const themeType = await this.startCollector().then(async (message) => {
+      if (!message) return
+      const themeType = message.content.toLowerCase()
+      if (
+        themeType === 'openings' ||
+        themeType === 'endings' ||
+        themeType === 'both'
+      ) {
+        await primary.delete()
+        await message.delete()
+        return themeType
+      }
+
+      throw new Error(
+        this.t('gameQuestions:errors.invalidThemeType', {
+          types: '**openings, endings, both**',
+        })
+      )
+    })
+
+    return themeType
+  }
+
   async getListWebsite(): Promise<string> {
     const primary = await this.message.channel.createMessage(
       this.t('gameQuestions:whatAnimeListWebsite')

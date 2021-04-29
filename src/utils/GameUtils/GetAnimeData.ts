@@ -1,5 +1,5 @@
 import Anilist from 'anilist-node'
-import JikanSearch from '@interfaces/JikanSearch'
+import JikanSearch from '@interfaces/jikan/JikanSearch'
 import RitsuHTTP from '@structures/RitsuHTTP'
 const anilist = new Anilist()
 

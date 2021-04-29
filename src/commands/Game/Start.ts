@@ -16,6 +16,7 @@ class Start extends RitsuCommand {
   }
 
   async run({ message, guild, t }: CommandContext) {
+    // TODO: Refactor this and try to get rid of all this "if's"
     const matchConfig = new MatchConfig(message, this.client, guild, t)
     const gamemode = await matchConfig.getGamemode()
     if (!gamemode) return
@@ -23,6 +24,8 @@ class Start extends RitsuCommand {
     if (!rounds) return
     const duration = await matchConfig.getDuration()
     if (!duration) return
+    const themeType = await matchConfig.getThemesType()
+    if (!themeType) return
 
     let animeListWebsite: string
     let animeListUsername: string
@@ -50,6 +53,8 @@ class Start extends RitsuCommand {
         rounds: rounds,
         time: duration.parsed,
         readableTime: duration.value,
+
+        themeType: themeType,
 
         // Optional
         animeListUsername: animeListUsername,

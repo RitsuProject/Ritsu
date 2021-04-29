@@ -7,15 +7,15 @@ interface CommandOptions {
   name: string
   description: string
   category: string
-  aliases: Array<string>
-  fields?: Array<string>
-  requiredPermissions?: Array<string>
+  aliases: string[]
+  fields?: string[]
+  requiredPermissions?: string[]
   dev: boolean
 }
 
 interface CommandContext {
   message: Message
-  args: Array<string>
+  args: string[]
   guild: GuildDocument
   t: TFunction
 }
@@ -24,8 +24,8 @@ abstract class RitsuCommand {
   public name: string
   public description: string
   public category: string
-  public aliases: Array<string>
-  public fields?: Array<string>
+  public aliases: string[]
+  public fields?: string[]
   public requiredPermissions?: Array<string>
   public dev: boolean
   constructor(public client: RitsuClient, options: CommandOptions) {

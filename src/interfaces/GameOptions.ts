@@ -4,6 +4,8 @@ export default interface GameOptions {
   time: number
   readableTime: string
 
+  themeType: string
+
   animeListWebsite?: string
   animeListUsername?: string
 

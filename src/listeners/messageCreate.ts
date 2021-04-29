@@ -70,7 +70,7 @@ export default class messageCreate extends RitsuEvent {
       void message.channel.createMessage(
         t('errors:genericError', {
           emoji: Emojis.AQUA_CRYING,
-          e: e.message,
+          e: `\`${e.message}\``,
         })
       )
     })
