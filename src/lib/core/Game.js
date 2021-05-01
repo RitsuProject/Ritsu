@@ -134,7 +134,7 @@ module.exports.Game = class Game {
     const loading = await this.message.channel.send(
       `\`${this.t('game:waitingStream')}\``
     )
-    const stream = await this.getThemeStream(link)
+    const stream = await this.getThemeStream(encodeURI(link))
     loading.delete()
 
     guild.rolling = true
