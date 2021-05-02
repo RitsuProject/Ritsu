@@ -5,6 +5,7 @@
   "whatAnimeListWebsite": "Anime listen hangi web sitesinde? (Desteklenenler: {{websites}})",
   "whatUsername": "Seçtiğin web sitesinde kullanıcı adın nedir?",
   "whatYearAndSeason": "Yıl ve mevsim nedir? (Örnek: 2021, Winter)",
+  "whatThemeType": "Sadece açılışları, kapanışları veya her ikisini mi istiyorsun? (Desteklenenler: açılışlar, kapanışlar, her ikisi de)",
   "errors": {
     "matchStopped": "Oyun iptal edildi, başka bir oyun başlatmak istiyorsan, ``{{command}}`` komutunu kullan.",
     "expiredMatch": "Oyun zaman aşımına uğradı. Yeni bir oyun başlatmak ister misin? Cevabın evet ise, ``{{command}}`` komutunu kullan",
@@ -16,6 +17,7 @@
     "invalidFormat": "Görünüşe göre bu doğru bir format değil.",
     "invalidUsername": "Seçilen web sitesinde, bu kullanıcı adını bulamadım!",
     "minimiumDuration": "Süre çok kısa. Minimum süre 20 saniyedir!",
-    "unsufficientAnimes": "Bu oyun modunu kullanmak için listede en az 10 animeye ihtiyacın var."
+    "unsufficientAnimes": "Bu oyun modunu kullanmak için listede en az 10 animeye ihtiyacın var.",
+    "invalidThemeType": "Bu tema türünü algılayamadım! Lütfen bu türlerden birini belirttiğine emin ol: {{types}}"
   }
 }
