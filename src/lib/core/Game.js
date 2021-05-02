@@ -134,7 +134,7 @@ module.exports.Game = class Game {
     const loading = await this.message.channel.send(
       `\`${this.t('game:waitingStream')}\``
     )
-    const stream = await this.getThemeStream(encodeURI(link))
+    const stream = await this.getThemeStream(link)
     loading.delete()
 
     guild.rolling = true
@@ -372,7 +372,7 @@ module.exports.Game = class Game {
 
   async getThemeStream(link) {
     // Let's get the stream!
-    const stream = await getStream(link).catch((e) => {
+    const stream = await getStream(encodeURI(link)).catch((e) => {
       console.log(e)
       throw this.t('game:errors.streamTimeout')
     })
