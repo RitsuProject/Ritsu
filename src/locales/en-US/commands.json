@@ -47,5 +47,35 @@
     "thanks": "Thanks for wanting to add me! Here is the invite link! {{invite}}\nI hope you have fun!",
     "lookDM": "Could you have a look at your DM (Direct Messages) please?",
     "unavailableDM": "It seems that your DM (Direct messages) is closed and that is why I was unable to send you the message."
+  },
+  "botinfo": {
+    "commandDescription": "Show all the bot information.",
+    "title": "Ritsu - Who I am?",
+    "ritsuAbout": "Hi! I am **Ritsu**, a Discord Bot based on the **AnimeMusicQuiz** game! I will play an opening or ending and you must guess from what anime is from, i'm on **{{servers}}** servers and online since **{{uptime}}** with **{{matches}}** current matches right now!\n\nI was created with {{tsEmoji}} **TypeScript** and using **Eris**, if you want see my source code, just visit my Github here! {{githubLink}}",
+    "footer": "Ritsu was developed by {{user}} • version {{version}} • {{environment}}",
+    "fields": {
+      "commands": {
+        "commands": "{{emoji}} Commands",
+        "useHelpCommand": "Use the {{command}} command!"
+      },
+      "social": {
+        "social": "{{emoji}} Social",
+        "supportServer": "Support Server"
+      },
+      "usefulLinks": {
+        "usefulLinks": "{{emoji}} Useful links",
+        "upvote": "Upvote the bot!"
+      },
+      "specialThanks": {
+        "specialThanks": "{{emoji}} Special Thanks",
+        "animethemes": "A awesome project that helped Ritsu since the beginning providing high-quality openings/endings.",
+        "openingsmoe": "A another awesome project that helped the bot in most hard moments, providing high-quality openings/endings.",
+        "animemusicquiz": "The biggest inspiration for this project.",
+        "githubContributors": "All the people that helped the Ritsu development in Github.",
+        "translators": "All the people that helped translating the bot in the Crowdin, so with this help she can spread the AnimeMusicQuiz magic internationally.",
+        "patrons": "Everyone who support Ritsu financially on the Patreon, you guys are really amazing!",
+        "friends": "My awesome friends, Gabriel Bifano, Pedro Lyrio and Krag who helped me testing the bot and supporting it since the full beginning."
+      }
+    }
   }
 }
