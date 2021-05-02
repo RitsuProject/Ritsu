@@ -1,0 +1,51 @@
+{
+  "ping": {
+    "commandDescription": "Pong!",
+    "stealMessage": "Nu-mi fura capsuna, Mugi!"
+  },
+  "help": {
+    "commandDescription": "Comanda asta! ^w^",
+    "joinSupportServer": "Intrati pe serverul meu pentru mai multe noutati, evenimete, giveawayuri si multe altele!! Ne-ar placea feedbackul tau. {{invite}}",
+    "uanvailableDM": "Se pare ca DM-ul tau este inchis si eu nu am putut sa-ti trimit mesajul.",
+    "lookDM": "Ai putea să te uiti in DM(Direct Messages)?",
+    "embed": {
+      "title": "{{emoji}} Ajutor-Ritsu",
+      "description": "Esti interesat/ă despre comenzile mele? Le poți vedea mai jos.\nDacă ai intrebări, nelămuriri sau vrei sa ajuți, nu ezita să intri în serverul de suport.",
+      "fields": {
+        "animemusicquiz": "{{emoji}} Quiz cu melodii din anime",
+        "utilities": "{{emoji}} Utilități",
+        "misc": "{{emoji}} Diverse",
+        "social": "{{emoji}} Social"
+      },
+      "footer": "Poți găsi mai multe informații despre comenzi la {{url}}"
+    }
+  },
+  "prefix": {
+    "commandDescription": "Schimbă prefixul botului.",
+    "changedPrefix": "Prefixul serverului a fost schimbat cu {{newPrefix}}",
+    "errors": {
+      "noPrefix": "Trebuie să specifici noul prefix."
+    }
+  },
+  "leaderboard": {
+    "commandDescription": "Aici poti vedea rankingul dupa level.",
+    "embed": {
+      "title": "Top 10 utilizatori dupa level.",
+      "levelAndWonMatches": "Level: **{{level}}**\nWon Matches: **{{wonMatches}}**"
+    }
+  },
+  "bio": {
+    "commandDescription": "Schimbă-ti profilul bio.",
+    "changedBio": "Profilul tau a fost actualizat.",
+    "noBio": "Se pare că nu ai specificat noul tău bio, rezolvă problema și folosește comanda din nou!"
+  },
+  "start": {
+    "commandDescription": "Incepe un joc!"
+  },
+  "invite": {
+    "commandDescription": "Adauga-ma pe serverul tau!",
+    "thanks": "Mersi ca m-ai adaugat! Uite linkul de invitatie! {{invite}}\nSper sa te distrezi!",
+    "lookDM": "Te-ai putea uita puțin in DM(Direct Messages)?",
+    "unavailableDM": "Se pare ca DM-ul tau este inchis si eu nu am putut sa-ti trimit mesajul."
+  }
+}
