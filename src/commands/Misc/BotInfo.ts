@@ -4,7 +4,7 @@ import Room from '@entities/Room'
 import Constants from '@utils/Constants'
 import Emojis from '@utils/Emojis'
 import packageJson from '../../../package.json'
-import ms from 'ms'
+import moment from 'moment'
 
 class BotInfo extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -21,9 +21,9 @@ class BotInfo extends RitsuCommand {
   async run({ message, t }: CommandContext) {
     const matches = await Room.countDocuments()
     const botOwner = this.client.users.get('326123612153053184')
-    const uptime = ms(this.client.uptime, {
-      long: true,
-    })
+
+    const uptime = moment.duration(this.client.uptime)
+    const uptimeString = `${uptime.days()}d ${uptime.hours()}h ${uptime.minutes()}m ${uptime.seconds()}s`
 
     const embed = {
       author: {
@@ -32,7 +32,7 @@ class BotInfo extends RitsuCommand {
       },
       description: t('commands:botinfo.ritsuAbout', {
         servers: this.client.guilds.size,
-        uptime: uptime,
+        uptime: uptimeString,
         matches: matches,
         tsEmoji: Emojis.TS_EMOJI,
         githubLink:
