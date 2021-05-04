@@ -1,26 +1,11 @@
 import { prop, getModelForClass, DocumentType } from '@typegoose/typegoose'
 
-/**
- * Leaderboard
- * @description The room leaderboard model
- */
-class Leaderboard {
-  @prop({ required: true })
-  id: string
-
-  @prop({ default: 1 })
-  score?: number
-}
-
 class Room {
   @prop()
   public _id!: string
 
   @prop({ type: String, required: true })
   public answerers!: string[]
-
-  @prop({ type: Leaderboard, required: true })
-  public leaderboard!: Leaderboard[]
 
   @prop({ default: true })
   public startedBy!: string

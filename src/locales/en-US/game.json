@@ -5,6 +5,8 @@
   "roundEnded": "All rounds are over! Thanks for playing!",
   "nobody": "Nobody",
   "songDetails": "\"{{songName}}\" | Artist(s): {{songArtist}}",
+  "winnerMsg": "The winner(s) of this round is...{{users}}",
+  "roundWinner": "Congratulations {{user}}! You found the correct answer in {{time}}!",
   "errors": {
     "noVoiceChannel": "You need to be on a voice channel so I can get in and start the match!",
     "noUsersInTheVoiceChannel": "It seems that the host is no longer on the voice channel, please restart the match.",

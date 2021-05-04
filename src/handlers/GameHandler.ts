@@ -21,6 +21,7 @@ import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
 import getAnimeData from '@utils/GameUtils/GetAnimeData'
 import handleError from '@utils/GameUtils/HandleError'
 import GameEmbedFactory from '@factories/GameEmbedFactory'
+import RoomLeaderboard from '../database/entities/RoomLeaderboard'
 
 /**
  * GameHandler
@@ -133,7 +134,7 @@ export default class GameHandler {
     )
 
     answerCollector.on('collect', (msg: Message) => {
-      void GameCollectorUtils.handleCollect(room, msg)
+      void GameCollectorUtils.handleCollect(this.t, room, msg)
     })
 
     fakeCommandCollector.on('collect', (msg: Message) => {
@@ -152,11 +153,7 @@ export default class GameHandler {
           const answerers =
             room.answerers.length > 0
               ? room.answerers.map((id) => `<@${id}>`).join(', ')
-              : 'Nobody'
-
-          await this.message.channel.createMessage(
-            `Correct Users: ${answerers}`
-          )
+              : this.t('utils:nobody')
 
           const answerEmbed = await gameEmbedFactory.answerEmbed(
             theme,
@@ -166,18 +163,28 @@ export default class GameHandler {
           await this.message.channel.createMessage('The answer is...')
           await this.message.channel.createMessage({ embed: answerEmbed })
 
+          await this.message.channel.createMessage(
+            this.t('game:winners', {
+              users: answerers,
+            })
+          )
+
           // Handle level/xp for each of the answerers.
           room.answerers.forEach((id) => {
+            void this.bumpScore(id)
             void this.handleLevel(id)
           })
 
           // If all rounds is over, finish the game, otherwise, start a new round.
           if (room.currentRound >= this.gameOptions.rounds) {
-            await this.clearData(room, guild)
             this.client.leaveVoiceChannel(voiceChannelID)
-            void this.message.channel.createMessage('Match ended.')
+
+            await this.handleFinish(room, isSingleplayer, false)
+            await this.clearData(room, guild)
+
+            void this.message.channel.createMessage(this.t('game:roundEnded'))
           } else {
-            await this.startNewRound(guild).catch((err) => {
+            void this.startNewRound(guild).catch((err) => {
               handleError(this.message, this.t, err)
             })
           }
@@ -187,11 +194,77 @@ export default class GameHandler {
     void this.playTheme(voiceChannelID, stream)
   }
 
-  // async handleFinish(room: RoomInterface, force: boolean) {}
+  async handleFinish(
+    room: RoomDocument,
+    isSinglePlayer: boolean,
+    force: boolean
+  ) {
+    if (!force) {
+      const matchWinner = await this.getMatchWinner(isSinglePlayer)
+      if (matchWinner) {
+        const winnerUser = await User.findById(matchWinner._id)
+        const levelHandler = new LevelHandler()
+
+        const newStats = await levelHandler.handleLevelByMode(
+          winnerUser._id,
+          this.gameOptions.mode
+        )
+
+        // TODO (#99): Show the final leaderboard when the last round end.
+
+        void this.message.channel.createMessage(
+          `Congrats <@${winnerUser._id}>! You won the match! ${newStats.xp} XP`
+        )
+      }
+    }
+  }
+
+  async getMatchWinner(isSinglePlayer: boolean) {
+    const leaderboards = await RoomLeaderboard.find({
+      guildId: this.message.guildID,
+    })
+    // Return a false boolean if there no leaderboard (indicating that nobody won)
+    if (!leaderboards) return false
+
+    const scores = leaderboards.map((user) => {
+      return user.score
+    })
+
+    const highestScore = Math.max(...scores)
+
+    if (isSinglePlayer) {
+      // Calculate half of the rounds.
+      const halfRounds = this.gameOptions.rounds / 2
+      // Round the half of the rounds number to the nearest integer
+      const roundedHalfRounds = Math.round(halfRounds)
+
+      // Score always are 1 number forward the number of won rounds.
+      const wonRounds = highestScore - 1
+
+      // If the user won rounds is not equal to the half of the rounds, return a false boolean (indicating that nobody won)
+      if (roundedHalfRounds > wonRounds) return false
+    }
+
+    // Get the user with the highest score.
+    const highestUser = await RoomLeaderboard.findOne({
+      guildId: this.message.guildID,
+      score: highestScore,
+    })
+
+    return highestUser
+  }
 
   async clearData(room: RoomDocument, guild: GuildDocument) {
-    guild.rolling = false
+    const leaderboards = await RoomLeaderboard.find({
+      guildId: this.message.guildID,
+    })
+
     this.themesCache.del(this.themesCache.keys())
+    guild.rolling = false
+    leaderboards.map(async (board) => {
+      await board.deleteOne()
+    })
+
     await guild.save()
     await room.deleteOne()
   }
@@ -204,6 +277,14 @@ export default class GameHandler {
     })
     if (voiceChannelMembers.length === 1) return true
     return false
+  }
+
+  async bumpScore(userId: string) {
+    const leaderboard = await RoomLeaderboard.findById(userId)
+    if (leaderboard) {
+      leaderboard.score = leaderboard.score + 1
+      await leaderboard.save()
+    }
   }
 
   async handleLevel(userId: string) {

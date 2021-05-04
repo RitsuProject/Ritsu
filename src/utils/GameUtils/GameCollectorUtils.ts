@@ -5,21 +5,28 @@ import stringSimilarity from 'string-similarity'
 import HintsHandler from '@handlers/HintsHandler'
 import Constants from '@utils/Constants'
 import { UserDocument } from '@entities/User'
+import RoomLeaderboard from '@entities/RoomLeaderboard'
+import { TFunction } from 'i18next'
 
 export default {
-  async handleCollect(room: RoomDocument, msg: Message) {
+  async handleCollect(t: TFunction, room: RoomDocument, msg: Message) {
     if (!room.answerers.includes(msg.author.id)) {
-      room.answerers.push(msg.author.id)
-
-      const findInLeaderBoard = room.leaderboard.find((user) => {
-        return user.id === msg.author.id
-      })
-      if (findInLeaderBoard === undefined) {
-        room.leaderboard.push({ id: msg.author.id })
+      const userHaveLeaderboard = await RoomLeaderboard.findById(msg.author.id)
+      if (!userHaveLeaderboard) {
+        await new RoomLeaderboard({
+          _id: msg.author.id,
+          username: msg.author.username,
+          guildId: msg.guildID,
+        }).save()
       }
 
+      room.answerers.push(msg.author.id)
+
       void msg.channel.createMessage(
-        `<@${msg.author.id}> get the correct answer!`
+        t('game:roundWinner', {
+          user: `<@${msg.author.id}>`,
+          time: '**0.000s**', // TODO: Add a real time elapsed here.
+        })
       )
       await msg.delete()
       await room.save()
