@@ -11,9 +11,6 @@ Ritsu
 <a title="Crowdin" target="_blank" href="https://crowdin.com/project/ritsu"><img src="https://badges.crowdin.net/ritsu/localized.svg"></a>
 <a href="https://discord.gg/XuDysZg"><img src="https://discordapp.com/api/guilds/764929033723969567/widget.png"></a>
 <br>
-<a href="https://top.gg/bot/763934732420382751">
-<img src="https://top.gg/api/widget/763934732420382751.svg" alt="Ritsu" />
-</a>
 </p>
 
 ---
