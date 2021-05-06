@@ -45,11 +45,11 @@ Do you want to contribute to the Ritsu source code? Add new features or even fix
 
 ### Writing code
 
-Want to add new things to Ritsu? First, know that Ritsu is extremely simple, the bot ecosystem doesn't have much of a secret, so once you open it you should understand how everything works (just to be clear, Ritsu is made in Javascript). If you have an idea, please open an issue first and describe it, so we can stay tuned. Don't have an idea? We are always adding new things to do in the Issue, comment saying that you will do it and now it's just fork, clone on your computer and when you're done open a pull request!
+Want to add new things to Ritsu? First, know that Ritsu is extremely simple, the bot ecosystem doesn't have much of a secret (at least, I hope), so once you open it you should understand how everything works. If you have an idea, please open an issue first and describe it, so we can stay tuned.
 
 ### Translate Ritsu!
 
-Is it not available in your language? You can easily translate it using Crowdin, enter the project and mention me (sazz # 0002) on the support server, so you will win a fancy translator role.
+Is it not available in your language? You can easily translate it using Crowdin, enter the project and mention me (sazz) on the support server, so you will win a fancy translator role and access to the translator channels.
 
 https://crowdin.com/project/ritsu
 
