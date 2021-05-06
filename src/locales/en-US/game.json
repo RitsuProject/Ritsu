@@ -1,7 +1,7 @@
 {
   "roundStarted": "Starting the #{{round}} round! What is the anime for this **Ending/Opening theme**? Send in chat the answer! You have **{{time}}**.\nSend **{{prefix}}stop** in the chat if you want to stop the match.",
   "nobodyWon": "Nobody won this match.",
-  "forceFinished": "The match was forcibly completed successfully",
+  "forceFinished": "The match was finished successfully.",
   "roundEnded": "All rounds are over! Thanks for playing!",
   "nobody": "Nobody",
   "songDetails": "\"{{songName}}\" | Artist(s): {{songArtist}}",
@@ -9,6 +9,7 @@
   "roundWinner": "Congratulations {{user}}! You found the correct answer in {{time}}!",
   "errors": {
     "noVoiceChannel": "You need to be on a voice channel so I can get in and start the match!",
+    "onlyHostCanFinish": "Only the match host can finish the game!",
     "noUsersInTheVoiceChannel": "It seems that the host is no longer on the voice channel, please restart the match.",
     "unableToLoadStream": "For some extremely evil reason, I was unable to load the current stream of the theme and so I was unable to continue! Restart the game and try again."
   },
@@ -38,6 +39,10 @@
     "startingNextRound": {
       "title": "Starting the next round...",
       "description": "I'm collecting all the necessary data to start the round, it may take some time!"
+    },
+    "hint": {
+      "title": "{{emoji}} Give me a hint!",
+      "noSufficientCakes": "You don't have enough cakes! A hint costs {{price}} cake, go vote for me on top.gg to get more cakes!"
     }
   }
 }

@@ -1,16 +1,18 @@
 import { AnyGuildChannel, Message } from 'eris'
 import { MessageCollector } from 'eris-collector'
-import NodeCache from 'node-cache'
 import { TFunction } from 'i18next'
+import NodeCache from 'node-cache'
 
 import RoomHandler from '@handlers/RoomHandler'
 import LevelHandler from '@handlers/LevelHandler'
 import HintsHandler from '@handlers/HintsHandler'
 import Themes from '@handlers/ThemesHandler'
+import GameCommandHandler from '@handlers/GameCommandHandler'
 
 import User from '@entities/User'
 import Guilds, { GuildDocument } from '@entities/Guild'
 import Rooms, { RoomDocument } from '@entities/Room'
+import RoomLeaderboard from '@entities/RoomLeaderboard'
 
 import GameOptions from '@interfaces/GameOptions'
 import RitsuClient from '@structures/RitsuClient'
@@ -21,7 +23,6 @@ import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
 import getAnimeData from '@utils/GameUtils/GetAnimeData'
 import handleError from '@utils/GameUtils/HandleError'
 import GameEmbedFactory from '@factories/GameEmbedFactory'
-import RoomLeaderboard from '../database/entities/RoomLeaderboard'
 
 /**
  * GameHandler
@@ -113,8 +114,18 @@ export default class GameHandler {
 
     const answerFilter = (msg: Message) =>
       GameCollectorUtils.isAnswer(animeData, msg)
-    const fakeCommandFilter = (msg: Message) =>
+
+    const gameCommandFilter = (msg: Message) =>
       GameCollectorUtils.isFakeCommand(guild.prefix, msg)
+
+    const gameCommandCollector = new MessageCollector(
+      this.client,
+      this.message.channel,
+      gameCommandFilter,
+      {
+        time: this.gameOptions.time,
+      }
+    )
 
     const answerCollector = new MessageCollector(
       this.client,
@@ -124,32 +135,42 @@ export default class GameHandler {
         time: this.gameOptions.time,
       }
     )
-    const fakeCommandCollector = new MessageCollector(
-      this.client,
-      this.message.channel,
-      fakeCommandFilter,
-      {
-        time: this.gameOptions.time,
+
+    gameCommandCollector.on('collect', (msg: Message) => {
+      const gameCommandHandler = new GameCommandHandler(
+        this.client,
+        this.message,
+        this.t,
+        guild.prefix
+      )
+      const command = msg.content.trim()
+
+      switch (command) {
+        case `${guild.prefix}stop`: {
+          void gameCommandHandler.handleStopCommand(room, answerCollector)
+          break
+        }
+        case `${guild.prefix}hint`: {
+          void gameCommandHandler.handleHintCommand(user, hintsHandler)
+          break
+        }
       }
-    )
+    })
 
     answerCollector.on('collect', (msg: Message) => {
       void GameCollectorUtils.handleCollect(this.t, room, msg)
     })
 
-    fakeCommandCollector.on('collect', (msg: Message) => {
-      void GameCollectorUtils.handleFakeCommand(
-        guild.prefix,
-        user,
-        hintsHandler,
-        msg
-      )
-    })
-
     answerCollector.on(
       'end',
-      () =>
+      (_, stopReason) =>
         void (async () => {
+          if (stopReason === 'forceFinished') {
+            await this.handleFinish(room, voiceChannelID, isSingleplayer, true)
+            await this.clearData(room, guild)
+            return
+          }
+
           const answerers =
             room.answerers.length > 0
               ? room.answerers.map((id) => `<@${id}>`).join(', ')
@@ -177,9 +198,7 @@ export default class GameHandler {
 
           // If all rounds is over, finish the game, otherwise, start a new round.
           if (room.currentRound >= this.gameOptions.rounds) {
-            this.client.leaveVoiceChannel(voiceChannelID)
-
-            await this.handleFinish(room, isSingleplayer, false)
+            await this.handleFinish(room, voiceChannelID, isSingleplayer, false)
             await this.clearData(room, guild)
 
             void this.message.channel.createMessage(this.t('game:roundEnded'))
@@ -196,6 +215,7 @@ export default class GameHandler {
 
   async handleFinish(
     room: RoomDocument,
+    voiceChannelID: string,
     isSinglePlayer: boolean,
     force: boolean
   ) {
@@ -217,6 +237,7 @@ export default class GameHandler {
         )
       }
     }
+    this.client.leaveVoiceChannel(voiceChannelID)
   }
 
   async getMatchWinner(isSinglePlayer: boolean) {
