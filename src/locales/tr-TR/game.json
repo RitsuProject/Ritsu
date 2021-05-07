@@ -1,12 +1,15 @@
 {
   "roundStarted": "#{{round}}. tur başlıyor! Bu **Kapanış/Açılış teması** hangi Anime'ye ait? Cevabı sohbete yazarak gönder! Cevabı yazmak için **{{time}}** süren var.\nOyunu durdurmak istiyorsan sohbete **{{prefix}}stop** yaz.",
   "nobodyWon": "Bu oyunu kimse kazanamadı.",
-  "forceFinished": "Bu oyun başarılı bir şekilde, zorla sona erdirildi",
+  "forceFinished": "Bu oyun başarılı bir şekilde, zorla sona erdirildi.",
   "roundEnded": "Tüm turlar bitti! Oynadığınız için teşekkürler!",
   "nobody": "Hiçkimse",
   "songDetails": "\"{{songName}}\" | Sanatçı(lar): {{songArtist}}",
+  "winners": "Bu turu kazanan(lar)...{{users}}",
+  "roundWinner": "Tebrikler {{user}}! Doğru cevabı {{time}} sürede buldun!",
   "errors": {
     "noVoiceChannel": "Odaya girip, oyunu başlatabilmem için bir ses kanalında olman gerekiyor!",
+    "onlyHostCanFinish": "Oyunu, sadece oyunu başlatan kişi bitirebilir!",
     "noUsersInTheVoiceChannel": "Oyunu başlatan kişi artık ses kanalında değil gibi görünüyor, lütfen oyunu yeniden başlatın.",
     "unableToLoadStream": "Bazı son derece kötü nedenlerden dolayı, temanın mevcut müziğini yükleyemedim ve bu yüzden oyuna devam edemedim! Oyunu yeniden başlatıp ve tekrar deneyin."
   },
@@ -36,6 +39,10 @@
     "startingNextRound": {
       "title": "Sıradaki tur başlıyor...",
       "description": "Turu başlatmak için gerekli tüm verileri topluyorum, bu biraz zaman alabilir!"
+    },
+    "hint": {
+      "title": "{{emoji}} Bana bir ipucu ver!",
+      "noSufficientCakes": "Yeterince kekin yok! Bir ipucu {{price}} keke mâl olur. Bana top.gg üzerinden oy vererek kek kazanabilirsin!"
     }
   }
 }
