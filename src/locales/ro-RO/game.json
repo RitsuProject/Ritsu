@@ -1,0 +1,48 @@
+{
+  "roundStarted": "Incepe runda {{round}}! Ce anime are acest Ending/Opening?Scrie răspunsul in chat! Ai timp **{{time}}** de secunde.\nScrie **{{prefix}}stop** in chat dacă vrei să oprești meciul.",
+  "nobodyWon": "Nu avem câștigător pentru această rundă.",
+  "forceFinished": "Meciul s-a terminat cu succes.",
+  "roundEnded": "Toate rundele sunt încheiate! Mulțumesc de participare!",
+  "nobody": "Nimeni",
+  "songDetails": "\"{{songName}}\" | Artist(i): {{songArtist}}",
+  "winners": "Câștigătorul acestei runde este...{{users}}",
+  "roundWinner": "Felicitări {{user}}! Ai găsit răspunsul corect în {{time}}!",
+  "errors": {
+    "noVoiceChannel": "Trebuie să intri într-un voice channel ca să intru și eu și să încep meciul!",
+    "onlyHostCanFinish": "Doar organizatorul meciului poate opri jocul!",
+    "noUsersInTheVoiceChannel": "Se pare că hostul a părăsit voice-channelul, te rog reîncepe meciul.",
+    "unableToLoadStream": "Dintr-un anume motiv, nu am putut încărca melodia curentă si nu am putut continua jocul! Reîncepe jocul și încearcă din nou."
+  },
+  "embeds": {
+    "answerEmbed": {
+      "fields": {
+        "season": "Sezonul anime",
+        "year": "Anul",
+        "titlesAndSynonyms": "Titluri și sinonime"
+      },
+      "footer": "\"{{songName}}\" | Artist(i): {{songArtist}}"
+    },
+    "roundStarted": {
+      "title": "Runda {{currentRound}} a început!",
+      "description": "Ce anime are acest {{themeType}}? Ai {{time}} să ghicești!"
+    },
+    "preparingMatch": {
+      "title": "Pregătim runda...",
+      "description": "Adun toate informațiile necesare pentru a incepe runda, va dura puțin!",
+      "fields": {
+        "gamemode": "Te joci în modul **{{gamemode}}**",
+        "roundsNumber": "Meciul acesta va avea **{{rounds}} runde**",
+        "roundsDuration": "Fiecare rundă va dura **{{time}}** secunde",
+        "matchMode": "Am observat că te joci in modul **{{mode}}**"
+      }
+    },
+    "startingNextRound": {
+      "title": "Incepe următoarea rundă...",
+      "description": "Adun toate informațiile necesare pentru a incepe runda, va dura puțin!"
+    },
+    "hint": {
+      "title": "{{emoji}} Dă-mi un hint!",
+      "noSufficientCakes": "Nu ai destule monezi! Un hint costă {{price}} monezi,du-te si votează-ma pe top.gg pentru mai multe monezi!"
+    }
+  }
+}
