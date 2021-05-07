@@ -5,7 +5,7 @@
   },
   "help": {
     "commandDescription": "Bu komut! ^w^",
-    "joinSupportServer": "Haberler, etkinlikler, hediyeler ve daha fazlası için sunucuma katıl! Geri bildirimi duymaktan mutluluk duyacağız. {{invite}}",
+    "joinSupportServer": "Haberler, etkinlikler, hediyeler ve daha fazlası için sunucuma katıl! Geri bildirimini duymaktan mutluluk duyacağız. {{invite}}",
     "uanvailableDM": "DM'lerin (Özel Mesajların) kapalı gibi gözüküyor. Bu yüzden sana mesaj gönderemiyorum.",
     "lookDM": "DM'lerini (Özel Mesajlarını) kontrol edebilir misin lütfen?",
     "embed": {
@@ -47,5 +47,35 @@
     "thanks": "Beni sunucuna eklemeye karar verdiğin için teşekkürler! İşte davet bağlantım! {{invite}}\nUmarım eğlenirsin!",
     "lookDM": "DM'lerini (Özel Mesajlarını) kontrol edebilir misin lütfen?",
     "unavailableDM": "DM'lerin (Özel Mesajların) kapalı gibi gözüküyor. Bu yüzden sana mesaj gönderemiyorum."
+  },
+  "botinfo": {
+    "commandDescription": "Tüm bot bilgilerini gösterir.",
+    "title": "Ritsu - Ben Kimim?",
+    "ritsuAbout": "Selam! Ben **Ritsu**. **AnimeMusicQuiz**'e dayalı bir Discord Botuyum! Ben, senin için açılış ve kapanış şarkılarını çalıyorum, sen de onların hangi animeden olduğunu bilmeye çalışıyorsun.\nŞu anda **{{servers}}** sunucuda **{{matches}}** devam eden oyun ile birlikte **{{uptime}}** süredir çevrim içiyim.\n\n**Eris** kullanılarak {{tsEmoji}} **TypeScript** ile oluşturuldum. Eğer kaynak kodlarımı görmek istersen, Github sayfama buradan ulaşabilirsin! {{githubLink}}",
+    "footer": "Ritsu {{user}} tarafından geliştirildi • Sürüm {{version}} • {{environment}}",
+    "fields": {
+      "commands": {
+        "commands": "{{emoji}} Komutlar",
+        "useHelpCommand": "{{command}} komutunu kullan!"
+      },
+      "social": {
+        "social": "{{emoji}} Sosyal",
+        "supportServer": "Destek Sunucusu"
+      },
+      "usefulLinks": {
+        "usefulLinks": "{{emoji}} Yararlı bağlantılar",
+        "upvote": "Bota oy ver!"
+      },
+      "specialThanks": {
+        "specialThanks": "{{emoji}} Teşekkürler",
+        "animethemes": "Ritsu'nun başından beri kaliteli açılışlar/kapanışlar sağlamasına yardımcı olan harika bir proje.",
+        "openingsmoe": "En zor anlarında bota yardımcı olan ve kaliteli açılışlar/kapanışlar sağlayan bir başka harika proje.",
+        "animemusicquiz": "Bu projenin en büyük ilham kaynağı.",
+        "githubContributors": "Github'da Ritsu'nun geliştirilmesine yardımcı olan insanlara teşekkürler.",
+        "translators": "Botu, Crowdin'de çevirmeye yardım eden tüm insanlara teşekkürler. Bu yardımla AnimeMusicQuiz büyüsünü tüm dünyaya yaydık.",
+        "patrons": "Ritsu'yu Patreon'da maddi olarak destekleyen herkese teşekkürler. Siz gerçekten harikasınız!",
+        "friends": "Harika arkadaşlarım; Gabriel Bifano, Pedro Lyrio ve Krag, Botu test etmeme yardımcı oldular ve en başından beri botu desteklediler."
+      }
+    }
   }
 }
