@@ -1,3 +1,7 @@
 {
-  "mentionRitsu": "Selam! Ben Ritsu! AnimeMusicQuiz'e dayalı bir botum! Bu sunucudaki prefixim **{{prefix}}** olarak ayarlı. Ayrıca, **{{prefix}}help** komutunu kullanarak tüm komutlarımı da görebilirsin"
+  "mentionRitsu": "Selam! Ben Ritsu! AnimeMusicQuiz'e dayalı bir botum! Bu sunucudaki prefixim **{{prefix}}** olarak ayarlı. Ayrıca, **{{prefix}}help** komutunu kullanarak tüm komutlarımı da görebilirsin",
+  "nobody": "hiçkimse ):",
+  "openings": "açılış",
+  "endings": "kapanış",
+  "both": "karışık"
 }
