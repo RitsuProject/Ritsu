@@ -4,9 +4,15 @@ import { RoomDocument } from '@entities/Room'
 import stringSimilarity from 'string-similarity'
 import RoomLeaderboard from '@entities/RoomLeaderboard'
 import { TFunction } from 'i18next'
+import Timer from '../Timer'
 
 export default {
-  async handleCollect(t: TFunction, room: RoomDocument, msg: Message) {
+  async handleCollect(
+    t: TFunction,
+    timer: Timer,
+    room: RoomDocument,
+    msg: Message
+  ) {
     if (!room.answerers.includes(msg.author.id)) {
       const userHaveLeaderboard = await RoomLeaderboard.findById(msg.author.id)
       if (!userHaveLeaderboard) {
@@ -19,10 +25,12 @@ export default {
 
       room.answerers.push(msg.author.id)
 
+      const timeElapsed = timer.endTimer()
+
       void msg.channel.createMessage(
         t('game:roundWinner', {
           user: `<@${msg.author.id}>`,
-          time: '**0.000s**', // TODO: Add a real time elapsed here.
+          time: `**${timeElapsed}s**`, // TODO: Add a real time elapsed here.
         })
       )
       await msg.delete()

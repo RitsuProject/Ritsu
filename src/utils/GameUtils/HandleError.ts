@@ -25,7 +25,7 @@ export default function handleError(
   void message.channel.createMessage(
     t('errors:genericError', {
       emoji: Emojis.AQUA_CRYING,
-      e: `\`error.message\``,
+      e: `\`${error.message}\``,
     })
   )
 }

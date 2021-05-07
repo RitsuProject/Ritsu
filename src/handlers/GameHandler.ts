@@ -23,6 +23,7 @@ import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
 import getAnimeData from '@utils/GameUtils/GetAnimeData'
 import handleError from '@utils/GameUtils/HandleError'
 import GameEmbedFactory from '@factories/GameEmbedFactory'
+import Timer from '../utils/Timer'
 
 /**
  * GameHandler
@@ -109,6 +110,9 @@ export default class GameHandler {
     guild.rolling = true
     await guild.save()
 
+    const startTime = new Date()
+    const timer = new Timer(startTime)
+
     const roundStartedEmbed = gameEmbedFactory.roundStarted(room.currentRound)
     void this.message.channel.createMessage({ embed: roundStartedEmbed })
 
@@ -158,7 +162,7 @@ export default class GameHandler {
     })
 
     answerCollector.on('collect', (msg: Message) => {
-      void GameCollectorUtils.handleCollect(this.t, room, msg)
+      void GameCollectorUtils.handleCollect(this.t, timer, room, msg)
     })
 
     answerCollector.on(
