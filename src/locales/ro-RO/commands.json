@@ -31,7 +31,7 @@
     "commandDescription": "Aici poti vedea rankingul dupa level.",
     "embed": {
       "title": "Top 10 utilizatori dupa level.",
-      "levelAndWonMatches": "Level: **{{level}}**\nWon Matches: **{{wonMatches}}**"
+      "levelAndWonMatches": "Level: **{{level}}**\nMeciuri cîștigate: **{{wonMatches}}**"
     }
   },
   "bio": {
@@ -47,5 +47,35 @@
     "thanks": "Mersi ca m-ai adaugat! Uite linkul de invitatie! {{invite}}\nSper sa te distrezi!",
     "lookDM": "Te-ai putea uita puțin in DM(Direct Messages)?",
     "unavailableDM": "Se pare ca DM-ul tau este inchis si eu nu am putut sa-ti trimit mesajul."
+  },
+  "botinfo": {
+    "commandDescription": "Arată toate detaliile botului.",
+    "title": "Ritsu - Cine sunt?",
+    "ritsuAbout": "Hello! Eu sunt **Ritsu**, un bot de discord bazat pe jocul **AnimeMusicQuiz**! Eu voi reda un opening sau ending și tu trebuie să ghicești din ce anime este, eu sunt în **{{servers}}** servere si exist din **{{uptime}}** si am **{{matches}}** meciuri până acum!\n\nAm fost creată cu {{tsEmoji}} **TypeScript** și **Eris**, iar dacă vrei să vezi codul sursă, îl găsești pe Github aici! {{githubLink}}",
+    "footer": "Ritsu a fost creat de {{user}} • versiunea {{version}} • {{environment}}",
+    "fields": {
+      "commands": {
+        "commands": "{{emoji}} Comenzi",
+        "useHelpCommand": "Folosește comanda {{command}}!"
+      },
+      "social": {
+        "social": "{{emoji}} Social",
+        "supportServer": "Support Server"
+      },
+      "usefulLinks": {
+        "usefulLinks": "{{emoji}} Linkuri utile",
+        "upvote": "Dați un upvote botului!"
+      },
+      "specialThanks": {
+        "specialThanks": "{{emoji}} Mulțumiri speciale",
+        "animethemes": "Un proiect minunat care ne-a ajutat de la început cu openinguri/endinguri de cea mai bună calitate.",
+        "openingsmoe": "Alt proiect minunat care a ajutat botul în momentele cele mai dificile, oferindu-ne openinguri/endinguri de cea mai bună calitate.",
+        "animemusicquiz": "Cea mai mare inspirație pentru acest proiect.",
+        "githubContributors": "Lista oamenilor care au ajutat la creare Ritsu se află pe Github.",
+        "translators": "Toți oamenii care au ajutat la traducerea botului in Crowdin ajută Ritsu să poată răspândi acest joc internațional.",
+        "patrons": "Mulțumiri tuturor care ne ajută financiar in Patreon, sunteți niște oameni minunați!",
+        "friends": "Prietenii mei minunați, Gabriel Bifano, Pedro Lyrio si Krag care m-au ajutat să testez botul și au oferit suport încă de la început."
+      }
+    }
   }
 }
