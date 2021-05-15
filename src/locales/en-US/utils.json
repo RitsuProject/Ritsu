@@ -1,6 +1,5 @@
 {
   "mentionRitsu": "Hi! I'm Ritsu! A bot based on the game AnimeMusicQuiz! My prefix on that server is **{{prefix}}** and you can see all of my commands using **{{prefix}}help**",
-  "nobody": "nobody ):",
   "openings": "openings",
   "endings": "endings",
   "both": "both"
