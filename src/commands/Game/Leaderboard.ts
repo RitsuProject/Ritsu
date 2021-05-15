@@ -29,7 +29,7 @@ class Leaderboard extends RitsuCommand {
     const results = await User.find()
       .sort({ level: -1 })
       .limit(10)
-      .select('wonMatches level')
+      .select('name wonMatches level')
       .lean()
 
     results.forEach((result, rank) => {

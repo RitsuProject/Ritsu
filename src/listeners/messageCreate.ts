@@ -22,7 +22,7 @@ export default class messageCreate extends RitsuEvent {
     if (!user) {
       void new Users({
         _id: message.author.id,
-        name: message.author.discriminator,
+        name: message.author.username,
         wonMatches: 0,
         played: 0,
         rank: 'Beginner',
@@ -30,7 +30,7 @@ export default class messageCreate extends RitsuEvent {
         admin: false,
       }).save()
     } else {
-      user.name = message.author.discriminator
+      user.name = message.author.username
       await user.save()
     }
 
