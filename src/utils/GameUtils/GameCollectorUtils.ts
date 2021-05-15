@@ -4,12 +4,12 @@ import { RoomDocument } from '@entities/Room'
 import stringSimilarity from 'string-similarity'
 import RoomLeaderboard from '@entities/RoomLeaderboard'
 import { TFunction } from 'i18next'
-import Timer from '../Timer'
+import TimeElapsed from '@interfaces/TimeElapsed'
 
 export default {
   async handleCollect(
     t: TFunction,
-    timer: Timer,
+    timeElapsed: TimeElapsed[],
     room: RoomDocument,
     msg: Message
   ) {
@@ -23,14 +23,16 @@ export default {
         }).save()
       }
 
-      room.answerers.push(msg.author.id)
+      const userTimeElapsed = timeElapsed.find(
+        (user) => user.id === msg.author.id
+      )
 
-      const timeElapsed = timer.endTimer()
+      room.answerers.push(msg.author.id)
 
       void msg.channel.createMessage(
         t('game:roundWinner', {
           user: `<@${msg.author.id}>`,
-          time: `**${timeElapsed}s**`, // TODO: Add a real time elapsed here.
+          time: `**${userTimeElapsed.time}s**`,
         })
       )
       await msg.delete()

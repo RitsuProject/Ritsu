@@ -5,6 +5,10 @@ import { AnimeEntry } from 'anilist-node'
 
 import Vibrant from 'node-vibrant/lib/index'
 import Constants from '@utils/Constants'
+import { EmbedOptions } from 'eris'
+import RoomLeaderboard from '../database/entities/RoomLeaderboard'
+import TimeElapsed from '../interfaces/TimeElapsed'
+import { UserDocument } from '../database/entities/User'
 
 /**
  * Embed Factory
@@ -127,6 +131,117 @@ export default class GameEmbedFactory {
         time: `**\`${this.gameOptions.readableTime}\`**`,
       }),
       color: 3008016,
+    }
+
+    return embed
+  }
+
+  async roundEndedLeaderboard(guildID: string, timeElapsed: TimeElapsed[]) {
+    const embed: EmbedOptions = {
+      title: this.t('game:embeds.roundEndedLeaderboard.title', {
+        emoji: ':trophy:',
+      }),
+      color: 0xffcc4d,
+      fields: [],
+    }
+
+    const leaderboardResults = await RoomLeaderboard.find({ guildId: guildID })
+      .sort({ timeElapsed: -1 })
+      .select('username timeElapsed')
+      .lean()
+
+    if (!leaderboardResults || !timeElapsed.length) {
+      embed.description = this.t('game:nobody')
+      return embed
+    }
+
+    leaderboardResults.forEach((result, rank) => {
+      const positionNumber = rank + 1
+
+      const position =
+        positionNumber === 1
+          ? '🥇'
+          : positionNumber === 2
+          ? '🥈'
+          : positionNumber === 3
+          ? '🥉'
+          : `${positionNumber}.`
+
+      const userTimeElapsed = timeElapsed.find((user) => user.id === result._id)
+
+      embed.fields.push({
+        name: `${position} ${result.username}`,
+        value:
+          `${this.t('game:embeds.roundEndedLeaderboard.timeElapsed', {
+            time: userTimeElapsed.time,
+          })}\n` +
+          `${this.t('game:embeds.roundEndedLeaderboard.answer', {
+            answer: userTimeElapsed.answer,
+          })}`,
+      })
+    })
+
+    return embed
+  }
+
+  async matchEndedLeaderboard(
+    guildID: string,
+    matchWinner: UserDocument,
+    stats: { xp: number; level: number }
+  ) {
+    const embed: EmbedOptions = {
+      title: this.t('game:embeds.matchEndedLeaderboard.title', {
+        emoji: ':medal:',
+      }),
+      color: 0x55acee,
+      fields: [],
+    }
+
+    const leaderboardResults = await RoomLeaderboard.find({ guildId: guildID })
+      .sort({ score: -1 })
+      .select('username score')
+      .lean()
+
+    if (!leaderboardResults) {
+      embed.description = this.t('game:nobody')
+      return embed
+    }
+
+    leaderboardResults.forEach((result, rank) => {
+      const positionNumber = rank + 1
+
+      const position =
+        positionNumber === 1
+          ? '🥇'
+          : positionNumber === 2
+          ? '🥈'
+          : positionNumber === 3
+          ? '🥉'
+          : `${positionNumber}.`
+
+      embed.fields.push({
+        name: `${position} ${result.username}`,
+        value: this.t('game:embeds.matchEndedLeaderboard.wonRounds', {
+          wonRounds: result.score - 1,
+        }),
+      })
+    })
+
+    embed.fields.push({
+      name: this.t('game:embeds.matchEndedLeaderboard.matchWinner'),
+      value: this.t('game:embeds.matchEndedLeaderboard.matchWinnerUser', {
+        user: `<@${matchWinner._id}>`,
+        xp: stats.xp,
+      }),
+    })
+
+    return embed
+  }
+
+  noWinnerEmbed() {
+    const embed: EmbedOptions = {
+      description: this.t('game:nobodyWon'),
+      color: 0x55acee, // Same color of the match ended leaderboard, why not.
     }
 
     return embed

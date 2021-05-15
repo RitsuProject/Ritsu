@@ -1,11 +1,10 @@
 {
-  "roundStarted": "Starting the #{{round}} round! What is the anime for this **Ending/Opening theme**? Send in chat the answer! You have **{{time}}**.\nSend **{{prefix}}stop** in the chat if you want to stop the match.",
-  "nobodyWon": "Nobody won this match.",
+  "nobodyWon": "Oh no! Looks like nobody was won this match! Remember, if you are playing in singleplayer, you need to win at least the half of the specified rounds!",
   "forceFinished": "The match was finished successfully.",
   "roundEnded": "All rounds are over! Thanks for playing!",
-  "nobody": "Nobody",
+  "nobody": "Nobody won this round ):",
+  "answerIs": "The answer is...",
   "songDetails": "\"{{songName}}\" | Artist(s): {{songArtist}}",
-  "winners": "The winner(s) of this round is...{{users}}",
   "roundWinner": "Congratulations {{user}}! You found the correct answer in {{time}}!",
   "errors": {
     "noVoiceChannel": "You need to be on a voice channel so I can get in and start the match!",
@@ -43,6 +42,17 @@
     "hint": {
       "title": "{{emoji}} Give me a hint!",
       "noSufficientCakes": "You don't have enough cakes! A hint costs {{price}} cake, go vote for me on top.gg to get more cakes!"
+    },
+    "roundEndedLeaderboard": {
+      "title": "{{emoji}} Round Leaderboard",
+      "timeElapsed": "- Time Elapsed: **{{time}}s**",
+      "answer": "- Answer: **{{answer}}**"
+    },
+    "matchEndedLeaderboard": {
+      "title": "{{emoji}} Match Leaderboard",
+      "wonRounds": "- Won Rounds: **{{wonRounds}}**",
+      "matchWinner": "**__Match Winner__**",
+      "matchWinnerUser": "The winner of this match is...{{user}}! Congratlutations! You won **{{xp}}** XP."
     }
   }
 }

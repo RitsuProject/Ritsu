@@ -16,6 +16,9 @@ class RoomLeaderboard {
 
   @prop({ default: 1 })
   score?: number
+
+  @prop({ default: 0.0 })
+  timeElapsed: number
 }
 
 export type RoomLeaderboardDocument = DocumentType<RoomLeaderboard>

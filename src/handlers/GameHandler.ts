@@ -15,6 +15,7 @@ import Rooms, { RoomDocument } from '@entities/Room'
 import RoomLeaderboard from '@entities/RoomLeaderboard'
 
 import GameOptions from '@interfaces/GameOptions'
+import TimeElapsed from '@interfaces/TimeElapsed'
 import RitsuClient from '@structures/RitsuClient'
 import UnreachableRepository from '@structures/errors/UnreachableRepository'
 
@@ -22,8 +23,8 @@ import getStreamFromURL from '@utils/GameUtils/GetStream'
 import GameCollectorUtils from '@utils/GameUtils/GameCollectorUtils'
 import getAnimeData from '@utils/GameUtils/GetAnimeData'
 import handleError from '@utils/GameUtils/HandleError'
+import Timer from '@utils/Timer'
 import GameEmbedFactory from '@factories/GameEmbedFactory'
-import Timer from '../utils/Timer'
 
 /**
  * GameHandler
@@ -84,6 +85,7 @@ export default class GameHandler {
       isSingleplayer,
       this.t
     )
+    let startingNextRoundMsg: Message
 
     // If it is the first round, will send the starting the match embed.
     if (room.currentRound === 1) {
@@ -93,7 +95,9 @@ export default class GameHandler {
     } else {
       const startingNextRoundEmbed = gameEmbedFactory.startingNextRound()
 
-      void this.message.channel.createMessage({ embed: startingNextRoundEmbed })
+      startingNextRoundMsg = await this.message.channel.createMessage({
+        embed: startingNextRoundEmbed,
+      })
     }
 
     const themes = new Themes(this.message, this.gameOptions, this.themesCache)
@@ -112,8 +116,14 @@ export default class GameHandler {
 
     const startTime = new Date()
     const timer = new Timer(startTime)
+    const timeElapsed: TimeElapsed[] = []
+    timeElapsed.splice(0, timeElapsed.length) // Clear the array to remove old entries.
 
     const roundStartedEmbed = gameEmbedFactory.roundStarted(room.currentRound)
+    if (startingNextRoundMsg) {
+      await startingNextRoundMsg.delete()
+    }
+
     void this.message.channel.createMessage({ embed: roundStartedEmbed })
 
     const answerFilter = (msg: Message) =>
@@ -162,7 +172,12 @@ export default class GameHandler {
     })
 
     answerCollector.on('collect', (msg: Message) => {
-      void GameCollectorUtils.handleCollect(this.t, timer, room, msg)
+      timeElapsed.push({
+        id: msg.author.id,
+        time: timer.endTimer(),
+        answer: msg.content,
+      })
+      void GameCollectorUtils.handleCollect(this.t, timeElapsed, room, msg)
     })
 
     answerCollector.on(
@@ -175,28 +190,17 @@ export default class GameHandler {
             return
           }
 
-          const answerers =
-            room.answerers.length > 0
-              ? room.answerers.map((id) => `<@${id}>`).join(', ')
-              : this.t('utils:nobody')
-
           const answerEmbed = await gameEmbedFactory.answerEmbed(
             theme,
             animeData
           )
 
-          await this.message.channel.createMessage('The answer is...')
+          await this.message.channel.createMessage(this.t('game:answerIs'))
           await this.message.channel.createMessage({ embed: answerEmbed })
-
-          await this.message.channel.createMessage(
-            this.t('game:winners', {
-              users: answerers,
-            })
-          )
 
           // Handle level/xp for each of the answerers.
           room.answerers.forEach((id) => {
-            void this.bumpScore(id)
+            void this.bumpScoreAndTime(timeElapsed, id)
             void this.handleLevel(id)
           })
 
@@ -207,6 +211,15 @@ export default class GameHandler {
 
             void this.message.channel.createMessage(this.t('game:roundEnded'))
           } else {
+            const roundEndedLeaderboard = await gameEmbedFactory.roundEndedLeaderboard(
+              this.message.guildID,
+              timeElapsed
+            )
+
+            await this.message.channel.createMessage({
+              embed: roundEndedLeaderboard,
+            })
+
             void this.startNewRound(guild).catch((err) => {
               handleError(this.message, this.t, err)
             })
@@ -225,6 +238,13 @@ export default class GameHandler {
   ) {
     if (!force) {
       const matchWinner = await this.getMatchWinner(isSinglePlayer)
+
+      const gameEmbedFactory = new GameEmbedFactory(
+        this.gameOptions,
+        isSinglePlayer,
+        this.t
+      )
+
       if (matchWinner) {
         const winnerUser = await User.findById(matchWinner._id)
         const levelHandler = new LevelHandler()
@@ -234,11 +254,21 @@ export default class GameHandler {
           this.gameOptions.mode
         )
 
-        // TODO (#99): Show the final leaderboard when the last round end.
-
-        void this.message.channel.createMessage(
-          `Congrats <@${winnerUser._id}>! You won the match! ${newStats.xp} XP`
+        const matchEndedLeaderboard = await gameEmbedFactory.matchEndedLeaderboard(
+          this.message.guildID,
+          winnerUser,
+          newStats
         )
+
+        await this.message.channel.createMessage({
+          embed: matchEndedLeaderboard,
+        })
+      } else {
+        const noWinnerEmbed = gameEmbedFactory.noWinnerEmbed()
+
+        await this.message.channel.createMessage({
+          embed: noWinnerEmbed,
+        })
       }
     }
     this.client.leaveVoiceChannel(voiceChannelID)
@@ -304,10 +334,14 @@ export default class GameHandler {
     return false
   }
 
-  async bumpScore(userId: string) {
+  async bumpScoreAndTime(timeElapsed: TimeElapsed[], userId: string) {
     const leaderboard = await RoomLeaderboard.findById(userId)
+
+    const userTimeElapsed = timeElapsed.find((user) => user.id === userId)
+
     if (leaderboard) {
       leaderboard.score = leaderboard.score + 1
+      leaderboard.timeElapsed = userTimeElapsed.time
       await leaderboard.save()
     }
   }
