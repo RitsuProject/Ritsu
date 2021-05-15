@@ -11,7 +11,7 @@
     "expiredMatch": "Oyun zaman aşımına uğradı. Yeni bir oyun başlatmak ister misin? Cevabın evet ise, ``{{command}}`` komutunu kullan",
     "invalidMode": "Olamaz, belirttiğin oyun modu geçersiz veya geçici olarak devre dışı bırakıldı! Lütfen yukarıdaki listeden bir tane oyun modu belirt.",
     "isNaN": "Yani...Belirttiğin şey bir sayıya benzemiyor sanırım.",
-    "roundsLimit": "Son derece can sıkıcı nedenlerden dolayı, normal bir kullanıcı olarak 10'dan fazla tur başlatamazsın. Daha fazlasını istiyorsan, Patreon'umdan bana destek olabilirsin! {{patreonURL}}",
+    "roundsLimit": "Son derece can sıkıcı nedenlerden dolayı, normal bir kullanıcı olarak {{rounds}} turdan fazla tur ile oyun başlatamazsınız. Daha fazla tur ile oyun başlatmak istiyorsanız, Patreon'dan bana destek olabilirsiniz! {{patreonURL}}",
     "invalidDuration": "Ne yazık ki, benim gibi basit bir bot, yazdığın şeyden bir anlam çıkaramadı. Saniye mi, dakika mı? Bilmiyorum! Lütfen geçerli bir zaman dilimi gir.",
     "invalidWebsite": "Bu site desteklenen bir web sitesi gibi görünmüyor. İptal Ediliyor...",
     "invalidFormat": "Görünüşe göre bu doğru bir format değil.",
