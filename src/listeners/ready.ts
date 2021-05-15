@@ -20,7 +20,10 @@ export default class Ready extends RitsuEvent {
     await Rooms.deleteMany({})
 
     const customStats = [
-      { name: 'ritsu!help | @Ritsu', type: 2 as const },
+      {
+        name: `${process.env.RITSU_PREFIX}help | @${this.client.user.username}`,
+        type: 2 as const,
+      },
       { name: 'patreon.com/ritsubot', type: 0 as const },
     ]
 
