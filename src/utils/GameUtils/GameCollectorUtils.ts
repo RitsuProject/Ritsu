@@ -49,21 +49,25 @@ export default {
 
     const answers: Array<string> = []
     if (animeData.synonyms != null) {
-      animeData.synonyms.forEach((s) => {
-        answers.push(s)
+      animeData.synonyms.forEach((synonym) => {
+        answers.push(synonym)
       })
     }
 
     const titles = Object.values(animeData.title) as Array<string>
-    titles.forEach((t) => {
-      if (t !== null) {
-        answers.push(t)
+    titles.forEach((title) => {
+      if (title !== null) {
+        answers.push(title)
       }
     })
 
-    answers.forEach((a) => {
+    answers.forEach((answer) => {
       // Let's compare all the titles!
-      const similarity = stringSimilarity.compareTwoStrings(a, parsedMessage)
+      const similarity = stringSimilarity.compareTwoStrings(
+        answer.toLowerCase().trim(),
+        parsedMessage.toLowerCase().trim()
+      )
+
       score = similarity > score ? similarity : score
     })
     return score > 0.45
