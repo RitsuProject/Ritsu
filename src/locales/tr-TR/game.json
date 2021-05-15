@@ -1,11 +1,10 @@
 {
-  "roundStarted": "#{{round}}. tur başlıyor! Bu **Kapanış/Açılış teması** hangi Anime'ye ait? Cevabı sohbete yazarak gönder! Cevabı yazmak için **{{time}}** süren var.\nOyunu durdurmak istiyorsan sohbete **{{prefix}}stop** yaz.",
-  "nobodyWon": "Bu oyunu kimse kazanamadı.",
+  "nobodyWon": "Olamaz! Görünüşe göre bu oyunu kimse kazanmamış! Unutmayın, eğer tek oyunculu olarak oynuyorsanız, belirtilen turların en az yarısını kazanmanız gerekir!",
   "forceFinished": "Bu oyun başarılı bir şekilde, zorla sona erdirildi.",
   "roundEnded": "Tüm turlar bitti! Oynadığınız için teşekkürler!",
-  "nobody": "Hiçkimse",
+  "nobody": "Bu turu kimse kazanamadı ):",
+  "answerIs": "Bu turun cevabı...",
   "songDetails": "\"{{songName}}\" | Sanatçı(lar): {{songArtist}}",
-  "winners": "Bu turu kazanan(lar)...{{users}}",
   "roundWinner": "Tebrikler {{user}}! Doğru cevabı {{time}} sürede buldun!",
   "errors": {
     "noVoiceChannel": "Odaya girip, oyunu başlatabilmem için bir ses kanalında olman gerekiyor!",
@@ -43,6 +42,17 @@
     "hint": {
       "title": "{{emoji}} Bana bir ipucu ver!",
       "noSufficientCakes": "Yeterince kekin yok! Bir ipucu {{price}} keke mâl olur. Bana top.gg üzerinden oy vererek kek kazanabilirsin!"
+    },
+    "roundEndedLeaderboard": {
+      "title": "{{emoji}} Tur Sıralaması",
+      "timeElapsed": "- Geçen Süre: **{{time}}sn**",
+      "answer": "- Cevap: **{{answer}}**"
+    },
+    "matchEndedLeaderboard": {
+      "title": "{{emoji}} Oyun Sıralaması",
+      "wonRounds": "- Kazanılan Tur: **{{wonRounds}}**",
+      "matchWinner": "**__Oyunun Kazananı__**",
+      "matchWinnerUser": "Bu oyunun kazananı...{{user}}! Tebrikler! **{{xp}}** deneyim puanı kazandın."
     }
   }
 }
