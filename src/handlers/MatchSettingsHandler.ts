@@ -86,8 +86,12 @@ export default class MatchSettingsHandler {
       const rounds = parseInt(message.content.toLowerCase())
 
       if (isNaN(rounds)) throw new Error(this.t('gameQuestions:errors.isNaN'))
-      if (rounds > 10 && !user.patreonSupporter)
-        throw new Error(this.t('gameQuestions:errors.roundsLimit'))
+      if (rounds > 15 && !user.patreonSupporter)
+        throw new Error(
+          this.t('gameQuestions:errors.roundsLimit', {
+            rounds: 15,
+          })
+        )
 
       await message.delete()
       await primary.delete()
