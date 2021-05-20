@@ -21,7 +21,7 @@ jobs:
         upload_translations: true
         download_translations: true
         commit_message: "feat(locales): new crowdin updates"
-        crowdin_branch_name: "Ritsu/v3"
+        crowdin_branch_name: "v3"
         auto_approve_imported: true
         token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
         project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
