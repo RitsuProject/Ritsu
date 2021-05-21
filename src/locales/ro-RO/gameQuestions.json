@@ -1,0 +1,23 @@
+{
+  "whatMode": "Ce mod de joc dorești pentru meci? **{{modes}}**",
+  "whatNumberOfRounds": "Câte runde doriți pentru meci?",
+  "whatDuration": "Cât de lungă să fie fiecare rundă? (Minim 20 de secunde) **PS** Un răspuns valid este sub forma: *20 seconds or 20s*",
+  "whatAnimeListWebsite": "Pe ce site ai tu lista de animeuri? (Siteuri valabile: {{websites}})",
+  "whatUsername": "Ce username folosești pe site-ul ales?",
+  "whatYearAndSeason": "Ce an și ce sezon?(Exemplu: 2021, Winter)",
+  "whatThemeType": "Dorești doar openinguri, doar endinguri sau ambele? (Răspunsuri valabile: openings, endings, both)",
+  "errors": {
+    "matchStopped": "Acest meci a fost anulat, dacă vrei să începi unul nou, folosește ``{{command}}``.",
+    "expiredMatch": "Meciul tău a expirat. Vrei să începi unul nou? Folosește ``{{command}}``",
+    "invalidMode": "Oops, modul de joc introdus de tine este invalid sau nu este disponibil momentan! Te rog alege unul din lista de mai sus.",
+    "isNaN": "Nu arată ca un număr, cred.",
+    "roundsLimit": "Din diverse motive plictisitoare, nu poți începe mai mult de {{rounds}} runde ca un utilizator normal, iar dacă vrei mai mult, mă poți ajuta pe Patreon! {{patreonURL}}",
+    "invalidDuration": "Din păcate, un simplu bot ca mine nu a fost capabil să înțeleagă ce ai scris, este în secunde, în minute? N-am nicio idee! Te rog introdu un timp valid.",
+    "invalidWebsite": "Acesta nu pare să fie un site suportat. Anulare...",
+    "invalidFormat": "Acesta nu pare să fie în formatul corect.",
+    "invalidUsername": "Nu am putut găsi acel username pe siteul selectat de tine!",
+    "minimiumDuration": "Timpul este prea scurt. Durata minimă este de 20 de secunde!",
+    "unsufficientAnimes": "Ai nevoie de cel puțin 10 animeuri pe listă ca să folosești acest mod de joc.",
+    "invalidThemeType": "Nu pot recunoaște ce tip de temă ai ales! Te rog asigură-te ca ai ales una din aceste teme: {{types}}"
+  }
+}
