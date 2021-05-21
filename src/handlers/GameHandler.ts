@@ -297,7 +297,7 @@ export default class GameHandler {
       const wonRounds = highestScore - 1
 
       // If the user won rounds is not equal to the half of the rounds, return a false boolean (indicating that nobody won)
-      if (roundedHalfRounds > wonRounds) return false
+      if (roundedHalfRounds >= wonRounds) return false
     }
 
     // Get the user with the highest score.
