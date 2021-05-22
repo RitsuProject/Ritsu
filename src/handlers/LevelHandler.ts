@@ -1,10 +1,12 @@
-import User, { UserDocument } from '@entities/User'
+import { UserDocument } from '@entities/User'
 import RitsuUtils from '@utils/RitsuUtils'
+import UserService from '../services/UserService'
 
 export default class LevelHandler {
+  public userService: UserService = new UserService()
+
   async handleLevelByMode(userId: string, mode: string) {
-    const user = await User.findById(userId)
-    if (!user) throw new Error('User not found.')
+    const user = await this.userService.getUser(userId)
 
     // TODO: Make a real algorithm to calculate level/xp instead of this shit.
 

@@ -11,10 +11,22 @@ import { RitsuCommand } from '../RitsuCommand'
 
 export class CommandManager {
   public commands: Collection<string, RitsuCommand> = new Collection()
+  public aliases: Collection<string, string> = new Collection()
   public client: RitsuClient
+
   constructor(client: RitsuClient) {
     this.commands = new Collection()
+    this.aliases = new Collection()
     this.client = client
+  }
+
+  getCommand(commandName: string) {
+    return (
+      this.client.commandManager.commands.get(commandName) ||
+      this.client.commandManager.commands.get(
+        this.client.commandManager.aliases.get(commandName)
+      )
+    )
   }
 
   build(): void {
@@ -46,6 +58,9 @@ export class CommandManager {
 
                   const command = new Command[0](this.client)
                   this.commands.set(command.name, command)
+                  command.aliases.forEach((alias) =>
+                    this.aliases.set(alias, command.name)
+                  )
                 })()
             )
           }

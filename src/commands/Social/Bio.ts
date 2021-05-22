@@ -1,5 +1,5 @@
 import RitsuClient from '@structures/RitsuClient'
-import User from '@entities/User'
+
 import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
 
 class Bio extends RitsuCommand {
@@ -14,10 +14,7 @@ class Bio extends RitsuCommand {
     })
   }
 
-  async run({ message, args, t }: CommandContext) {
-    const user = await User.findById(message.author.id)
-    if (!user) return
-
+  async run({ message, args, user, t }: CommandContext) {
     const bio = args.slice(0).join(' ')
     if (!bio) return message.channel.createMessage(t('commands:bio.noBio'))
 

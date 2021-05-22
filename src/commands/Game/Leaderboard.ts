@@ -1,6 +1,6 @@
 import RitsuClient from '@structures/RitsuClient'
 import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
-import User from '@entities/User'
+
 import Constants from '@utils/Constants'
 import { EmbedOptions } from 'eris'
 

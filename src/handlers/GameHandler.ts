@@ -9,8 +9,7 @@ import HintsHandler from '@handlers/HintsHandler'
 import Themes from '@handlers/ThemesHandler'
 import GameCommandHandler from '@handlers/GameCommandHandler'
 
-import User from '@entities/User'
-import Guilds, { GuildDocument } from '@entities/Guild'
+import { GuildDocument } from '@entities/Guild'
 import Rooms, { RoomDocument } from '@entities/Room'
 import RoomLeaderboard from '@entities/RoomLeaderboard'
 
@@ -25,6 +24,8 @@ import getAnimeData from '@utils/GameUtils/GetAnimeData'
 import handleError from '@utils/GameUtils/HandleError'
 import Timer from '@utils/Timer'
 import GameEmbedFactory from '@factories/GameEmbedFactory'
+import UserService from '../services/UserService'
+import GuildService from '../services/GuildService'
 
 /**
  * GameHandler
@@ -32,6 +33,10 @@ import GameEmbedFactory from '@factories/GameEmbedFactory'
  */
 export default class GameHandler {
   public themesCache: NodeCache
+
+  public userService: UserService = new UserService()
+  public guildService: GuildService = new GuildService()
+
   constructor(
     public message: Message,
     public client: RitsuClient,
@@ -46,8 +51,7 @@ export default class GameHandler {
   }
 
   async initGame() {
-    const guild = await Guilds.findById(this.message.guildID)
-    if (!guild) return
+    const guild = await this.guildService.getGuild(this.message.guildID)
 
     await this.startNewRound(guild).catch(
       (err: Error | UnreachableRepository) => {
@@ -107,7 +111,7 @@ export default class GameHandler {
       throw new Error(this.t('game:errors.unableToLoadStream'))
     })
 
-    const user = await User.findById(this.message.author.id)
+    const user = await this.userService.getUser(this.message.author.id)
     const animeData = await getAnimeData(theme.name, theme.malId)
     const hintsHandler = new HintsHandler(animeData, this.t)
 
@@ -246,7 +250,7 @@ export default class GameHandler {
       )
 
       if (matchWinner) {
-        const winnerUser = await User.findById(matchWinner._id)
+        const winnerUser = await this.userService.getUser(matchWinner._id)
         const levelHandler = new LevelHandler()
 
         const newStats = await levelHandler.handleLevelByMode(
@@ -347,7 +351,7 @@ export default class GameHandler {
   }
 
   async handleLevel(userId: string) {
-    const user = await User.findById(userId)
+    const user = await this.userService.getUser(userId)
     const levelHandler = new LevelHandler()
     const stats = await levelHandler.handleLevelByMode(
       userId,

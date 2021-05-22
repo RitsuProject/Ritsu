@@ -11,40 +11,40 @@ class User {
   @prop({ required: true })
   public name!: string
 
-  @prop({ required: true })
+  @prop({ required: true, default: 0 })
   public wonMatches!: number
 
-  @prop({ type: String, required: true, default: 'Beginner' })
+  @prop({ type: String, default: 'Beginner' })
   public rank!: 'Beginner' | 'Pro'
 
-  @prop({ required: true })
+  @prop({ default: 0 })
   public played!: number
 
-  @prop()
-  public bio?: string
+  @prop({ default: '' })
+  public bio!: string
 
-  @prop({ required: true })
-  public admin?: boolean
+  @prop({ default: false })
+  public admin!: boolean
 
-  @prop({ required: true, default: false })
+  @prop({ default: false })
   public patreonSupporter!: boolean
 
-  @prop({ type: String, required: true, default: [] })
+  @prop({ type: String, default: [] })
   public badges!: string[]
 
-  @prop({ required: true, default: 0 })
+  @prop({ default: 0 })
   public xp!: number
 
-  @prop({ required: true, default: 0 })
+  @prop({ default: 0 })
   public levelxp!: number
 
-  @prop({ required: true, default: 1 })
+  @prop({ default: 1 })
   public level!: number
 
-  @prop({ required: true, default: 500 })
+  @prop({ default: 500 })
   public requiredToUP!: number
 
-  @prop({ type: Number, required: true, default: 0 })
+  @prop({ default: 0 })
   public cakes: number
 }
 

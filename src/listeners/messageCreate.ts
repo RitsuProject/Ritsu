@@ -1,14 +1,18 @@
 import { Message } from 'eris'
 import RitsuClient from '@structures/RitsuClient'
 import { RitsuEvent } from '@structures/RitsuEvent'
-import Users from '@entities/User'
-import Guilds, { GuildDocument } from '@entities/Guild'
+import { GuildDocument } from '@entities/Guild'
 import i18next from 'i18next'
 import Emojis from '@utils/Emojis'
 import RitsuUtils from '@utils/RitsuUtils'
+import UserService from '../services/UserService'
+import GuildService from '../services/GuildService'
 
 export default class messageCreate extends RitsuEvent {
   public client: RitsuClient
+  public guildService: GuildService = new GuildService()
+  public userService: UserService = new UserService()
+
   constructor(client: RitsuClient) {
     super(client, {
       name: 'messageCreate',
@@ -18,19 +22,15 @@ export default class messageCreate extends RitsuEvent {
   async run(message: Message): Promise<void> {
     if (message.author.bot) return
     if (message.channel.type === 1) return // Avoid DM messages.
-    const guild = await Guilds.findById(message.guildID)
-    const user = await Users.findById(message.author.id)
-    if (!user) {
-      void new Users({
-        _id: message.author.id,
-        name: message.author.username,
-        wonMatches: 0,
-        played: 0,
-        rank: 'Beginner',
-        bio: '',
-        admin: false,
-      }).save()
-    } else {
+
+    const guild = await this.guildService.getGuild(message.guildID)
+    const user = await this.userService.getOrCreate(
+      message.author.id,
+      message.author.username
+    )
+
+    // Always mantain the user username updated in the database for future use.
+    if (message.author.username !== user.name) {
       user.name = message.author.username
       await user.save()
     }
@@ -61,7 +61,7 @@ export default class messageCreate extends RitsuEvent {
         )
     }
 
-    const command = this.client.commandManager.commands.get(commandName)
+    const command = this.client.commandManager.getCommand(commandName)
     if (!command) return
 
     const userHasCommandPermissions = RitsuUtils.userHasPermissions(
@@ -71,7 +71,7 @@ export default class messageCreate extends RitsuEvent {
     if (!userHasCommandPermissions) return
 
     new Promise((resolve) => {
-      resolve(command.run({ message, args, guild, t }))
+      resolve(command.run({ message, args, guild, user, t }))
     }).catch((e: Error) => {
       console.log(e)
       void message.channel.createMessage(

@@ -2,6 +2,7 @@ import { Message } from 'eris'
 import { TFunction } from 'i18next'
 import { GuildDocument } from '@entities/Guild'
 import RitsuClient from '@structures/RitsuClient'
+import { UserDocument } from '../database/entities/User'
 
 interface CommandOptions {
   name: string
@@ -17,6 +18,7 @@ interface CommandContext {
   message: Message
   args: string[]
   guild: GuildDocument
+  user: UserDocument
   t: TFunction
 }
 

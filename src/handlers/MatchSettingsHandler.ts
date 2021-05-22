@@ -4,13 +4,15 @@ import ThemesMoe from '@utils/ThemesMoe'
 import { TFunction } from 'i18next'
 import { Message } from 'eris'
 import { GuildDocument } from '@entities/Guild'
-import User from '@entities/User'
+import UserService from '../services/UserService'
 
 /**
  * Match Settings Handler
  * @description Handle all the match questions (when you use ritsu!start without any argument)
  */
 export default class MatchSettingsHandler {
+  public userService: UserService = new UserService()
+
   constructor(
     private message: Message,
     private client: RitsuClient,
@@ -78,7 +80,7 @@ export default class MatchSettingsHandler {
     const primary = await this.message.channel.createMessage(
       this.t('gameQuestions:whatNumberOfRounds')
     )
-    const user = await User.findById(this.message.author.id)
+    const user = await this.userService.getUser(this.message.author.id)
 
     const rounds = await this.startCollector().then(async (message) => {
       if (!message) return

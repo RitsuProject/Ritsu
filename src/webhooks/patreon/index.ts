@@ -1,8 +1,9 @@
 import { Request, Response } from 'express'
 import PatreonBody from '@interfaces/PatreonBody'
-import User from '@entities/User'
+
 import RitsuClient from '@structures/RitsuClient'
 import Constants from '@utils/Constants'
+import UserService from '../../services/UserService'
 
 export default async function handlePatreon(
   req: Request<null, null, PatreonBody>,
@@ -12,9 +13,11 @@ export default async function handlePatreon(
   const userDiscordId = req.body.included[1].attributes.discord_id
   const chargeStatus = req.body.data.attributes.last_charge_status
 
+  const userService = new UserService()
+
   // Check if user has a Discord Account linked and the charge status as Paid
   if (userDiscordId && chargeStatus === 'Paid') {
-    const user = await User.findById(userDiscordId)
+    const user = await userService.getUser(userDiscordId)
     if (user) {
       user.patreonSupporter = true
       await user.save()
