@@ -5,6 +5,7 @@ import Users from '@entities/User'
 import Guilds, { GuildDocument } from '@entities/Guild'
 import i18next from 'i18next'
 import Emojis from '@utils/Emojis'
+import RitsuUtils from '@utils/RitsuUtils'
 
 export default class messageCreate extends RitsuEvent {
   public client: RitsuClient
@@ -62,6 +63,12 @@ export default class messageCreate extends RitsuEvent {
 
     const command = this.client.commandManager.commands.get(commandName)
     if (!command) return
+
+    const userHasCommandPermissions = RitsuUtils.userHasPermissions(
+      message.member,
+      command.requiredPermissions
+    )
+    if (!userHasCommandPermissions) return
 
     new Promise((resolve) => {
       resolve(command.run({ message, args, guild, t }))
