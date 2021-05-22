@@ -3,6 +3,7 @@ import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
 
 import Constants from '@utils/Constants'
 import { EmbedOptions } from 'eris'
+import User from '@entities/User'
 
 class Leaderboard extends RitsuCommand {
   constructor(client: RitsuClient) {
