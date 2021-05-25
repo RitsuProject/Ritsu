@@ -1,11 +1,10 @@
 {
-  "roundStarted": "Incepe runda {{round}}! Ce anime are acest Ending/Opening?Scrie răspunsul in chat! Ai timp **{{time}}** de secunde.\nScrie **{{prefix}}stop** in chat dacă vrei să oprești meciul.",
   "nobodyWon": "Nu avem câștigător pentru această rundă.",
   "forceFinished": "Meciul s-a terminat cu succes.",
   "roundEnded": "Toate rundele sunt încheiate! Mulțumesc de participare!",
   "nobody": "Nimeni",
+  "answerIs": "Răspunsul este...",
   "songDetails": "\"{{songName}}\" | Artist(i): {{songArtist}}",
-  "winners": "Câștigătorul acestei runde este...{{users}}",
   "roundWinner": "Felicitări {{user}}! Ai găsit răspunsul corect în {{time}}!",
   "errors": {
     "noVoiceChannel": "Trebuie să intri într-un voice channel ca să intru și eu și să încep meciul!",
@@ -43,6 +42,17 @@
     "hint": {
       "title": "{{emoji}} Dă-mi un hint!",
       "noSufficientCakes": "Nu ai destule monezi! Un hint costă {{price}} monezi,du-te si votează-ma pe top.gg pentru mai multe monezi!"
+    },
+    "roundEndedLeaderboard": {
+      "title": "Clasamentul rundei {{emoji}}",
+      "timeElapsed": "- Timp scurs: **{{time}}s**",
+      "answer": "- Răspuns: **{{answer}}**"
+    },
+    "matchEndedLeaderboard": {
+      "title": "{{emoji}} Clasamentul meciului",
+      "wonRounds": "Runde câștigate: **{{wonRounds}}**",
+      "matchWinner": "**__Câștigătorul rundei__**",
+      "matchWinnerUser": "Câştigătorul acestui meci este...{{user}}! Felicitări! Ai câştigat **{{xp}}** XP."
     }
   }
 }

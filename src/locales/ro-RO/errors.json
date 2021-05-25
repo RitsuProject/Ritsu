@@ -1,0 +1,7 @@
+{
+  "genericError": "{{emoji}} | Oopsie! **O eroare fatală** a apărut și astfel **nu am mai putut continua!**. Dacă credeți ca această eroare nu ar trebui să se întâmple, contactați-nr pe **serverul de asistență Ritsu**! {{e}}",
+  "unreachableRepository": {
+    "title": "{{emoji}} Repository inaccesibil, runde noi și meciuri nu sunt disponibile.",
+    "description": "Ritsu se bazează în mare parte pe servicii third-party și se pare că unul dintre depozitele pe care le utilizează pentru a obține OP/ED-uri nu este accesibil momentan.\nNu pot estima când depozitul meu va fi din nou online, vă recomand să vă alăturați serverului de suport pentru actualizări viitoare.\n{{invite}}"
+  }
+}
