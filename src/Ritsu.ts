@@ -5,6 +5,7 @@ import startWebhooks from './webhooks'
 
 config()
 const client = new RitsuClient(process.env.DISCORD_TOKEN, {
+  maxShards: 'auto',
   intents: ['guilds', 'guildMessages', 'guildVoiceStates'],
 })
 

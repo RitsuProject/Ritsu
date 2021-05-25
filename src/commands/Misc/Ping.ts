@@ -1,5 +1,6 @@
 import RitsuClient from '@structures/RitsuClient'
 import { RitsuCommand, CommandContext } from '@structures/RitsuCommand'
+import Constants from '../../utils/Constants'
 
 class Ping extends RitsuCommand {
   constructor(client: RitsuClient) {
@@ -15,15 +16,24 @@ class Ping extends RitsuCommand {
 
   async run({ message, locales }: CommandContext) {
     const createdAt = Date.now()
-    const pings = this.client.shards.map((i) => Math.round(i.latency))
+    const guild = this.client.guilds.get(message.guildID)
+    const shards = this.client.shards.size
+    const guildShardId = guild.shard.id
+    const shardPing = this.client.shards
+      .filter((shard) => shard.id === guildShardId)
+      .map((shard) => {
+        return Math.round(shard.latency)
+      })
+
+    const shardName = Constants.SHARDS[guildShardId]
 
     const msg = await message.channel.createMessage(
       locales('commands:ping.stealMessage')
     )
     void msg.edit(
-      `Pong! **WS**: \`${
-        pings.reduce((a, b) => a + b, 0) / pings.length
-      }\`ms | **API**: \`${Date.now() - createdAt}\`ms`
+      `Pong! **Shard**: \`${shardName}\` - ${guildShardId}/${shards} | **WS**: \`${shardPing}\`ms | **API**: \`${
+        Date.now() - createdAt
+      }\`ms`
     )
   }
 }

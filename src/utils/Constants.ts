@@ -7,4 +7,7 @@ export default {
 
   // Useful Regex
   REMOVE_HTML_TAGS: /(<br>|<i>|<\/i>|<strong>|<\/strong>)/g,
+
+  // Shard Names
+  SHARDS: ['Ritsu', 'Calliope', 'Eris'],
 }

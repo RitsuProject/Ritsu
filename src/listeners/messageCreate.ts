@@ -65,11 +65,13 @@ export default class messageCreate extends RitsuEvent {
     const command = this.client.commandManager.getCommand(commandName)
     if (!command) return
 
-    const userHasCommandPermissions = RitsuUtils.userHasPermissions(
-      message.member,
-      command.requiredPermissions
-    )
-    if (!userHasCommandPermissions) return
+    if (command.requiredPermissions) {
+      const userHasCommandPermissions = RitsuUtils.userHasPermissions(
+        message.member,
+        command.requiredPermissions
+      )
+      if (!userHasCommandPermissions) return
+    }
 
     new Promise((resolve) => {
       resolve(command.run({ message, args, guild, user, locales }))
