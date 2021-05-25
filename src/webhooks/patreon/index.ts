@@ -3,7 +3,7 @@ import PatreonBody from '@interfaces/PatreonBody'
 
 import RitsuClient from '@structures/RitsuClient'
 import Constants from '@utils/Constants'
-import UserService from '../../services/UserService'
+import UserService from '@services/UserService'
 
 export default async function handlePatreon(
   req: Request<null, null, PatreonBody>,

@@ -1,6 +1,6 @@
 import { UserDocument } from '@entities/User'
 import RitsuUtils from '@utils/RitsuUtils'
-import UserService from '../services/UserService'
+import UserService from '@services/UserService'
 
 export default class LevelHandler {
   public userService: UserService = new UserService()

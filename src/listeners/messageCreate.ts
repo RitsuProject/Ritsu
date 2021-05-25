@@ -5,8 +5,8 @@ import { GuildDocument } from '@entities/Guild'
 import i18next from 'i18next'
 import Emojis from '@utils/Emojis'
 import RitsuUtils from '@utils/RitsuUtils'
-import UserService from '../services/UserService'
-import GuildService from '../services/GuildService'
+import UserService from '@services/UserService'
+import GuildService from '@services/GuildService'
 
 export default class messageCreate extends RitsuEvent {
   public client: RitsuClient

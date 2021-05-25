@@ -1,7 +1,7 @@
 import { Guild } from 'eris'
 import RitsuClient from '@structures/RitsuClient'
 import { RitsuEvent } from '@structures/RitsuEvent'
-import GuildService from '../services/GuildService'
+import GuildService from '@services/GuildService'
 
 export default class guildCreate extends RitsuEvent {
   public client: RitsuClient

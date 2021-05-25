@@ -24,8 +24,8 @@ import getAnimeData from '@utils/GameUtils/GetAnimeData'
 import handleError from '@utils/GameUtils/HandleError'
 import Timer from '@utils/Timer'
 import GameEmbedFactory from '@factories/GameEmbedFactory'
-import UserService from '../services/UserService'
-import GuildService from '../services/GuildService'
+import UserService from '@services/UserService'
+import GuildService from '@services/GuildService'
 
 /**
  * GameHandler

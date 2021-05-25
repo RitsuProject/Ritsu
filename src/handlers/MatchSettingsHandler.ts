@@ -4,7 +4,7 @@ import ThemesMoe from '@utils/ThemesMoe'
 import { TFunction } from 'i18next'
 import { Message } from 'eris'
 import { GuildDocument } from '@entities/Guild'
-import UserService from '../services/UserService'
+import UserService from '@services/UserService'
 
 /**
  * Match Settings Handler

@@ -18,6 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@handlers/*": ["./src/handlers/*"],
+      "@services/*": ["./src/services/*"],
       "@structures/*": ["./src/structures/*"],
       "@managers/*": ["./src/structures/managers/*"],
       "@interfaces/*": ["./src/interfaces/*"],
