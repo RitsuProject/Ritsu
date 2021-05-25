@@ -13,12 +13,12 @@ class Ping extends RitsuCommand {
     })
   }
 
-  async run({ message, t }: CommandContext) {
+  async run({ message, locales }: CommandContext) {
     const createdAt = Date.now()
     const pings = this.client.shards.map((i) => Math.round(i.latency))
 
     const msg = await message.channel.createMessage(
-      t('commands:ping.stealMessage')
+      locales('commands:ping.stealMessage')
     )
     void msg.edit(
       `Pong! **WS**: \`${

@@ -41,11 +41,11 @@ export default class GameHandler {
     public message: Message,
     public client: RitsuClient,
     public gameOptions: GameOptions,
-    public t: TFunction
+    public locales: TFunction
   ) {
     this.message = message
     this.client = client
-    this.t = t
+    this.locales = locales
     this.gameOptions = gameOptions
     this.themesCache = new NodeCache()
   }
@@ -55,7 +55,7 @@ export default class GameHandler {
 
     await this.startNewRound(guild).catch(
       (err: Error | UnreachableRepository) => {
-        handleError(this.message, this.t, err)
+        handleError(this.message, this.locales, err)
       }
     )
   }
@@ -68,11 +68,11 @@ export default class GameHandler {
       if (oldRoomExists) {
         this.client.leaveVoiceChannel(voiceChannelID)
         return this.message.channel.createMessage(
-          this.t('game:errors.noUsersInTheVoiceChannel')
+          this.locales('game:errors.noUsersInTheVoiceChannel')
         )
       }
       return this.message.channel.createMessage(
-        this.t('game:errors.noVoiceChannel')
+        this.locales('game:errors.noVoiceChannel')
       )
     }
 
@@ -87,7 +87,7 @@ export default class GameHandler {
     const gameEmbedFactory = new GameEmbedFactory(
       this.gameOptions,
       isSingleplayer,
-      this.t
+      this.locales
     )
     let startingNextRoundMsg: Message
 
@@ -108,12 +108,12 @@ export default class GameHandler {
     const theme = await themes.getTheme()
 
     const stream = await getStreamFromURL(theme.link).catch(() => {
-      throw new Error(this.t('game:errors.unableToLoadStream'))
+      throw new Error(this.locales('game:errors.unableToLoadStream'))
     })
 
     const user = await this.userService.getUser(this.message.author.id)
     const animeData = await getAnimeData(theme.name, theme.malId)
-    const hintsHandler = new HintsHandler(animeData, this.t)
+    const hintsHandler = new HintsHandler(animeData, this.locales)
 
     guild.rolling = true
     await guild.save()
@@ -158,7 +158,7 @@ export default class GameHandler {
       const gameCommandHandler = new GameCommandHandler(
         this.client,
         this.message,
-        this.t,
+        this.locales,
         guild.prefix
       )
       const command = msg.content.trim()
@@ -181,7 +181,12 @@ export default class GameHandler {
         time: timer.endTimer(),
         answer: msg.content,
       })
-      void GameCollectorUtils.handleCollect(this.t, timeElapsed, room, msg)
+      void GameCollectorUtils.handleCollect(
+        this.locales,
+        timeElapsed,
+        room,
+        msg
+      )
     })
 
     answerCollector.on(
@@ -199,7 +204,9 @@ export default class GameHandler {
             animeData
           )
 
-          await this.message.channel.createMessage(this.t('game:answerIs'))
+          await this.message.channel.createMessage(
+            this.locales('game:answerIs')
+          )
           await this.message.channel.createMessage({ embed: answerEmbed })
 
           // Handle level/xp for each of the answerers.
@@ -213,7 +220,9 @@ export default class GameHandler {
             await this.handleFinish(room, voiceChannelID, isSingleplayer, false)
             await this.clearData(room, guild)
 
-            void this.message.channel.createMessage(this.t('game:roundEnded'))
+            void this.message.channel.createMessage(
+              this.locales('game:roundEnded')
+            )
           } else {
             const roundEndedLeaderboard = await gameEmbedFactory.roundEndedLeaderboard(
               this.message.guildID,
@@ -225,7 +234,7 @@ export default class GameHandler {
             })
 
             void this.startNewRound(guild).catch((err) => {
-              handleError(this.message, this.t, err)
+              handleError(this.message, this.locales, err)
             })
           }
         })()
@@ -246,7 +255,7 @@ export default class GameHandler {
       const gameEmbedFactory = new GameEmbedFactory(
         this.gameOptions,
         isSinglePlayer,
-        this.t
+        this.locales
       )
 
       if (matchWinner) {

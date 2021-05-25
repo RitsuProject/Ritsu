@@ -17,10 +17,10 @@ class Leaderboard extends RitsuCommand {
     })
   }
 
-  async run({ message, t }: CommandContext) {
+  async run({ message, locales }: CommandContext) {
     const embed: EmbedOptions = {
       author: {
-        name: t('commands:leaderboard.embed.title'),
+        name: locales('commands:leaderboard.embed.title'),
         icon_url: message.author.avatarURL,
       },
       color: Constants.EMBED_COLOR_BASE,
@@ -52,7 +52,7 @@ class Leaderboard extends RitsuCommand {
 
       embed.fields.push({
         name: `${position} ${username}`,
-        value: t('commands:leaderboard.embed.levelAndWonMatches', {
+        value: locales('commands:leaderboard.embed.levelAndWonMatches', {
           wonMatches: result.wonMatches,
           level: result.level,
         }),

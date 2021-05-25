@@ -15,9 +15,9 @@ class Start extends RitsuCommand {
     })
   }
 
-  async run({ message, guild, t }: CommandContext) {
+  async run({ message, guild, locales }: CommandContext) {
     // TODO: Refactor this and try to get rid of all this "if's"
-    const matchConfig = new MatchConfig(message, this.client, guild, t)
+    const matchConfig = new MatchConfig(message, this.client, guild, locales)
     const gamemode = await matchConfig.getGamemode()
     if (!gamemode) return
     const rounds = await matchConfig.getRounds()
@@ -62,7 +62,7 @@ class Start extends RitsuCommand {
         season: season,
         year: seasonYear,
       },
-      t
+      locales
     )
     await game.initGame()
   }

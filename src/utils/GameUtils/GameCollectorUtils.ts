@@ -8,7 +8,7 @@ import TimeElapsed from '@interfaces/TimeElapsed'
 
 export default {
   async handleCollect(
-    t: TFunction,
+    locales: TFunction,
     timeElapsed: TimeElapsed[],
     room: RoomDocument,
     msg: Message
@@ -30,7 +30,7 @@ export default {
       room.answerers.push(msg.author.id)
 
       void msg.channel.createMessage(
-        t('game:roundWinner', {
+        locales('game:roundWinner', {
           user: `<@${msg.author.id}>`,
           time: `**${userTimeElapsed.time}s**`,
         })

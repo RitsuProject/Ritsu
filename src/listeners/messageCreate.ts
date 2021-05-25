@@ -35,7 +35,8 @@ export default class messageCreate extends RitsuEvent {
       await user.save()
     }
 
-    const t = i18next.getFixedT(guild.lang)
+    // Get the current locales of the guild language.
+    const locales = i18next.getFixedT(guild.lang)
 
     const isRitsuMention = this.isRitsuMention(message)
     const isGuildPrefix = this.isGuildPrefix(message, guild)
@@ -57,7 +58,7 @@ export default class messageCreate extends RitsuEvent {
     if (commandName === '') {
       if (isRitsuMention)
         void message.channel.createMessage(
-          t('utils:mentionRitsu', { prefix: guild.prefix })
+          locales('utils:mentionRitsu', { prefix: guild.prefix })
         )
     }
 
@@ -71,11 +72,11 @@ export default class messageCreate extends RitsuEvent {
     if (!userHasCommandPermissions) return
 
     new Promise((resolve) => {
-      resolve(command.run({ message, args, guild, user, t }))
+      resolve(command.run({ message, args, guild, user, locales }))
     }).catch((e: Error) => {
       console.log(e)
       void message.channel.createMessage(
-        t('errors:genericError', {
+        locales('errors:genericError', {
           emoji: Emojis.AQUA_CRYING,
           e: `\`${e.message}\``,
         })

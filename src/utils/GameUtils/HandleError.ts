@@ -5,16 +5,16 @@ import Emojis from '../Emojis'
 
 export default function handleError(
   message: Message,
-  t: TFunction,
+  locales: TFunction,
   error: Error | UnreachableRepository
 ) {
   console.log(error)
   if (error instanceof UnreachableRepository) {
     const embed = {
-      title: t('errors:unreachableRepository.title', {
+      title: locales('errors:unreachableRepository.title', {
         emoji: ':warning:',
       }),
-      description: t('errors:unreachableRepository.description', {
+      description: locales('errors:unreachableRepository.description', {
         invite: '[Support Server](https://discord.gg/XuDysZg)',
       }),
       color: 15547947,
@@ -23,7 +23,7 @@ export default function handleError(
     return
   }
   void message.channel.createMessage(
-    t('errors:genericError', {
+    locales('errors:genericError', {
       emoji: Emojis.AQUA_CRYING,
       e: `\`${error.message}\``,
     })

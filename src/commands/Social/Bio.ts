@@ -14,13 +14,14 @@ class Bio extends RitsuCommand {
     })
   }
 
-  async run({ message, args, user, t }: CommandContext) {
+  async run({ message, args, user, locales }: CommandContext) {
     const bio = args.slice(0).join(' ')
-    if (!bio) return message.channel.createMessage(t('commands:bio.noBio'))
+    if (!bio)
+      return message.channel.createMessage(locales('commands:bio.noBio'))
 
     user.bio = bio
     await user.save()
-    void message.channel.createMessage(t('commands:bio.changedBio'))
+    void message.channel.createMessage(locales('commands:bio.changedBio'))
   }
 }
 

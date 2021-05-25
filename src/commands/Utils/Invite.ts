@@ -13,22 +13,24 @@ class Invite extends RitsuCommand {
     })
   }
 
-  async run({ message, t }: CommandContext) {
+  async run({ message, locales }: CommandContext) {
     const dmChannel = await message.author.getDMChannel()
-    let openDmChannel = true
+    let dmChannelIsOpen = true
     void dmChannel
       .createMessage(
-        t('commands:invite.thanks', {
+        locales('commands:invite.thanks', {
           invite: 'https://ritsu.fun/invite',
         })
       )
       .catch(() => {
-        openDmChannel = false
-        void message.channel.createMessage(t('commands:invite.unavailableDM'))
+        dmChannelIsOpen = false
+        void message.channel.createMessage(
+          locales('commands:invite.unavailableDM')
+        )
       })
       .then(() => {
-        if (openDmChannel) {
-          void message.channel.createMessage(t('commands:invite.lookDM'))
+        if (dmChannelIsOpen) {
+          void message.channel.createMessage(locales('commands:invite.lookDM'))
         }
       })
   }

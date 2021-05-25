@@ -13,13 +13,15 @@ class Prefix extends RitsuCommand {
     })
   }
 
-  run({ message, args, guild, t }: CommandContext) {
+  run({ message, args, guild, locales }: CommandContext) {
     if (!args[0])
-      return message.channel.createMessage(t('commands:prefix.errors.noPrefix'))
+      return message.channel.createMessage(
+        locales('commands:prefix.errors.noPrefix')
+      )
     guild.prefix = args[0]
     void guild.save()
     void message.channel.createMessage(
-      t('commands:prefix.changedPrefix', {
+      locales('commands:prefix.changedPrefix', {
         newPrefix: `\`${args[0]}\``,
       })
     )

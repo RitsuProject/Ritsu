@@ -19,7 +19,7 @@ interface CommandContext {
   args: string[]
   guild: GuildDocument
   user: UserDocument
-  t: TFunction
+  locales: TFunction
 }
 
 abstract class RitsuCommand {

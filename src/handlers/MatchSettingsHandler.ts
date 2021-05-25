@@ -17,12 +17,12 @@ export default class MatchSettingsHandler {
     private message: Message,
     private client: RitsuClient,
     private guild: GuildDocument,
-    private t: TFunction
+    private locales: TFunction
   ) {
     this.message = message
     this.client = client
     this.guild = guild
-    this.t = t
+    this.locales = locales
   }
 
   async startCollector(): Promise<Message> {
@@ -34,7 +34,7 @@ export default class MatchSettingsHandler {
       .then((messages) => {
         if (!messages.length) {
           throw new Error(
-            this.t('gameQuestions:errors.expiredMatch', {
+            this.locales('gameQuestions:errors.expiredMatch', {
               command: `${this.guild.prefix}start`,
             })
           )
@@ -43,7 +43,7 @@ export default class MatchSettingsHandler {
         const message = messages[0]
         if (message.content === `${this.guild.prefix}stop`) {
           void this.message.channel.createMessage(
-            this.t('gameQuestions:errors.matchStopped', {
+            this.locales('gameQuestions:errors.matchStopped', {
               command: `${this.guild.prefix}start`,
             })
           )
@@ -55,7 +55,7 @@ export default class MatchSettingsHandler {
 
   async getGamemode(): Promise<string> {
     const primary = await this.message.channel.createMessage(
-      this.t('gameQuestions:whatMode', {
+      this.locales('gameQuestions:whatMode', {
         modes: `(${this.client.enabledGamemodes
           .map((gamemode) => gamemode)
           .join(', ')})`,
@@ -70,7 +70,7 @@ export default class MatchSettingsHandler {
         await message.delete()
         return specifiedMode
       } else {
-        throw new Error(this.t('gameQuestions:errors.invalidMode'))
+        throw new Error(this.locales('gameQuestions:errors.invalidMode'))
       }
     })
     return mode
@@ -78,7 +78,7 @@ export default class MatchSettingsHandler {
 
   async getRounds(): Promise<number> {
     const primary = await this.message.channel.createMessage(
-      this.t('gameQuestions:whatNumberOfRounds')
+      this.locales('gameQuestions:whatNumberOfRounds')
     )
     const user = await this.userService.getUser(this.message.author.id)
 
@@ -87,10 +87,11 @@ export default class MatchSettingsHandler {
 
       const rounds = parseInt(message.content.toLowerCase())
 
-      if (isNaN(rounds)) throw new Error(this.t('gameQuestions:errors.isNaN'))
+      if (isNaN(rounds))
+        throw new Error(this.locales('gameQuestions:errors.isNaN'))
       if (rounds > 15 && !user.patreonSupporter)
         throw new Error(
-          this.t('gameQuestions:errors.roundsLimit', {
+          this.locales('gameQuestions:errors.roundsLimit', {
             rounds: 15,
           })
         )
@@ -104,7 +105,7 @@ export default class MatchSettingsHandler {
 
   async getDuration(): Promise<{ parsed: number; value: string }> {
     const primary = await this.message.channel.createMessage(
-      this.t('gameQuestions:whatDuration')
+      this.locales('gameQuestions:whatDuration')
     )
     const duration = await this.startCollector().then(async (message) => {
       if (!message) return
@@ -112,12 +113,12 @@ export default class MatchSettingsHandler {
         const milliseconds = ms(message.content)
         const long = ms(milliseconds, { long: true })
         if (milliseconds < 20000)
-          throw new Error(this.t('gameQuestions:errors.minimiumDuration'))
+          throw new Error(this.locales('gameQuestions:errors.minimiumDuration'))
         await primary.delete()
         await message.delete()
         return { parsed: milliseconds, value: long }
       } else {
-        throw new Error(this.t('gameQuestions:errors.invalidDuration'))
+        throw new Error(this.locales('gameQuestions:errors.invalidDuration'))
       }
     })
     return duration
@@ -125,7 +126,7 @@ export default class MatchSettingsHandler {
 
   async getThemesType(): Promise<string> {
     const primary = await this.message.channel.createMessage(
-      this.t('gameQuestions:whatThemeType')
+      this.locales('gameQuestions:whatThemeType')
     )
 
     const themeType = await this.startCollector().then(async (message) => {
@@ -142,7 +143,7 @@ export default class MatchSettingsHandler {
       }
 
       throw new Error(
-        this.t('gameQuestions:errors.invalidThemeType', {
+        this.locales('gameQuestions:errors.invalidThemeType', {
           types: '**openings, endings, both**',
         })
       )
@@ -153,7 +154,7 @@ export default class MatchSettingsHandler {
 
   async getListWebsite(): Promise<string> {
     const primary = await this.message.channel.createMessage(
-      this.t('gameQuestions:whatAnimeListWebsite')
+      this.locales('gameQuestions:whatAnimeListWebsite')
     )
     const website = await this.startCollector().then(async (message) => {
       if (!message) return
@@ -168,7 +169,7 @@ export default class MatchSettingsHandler {
 
         return message.content.toLowerCase()
       } else {
-        throw new Error(this.t('gameQuestions:errors.invalidWebsite'))
+        throw new Error(this.locales('gameQuestions:errors.invalidWebsite'))
       }
     })
     return website
@@ -176,7 +177,7 @@ export default class MatchSettingsHandler {
 
   async getListUsername(website: string): Promise<string> {
     const primary = await this.message.channel.createMessage(
-      this.t('gameQuestions:whatUsername')
+      this.locales('gameQuestions:whatUsername')
     )
     const username = await this.startCollector().then(async (message) => {
       if (!message) return
@@ -188,7 +189,9 @@ export default class MatchSettingsHandler {
         )
 
         if (user.length <= 10) {
-          throw new Error(this.t('gameQuestions:errors.unsufficientAnimes'))
+          throw new Error(
+            this.locales('gameQuestions:errors.unsufficientAnimes')
+          )
         }
 
         if (user) {
@@ -196,7 +199,7 @@ export default class MatchSettingsHandler {
           await message.delete()
           return message.content
         } else {
-          throw new Error(this.t('gameQuestions:errors.invalidUsername'))
+          throw new Error(this.locales('gameQuestions:errors.invalidUsername'))
         }
       } catch (e) {
         throw new Error(`${e}`)
@@ -207,7 +210,7 @@ export default class MatchSettingsHandler {
 
   async getSeason(): Promise<{ year: string; season: string }> {
     const primary = await this.message.channel.createMessage(
-      this.t('gameQuestions:whatYearAndSeason')
+      this.locales('gameQuestions:whatYearAndSeason')
     )
 
     const season = await this.startCollector().then(async (message) => {
@@ -224,7 +227,7 @@ export default class MatchSettingsHandler {
           season: season.trim().toLowerCase(),
         }
       } else {
-        throw new Error(this.t('gameQuestions:errors.invalidFormat'))
+        throw new Error(this.locales('gameQuestions:errors.invalidFormat'))
       }
     })
     return season

@@ -18,11 +18,11 @@ export default class GameEmbedFactory {
   constructor(
     private gameOptions: GameOptions,
     private singleplayer: boolean,
-    private t: TFunction
+    private locales: TFunction
   ) {
     this.gameOptions = gameOptions
     this.singleplayer = singleplayer
-    this.t = t
+    this.locales = locales
   }
 
   async answerEmbed(theme: MioSong, animeData: AnimeEntry) {
@@ -57,17 +57,19 @@ export default class GameEmbedFactory {
       description: `${synopsis}`,
       fields: [
         {
-          name: this.t('game:embeds.answerEmbed.fields.season'),
+          name: this.locales('game:embeds.answerEmbed.fields.season'),
           value: `${animeData.season}`,
           inline: true,
         },
         {
-          name: this.t('game:embeds.answerEmbed.fields.year'),
+          name: this.locales('game:embeds.answerEmbed.fields.year'),
           value: `${animeData.seasonYear}`,
           inline: true,
         },
         {
-          name: this.t('game:embeds.answerEmbed.fields.titlesAndSynonyms'),
+          name: this.locales(
+            'game:embeds.answerEmbed.fields.titlesAndSynonyms'
+          ),
           value: `${alternateTitles}\n${synonyms}`,
           inline: true,
         },
@@ -75,7 +77,7 @@ export default class GameEmbedFactory {
       image: { url: animeData.coverImage.large },
       color: imageColorAndroid,
       footer: {
-        text: this.t('game:embeds.answerEmbed.footer', {
+        text: this.locales('game:embeds.answerEmbed.footer', {
           songName: theme.songName,
           songArtist: theme.songArtists.map((artist) => artist).join(', '),
         }),
@@ -87,21 +89,21 @@ export default class GameEmbedFactory {
 
   preparingMatch() {
     const embed = {
-      title: this.t('game:embeds.preparingMatch.title'),
+      title: this.locales('game:embeds.preparingMatch.title'),
       description:
-        `${this.t('game:embeds.preparingMatch.fields.gamemode', {
+        `${this.locales('game:embeds.preparingMatch.fields.gamemode', {
           gamemode: this.gameOptions.mode.toUpperCase(),
         })}\n` +
-        `${this.t('game:embeds.preparingMatch.fields.roundsNumber', {
+        `${this.locales('game:embeds.preparingMatch.fields.roundsNumber', {
           rounds: this.gameOptions.rounds,
         })}\n` +
-        `${this.t('game:embeds.preparingMatch.fields.roundsDuration', {
+        `${this.locales('game:embeds.preparingMatch.fields.roundsDuration', {
           time: this.gameOptions.readableTime,
         })}\n` +
-        `${this.t('game:embeds.preparingMatch.fields.matchMode', {
+        `${this.locales('game:embeds.preparingMatch.fields.matchMode', {
           mode: this.singleplayer ? 'Singleplayer' : 'Multiplayer',
         })}\n\n` +
-        this.t('game:embeds.preparingMatch.description'),
+        this.locales('game:embeds.preparingMatch.description'),
       thumbnail: {
         url: 'https://i.imgur.com/VVR7Cmx.gif',
       },
@@ -113,8 +115,8 @@ export default class GameEmbedFactory {
 
   startingNextRound() {
     const embed = {
-      title: this.t('game:embeds.startingNextRound.title'),
-      description: this.t('game:embeds.startingNextRound.description'),
+      title: this.locales('game:embeds.startingNextRound.title'),
+      description: this.locales('game:embeds.startingNextRound.description'),
       color: 16107281,
     }
 
@@ -123,10 +125,10 @@ export default class GameEmbedFactory {
 
   roundStarted(currentRound: number) {
     const embed = {
-      title: this.t('game:embeds.roundStarted.title', {
+      title: this.locales('game:embeds.roundStarted.title', {
         currentRound: `#${currentRound}`,
       }),
-      description: this.t('game:embeds.roundStarted.description', {
+      description: this.locales('game:embeds.roundStarted.description', {
         themeType: `opening/ending`,
         time: `**\`${this.gameOptions.readableTime}\`**`,
       }),
@@ -138,7 +140,7 @@ export default class GameEmbedFactory {
 
   async roundEndedLeaderboard(guildID: string, timeElapsed: TimeElapsed[]) {
     const embed: EmbedOptions = {
-      title: this.t('game:embeds.roundEndedLeaderboard.title', {
+      title: this.locales('game:embeds.roundEndedLeaderboard.title', {
         emoji: ':trophy:',
       }),
       color: 0xffcc4d,
@@ -151,7 +153,7 @@ export default class GameEmbedFactory {
       .lean()
 
     if (!leaderboardResults || !timeElapsed.length) {
-      embed.description = this.t('game:nobody')
+      embed.description = this.locales('game:nobody')
       return embed
     }
 
@@ -172,10 +174,10 @@ export default class GameEmbedFactory {
       embed.fields.push({
         name: `${position} ${result.username}`,
         value:
-          `${this.t('game:embeds.roundEndedLeaderboard.timeElapsed', {
+          `${this.locales('game:embeds.roundEndedLeaderboard.timeElapsed', {
             time: userTimeElapsed.time,
           })}\n` +
-          `${this.t('game:embeds.roundEndedLeaderboard.answer', {
+          `${this.locales('game:embeds.roundEndedLeaderboard.answer', {
             answer: userTimeElapsed.answer,
           })}`,
       })
@@ -190,7 +192,7 @@ export default class GameEmbedFactory {
     stats: { xp: number; level: number }
   ) {
     const embed: EmbedOptions = {
-      title: this.t('game:embeds.matchEndedLeaderboard.title', {
+      title: this.locales('game:embeds.matchEndedLeaderboard.title', {
         emoji: ':medal:',
       }),
       color: 0x55acee,
@@ -203,7 +205,7 @@ export default class GameEmbedFactory {
       .lean()
 
     if (!leaderboardResults) {
-      embed.description = this.t('game:nobody')
+      embed.description = this.locales('game:nobody')
       return embed
     }
 
@@ -221,15 +223,15 @@ export default class GameEmbedFactory {
 
       embed.fields.push({
         name: `${position} ${result.username}`,
-        value: this.t('game:embeds.matchEndedLeaderboard.wonRounds', {
+        value: this.locales('game:embeds.matchEndedLeaderboard.wonRounds', {
           wonRounds: result.score - 1,
         }),
       })
     })
 
     embed.fields.push({
-      name: this.t('game:embeds.matchEndedLeaderboard.matchWinner'),
-      value: this.t('game:embeds.matchEndedLeaderboard.matchWinnerUser', {
+      name: this.locales('game:embeds.matchEndedLeaderboard.matchWinner'),
+      value: this.locales('game:embeds.matchEndedLeaderboard.matchWinnerUser', {
         user: `<@${matchWinner._id}>`,
         xp: stats.xp,
       }),
@@ -240,7 +242,7 @@ export default class GameEmbedFactory {
 
   noWinnerEmbed() {
     const embed: EmbedOptions = {
-      description: this.t('game:nobodyWon'),
+      description: this.locales('game:nobodyWon'),
       color: 0x55acee, // Same color of the match ended leaderboard, why not.
     }
 

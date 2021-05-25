@@ -18,7 +18,7 @@ class BotInfo extends RitsuCommand {
     })
   }
 
-  async run({ message, t }: CommandContext) {
+  async run({ message, locales }: CommandContext) {
     const matches = await Room.countDocuments()
     const botOwner = this.client.users.get('326123612153053184')
 
@@ -27,10 +27,10 @@ class BotInfo extends RitsuCommand {
 
     const embed = {
       author: {
-        name: t('commands:botinfo.title'),
+        name: locales('commands:botinfo.title'),
         icon_url: this.client.user.avatarURL,
       },
-      description: t('commands:botinfo.ritsuAbout', {
+      description: locales('commands:botinfo.ritsuAbout', {
         servers: this.client.guilds.size,
         uptime: uptimeString,
         matches: matches,
@@ -40,65 +40,65 @@ class BotInfo extends RitsuCommand {
       }),
       fields: [
         {
-          name: t('commands:botinfo.fields.commands.commands', {
+          name: locales('commands:botinfo.fields.commands.commands', {
             emoji: Emojis.PRAY_CAT,
           }),
-          value: t('commands:botinfo.fields.commands.useHelpCommand', {
+          value: locales('commands:botinfo.fields.commands.useHelpCommand', {
             command: `\`help\``,
           }),
           inline: true,
         },
         {
-          name: t('commands:botinfo.fields.social.social', {
+          name: locales('commands:botinfo.fields.social.social', {
             emoji: Emojis.YAY,
           }),
           value:
             `${Emojis.GITHUB} [Github](https://github.com/RitsuProject/Ritsu)\n` +
             `${Emojis.TWITTER} [Twitter](https://twitter.com/RitsuProject)\n` +
-            `${Emojis.RITSU_THINK} [${t(
+            `${Emojis.RITSU_THINK} [${locales(
               'commands:botinfo.fields.social.supportServer'
             )}](https://discord.gg/XuDysZg)\n` +
             `${Emojis.PATREON} [Patreon](https://www.patreon.com/ritsubot)\n`,
           inline: true,
         },
         {
-          name: t('commands:botinfo.fields.usefulLinks.usefulLinks', {
+          name: locales('commands:botinfo.fields.usefulLinks.usefulLinks', {
             emoji: ':link:',
           }),
           value:
             `${Emojis.DISCORD} [Invite](${Constants.INVITE_URL})\n` +
-            `${Emojis.DISCORD_BOT_LIST} [(Discord Bot List) ${t(
+            `${Emojis.DISCORD_BOT_LIST} [(Discord Bot List) ${locales(
               'commands:botinfo.fields.usefulLinks.upvote'
             )}](https://discord.ly/ritsu-5101)\n` +
-            `${Emojis.DBL} [(top.gg) ${t(
+            `${Emojis.DBL} [(top.gg) ${locales(
               'commands:botinfo.fields.usefulLinks.upvote'
             )}](https://top.gg/bot/763934732420382751/vote)\n`,
           inline: true,
         },
         {
-          name: t('commands:botinfo.fields.specialThanks.specialThanks', {
+          name: locales('commands:botinfo.fields.specialThanks.specialThanks', {
             emoji: ':medal:',
           }),
           value:
-            `**r/AnimeThemes** - ${t(
+            `**r/AnimeThemes** - ${locales(
               'commands:botinfo.fields.specialThanks.animethemes'
             )}\n` +
-            `**openings.moe** - ${t(
+            `**openings.moe** - ${locales(
               'commands:botinfo.fields.specialThanks.openingsmoe'
             )}\n` +
-            `**AnimeMusicQuiz** - ${t(
+            `**AnimeMusicQuiz** - ${locales(
               'commands:botinfo.fields.specialThanks.animemusicquiz'
             )}\n` +
-            `**Github Contributors** - ${t(
+            `**Github Contributors** - ${locales(
               'commands:botinfo.fields.specialThanks.githubContributors'
             )}\n` +
-            `**Translators** - ${t(
+            `**Translators** - ${locales(
               'commands:botinfo.fields.specialThanks.translators'
             )}\n` +
-            `**Patrons** - ${t(
+            `**Patrons** - ${locales(
               'commands:botinfo.fields.specialThanks.patrons'
             )}\n` +
-            `**Friends** - ${t(
+            `**Friends** - ${locales(
               'commands:botinfo.fields.specialThanks.friends'
             )}`,
         },
@@ -107,7 +107,7 @@ class BotInfo extends RitsuCommand {
         url: this.client.user.avatarURL,
       },
       footer: {
-        text: t('commands:botinfo.footer', {
+        text: locales('commands:botinfo.footer', {
           user: `${botOwner.username}#${botOwner.discriminator}`,
           version: packageJson.version,
           environment: process.env.RITSU_ENVIRONMENT,

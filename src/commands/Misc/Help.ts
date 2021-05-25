@@ -1,4 +1,4 @@
-import RitsuClient from '../../structures/RitsuClient'
+import RitsuClient from '@structures/RitsuClient'
 import { CommandContext, RitsuCommand } from '@structures/RitsuCommand'
 import { TFunction } from 'i18next'
 
@@ -14,72 +14,78 @@ class Help extends RitsuCommand {
     })
   }
 
-  async run({ message, guild, t }: CommandContext) {
+  async run({ message, guild, locales }: CommandContext) {
     const embed = {
-      title: t('commands:help.embed.title', {
+      title: locales('commands:help.embed.title', {
         emoji: ':books:',
       }),
       color: 7506394,
-      description: t('commands:help.embed.description'),
+      description: locales('commands:help.embed.description'),
       thumbnail: { url: 'https://files.catbox.moe/d6758e.png' },
       fields: [
         {
-          name: t('commands:help.embed.fields.animemusicquiz', {
+          name: locales('commands:help.embed.fields.animemusicquiz', {
             emoji: ':video_game:',
           }),
-          value: this.getCommandsByCategory(t, guild.prefix, 'Game'),
+          value: this.getCommandsByCategory(locales, guild.prefix, 'Game'),
           inline: false,
         },
         {
-          name: t('commands:help.embed.fields.utilities', {
+          name: locales('commands:help.embed.fields.utilities', {
             emoji: ':gear:',
           }),
-          value: this.getCommandsByCategory(t, guild.prefix, 'Utils'),
+          value: this.getCommandsByCategory(locales, guild.prefix, 'Utils'),
           inline: false,
         },
         {
-          name: t('commands:help.embed.fields.misc', {
+          name: locales('commands:help.embed.fields.misc', {
             emoji: ':ledger:',
           }),
-          value: this.getCommandsByCategory(t, guild.prefix, 'Miscellaneous'),
+          value: this.getCommandsByCategory(
+            locales,
+            guild.prefix,
+            'Miscellaneous'
+          ),
           inline: false,
         },
         {
-          name: t('commands:help.embed.fields.social', {
+          name: locales('commands:help.embed.fields.social', {
             emoji: '🙇',
           }),
-          value: this.getCommandsByCategory(t, guild.prefix, 'Social'),
+          value: this.getCommandsByCategory(locales, guild.prefix, 'Social'),
           inline: false,
         },
       ],
       footer: {
-        text: t('commands:help.embed.footer', {
+        text: locales('commands:help.embed.footer', {
           url: 'https://ritsu.fun/commands',
         }),
       },
     }
     const dmChannel = await message.author.getDMChannel()
-    let openDmChannel = true
+    let dmChannelIsOpen = true
     void dmChannel
       .createMessage({
-        content: t('commands:help.joinSupportServer', {
+        content: locales('commands:help.joinSupportServer', {
           invite: 'https://discord.gg/XuDysZg',
         }),
         embed,
       })
       .catch(() => {
-        openDmChannel = false
-        void message.channel.createMessage(t('commands:help.uanvailableDM'))
+        dmChannelIsOpen = false
+        void message.channel.createMessage(
+          locales('commands:help.uanvailableDM')
+        )
       })
       .then(() => {
-        if (openDmChannel) {
-          void message.channel.createMessage(t('commands:help.lookDM'))
+        if (dmChannelIsOpen) {
+          void message.channel.createMessage(locales('commands:help.lookDM'))
         }
       })
   }
 
   getCommandsByCategory(
-    t: TFunction,
+    locales: TFunction,
     prefix: string,
     category: string
   ): string {
@@ -88,7 +94,7 @@ class Help extends RitsuCommand {
       .filter((c) => c.category === category)
       .map(
         (c) =>
-          `\`${prefix}${c.name}\` - ${t(
+          `\`${prefix}${c.name}\` - ${locales(
             `commands:${c.name}.commandDescription`
           )}`
       )

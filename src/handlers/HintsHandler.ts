@@ -8,9 +8,9 @@ import { TFunction } from 'i18next'
  * @description Handle all the hint generation to be used in ritsu!hint.
  */
 export default class HintsHandler {
-  constructor(private animeData: AnimeEntry, private t: TFunction) {
+  constructor(private animeData: AnimeEntry, private locales: TFunction) {
     this.animeData = animeData
-    this.t = t
+    this.locales = locales
   }
 
   generateHint() {
@@ -35,14 +35,14 @@ export default class HintsHandler {
       case 'firstCharacter': {
         const firstCharacter = animeTitle.charAt(0)
 
-        return this.t('gameHints:firstCharacter', {
+        return this.locales('gameHints:firstCharacter', {
           character: firstCharacter,
         })
       }
       case 'startsWith': {
         const firstWord = animeTitle.split(' ')[0]
 
-        return this.t('gameHints:startsWith', {
+        return this.locales('gameHints:startsWith', {
           firstWord: firstWord,
         })
       }
@@ -50,7 +50,7 @@ export default class HintsHandler {
         const wordsArray = animeTitle.split(' ')
         const lastWord = wordsArray.slice(-1)[0]
 
-        return this.t('gameHints:endsWith', {
+        return this.locales('gameHints:endsWith', {
           lastWord: lastWord,
         })
       }
