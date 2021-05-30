@@ -3,7 +3,6 @@ import { MessageCollector } from 'eris-collector'
 import { TFunction } from 'i18next'
 import NodeCache from 'node-cache'
 
-import RoomHandler from '@handlers/RoomHandler'
 import LevelHandler from '@handlers/LevelHandler'
 import HintsHandler from '@handlers/HintsHandler'
 import Themes from '@handlers/ThemesHandler'
@@ -26,6 +25,7 @@ import Timer from '@utils/Timer'
 import GameEmbedFactory from '@factories/GameEmbedFactory'
 import UserService from '@services/UserService'
 import GuildService from '@services/GuildService'
+import RoomService from '../services/RoomService'
 
 /**
  * GameHandler
@@ -34,6 +34,7 @@ import GuildService from '@services/GuildService'
 export default class GameHandler {
   public themesCache: NodeCache
 
+  public roomService: RoomService = new RoomService()
   public userService: UserService = new UserService()
   public guildService: GuildService = new GuildService()
 
@@ -80,8 +81,15 @@ export default class GameHandler {
     const voiceChannel = discordGuild.channels.get(voiceChannelID)
     const isSingleplayer = this.isSinglePlayer(voiceChannel)
 
-    const roomHandler = new RoomHandler(this.message, isSingleplayer)
-    const room = await roomHandler.handleRoom()
+    const room = await this.roomService.getOrCreate({
+      id: this.message.guildID,
+      channelId: this.message.channel.id,
+      startedById: this.message.author.id,
+      isSinglePlayer: isSingleplayer,
+    })
+
+    room.currentRound = room.currentRound + 1
+    await room.save()
 
     // Create our EmbedFactory instance to make super cute embeds.
     const gameEmbedFactory = new GameEmbedFactory(

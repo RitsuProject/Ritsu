@@ -4,22 +4,19 @@ class Room {
   @prop()
   public _id!: string
 
-  @prop({ type: String, required: true })
+  @prop({ type: String, default: [] })
   public answerers!: string[]
 
-  @prop({ default: true })
+  @prop({ required: true })
   public startedBy!: string
 
-  @prop({ default: true })
+  @prop({ required: true })
   public channel!: string
 
   @prop({ required: true })
   public isSinglePlayer!: boolean
 
-  @prop({ type: String, required: true })
-  public themes!: string[]
-
-  @prop({ default: true })
+  @prop({ default: 0 })
   public currentRound!: number
 }
 
