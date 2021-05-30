@@ -73,13 +73,11 @@ class Help extends RitsuCommand {
       })
       .catch(() => {
         dmChannelIsOpen = false
-        void message.channel.createMessage(
-          locales('commands:help.uanvailableDM')
-        )
+        void this.reply(message, locales('commands:help.uanvailableDM'))
       })
       .then(() => {
         if (dmChannelIsOpen) {
-          void message.channel.createMessage(locales('commands:help.lookDM'))
+          void this.reply(message, locales('commands:help.lookDM'))
         }
       })
   }

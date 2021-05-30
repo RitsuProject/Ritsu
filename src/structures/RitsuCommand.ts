@@ -1,4 +1,4 @@
-import { Message } from 'eris'
+import { EmbedOptions, Message } from 'eris'
 import { TFunction } from 'i18next'
 import { GuildDocument } from '@entities/Guild'
 import RitsuClient from '@structures/RitsuClient'
@@ -41,6 +41,14 @@ abstract class RitsuCommand {
   }
 
   abstract run(context: CommandContext): void
+
+  async reply(message: Message, content: string | EmbedOptions) {
+    return await message.channel.createMessage({
+      content: typeof content === 'string' ? content : undefined,
+      embed: typeof content !== 'string' ? content : undefined,
+      messageReferenceID: message.id,
+    })
+  }
 }
 
 export { RitsuCommand, CommandContext }

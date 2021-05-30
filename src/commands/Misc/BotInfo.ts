@@ -117,7 +117,7 @@ class BotInfo extends RitsuCommand {
       color: Constants.EMBED_COLOR_BASE,
     }
 
-    void message.channel.createMessage({ embed })
+    void this.reply(message, embed)
   }
 }
 

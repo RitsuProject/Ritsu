@@ -27,9 +27,7 @@ class Ping extends RitsuCommand {
 
     const shardName = Constants.SHARDS[guildShardId]
 
-    const msg = await message.channel.createMessage(
-      locales('commands:ping.stealMessage')
-    )
+    const msg = await this.reply(message, locales('commands:ping.stealMessage'))
     void msg.edit(
       `Pong! **Shard**: \`${shardName}\` - ${guildShardId}/${shards} | **WS**: \`${shardPing}\`ms | **API**: \`${
         Date.now() - createdAt

@@ -24,13 +24,11 @@ class Invite extends RitsuCommand {
       )
       .catch(() => {
         dmChannelIsOpen = false
-        void message.channel.createMessage(
-          locales('commands:invite.unavailableDM')
-        )
+        void this.reply(message, locales('commands:invite.unavailableDM'))
       })
       .then(() => {
         if (dmChannelIsOpen) {
-          void message.channel.createMessage(locales('commands:invite.lookDM'))
+          void this.reply(message, locales('commands:invite.lookDM'))
         }
       })
   }

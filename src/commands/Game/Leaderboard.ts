@@ -59,7 +59,7 @@ class Leaderboard extends RitsuCommand {
       })
     })
 
-    void message.channel.createMessage({ embed })
+    void this.reply(message, embed)
   }
 }
 
