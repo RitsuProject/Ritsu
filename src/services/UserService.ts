@@ -1,4 +1,4 @@
-import User from '../database/entities/User'
+import User from '@entities/User'
 
 export default class UserService {
   async createUser(id: string, username: string) {

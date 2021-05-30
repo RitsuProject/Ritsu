@@ -1,4 +1,4 @@
-import Guild from '../database/entities/Guild'
+import Guild from '@entities/Guild'
 
 export default class GuildService {
   async createGuild(id: string, name: string) {
