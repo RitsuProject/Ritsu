@@ -7,6 +7,8 @@ import Emojis from '@utils/Emojis'
 import RitsuUtils from '@utils/RitsuUtils'
 import UserService from '@services/UserService'
 import GuildService from '@services/GuildService'
+import InvalidMatchConfig from '../structures/errors/InvalidMatchConfig'
+import EmbedFactory from '../factories/EmbedFactory'
 
 export default class messageCreate extends RitsuEvent {
   public client: RitsuClient
@@ -40,6 +42,8 @@ export default class messageCreate extends RitsuEvent {
 
     const isRitsuMention = this.isRitsuMention(message)
     const isGuildPrefix = this.isGuildPrefix(message, guild)
+
+    const embedFactory = new EmbedFactory(locales)
 
     // Check if the prefix is the Ritsu Mention or the Guild Prefix
     const prefix = isRitsuMention
@@ -75,12 +79,23 @@ export default class messageCreate extends RitsuEvent {
 
     new Promise((resolve) => {
       resolve(command.run({ message, args, guild, user, locales }))
-    }).catch((e: Error) => {
-      console.log(e)
+    }).catch((error: Error | InvalidMatchConfig) => {
+      // If the error is a InvalidMatchConfig error, send a different message than the genericError.
+      if (error instanceof InvalidMatchConfig) {
+        const invalidMatchConfigEmbed = embedFactory.invalidMatchConfigEmbed(
+          guild.prefix,
+          error
+        )
+
+        return void message.channel.createMessage({
+          embed: invalidMatchConfigEmbed,
+        })
+      }
+
       void message.channel.createMessage(
         locales('errors:genericError', {
           emoji: Emojis.AQUA_CRYING,
-          e: `\`${e.message}\``,
+          e: `\`${error.message}\``,
         })
       )
     })

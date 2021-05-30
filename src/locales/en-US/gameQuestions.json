@@ -1,7 +1,7 @@
 {
   "whatMode": "What game mode do you want for the match? **{{modes}}**",
   "whatNumberOfRounds": "How many rounds in the match do you want?",
-  "whatDuration": "How long is each round? (Minimum: 20 seconds) **PS**: Remember, valid durations look like this: *20 seconds or 20s*",
+  "whatDuration": "How long is each round? (Minimum: 20 seconds)",
   "whatAnimeListWebsite": "What website is your animelist on? (Supported: {{websites}})",
   "whatUsername": "What is your username on your chosen website?",
   "whatYearAndSeason": "What is the year and season? (Example: 2021, Winter)",
@@ -13,7 +13,7 @@
     "isNaN": "Well...it doesn't seem like a number, I think.",
     "roundsLimit": "For extremely boring reasons, you cannot start more than {{rounds}} rounds as a normal user, if you want more, you can help me with my Patreon! {{patreonURL}}",
     "invalidDuration": "Unfortunately, a simple bot like me was not able to know what it means what you entered, is it in seconds, minutes? I do not know! Please enter a valid time.",
-    "invalidWebsite": "This does not appear to be a supported website. Canceling...",
+    "invalidWebsite": "This does not appear to be a supported website! Please make sure that you entered one of the websites in the list above.",
     "invalidFormat": "This does not seem to be in the right format.",
     "invalidUsername": "I couldn't find that username on the selected website!",
     "minimiumDuration": "Duration is too short. The minimum duration is 20 seconds!",

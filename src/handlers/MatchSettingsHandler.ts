@@ -5,6 +5,7 @@ import { TFunction } from 'i18next'
 import { Message } from 'eris'
 import { GuildDocument } from '@entities/Guild'
 import UserService from '@services/UserService'
+import InvalidMatchConfig from '../structures/errors/InvalidMatchConfig'
 
 /**
  * Match Settings Handler
@@ -70,7 +71,12 @@ export default class MatchSettingsHandler {
         await message.delete()
         return specifiedMode
       } else {
-        throw new Error(this.locales('gameQuestions:errors.invalidMode'))
+        throw new InvalidMatchConfig(
+          `Oopsie! I can't recognize this gamemode! Valid Gamemodes: \`${this.client.enabledGamemodes
+            .map((gamemode) => gamemode)
+            .join(', ')}\``,
+          'easy'
+        )
       }
     })
     return mode
@@ -88,12 +94,16 @@ export default class MatchSettingsHandler {
       const rounds = parseInt(message.content.toLowerCase())
 
       if (isNaN(rounds))
-        throw new Error(this.locales('gameQuestions:errors.isNaN'))
+        throw new InvalidMatchConfig(
+          this.locales('gameQuestions:errors.isNaN'),
+          '10'
+        )
       if (rounds > 15 && !user.patreonSupporter)
-        throw new Error(
+        throw new InvalidMatchConfig(
           this.locales('gameQuestions:errors.roundsLimit', {
             rounds: 15,
-          })
+          }),
+          '10'
         )
 
       await message.delete()
@@ -113,12 +123,18 @@ export default class MatchSettingsHandler {
         const milliseconds = ms(message.content)
         const long = ms(milliseconds, { long: true })
         if (milliseconds < 20000)
-          throw new Error(this.locales('gameQuestions:errors.minimiumDuration'))
+          throw new InvalidMatchConfig(
+            this.locales('gameQuestions:errors.minimiumDuration'),
+            '20 seconds'
+          )
         await primary.delete()
         await message.delete()
         return { parsed: milliseconds, value: long }
       } else {
-        throw new Error(this.locales('gameQuestions:errors.invalidDuration'))
+        throw new InvalidMatchConfig(
+          this.locales('gameQuestions:errors.invalidDuration'),
+          '20 seconds'
+        )
       }
     })
     return duration
@@ -142,10 +158,11 @@ export default class MatchSettingsHandler {
         return themeType
       }
 
-      throw new Error(
+      throw new InvalidMatchConfig(
         this.locales('gameQuestions:errors.invalidThemeType', {
           types: '**openings, endings, both**',
-        })
+        }),
+        'both'
       )
     })
 
@@ -154,7 +171,9 @@ export default class MatchSettingsHandler {
 
   async getListWebsite(): Promise<string> {
     const primary = await this.message.channel.createMessage(
-      this.locales('gameQuestions:whatAnimeListWebsite')
+      this.locales('gameQuestions:whatAnimeListWebsite', {
+        websites: '`myanimelist, anilist`',
+      })
     )
     const website = await this.startCollector().then(async (message) => {
       if (!message) return
@@ -169,7 +188,10 @@ export default class MatchSettingsHandler {
 
         return message.content.toLowerCase()
       } else {
-        throw new Error(this.locales('gameQuestions:errors.invalidWebsite'))
+        throw new InvalidMatchConfig(
+          this.locales('gameQuestions:errors.invalidWebsite'),
+          'anilist'
+        )
       }
     })
     return website
@@ -189,8 +211,9 @@ export default class MatchSettingsHandler {
         )
 
         if (user.length <= 10) {
-          throw new Error(
-            this.locales('gameQuestions:errors.unsufficientAnimes')
+          throw new InvalidMatchConfig(
+            this.locales('gameQuestions:errors.unsufficientAnimes'),
+            'None'
           )
         }
 
@@ -199,7 +222,10 @@ export default class MatchSettingsHandler {
           await message.delete()
           return message.content
         } else {
-          throw new Error(this.locales('gameQuestions:errors.invalidUsername'))
+          throw new InvalidMatchConfig(
+            this.locales('gameQuestions:errors.invalidUsername'),
+            'FelipeSazz'
+          )
         }
       } catch (e) {
         throw new Error(`${e}`)
@@ -227,7 +253,10 @@ export default class MatchSettingsHandler {
           season: season.trim().toLowerCase(),
         }
       } else {
-        throw new Error(this.locales('gameQuestions:errors.invalidFormat'))
+        throw new InvalidMatchConfig(
+          this.locales('gameQuestions:errors.invalidFormat'),
+          '2020, Winter'
+        )
       }
     })
     return season
