@@ -89,7 +89,8 @@ export default class GameHandler {
       isSinglePlayer: isSingleplayer,
     })
 
-    room.currentRound = room.currentRound + 1
+    room.currentRound++
+    room.answerers = []
     await room.save()
 
     // Create our EmbedFactory instance to make super cute embeds.
@@ -315,11 +316,10 @@ export default class GameHandler {
       // Round the half of the rounds number to the nearest integer
       const roundedHalfRounds = Math.round(halfRounds)
 
-      // Score always are 1 number forward the number of won rounds.
-      const wonRounds = highestScore - 1
+      const wonRounds = highestScore
 
       // If the user won rounds is not equal to the half of the rounds, return a false boolean (indicating that nobody won)
-      if (roundedHalfRounds >= wonRounds) return false
+      if (roundedHalfRounds > wonRounds) return false
     }
 
     // Get the user with the highest score.
