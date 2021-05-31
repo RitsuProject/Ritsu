@@ -3,5 +3,10 @@
   "unreachableRepository": {
     "title": "{{emoji}} Veri Deposuna Erişilemiyor, yeni tur ve oyunlar şu anda kullanılamaz.",
     "description": "Ritsu, büyük ölçüde üçüncü taraf hizmetlerini kullanıyor ve Açılış/Kapanış müziklerini elde etmek için kullandığı depolardan birine şu anda erişilemiyor gibi görünüyor.\n\nNe zaman kullanılabilir olacağı hakkında kesin bir tarih yok. Daha fazla bilgi almak için destek sunucuma katılmanı şiddetle tavsiye ederim.\n{{invite}}"
+  },
+  "invalidMatchConfig": {
+    "title": "Geçersiz Yapılandırma Değeri!",
+    "example": "Doğru Değer Örneği:",
+    "footer": "Devam etmek için başlatma komutunu tekrar kullanman gerekiyor! {{prefix}}start "
   }
 }
