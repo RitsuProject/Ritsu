@@ -1,7 +1,7 @@
 {
   "whatMode": "Ce mod de joc dorești pentru meci? **{{modes}}**",
   "whatNumberOfRounds": "Câte runde doriți pentru meci?",
-  "whatDuration": "Cât de lungă să fie fiecare rundă? (Minim 20 de secunde) **PS** Un răspuns valid este sub forma: *20 seconds or 20s*",
+  "whatDuration": "Cât de lungă este fiecare rundă? (Minim: 20 de secunde)",
   "whatAnimeListWebsite": "Pe ce site ai tu lista de animeuri? (Siteuri valabile: {{websites}})",
   "whatUsername": "Ce username folosești pe site-ul ales?",
   "whatYearAndSeason": "Ce an și ce sezon?(Exemplu: 2021, Winter)",
@@ -13,7 +13,7 @@
     "isNaN": "Nu arată ca un număr, cred.",
     "roundsLimit": "Din diverse motive plictisitoare, nu poți începe mai mult de {{rounds}} runde ca un utilizator normal, iar dacă vrei mai mult, mă poți ajuta pe Patreon! {{patreonURL}}",
     "invalidDuration": "Din păcate, un simplu bot ca mine nu a fost capabil să înțeleagă ce ai scris, este în secunde, în minute? N-am nicio idee! Te rog introdu un timp valid.",
-    "invalidWebsite": "Acesta nu pare să fie un site suportat. Anulare...",
+    "invalidWebsite": "Acesta nu pare a fi un website acceptat! Te rog asigură-te că ai introdus unul din site-urile web din lista de mai jos.",
     "invalidFormat": "Acesta nu pare să fie în formatul corect.",
     "invalidUsername": "Nu am putut găsi acel username pe siteul selectat de tine!",
     "minimiumDuration": "Timpul este prea scurt. Durata minimă este de 20 de secunde!",
