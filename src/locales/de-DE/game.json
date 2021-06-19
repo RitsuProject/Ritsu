@@ -1,16 +1,26 @@
 {
-  "roundStarted": "Starte die #{{round}} Runde! Von welchem Anime ist dieses **Ending/Opening**? Schreibe die Antwort in den Chat! Du hast **{{time}}**.\nSchreibe **{{prefix}}stop** in den Chat wenn die Runde stoppen willst.",
   "nobodyWon": "Niemand hat diese Runde gewonnen.",
   "forceFinished": "Diese Runde wurde erfolgreich gewaltsam abgeschlossen",
   "roundEnded": "Alle Runden sind vorbei! Danke für's Spielen!",
   "nobody": "Niemand",
+  "answerIs": "Die Antwort ist...",
   "songDetails": "{{songName}} | Künstler: {{songArtist}}",
+  "roundWinner": "Glückwunsch {{user}}! Du hast die richtige Antwort in {{time}} gefunden!",
   "errors": {
     "noVoiceChannel": "Du musst in einem Sprachkanal sein damit ich das Match starten kann!",
+    "onlyHostCanFinish": "Nur der Spielhost kann das Spiel beenden!",
     "noUsersInTheVoiceChannel": "Es scheint so das der Host nicht mehr im Sprachkanal ist, bitte starte das Match neu.",
     "unableToLoadStream": "Aus sehr bösen Gründen, war ich nicht in der Lage den aktuellen Stream des Themes zu laden und deshalb war ich nicht in der Lage weiter zu machen! Starte das Match neu und versuche es erneut."
   },
   "embeds": {
+    "answerEmbed": {
+      "fields": {
+        "season": "Anime Saison",
+        "year": "Jahr",
+        "titlesAndSynonyms": "Titel & Synonyme"
+      },
+      "footer": "\"{{songName}}\"| Künstler/in(nen):{{songArtist}}"
+    },
     "roundStarted": {
       "title": "Die {{currentRound}} Runde hat angefangen!",
       "description": "Von welchem Anime ist das {{themeType}}? Du hast {{time}} zeit um zu raten!"
@@ -28,6 +38,21 @@
     "startingNextRound": {
       "title": "Starte die nächste Runde...",
       "description": "Ich sammle all nötigen Daten um das Match zu starten, das könnte ein bisschen dauern!"
+    },
+    "hint": {
+      "title": "{{emoji}} Gib mir einen Hinweis!",
+      "noSufficientCakes": "Du hast nicht genug Cakes! Ein Hinweis kostet {{price}} Cakes, stimme für mich auf top.gg ab, um mehr Cakes zu bekommen!"
+    },
+    "roundEndedLeaderboard": {
+      "title": "{{emoji}} Runden Rangliste",
+      "timeElapsed": "- Vergangene Zeit: **{{time}}s**",
+      "answer": "- Antwort: **{{answer}}**"
+    },
+    "matchEndedLeaderboard": {
+      "title": "{{emoji}} Runden Rangliste",
+      "wonRounds": "- Gewonnene Runden: **{{wonRounds}}**",
+      "matchWinner": "**__Match Sieger__**",
+      "matchWinnerUser": "Der Gewinner dieses Spiels ist...{{user}}! Glückwunsch! Du hast **{{xp}}** XP gewonnen."
     }
   }
 }
