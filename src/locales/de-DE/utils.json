@@ -1,3 +1,6 @@
 {
-  "mentionRitsu": "Hallo! Ich bin Ritsu! Ein Bot der auf das AnimeMusicQuiz basiert ist! Mein Präfix auf diesem Server ist **{{prefix}}** und du kannst alle meine Commands sehen wenn du **{{prefix}}help** benutzt"
+  "mentionRitsu": "Hallo! Ich bin Ritsu! Ein Bot der auf das AnimeMusicQuiz basiert ist! Mein Präfix auf diesem Server ist **{{prefix}}** und du kannst alle meine Commands sehen wenn du **{{prefix}}help** benutzt",
+  "openings": "Openings",
+  "endings": "Endings",
+  "both": "Beides"
 }
