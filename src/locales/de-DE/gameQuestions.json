@@ -1,10 +1,11 @@
 {
   "whatMode": "Welchen Modus möchtest du für dieses Match auswählen? {{modes}}",
   "whatNumberOfRounds": "Wie viele Runde möchtest du in diesem Match?",
-  "whatDuration": "Wie lang soll eine Runde sein? (Minimum: 20 Sekunden) **PS**: Vergiss nicht, gültige Eingaben sehen so aus: *20 Sekunden oder 20s*",
+  "whatDuration": "Wie lange soll jede Runde dauern? (Minimum: 20 Sekunden)",
   "whatAnimeListWebsite": "Auf welcher Website ist deine Animeliste? (Unterstützt: {{websites}})",
   "whatUsername": "Was ist dein Username auf der ausgewählten Website?",
   "whatYearAndSeason": "Was ist das Jahr und die Jahrezeit? (Beispiel: 2021, Winter)",
+  "whatThemeType": "Möchtest du nur Openings, nur Endings oder beides? (Unterstützt: Openings, Endings, beides)",
   "errors": {
     "matchStopped": "Das Match wurde abgebrochen, wenn du noch eins starten möchtest, benutze ``{{command}}``.",
     "expiredMatch": "Dein Match ist abgelaufen, wenn du eine weitere starten willst, benutzte \"{{command}}\"\"",
@@ -12,10 +13,11 @@
     "isNaN": "Also... das sieht nicht nach einer Zahl aus, glaube ich.",
     "roundsLimit": "Aus sehr komischen Gründen, kannst du als ein normaler Spieler nicht mehr als 10 Runden starten, wenn du mehr möchtest, kannst mir mit meinem Patron helfen! {{patreonURL}}",
     "invalidDuration": "Leider, hat ein simpler Bot wie ich nicht die Bedeutung von dem verstanden, was du eingegeben hast, ist es in Sekunden, Minuten? Ich weiß es nicht! Bitte gib eine gültige Zeit ein.",
-    "invalidWebsite": "Scheint so das diese Website nicht unterstützt wird. Wird abgebrochen...",
+    "invalidWebsite": "Dies scheint keine unterstützte Website zu sein! Bitte stellen Sie sicher, dass Sie eine der Webseiten in der obigen Liste eingegeben haben.",
     "invalidFormat": "Scheint so als wäre das nicht im richtigen Format.",
     "invalidUsername": "Ich konnte diesen Username nicht auf der ausgewählten Website finden!",
     "minimiumDuration": "Die Dauer ist zu kurz. Die minimale Dauer ist 20 Sekunden!",
-    "unsufficientAnimes": "Du musst mindestens 10 Anime auf deiner Liste haben um diesen Modus zu spielen."
+    "unsufficientAnimes": "Du musst mindestens 10 Anime auf deiner Liste haben um diesen Modus zu spielen.",
+    "invalidThemeType": "Ich kann diese Art von Song! Bitte stell sicher das du einen dieser Arten geschickt hast: {{types}}"
   }
 }
