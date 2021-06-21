@@ -1,10 +1,11 @@
 {
   "whatMode": "Que modo de jogo você quer jogar? {{modes}}",
   "whatNumberOfRounds": "Quantas rodadas você quer nessa partida?",
-  "whatDuration": "Quanto tempo vai durar cada rodada? (Mínimo: 20 segundos) **PS**: Lembre, durações validas são como: *20 seconds ou 20s*",
+  "whatDuration": "Qual a duração da cada rodada? (Mínimo 20: segundos)",
   "whatAnimeListWebsite": "Qual website é sua animelist? (Suportado: {{websites}})",
   "whatUsername": "Qual é o seu username no website escolhido?",
   "whatYearAndSeason": "Qual é o ano e a temporada? (Exemplo: 2021, Inverno.)",
+  "whatThemeType": "Você quer apenas aberturas, apenas encerramentos ou ambos? (Suportados: aberturas, encerramentos, ambos)",
   "errors": {
     "matchStopped": "A partida foi cancelada, se você quiser começar mais uma, use ``{{command}}``.",
     "expiredMatch": "Sua partida expirou. Gostaria de começar outra? Utilize o comando`{{command}}``",
@@ -12,10 +13,11 @@
     "isNaN": "Bem... isso não parece um numero, eu acho.",
     "roundsLimit": "Por razões extremamente tediosas, você não consegue começar mais que 10 rodadas como um usuário comum, se você quer mais, você poder ajudar com meu Patreon! {{patreonURL}}",
     "invalidDuration": "Infelizmente, um simples bot como eu não é capaz de saber o que significa isso que você enviou, são segundos, minutos? Eu não sei! Por favor envie um tempo valido.",
-    "invalidWebsite": "Isso não aparenta ser um website que suportamos. Cancelando...",
+    "invalidWebsite": "Isso não parece um website suportado! Por favor tenha certeza que você enviou um dos websites na lista abaixo.",
     "invalidFormat": "Isso não parece estar no formato correto.",
     "invalidUsername": "Não consegui encontrar este nome de usuário!",
     "minimiumDuration": "A duração é muito curta! O tempo mínimo é de 20 segundos!",
-    "unsufficientAnimes": "Você precisa de ter, no mínimo, 10 animes na lista para jogar este modo de jogo."
+    "unsufficientAnimes": "Você precisa de ter, no mínimo, 10 animes na lista para jogar este modo de jogo.",
+    "invalidThemeType": "Não consigo reconhecer esse tipo de música! Por favor tenha certeza de que você enviou um destes tipos: {{types}}"
   }
 }
