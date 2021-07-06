@@ -34,7 +34,7 @@
     "node-cache": "^5.1.2",
     "node-vibrant": "^3.1.6",
     "string-similarity": "^4.0.4",
-    "ts-node": "^9.1.1",
+    "ts-node": "^10.0.0",
     "typescript": "^4.2.3"
   },
   "devDependencies": {
