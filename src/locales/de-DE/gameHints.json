@@ -1,0 +1,5 @@
+{
+  "firstCharacter": "Der erste Charakter dieses Animes ist: {{character}}",
+  "startsWith": "Der Titel des Animes beginnt mit: {{firstWord}}",
+  "endsWith": "Der Titel des Animes endet mit: {{lastWord}}"
+}

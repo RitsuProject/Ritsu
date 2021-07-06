@@ -3,5 +3,10 @@
   "unreachableRepository": {
     "title": "{{emoji}} | Oh jemine! Scheint so als müsste der Service ein Problem lösen. Neue Runden und Matches sind im Moment nicht verfügbar.",
     "description": "Ach du...! Scheint so als als wäre der **OP/EDs service** im Moment nicht verfügbar...\n\nHilf uns das Problem zu lösen im **Ritsu support server**!\n{{invite}}"
+  },
+  "invalidMatchConfig": {
+    "title": "Ungültiger Konfigurationswert!",
+    "example": "Beispiel für einen korrekten Wert:",
+    "footer": "Sie müssen den Startbefehl erneut verwenden, um fortzufahren! {{prefix}}start "
   }
 }
