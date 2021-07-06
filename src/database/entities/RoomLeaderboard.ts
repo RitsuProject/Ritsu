@@ -14,7 +14,7 @@ class RoomLeaderboard {
   @prop({ required: true })
   guildId: string
 
-  @prop({ default: 1 })
+  @prop({ default: 0 })
   score?: number
 
   @prop({ default: 0.0 })
