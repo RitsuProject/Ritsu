@@ -5,5 +5,7 @@ COPY package.json ./
 RUN apk add  --no-cache ffmpeg
 RUN yarn
 
+ENV NODE_ENV=production
+
 COPY . .
 CMD ["yarn", "start"]
