@@ -7,7 +7,7 @@
   "author": "FelipeSazz <felipe@sazz.fail>",
   "license": "MIT",
   "scripts": {
-    "start": "tsc -p . && node -r ./register-paths.js dist/src/Ritsu.js",
+    "start": "tsc && node -r ./register-paths.js dist/src/Ritsu.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/Ritsu.ts",
     "lint": "eslint src --ext ts,js --fix",
     "type-check": "tsc --skipLibCheck",
