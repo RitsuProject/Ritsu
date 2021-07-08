@@ -3,7 +3,7 @@ WORKDIR /usr/v3
 COPY package.json ./
 
 RUN apk add  --no-cache ffmpeg
-RUN npm install
+RUN yarn
 
 COPY . .
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
