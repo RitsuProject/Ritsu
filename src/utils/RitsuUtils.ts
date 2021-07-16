@@ -31,4 +31,15 @@ export default {
 
     return true
   },
+
+  getOption(key: string, args: string[]) {
+    const keyRegex = new RegExp(`${key}:`)
+    const optionWithKey = args.find((arg) => arg.startsWith(key))
+
+    // If the option has not found, return undefined.
+    if (!optionWithKey) return undefined
+
+    const optionValue = optionWithKey.replace(keyRegex, '')
+    return optionValue
+  },
 }

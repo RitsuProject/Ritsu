@@ -5,7 +5,7 @@ import { TFunction } from 'i18next'
 import { Message } from 'eris'
 import { GuildDocument } from '@entities/Guild'
 import UserService from '@services/UserService'
-import InvalidMatchConfig from '../structures/errors/InvalidMatchConfig'
+import InvalidMatchConfig from '@structures/errors/InvalidMatchConfig'
 
 /**
  * Match Settings Handler
@@ -15,8 +15,9 @@ export default class MatchSettingsHandler {
   public userService: UserService = new UserService()
 
   constructor(
-    private message: Message,
     private client: RitsuClient,
+
+    private message: Message,
     private guild: GuildDocument,
     private locales: TFunction
   ) {
@@ -54,6 +55,39 @@ export default class MatchSettingsHandler {
       })
   }
 
+  async getMatchSettings() {
+    const gamemode = await this.getGamemode()
+    const rounds = await this.getRounds()
+    const duration = await this.getDuration()
+    const themeType = await this.getThemesType()
+
+    let animeListWebsite: string
+    let animeListUsername: string
+    let season: string
+    let seasonYear: string
+
+    if (gamemode === 'list') {
+      animeListWebsite = await this.getListWebsite()
+      animeListUsername = await this.getListUsername(animeListWebsite)
+    } else if (gamemode === 'season') {
+      const seasonObject = await this.getSeason()
+
+      season = seasonObject.season
+      seasonYear = seasonObject.year
+    }
+
+    return {
+      gamemode,
+      rounds,
+      duration,
+      themeType,
+      animeListWebsite,
+      animeListUsername,
+      season,
+      seasonYear,
+    }
+  }
+
   async getGamemode(): Promise<string> {
     const primary = await this.message.channel.createMessage(
       this.locales('gameQuestions:whatMode', {
@@ -63,8 +97,6 @@ export default class MatchSettingsHandler {
       })
     )
     const mode = await this.startCollector().then(async (message) => {
-      if (!message) return
-
       const specifiedMode = message.content.toLowerCase()
       if (this.client.enabledGamemodes.includes(specifiedMode)) {
         await primary.delete()
@@ -89,8 +121,6 @@ export default class MatchSettingsHandler {
     const user = await this.userService.getUser(this.message.author.id)
 
     const rounds = await this.startCollector().then(async (message) => {
-      if (!message) return
-
       const rounds = parseInt(message.content.toLowerCase())
 
       if (isNaN(rounds))
@@ -118,7 +148,6 @@ export default class MatchSettingsHandler {
       this.locales('gameQuestions:whatDuration')
     )
     const duration = await this.startCollector().then(async (message) => {
-      if (!message) return
       if (message.content.endsWith('s')) {
         const milliseconds = ms(message.content)
         const long = ms(milliseconds, { long: true })
@@ -146,7 +175,6 @@ export default class MatchSettingsHandler {
     )
 
     const themeType = await this.startCollector().then(async (message) => {
-      if (!message) return
       const themeType = message.content.toLowerCase()
       if (
         themeType === 'openings' ||
@@ -176,7 +204,6 @@ export default class MatchSettingsHandler {
       })
     )
     const website = await this.startCollector().then(async (message) => {
-      if (!message) return
       if (
         message.content.toLowerCase() === 'myanimelist' ||
         message.content.toLowerCase() === 'anilist'
@@ -202,8 +229,6 @@ export default class MatchSettingsHandler {
       this.locales('gameQuestions:whatUsername')
     )
     const username = await this.startCollector().then(async (message) => {
-      if (!message) return
-
       try {
         const user = await ThemesMoe.getAnimesByAnimeList(
           website,
@@ -240,7 +265,6 @@ export default class MatchSettingsHandler {
     )
 
     const season = await this.startCollector().then(async (message) => {
-      if (!message) return
       const seasonFormat = message.content.split(',')
       const year = seasonFormat[0]
       const season = seasonFormat[1]
