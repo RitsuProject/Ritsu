@@ -1,12 +1,14 @@
 {
-  "roundStarted": "Début de la manche #{{round}}! Quel est l'anime pour ce **thème d'Ending/Opening**? Envoie la réponse dans le chat! Tu as **{{time}}**.\nEnvoie **{{prefix}}stop** dans le chat si tu veux arrêter le match.",
   "nobodyWon": "Personne n'a gagné ce match.",
   "forceFinished": "Ce match s'est terminé brusquement mais avec brio",
   "roundEnded": "Toutes les manches sont terminés! Merci d'avoir joué!",
   "nobody": "Personne",
+  "answerIs": "La réponse est...",
   "songDetails": "{{songName}} | Artiste: {{songArtist}}",
+  "roundWinner": "Félicitation {{user}}! Tu as trouvé la bonne réponse en {{time}}!",
   "errors": {
     "noVoiceChannel": "Tu as besoin être dans un channel vocal pour que je puisse démarrer le match!",
+    "onlyHostCanFinish": "Seulement l'hôte de ce match peut finir la partie !",
     "noUsersInTheVoiceChannel": "Il semblerait que l'hébergeur n'est plus dans le vocal, s'il te plait redémarre le match.",
     "unableToLoadStream": "Pour des raisons obscures, je suis incapable the charger le flux du thème actuel et donc je suis incapable de continuer! Redémarre le jeu et réessaye."
   },
@@ -36,6 +38,21 @@
     "startingNextRound": {
       "title": "Démarrage du prochain tour...",
       "description": "Je suis en train de collecter toutes les données nécessaire afin de démarrer le tour, cela peut prendre quelques temps!"
+    },
+    "hint": {
+      "title": "{{emoji}} Donne moi un indice !",
+      "noSufficientCakes": "Tu n'as pas assez de gâteaux ! Un indice coûte {{price}} gâteaux, vas voter pour moi sur top.gg pour avoir plus de gâteaux!"
+    },
+    "roundEndedLeaderboard": {
+      "title": "{{emoji}} Classement du tour",
+      "timeElapsed": "- Temps écoulé: **{{time}}s**",
+      "answer": "- Réponse: **{{answer}}**"
+    },
+    "matchEndedLeaderboard": {
+      "title": "{{emoji}} Classement du match",
+      "wonRounds": "- Tours gagnés: **{{wonRounds}}**",
+      "matchWinner": "**__Gagnant du Match__**",
+      "matchWinnerUser": "Le gagnant de ce match est...{{user}}! Féliciations! Tu as gagné **{{xp}}** XP."
     }
   }
 }
