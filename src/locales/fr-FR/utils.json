@@ -1,3 +1,6 @@
 {
-  "mentionRitsu": "Salut! Je suis Ristu! Un robot basé sur le jeu AnimeMusicQuiz! Mon prefix sur ce serveur est **{{prefix}}** et tu peux voir toutes mes commandes en utilisant **{{prefix}}help**"
+  "mentionRitsu": "Salut! Je suis Ristu! Un robot basé sur le jeu AnimeMusicQuiz! Mon prefix sur ce serveur est **{{prefix}}** et tu peux voir toutes mes commandes en utilisant **{{prefix}}help**",
+  "openings": "openings",
+  "endings": "endings",
+  "both": "les deux"
 }

@@ -3,5 +3,10 @@
   "unreachableRepository": {
     "title": "{{emoji}} Dépôt inatteignable, les nouveaux tours et matchs sont invalides.",
     "description": "Ritsu s'appuie fortement sur des services tiers, et il semble que l'un des services qu'il utilise pour obtenir des Opening/Ending est actuellement inaccessible.\n\nNous ne savons pas dans combien de temps le service reviendra mais je te recommande fortement d'aller sur mon serveur de support pour avoir plus d'informations.\n{{invite}}"
+  },
+  "invalidMatchConfig": {
+    "title": "Valeur de configuration invalide !",
+    "example": "Exemple d'une valeur correcte :",
+    "footer": "Tu as besoin d'utiliser la commande de démarrage (start) encore une fois pour continuer ! {{prefix}}start"
   }
 }
