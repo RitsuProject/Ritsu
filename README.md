@@ -16,7 +16,6 @@ Ritsu
 # Ritsu Shutdown
 
 Ritsu was shut down on 07/29/2021.
-Read why here: https://rentry.co/u6i8a
 
 Feel free to do whatever you want with this code, whether it's hosting your private or even an public instance.
 The only rule is to follow the MIT license and leave the original source code credits.
